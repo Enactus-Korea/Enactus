@@ -32,13 +32,7 @@ const renderCounters = (counters, decrement, increment) => {
 // Component와 연결되는 기능들을 설정해주는 것이다.
 
 const App = (props) => {
-  const {
-    addNewCounter,
-    counters,
-    decrement,
-    increment
-  } = props
-
+  const { addNewCounter, counters, decrement, increment } = props
   return (
     <View style={styles.container}>
       <Counters addFn={addNewCounter}>

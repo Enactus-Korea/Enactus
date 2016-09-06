@@ -1,11 +1,7 @@
 import React, { Component } from 'react'
 import Home from './Home'
 import About from './About'
-
-import {
-  BackAndroid,
-  NavigationExperimental
-} from 'react-native'
+import { BackAndroid, NavigationExperimental } from 'react-native'
 
 const {
   CardStack: NavigationCardStack

@@ -1,4 +1,5 @@
 import { NavigationExperimental } from 'react-native'
+import { handleActions } from 'redux-actions'
 import { PUSH_ROUTE, POP_ROUTE } from './constants'
 
 const {
