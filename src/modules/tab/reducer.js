@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const tabs = [
   { key: 'post', iconName: 'ios-create-outline', selectedIconName: 'ios-create' , title: 'Post' },
   { key: 'feed', iconName: 'ios-paper-outline', selectedIconName: 'ios-paper', title: 'Feed' },
-  // { key: 'profile', iconName: 'ios-contact-outline', selectedIconName: 'ios-contact', title: 'Profile' }
+  { key: 'profile', iconName: 'ios-contact-outline', selectedIconName: 'ios-contact', title: 'Profile' }
 ]
 
 const initialState = {
@@ -20,14 +20,4 @@ export default handleActions({
       index: action.index
     }
   }
-  //
-  // switch (action.type) {
-  //   case CHANGE_TAB:
-  //     return {
-  //       ...state,
-  //       index: action.index
-  //     }
-  //   default:
-  //     return state
-  // }
 },initialState)

@@ -5,8 +5,9 @@ import { View, Text, ScrollView, TouchableOpacity, TabBarIOS } from 'react-nativ
 import * as actions from './actions'
 import styles from './styles'
 // import { nav } from './modules'
-import Nav from '../nav/Nav'
-import Feed from '../feed/Feed'
+import Feed from '../nav/Nav'
+import Post from '../feed/Feed'
+import Profile from '../profile/Profile'
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
@@ -18,9 +19,11 @@ class Tab extends Component {
   _renderTabContent (key) {
     switch (key) {
       case 'post':
-        return <Feed />
+        return <Post />
       case 'feed':
-        return <Nav />
+        return <Feed />
+      case 'profile':
+        return <Profile />
     }
   }
   render() {
