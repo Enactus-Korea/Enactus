@@ -8,8 +8,7 @@ import { Text, TouchableHighlight, StyleSheet } from 'react-native'
 //     <Text style={styles.label}>{label}</Text>
 //   </TouchableHighlight>
 // )
-const Button = () => {
-  const {label, onPress} = props
+const Button = ({label, onPress}) => {
   return (
     <TouchableHighlight
       underlayColor='#35b5ff'
