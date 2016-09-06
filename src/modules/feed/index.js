@@ -1,11 +1,11 @@
 import { NAME } from './constants'
-import App from './App'
+import Feed from './Feed'
 import reducer from './reducer'
 import * as actions from './actions'
 
 export default {
   NAME,
-  App,
+  Feed,
   reducer,
   actions
 }
