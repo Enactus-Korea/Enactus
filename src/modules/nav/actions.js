@@ -1,13 +1,13 @@
 import { PUSH_ROUTE, POP_ROUTE } from './constants'
 
-export function push (route) {
+export const push = (route) => {
   return {
     type: PUSH_ROUTE,
     route
   }
 }
 
-export function pop () {
+export const pop = () => {
   return {
     type: POP_ROUTE
   }
