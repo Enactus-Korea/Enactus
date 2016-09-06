@@ -7,7 +7,7 @@ import styles from './styles'
 // import { nav } from './modules'
 import Feed from '../nav/Nav'
 import Post from '../feed/Feed'
-import Profile from '../profile/Profile'
+import User from '../user/User'
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
@@ -23,7 +23,7 @@ class Tab extends Component {
       case 'feed':
         return <Feed />
       case 'profile':
-        return <Profile />
+        return <User />
     }
   }
   render() {
