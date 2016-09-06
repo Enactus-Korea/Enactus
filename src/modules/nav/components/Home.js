@@ -2,13 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import Button from './Button'
 
-const route = {
-  type: 'push',
-  route: {
-    key: 'about',
-    title: 'About'
-  }
-}
+const route = { type: 'push', route: { key: 'about', title: 'About'}}
 
 const Home = ({_handleNavigate}) => (
   <View style={styles.container}>

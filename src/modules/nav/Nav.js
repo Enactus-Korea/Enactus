@@ -50,14 +50,14 @@ class Nav extends Component {
   render () {
     return (
       <NavigationCardStack
-        direction='vertical'
+
         navigationState={this.props.navigation}
         onNavigate={this._handleNavigate.bind(this)}
         renderScene={this._renderScene} />
       )
    }
 }
-
+// <NavigationCardStack>에 direction='vertical' 을 추가하면 아래에서 위로 올라온다.
 Nav.displayName = 'Nav'
 
 
