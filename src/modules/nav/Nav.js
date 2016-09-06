@@ -41,10 +41,10 @@ class Nav extends Component {
         this.props.pushRoute(action.route)
         return true
       case 'back':
-      case 'pop':
-        return this._handleBackAction()
-      default:
-        return false
+        case 'pop':
+          return this._handleBackAction()
+        default:
+          return false
     }
   }
   render () {
@@ -57,29 +57,9 @@ class Nav extends Component {
       )
    }
 }
-// const Nav = (props) => {
-//   _handleNavigate(){
-//
-//   }
-//   return (
-//     <View style={styles.container}>
-//       <Home handleNav={}/>
-//     </View>
-//   )
-// }
 
 Nav.displayName = 'Nav'
 
-// function mapStateToProps (state) {
-//   return{
-//     navigation: state.navReducer
-//   }
-// }
-// NavRoot.displayName = 'Nav'
-// export default connect(mapStateToProps,{
-//   pushRoute: (route) => push(route),
-//   popRoute: () => pop()
-// })(NavRoot)
 
 Nav.propTypes = {
   pushRoute: PropTypes.func.isRequired,
