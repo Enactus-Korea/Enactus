@@ -31,7 +31,7 @@ const renderCounters = (counters, decrement, increment) => {
 // decrementFn는 액션에서 정의해준 decrement(id)가 실행된다.
 // Component와 연결되는 기능들을 설정해주는 것이다.
 
-const App = (props) => {
+const Feed = (props) => {
   const { addNewCounter, counters, decrement, increment } = props
   return (
     <View style={styles.container}>
@@ -42,7 +42,7 @@ const App = (props) => {
   )
 }
 
-App.displayName = 'App'
+Feed.displayName = 'Feed'
 
 /**
   4.[추가하기] 불러올 것들 App.propTypes로 정리해주기
@@ -52,7 +52,7 @@ App.displayName = 'App'
  App.js에서 사용하는 addNewCounter,counters,increment,decrement는
  actions.js와 reducer.js에 있는 것과 동일하게 됨
 */
-App.propTypes = {
+Feed.propTypes = {
   addNewCounter: PropTypes.func.isRequired,
   counters: PropTypes.object.isRequired,
   increment: PropTypes.func.isRequired,
@@ -70,4 +70,4 @@ export default connect(
     decrement: (id) => dispatch(actions.decrement(id)),
   })
   //[추가하기] actions.js에 있는 func를 묶음
-)(App)
+)(Feed)
