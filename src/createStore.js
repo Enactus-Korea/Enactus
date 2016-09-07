@@ -1,14 +1,14 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 
-import { feed, nav, tab, user } from './modules'
+import { feed, post, tab, user } from './modules'
 const middleware = applyMiddleware(thunk);
 
 export default (data = {}) => {
   const rootReducer = combineReducers({
     //every modules reducer should be define here
-    // [feed.NAME]: feed.reducer,
-    [nav.NAME]: nav.reducer,
+    // [post.NAME]: post.reducer,
+    [feed.NAME]: feed.reducer,
     [tab.NAME]: tab.reducer
     // [user.NAME]: user.reducer
   })

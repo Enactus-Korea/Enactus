@@ -1,5 +1,5 @@
 import feed  from './feed'
-import nav  from './nav'
+import post  from './post'
 import tab  from './tab'
 import user from './user'
 
@@ -7,5 +7,5 @@ import user from './user'
 
 //and exporting them here
 export {
-  feed, nav, tab, user
+  feed, post, tab, user
 }

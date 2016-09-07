@@ -5,8 +5,8 @@ import { View, Text, ScrollView, TouchableOpacity, TabBarIOS } from 'react-nativ
 import * as actions from './actions'
 import styles from './styles'
 // import { nav } from './modules'
-import Feed from '../nav/Nav'
-import Post from '../feed/Feed'
+import Feed from '../feed/Feed'
+import Post from '../post/Post'
 import User from '../user/User'
 import Icon from 'react-native-vector-icons/Ionicons';
 

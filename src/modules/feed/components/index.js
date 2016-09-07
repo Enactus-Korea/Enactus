@@ -1,4 +1,3 @@
 export { default as Button } from './Button'
-export { default as Post } from './Post'
-export { default as Counter } from './Counter'
-export { default as Counters } from './Counters'
+export { default as Home } from './Home'
+export { default as About } from './About'

@@ -1,38 +1,75 @@
-import React, { PropTypes } from 'react'
-import { View } from 'react-native'
-// import { connect } from 'react-redux'
+import React, { PropTypes, Component } from 'react'
+import { View, BackAndroid, NavigationExperimental } from 'react-native'
+import { connect } from 'react-redux'
+import { Home, About } from './components'
+import * as actions from './actions'
 import styles from './styles'
-import { Post } from './components'
-// import * as actions from './actions'
+const { CardStack: NavigationCardStack } = NavigationExperimental
 
-
-const Feed = (props) => {
-  // const { addNewCounter, counters, decrement, increment } = props
-  return (
-    <View style={styles.container}>
-      <Post />
-    </View>
-  )
+class Feed extends Component {
+  constructor(props){
+    super(props)
+    this._renderScene = this._renderScene.bind(this)
+    this._handleBackAction = this._handleBackAction.bind(this)
+  }
+  componentDidMount(){
+    BackAndroid.addEventListener('hardwareBackPress', this._handleBackAction)
+  }
+  componentWillUnmount(){
+    BackAndroid.removeEventListener('hardwareBackPress', this._handleBackAction)
+  }
+  _renderScene (props) {
+    const { route } = props.scene
+    if (route.key === 'home') {
+     return <Home
+              _handleNavigate={this._handleNavigate.bind(this)} />
+    }
+    if (route.key === 'about') {
+     return <About _goBack={this._handleBackAction.bind(this)} />
+    }
+  }
+  _handleBackAction () {
+    if (this.props.navigation.index === 0) {
+      return false
+    }
+    this.props.popRoute()
+    return true
+  }
+  _handleNavigate (action) {
+    switch (action && action.type) {
+      case 'push':
+        this.props.pushRoute(action.route)
+        return true
+      case 'back':
+        case 'pop':
+          return this._handleBackAction()
+        default:
+          return false
+    }
+  }
+  render () {
+    return (
+      <NavigationCardStack
+        navigationState={this.props.navigation}
+        onNavigate={this._handleNavigate.bind(this)}
+        renderScene={this._renderScene} />
+      )
+   }
 }
 
-// Feed.displayName = 'Feed'
+Feed.displayName = 'Feed'
 
-// Feed.propTypes = {
-//   addNewCounter: PropTypes.func.isRequired,
-//   counters: PropTypes.object.isRequired,
-//   increment: PropTypes.func.isRequired,
-//   decrement: PropTypes.func.isRequired
-// }
-//
-export default Feed
 
-// connect(
-//   (state) => ({
-//     counters: state.app.counters
-//   }),
-//   (dispatch) => ({
-//     addNewCounter: () => dispatch(actions.newCounter()),
-//     increment: (id) => dispatch(actions.increment(id)),
-//     decrement: (id) => dispatch(actions.decrement(id)),
-//   })
-// )(Feed)
+Feed.propTypes = {
+  pushRoute: PropTypes.func.isRequired,
+  popRoute: PropTypes.func.isRequired
+}
+export default connect(
+  (state) => ({
+    navigation: state.nav
+  }),
+  (dispatch) => ({
+    pushRoute: (route) => dispatch(actions.push(route)),
+    popRoute: () => dispatch(actions.pop()),
+  })
+)(Feed)
