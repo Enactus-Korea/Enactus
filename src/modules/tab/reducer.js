@@ -2,11 +2,14 @@ import { CHANGE_TAB } from './constants'
 import { handleActions } from 'redux-actions'
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const tabs = [
-  { key: 'post', iconName: 'ios-create-outline', selectedIconName: 'ios-create' , title: 'Post' },
-  { key: 'feed', iconName: 'ios-paper-outline', selectedIconName: 'ios-paper', title: 'Feed' },
-  { key: 'profile', iconName: 'ios-contact-outline', selectedIconName: 'ios-contact', title: 'Profile' }
-]
+const tabs = {
+  routes: [
+    { key: 'post', iconName: 'ios-create-outline', selectedIconName: 'ios-create' , title: 'Post' },
+    { key: 'feed', iconName: 'ios-paper-outline', selectedIconName: 'ios-paper', title: 'Feed' },
+    { key: 'profile', iconName: 'ios-contact-outline', selectedIconName: 'ios-contact', title: 'Profile' }
+  ],
+  key: 'Tabs'
+}
 
 const initialState = {
   index: 1,

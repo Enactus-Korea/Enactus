@@ -3,4 +3,4 @@
 import { AppRegistry } from 'react-native';
 import Enactus from './src';
 
-AppRegistry.registerComponent('Counters', () => Enactus);
+AppRegistry.registerComponent('Enactus', () => Enactus);

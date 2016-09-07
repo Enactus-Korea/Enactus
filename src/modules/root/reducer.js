@@ -3,16 +3,18 @@ import { handleActions } from 'redux-actions'
 import { PUSH_ROUTE, POP_ROUTE } from './constants'
 
 const {
+  CardStack: NavigationCardStack,
   StateUtils: NavigationStateUtils
-} = NavigationExperimental
+} = NavigationExperimental;
 
 const initialState = {
-  index: 0,
-  key: 'feed',
-  routes: [{
-   key: 'home', title: '뉴스피드'
-  }]
-}
+	key: 'root',
+	index: 0,
+	routes: [{
+			key: 'Tabs',
+			index: 0
+		}],
+};
 
 export default handleActions({
   [PUSH_ROUTE]: (state, action) => {

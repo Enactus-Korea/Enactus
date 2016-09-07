@@ -37,8 +37,9 @@ class Feed extends Component {
   }
   _renderTitleComponent(props) {
 		return (
-			<NavigationHeader.Title >
-				<Text style={{color: 'white'}}>{props.scene.route.title}</Text>
+			<NavigationHeader.Title
+        textStyle={{ color: 'white'}}>
+        {props.scene.route.title}
 			</NavigationHeader.Title>
 		);
 	}
@@ -117,15 +118,13 @@ class Feed extends Component {
 }
 
 Feed.displayName = 'Feed'
-
-
 Feed.propTypes = {
   pushRoute: PropTypes.func.isRequired,
   popRoute: PropTypes.func.isRequired
 }
 export default connect(
   (state) => ({
-    navigation: state.nav
+    navigation: state.feed
   }),
   (dispatch) => ({
     pushRoute: (route) => dispatch(actions.push(route)),

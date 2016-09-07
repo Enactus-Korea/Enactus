@@ -27,7 +27,7 @@ class Tab extends Component {
     }
   }
   render() {
-    const tabs = this.props.tabs.tabs.map((tab, i) => {
+    const tabs = this.props.tabs.tabs.routes.map((tab, i) => {
       return(
         <Icon.TabBarItem key={tab.key}
 						iconName={tab.iconName}
