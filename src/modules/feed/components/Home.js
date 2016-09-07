@@ -5,14 +5,12 @@ import Button from './Button'
 const route = {
   type: 'push',
   route: {
-    key: 'about',
-    title: 'About'
+    key: 'about', title: 'About', showBackButton: true
   }
 }
 
 const Home = ({_handleNavigate}) => (
   <View style={styles.container}>
-    <Text style={styles.title}>Home</Text>
     <Button onPress={() => _handleNavigate(route)} label='Go To About' />
   </View>
 )

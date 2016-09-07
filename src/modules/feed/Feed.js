@@ -1,10 +1,12 @@
 import React, { PropTypes, Component } from 'react'
-import { View, BackAndroid, NavigationExperimental } from 'react-native'
+import { View, Text, BackAndroid, NavigationExperimental,TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
 import { Home, About } from './components'
 import * as actions from './actions'
 import styles from './styles'
-const { CardStack: NavigationCardStack } = NavigationExperimental
+import Icon from 'react-native-vector-icons/Ionicons';
+const { Header: NavigationHeader, CardStack: NavigationCardStack } = NavigationExperimental
+const NavigationHeaderBackButton = require('NavigationHeaderBackButton');
 
 class Feed extends Component {
   constructor(props){
@@ -17,6 +19,62 @@ class Feed extends Component {
   }
   componentWillUnmount(){
     BackAndroid.removeEventListener('hardwareBackPress', this._handleBackAction)
+  }
+  _renderHeader(props) {
+    const showHeader = props.scene.route.title
+    if (showHeader) {
+			return (
+				<NavigationHeader
+				{...props}
+				style={styles.navHeader}
+				renderTitleComponent={this._renderTitleComponent.bind(this)}
+				renderLeftComponent={this._renderLeftComponent.bind(this)}
+				renderRightComponent={this._renderRightComponent.bind(this)}
+				/>
+			);
+		}
+    return null;
+  }
+  _renderTitleComponent(props) {
+		return (
+			<NavigationHeader.Title >
+				<Text style={{color: 'white'}}>{props.scene.route.title}</Text>
+			</NavigationHeader.Title>
+		);
+	}
+  _renderLeftComponent(props) {
+    if (props.scene.route.showBackButton) {
+			return (
+				<NavigationHeaderBackButton
+          onPress={this._handleBackAction.bind(this)} />
+			);
+		}
+    const menuShow = props.scene.route.title
+		if (menuShow) {
+			return (
+				<TouchableHighlight>
+					<Icon style={styles.menu} name="ios-menu" size={23} color="white" />
+				</TouchableHighlight>
+			);
+		}
+		return null;
+  }
+  _renderRightComponent(props) {
+    const rightShow = props.scene.route.key === 'home'
+    if (rightShow) {
+			return (
+				<View style={{flexDirection:"row"}}>
+					<TouchableHighlight
+            style={styles.buttonContainer}>
+						<Icon style={styles.button} name="ios-notifications" size={23} color="white" />
+					</TouchableHighlight>
+          <TouchableHighlight
+						style={styles.buttonContainer}>
+						<Icon style={styles.button} name="ios-search" size={23} color="white" />
+					</TouchableHighlight>
+				</View>
+			);
+		}
   }
   _renderScene (props) {
     const { route } = props.scene
@@ -52,7 +110,8 @@ class Feed extends Component {
       <NavigationCardStack
         navigationState={this.props.navigation}
         onNavigate={this._handleNavigate.bind(this)}
-        renderScene={this._renderScene} />
+        renderScene={this._renderScene}
+        renderOverlay={this._renderHeader.bind(this)} />
       )
    }
 }
