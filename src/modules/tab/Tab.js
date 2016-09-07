@@ -4,7 +4,7 @@ import { View, Text, ScrollView, TouchableOpacity, TabBarIOS } from 'react-nativ
 // import Tabbar from 'react-native-tabbar'
 import * as actions from './actions'
 import styles from './styles'
-// import { nav } from './modules'
+// import { feed, post, user  } from './modules'
 import Feed from '../feed/Feed'
 import Post from '../post/Post'
 import User from '../user/User'

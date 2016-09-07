@@ -3,7 +3,7 @@ import { handleActions } from 'redux-actions'
 import { PUSH_ROUTE, POP_ROUTE } from './constants'
 
 const {
-  CardStack: NavigationCardStack,
+  // CardStack: NavigationCardStack,
   StateUtils: NavigationStateUtils
 } = NavigationExperimental;
 
