@@ -1,11 +1,11 @@
 import feed  from './feed'
-import nav  from './nav'
+import post  from './post'
 import tab  from './tab'
-import profile from './profile'
+import user from './user'
 
 //in this section keep importing yout modules
 
 //and exporting them here
 export {
-  feed, nav, tab, profile
+  feed, post, tab, user
 }

@@ -1,11 +1,11 @@
 import { NAME } from './constants'
-import Nav from './Nav'
+import User from './User'
 import reducer from './reducer'
 import * as actions from './actions'
 
 export default {
   NAME,
-  Nav,
+  User,
   reducer,
   actions
 }

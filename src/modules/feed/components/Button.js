@@ -1,31 +1,46 @@
-import React, { PropTypes } from 'react'
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import React from 'react'
+import { Text, TouchableHighlight, StyleSheet } from 'react-native'
 
-const styles = StyleSheet.create({
-  button: {
-    height: 20,
-    padding: 20,
-    backgroundColor: 'lightgray',
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    margin: 5
-  }
-});
-
-const Button = (props) => {
-  const { children, onClick } = props
-
+// export default ({label, onPress}) => (
+//   <TouchableHighlight
+//     underlayColor='#35b5ff'
+//     onPress={onPress} style={styles.button}>
+//     <Text style={styles.label}>{label}</Text>
+//   </TouchableHighlight>
+// )
+const Button = ({label, onPress}) => {
   return (
-    <TouchableOpacity onPress={onClick} style={styles.button}>
-      <Text>{children}</Text>
-    </TouchableOpacity>
+    <TouchableHighlight
+      underlayColor='#35b5ff'
+      onPress={onPress} style={styles.button}>
+      <Text style={styles.label}>{label}</Text>
+    </TouchableHighlight>
   )
 }
 
-Button.PropTypes = {
-  children: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired
-}
+
+
+// const Button = (props) => {
+//   const { children, onClick } = props
+//
+//   return (
+//     <TouchableOpacity onPress={onClick} style={styles.button}>
+//       <Text>{children}</Text>
+//     </TouchableOpacity>
+//   )
+// }
+
+
+const styles = StyleSheet.create({
+  button: {
+    height: 70,
+    backgroundColor: '#22a3ed',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  label: {
+    color: 'white'
+  }
+})
 
 export default Button
