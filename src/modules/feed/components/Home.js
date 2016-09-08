@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import Button from './Button'
+import Feeds from './Feeds'
 
 const route = {
   type: 'push',
@@ -10,20 +11,21 @@ const route = {
 }
 
 const Home = ({_handleNavigate}) => (
-  <View style={styles.container}>
-    <Button onPress={() => _handleNavigate(route)} label='Go To About' />
-  </View>
+    <Feeds />
+
+    // <Button onPress={() => _handleNavigate(route)} label='Go To About' />
+
 )
 
-const styles = StyleSheet.create({
-  title: {
-    marginBottom: 20,
-    fontSize: 22,
-    textAlign: 'center'
-  },
-  container: {
-    paddingTop: 60
-  }
-})
+// const styles = StyleSheet.create({
+//   title: {
+//     marginBottom: 20,
+//     fontSize: 22,
+//     textAlign: 'center'
+//   },
+//   container: {
+//
+//   }
+// })
 
 export default Home

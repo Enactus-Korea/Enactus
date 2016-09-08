@@ -7,9 +7,9 @@ import {
 import Button from './Button'
 
 const About = () => (
-  <View style={styles.container}>
+
     <Text style={styles.title}>Detail</Text>
-  </View>
+
 )
 // <Button onPress={_goBack} label='Go Back' />
 const styles = StyleSheet.create({
@@ -18,9 +18,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     textAlign: 'center'
   },
-  container: {
-    paddingTop: 60
-  }
 })
 
 export default About

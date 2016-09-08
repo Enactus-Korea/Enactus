@@ -10,7 +10,7 @@ const initialState = {
   index: 0,
   key: 'root',
   routes: [{
-   key: 'home', title: 'Home'
+   key: 'home', title: '뉴스피드'
   }]
 }
 

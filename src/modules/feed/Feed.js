@@ -80,11 +80,18 @@ class Feed extends Component {
   _renderScene (props) {
     const { route } = props.scene
     if (route.key === 'home') {
-     return <Home
-              _handleNavigate={this._handleNavigate.bind(this)} />
+     return (
+       <View style={{ marginTop: NavigationHeader.HEIGHT }}>
+        <Home _handleNavigate={this._handleNavigate.bind(this)} />
+       </View>
+     )
     }
     if (route.key === 'about') {
-     return <About _goBack={this._handleBackAction.bind(this)} />
+     return (
+       <View style={{ marginTop: NavigationHeader.HEIGHT }}>
+        <About _goBack={this._handleBackAction.bind(this)} />
+       </View>
+     )
     }
   }
   _handleBackAction () {
