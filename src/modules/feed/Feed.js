@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import { View, Text, BackAndroid, NavigationExperimental,TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
-import { Home, About } from './components'
+import { Home, About, Feeds } from './components'
 import * as actions from './actions'
 import styles from './styles'
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -82,7 +82,7 @@ class Feed extends Component {
     if (route.key === 'home') {
      return (
        <View style={{ marginTop: NavigationHeader.HEIGHT }}>
-        <Home _handleNavigate={this._handleNavigate.bind(this)} />
+        <Feeds _handleNavigate={this._handleNavigate.bind(this)} />
        </View>
      )
     }
