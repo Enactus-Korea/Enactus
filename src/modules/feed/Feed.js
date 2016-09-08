@@ -37,8 +37,9 @@ class Feed extends Component {
   }
   _renderTitleComponent(props) {
 		return (
-			<NavigationHeader.Title >
-				<Text style={{color: 'white'}}>{props.scene.route.title}</Text>
+			<NavigationHeader.Title
+        textStyle={{ color: 'white'}}>
+				{props.scene.route.title}
 			</NavigationHeader.Title>
 		);
 	}
