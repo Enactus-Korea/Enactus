@@ -9,6 +9,9 @@ const { Header: NavigationHeader, CardStack: NavigationCardStack } = NavigationE
 const NavigationHeaderBackButton = require('NavigationHeaderBackButton');
 
 class Feed extends Component {
+  static contextTypes = {
+    drawer: React.PropTypes.object.isRequired,
+  }
   constructor(props){
     super(props)
     this._renderScene = this._renderScene.bind(this)
@@ -53,7 +56,9 @@ class Feed extends Component {
     const menuShow = props.scene.route.title
 		if (menuShow) {
 			return (
-				<TouchableHighlight>
+				<TouchableHighlight
+          underlayColor= 'transparent'
+          onPress={this.context.drawer.open}>
 					<Icon style={styles.menu} name="ios-menu" size={23} color="white" />
 				</TouchableHighlight>
 			);
