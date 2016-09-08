@@ -1,5 +1,6 @@
 import React from 'react'
 import { Text, TouchableHighlight, StyleSheet } from 'react-native'
+import Icon from 'react-native-vector-icons/Ionicons'
 
 // export default ({label, onPress}) => (
 //   <TouchableHighlight
@@ -8,16 +9,17 @@ import { Text, TouchableHighlight, StyleSheet } from 'react-native'
 //     <Text style={styles.label}>{label}</Text>
 //   </TouchableHighlight>
 // )
-const Button = ({label, onPress}) => {
+const Button = ({icon, onPress}) => {
   return (
     <TouchableHighlight
-      underlayColor='#35b5ff'
-      onPress={onPress} style={styles.button}>
-      <Text style={styles.label}>{label}</Text>
-    </TouchableHighlight>
+     underlayColor= 'transparent'
+     onPress={onPress} >
+     <Icon name={icon} size={23} color="#8899a5" />
+   </TouchableHighlight>
   )
 }
-
+// <Text>{children}</Text>
+// <Text style={styles.label}>{label}</Text>
 
 
 // const Button = (props) => {
@@ -30,17 +32,5 @@ const Button = ({label, onPress}) => {
 //   )
 // }
 
-
-const styles = StyleSheet.create({
-  button: {
-    height: 70,
-    backgroundColor: '#22a3ed',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  label: {
-    color: 'white'
-  }
-})
 
 export default Button

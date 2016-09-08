@@ -3,15 +3,15 @@ import { View, Text, StyleSheet } from 'react-native'
 import Button from './Button'
 import Feeds from './Feeds'
 
-const route = {
-  type: 'push',
-  route: {
-    key: 'about', title: 'About', showBackButton: true
-  }
-}
+// const route = {
+//   type: 'push',
+//   route: {
+//     key: 'about', title: 'About', showBackButton: true
+//   }
+// }
 
 const Home = ({_handleNavigate}) => (
-    <Feeds />
+    <Feeds handleNavigate={() => _handleNavigate(route)}/>
 
     // <Button onPress={() => _handleNavigate(route)} label='Go To About' />
 
