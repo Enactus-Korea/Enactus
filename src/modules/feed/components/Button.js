@@ -1,46 +1,20 @@
-import React from 'react'
+import React, {PropTypes} from 'react'
 import { Text, TouchableHighlight, StyleSheet } from 'react-native'
+import Icon from 'react-native-vector-icons/Ionicons'
 
-// export default ({label, onPress}) => (
-//   <TouchableHighlight
-//     underlayColor='#35b5ff'
-//     onPress={onPress} style={styles.button}>
-//     <Text style={styles.label}>{label}</Text>
-//   </TouchableHighlight>
-// )
-const Button = ({label, onPress}) => {
+const Button = ({props, icon, onPress}) => {
+  const {children} = props
   return (
     <TouchableHighlight
-      underlayColor='#35b5ff'
-      onPress={onPress} style={styles.button}>
-      <Text style={styles.label}>{label}</Text>
+      underlayColor= 'transparent'
+      onPress={onPress} >
+      <Icon name={icon} size={23} color="#8899a5" />
+      <Text>{children}</Text>
     </TouchableHighlight>
   )
 }
-
-
-
-// const Button = (props) => {
-//   const { children, onClick } = props
-//
-//   return (
-//     <TouchableOpacity onPress={onClick} style={styles.button}>
-//       <Text>{children}</Text>
-//     </TouchableOpacity>
-//   )
-// }
-
-
-const styles = StyleSheet.create({
-  button: {
-    height: 70,
-    backgroundColor: '#22a3ed',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  label: {
-    color: 'white'
-  }
-})
+Button.PropTypes = {
+  children: PropTypes.string.isRequired,
+}
 
 export default Button

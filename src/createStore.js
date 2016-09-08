@@ -11,7 +11,8 @@ export default (data = {}) => {
     [feed.NAME]: feed.reducer,
     [tab.NAME]: tab.reducer,
     [root.NAME]: root.reducer,
-    // [user.NAME]: user.reducer
+    // [app.NAME]: app.reducer,
+    [user.NAME]: user.reducer
   })
 
   return createStore(rootReducer, data, middleware)

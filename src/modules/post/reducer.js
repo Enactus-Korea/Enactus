@@ -3,34 +3,36 @@ import { INCREMENT, DECREMENT, ADD_NEW_COUNTER } from './constants'
 
 const initialState = {
   idGen: 0,
-  counters: { }
+  counters: { },
+  //post에서 받을 것들
+  username: '이유경',
+  useruniv: '명지대학교',
+  userimg: 'Avatar',
+  content: '',
 }
 //앱 시작 하면 처음에 설정될 값들!
 // 카운터 폼 = idGen
 // counters = 폼 안에서 카운트 되는 수
 
-
 export default handleActions({
   [ADD_NEW_COUNTER]: (state, action) => {
     const { idGen } = state
     const newId = idGen + 1
-
-    //새로운 카운터를 만드는 액셕을 정의함
-    //return은 새로 생성된 곳에 counters값을 0이라고 설정하는 것
     /**
+    새로운 카운터를 만드는 액셕을 정의함
+    return은 새로 생성된 곳에 counters값을 0이라고 설정하는 것
     2.[추가하기] constants에서 정의한 액션키를 불러와 reducer에서
     ADD_NEW_COUNTER는 카운터를 추가하는 기능을 한다는 것을
-    정의 해준다. 
+    정의 해준다.
     (handleActions 기능일 일어나는 액션들을 핸들링 하는 곳이 reducer에서 함)
     */
-
-
     return {
-      idGen: newId,
-      counters: {
-        ...state.counters,
-        [newId]: 0
-      }
+      // idGen: newId,
+      // counters: {
+      //   ...state.counters,
+      //   [newId]: 0
+      // },
+
     }
   },
   [INCREMENT]: (state, action) => {

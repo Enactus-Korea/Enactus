@@ -1,19 +1,27 @@
-import React from 'react'
-import { Component } from 'react-native';
+import React, { Component } from 'react'
 import { Provider } from 'react-redux';
-
+// import { app } from './modules'
 import { root } from './modules'
 
 import createStore from './createStore'
-
 const store = createStore()
 
-const Enactus = () => {
-  return (
-    <Provider store={store}>
-      <root.Root />
-    </Provider>
-  )
+// const Enactus = () => {
+//   return (
+//     <Provider store={store}>
+//       <root.Root />
+//     </Provider>
+//   )
+// }
+
+class Enactus extends Component {
+  render() {
+    return (
+        <Provider store={store}>
+          <root.Root />
+        </Provider>
+    );
+  }
 }
 
 export default Enactus

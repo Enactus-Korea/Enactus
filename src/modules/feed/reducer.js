@@ -1,6 +1,6 @@
 import { NavigationExperimental } from 'react-native'
 import { handleActions } from 'redux-actions'
-import { PUSH_ROUTE, POP_ROUTE } from './constants'
+import { PUSH_ROUTE, POP_ROUTE, GET_NEW_FEED } from './constants'
 
 const {
   StateUtils: NavigationStateUtils
@@ -12,6 +12,7 @@ const initialState = {
   routes: [{
    key: 'home', title: '뉴스피드'
   }]
+
 }
 
 export default handleActions({
@@ -23,4 +24,9 @@ export default handleActions({
     if (state.index === 0 || state.routes.length === 1) return state
       return NavigationStateUtils.pop(state)
   },
+  // [GET_NEW_FEED]: (state, action) => {
+  //   return(
+  //
+  //   )
+  // }
 },initialState)

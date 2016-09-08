@@ -1,4 +1,4 @@
-export const NAME = 'app'
+export const NAME = 'user'
 //이름이 충돌 되지 않도록 길을 정리해주는 역할을 한다.
 export const INCREMENT = `${NAME}/INCREMENT`
 export const DECREMENT = `${NAME}/DECREMENT`
