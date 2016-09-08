@@ -3,13 +3,11 @@ import { Text, TouchableHighlight, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 const Button = ({props, icon, onPress}) => {
-  const {children} = props
   return (
     <TouchableHighlight
       underlayColor= 'transparent'
       onPress={onPress} >
       <Icon name={icon} size={23} color="#8899a5" />
-      <Text>{children}</Text>
     </TouchableHighlight>
   )
 }

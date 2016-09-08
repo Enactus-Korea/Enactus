@@ -1,6 +1,8 @@
 import { View, NavigationExperimental } from 'react-native';
 import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux';
 import Tabs from '../../tab/Tab';
+import * as actions from '../actions'
 
 const {
   CardStack: NavigationCardStack
@@ -37,4 +39,18 @@ class Global extends Component {
   }
 }
 
-export default Global
+Global.displayName = 'Global'
+Global.propTypes = {
+  pushRoute: PropTypes.func.isRequired,
+  popRoute: PropTypes.func.isRequired
+}
+export default connect(
+  (state) => ({
+    navigation: state.root
+    //constant와 연결
+  }),
+  (dispatch) => ({
+    pushRoute: (route) => dispatch(actions.push(route)),
+    popRoute: () => dispatch(actions.pop()),
+  })
+)(Global)
