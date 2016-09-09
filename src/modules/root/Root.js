@@ -2,7 +2,8 @@ import { View, Text } from 'react-native';
 import React, { Component, PropTypes } from 'react'
 import { Global } from './components'
 import Drawer from 'react-native-drawer'
-import Control from './components/Control'
+import Panel from '../panel/Panel'
+// import Control from './components/Control'
 
 
 class Root extends Component {
@@ -22,7 +23,7 @@ class Root extends Component {
         ref={(ref) => this._drawer = ref}
         type="overlay"
         content={
-          <Control closeDrawer={this.closeDrawer} />
+          <Panel closeDrawer={this.closeDrawer} />
         }
         styles={{main: {shadowColor: '#000000', shadowOpacity: 0.3, shadowRadius: 15}}}
         onOpen={() => {
