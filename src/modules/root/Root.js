@@ -2,9 +2,9 @@ import { View, Text } from 'react-native';
 import React, { Component, PropTypes } from 'react'
 import { Global } from './components'
 import Drawer from 'react-native-drawer'
-import Panel from '../panel/Panel'
+// import Panel from '../panel/Panel'
+import Panel from '../feed/components/Panel'
 // import Control from './components/Control'
-
 
 class Root extends Component {
   state={
@@ -45,5 +45,6 @@ class Root extends Component {
     )
   }
 }
+
 // panOpenMask={0.2} => 추가하면 손으로 열기 가능..ㅎㅎㅎ
 export default Root

@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import { View, Text, BackAndroid, NavigationExperimental,TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
-import { Home, About, Feeds } from './components'
+import { Home, About, Feeds,Intro, Network, Archive, Login, Config, Unknown } from './components'
 import * as actions from './actions'
 import styles from './styles'
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -84,19 +84,27 @@ class Feed extends Component {
   }
   _renderScene (props) {
     const { route } = props.scene
-    if (route.key === 'home') {
-     return (
-       <View style={{ marginTop: NavigationHeader.HEIGHT }}>
-        <Feeds _handleNavigate={this._handleNavigate.bind(this)} />
-       </View>
-     )
-    }
-    if (route.key === 'about') {
-     return (
-       <View style={{ marginTop: NavigationHeader.HEIGHT }}>
-        <About _goBack={this._handleBackAction.bind(this)} />
-       </View>
-     )
+    switch (route.key) {
+      case 'home' : return (
+        <View style={{ marginTop: NavigationHeader.HEIGHT }}>
+          <Feeds _handleNavigate={this._handleNavigate.bind(this)} />
+        </View>
+      )
+      case 'about' : return (
+        <View style={{ marginTop: NavigationHeader.HEIGHT }}>
+          <About _goBack={this._handleBackAction.bind(this)} />
+        </View>
+      )
+      case 'intro' : return (
+        <View style={{ marginTop: NavigationHeader.HEIGHT }}>
+          <Intro />
+        </View>
+      )
+      case 'network' : return (
+        <View style={{ marginTop: NavigationHeader.HEIGHT }}>
+          <Network />
+        </View>
+      )
     }
   }
   _handleBackAction () {
@@ -116,7 +124,14 @@ class Feed extends Component {
           return this._handleBackAction()
         default:
           return false
+      case 'changePanel':
+        this.props.changePanel(action.index)
+        return true
     }
+  }
+  _handlePanel(i) {
+    const { changePanel } = this.props
+    changePanel(i)
   }
   render () {
     return (
@@ -130,18 +145,19 @@ class Feed extends Component {
 }
 
 Feed.displayName = 'Feed'
-
-
 Feed.propTypes = {
   pushRoute: PropTypes.func.isRequired,
-  popRoute: PropTypes.func.isRequired
+  popRoute: PropTypes.func.isRequired,
+  changePanel: PropTypes.func.isRequired,
 }
 export default connect(
   (state) => ({
-    navigation: state.nav
+    navigation: state.feed,
+    panels: state.feed
   }),
   (dispatch) => ({
     pushRoute: (route) => dispatch(actions.push(route)),
     popRoute: () => dispatch(actions.pop()),
+    changePanel: (index) => dispatch(actions.changePanel(index))
   })
 )(Feed)
