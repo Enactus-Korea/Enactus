@@ -1,17 +1,17 @@
 import React, { Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
 import {View, Image, TouchableHighlight, Text } from 'react-native'
-import * as actions from './actions'
-import styles from './styles'
+import * as actions from '../actions'
+import styles from './panel.styles'
 import Icon from 'react-native-vector-icons/Ionicons';
+import PanelButton from './PanelButton'
 // import Feed from '../feed/Feed'
 // import {Intro, Network, Archive, Login, Config, Unknown} from './components'
 
 
-
 class Panel extends Component {
   static propTypes = {
-    closeDrawer: PropTypes.func.isRequired
+    closeDrawer: PropTypes.func.isRequired,
   };
   _changePanel (i) {
     const { changePanel } = this.props
@@ -21,16 +21,13 @@ class Panel extends Component {
     let {closeDrawer} = this.props
     const panels = this.props.panels.panels.map((panel, i) => {
       return(
-        <TouchableHighlight underlayColor="#888"
+        <PanelButton
           onPress={() => {
             closeDrawer()
-            this._changePanel(i) }}
-          key={ panel.key }>
-          <View style={styles.btn}>
-            <Icon style={styles.btnIcon} name={panel.name} size={20}></Icon>
-            <Text style={styles.btnText}>{ panel.title }</Text>
-          </View>
-        </TouchableHighlight>
+            this._changePanel(i)
+            }}
+          panel={panel}
+          />
       )
     })
     return (
@@ -46,7 +43,7 @@ class Panel extends Component {
         <View style={styles.control}>
           <View style={styles.imageCon}>
             <Image
-              source={require('../../Assets/logo.png')}
+              source={require('../../../Assets/logo.png')}
               style={styles.logoimage}/>
           </View>
           <TouchableHighlight underlayColor= 'transparent' style={styles.close} onPress={closeDrawer}>
@@ -62,13 +59,14 @@ class Panel extends Component {
 
 Panel.displayName = 'Panel'
 Panel.propTypes = {
-  changePanel: PropTypes.func.isRequired
+  changePanel: PropTypes.func.isRequired,
+  handleNavigate: PropTypes.func.isRequired
 }
 export default connect(
   (state) => ({
-    panels: state.panel
+    panels: state.feed
   }),
   (dispatch) => ({
-    changePanel: (index) => dispatch(actions.changePanel({index},'feed'))
+    changePanel: (index) => dispatch(actions.changePanel(index))
   })
 )(Panel)
