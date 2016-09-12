@@ -7,14 +7,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Feed from '../Feed'
 import {Intro, Network, Archive, Login, Config, Unknown} from '../../panel/components'
 
-// const route = {
-//   type: 'push',
-//   route: [
-//     {key: 'network', title: '인액터스 네트워크'},
-//     {key: 'intro', title: '인액터스 소개', showBackButton: true}
-//   ]
-// }
-
 class Panel extends Component {
   static propTypes = {
     closeDrawer: PropTypes.func.isRequired,
@@ -25,8 +17,12 @@ class Panel extends Component {
   };
   constructor(props) {
     super(props);
-    //this._renderScene = this._renderScene.bind(this);
+    this.state = {
+      key: 'test',
+      title: 'test'
+    }
   }
+    //this._renderScene = this._renderScene.bind(this);
   _changePanel (i) {
     const { changePanel } = this.props
     changePanel(i)
@@ -39,8 +35,14 @@ class Panel extends Component {
           onPress={() => {
             test();
             closeDrawer();
-            debugger;
-            handleNavigate(panel.type) }}
+            const route = {
+              type: 'push',
+              route: {
+                key: panel.key,
+                title: panel.title
+              }
+            }
+            handleNavigate(route) }}
           key={ panel.key }>
           <View style={styles.btn}>
             <Icon style={styles.btnIcon} name={panel.name} size={20}></Icon>
@@ -84,6 +86,8 @@ Panel.propTypes = {
 }
 export default connect(
   (state) => ({
+    key: state.key,
+    title: state.title,
     panels: state.panel,
     navigation: state.nav
   }),

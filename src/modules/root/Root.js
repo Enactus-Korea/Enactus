@@ -40,6 +40,9 @@ class Root extends Component {
       case 'push':
         this.props.pushRoute(action.route)
         return true
+      // case 'change':
+      //   this.props.pushRoute(action.route)
+      //   return true
       case 'back':
         case 'pop':
           return this._handleBackAction()

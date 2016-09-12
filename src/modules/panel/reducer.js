@@ -5,8 +5,7 @@ import { NavigationExperimental } from 'react-native'
 
 const panels = [
   // { key: 'news', name:'md-paper', title: '뉴스피드' },
-  { key: 'intro', name:"md-share", title: '인액터스 소개' , type: 'push',
-    route: {key: 'network', title: '인액터스 네트워크'}},
+  { key: 'intro', name:"md-share", title: '인액터스 소개' },
   { key: 'network', name:'md-git-network',  title: '네트워크' },
   // { key: 'message', name:'ios-chatbubbles', title: '메세지함' },
   // { key: 'unknown', name:'md-volume-down', title: '대나무 숲' },
