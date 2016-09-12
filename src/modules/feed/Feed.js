@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import { View, Text, BackAndroid, NavigationExperimental,TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
-import { Home, About, Feeds } from './components'
+import { Home, About, Feeds, Intro } from './components'
 import * as actions from './actions'
 import styles from './styles'
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -83,6 +83,7 @@ class Feed extends Component {
 		}
   }
   _renderScene (props) {
+    console.log("Feed renderScene");
     const { route } = props.scene
     if (route.key === 'home') {
      return (
@@ -98,6 +99,13 @@ class Feed extends Component {
        </View>
      )
     }
+    if (route.key === 'intro') {
+     return (
+       <View style={{ marginTop: NavigationHeader.HEIGHT }}>
+        <Intro />
+       </View>
+     )
+   }
   }
   _handleBackAction () {
     if (this.props.navigation.index === 0) {
@@ -107,6 +115,7 @@ class Feed extends Component {
     return true
   }
   _handleNavigate (action) {
+    console.log("Feed");
     switch (action && action.type) {
       case 'push':
         this.props.pushRoute(action.route)

@@ -28,7 +28,8 @@ const Feeds = ({_handleNavigate}) => {
             <View style={styles.funcIcon}>
               <Icon name="ios-heart" size={23} color="#8899a5" />
               <Text> 0개 </Text>
-              <Button onPress={() => _handleNavigate(route)} icon='ios-chatboxes-outline' />
+              <Button onPress={() =>
+                _handleNavigate(route)} icon='ios-chatboxes-outline' />
               <Text> 0개 </Text>
             </View>
             <View style={styles.funcShare}>

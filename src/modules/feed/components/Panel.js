@@ -1,45 +1,46 @@
 import React, { Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
 import {View, Image, TouchableHighlight, Text } from 'react-native'
-import * as actions from './actions'
-import styles from './styles'
+import * as actions from '../../panel/actions'
+import styles from '../../panel/styles'
 import Icon from 'react-native-vector-icons/Ionicons';
-import Feed from '../feed/Feed'
-import {Intro, Network, Archive, Login, Config, Unknown} from './components'
+import Feed from '../Feed'
+import {Intro, Network, Archive, Login, Config, Unknown} from '../../panel/components'
 
-
+// const route = {
+//   type: 'push',
+//   route: [
+//     {key: 'network', title: '인액터스 네트워크'},
+//     {key: 'intro', title: '인액터스 소개', showBackButton: true}
+//   ]
+// }
 
 class Panel extends Component {
   static propTypes = {
     closeDrawer: PropTypes.func.isRequired,
     test: PropTypes.func.isRequired,
     pushRoute: PropTypes.func.isRequired,
-    popRoute: PropTypes.func.isRequired
+    popRoute: PropTypes.func.isRequired,
+    changePanel: PropTypes.func.isRequired
   };
-  // _changePanel (i) {
-  //   const { changePanel } = this.props
-  //   changePanel(i)
-  // }
-  // _renderPanelContent (key) {
-  //   switch (key) {
-  //     case 'news':    return <Feed />
-  //     case 'intro':   return <Intro />
-  //     case 'network': return <Network />
-  //     case 'unknown': return <Unknown />
-  //     case 'archive': return <Archive />
-  //     case 'config':  return <Config />
-  //     case 'login':   return <Login />
-  //   }
-  // }
+  constructor(props) {
+    super(props);
+    //this._renderScene = this._renderScene.bind(this);
+  }
+  _changePanel (i) {
+    const { changePanel } = this.props
+    changePanel(i)
+  }
   renderPanels() {
-    let {closeDrawer, test} = this.props
+    let {closeDrawer, test, handleNavigate} = this.props
     const panels = this.props.panels.panels.map((panel, i) => {
       return(
         <TouchableHighlight underlayColor="#888"
           onPress={() => {
             test();
-            closeDrawer()
-            this._changePanel(i) }}
+            closeDrawer();
+            debugger;
+            handleNavigate(panel.type) }}
           key={ panel.key }>
           <View style={styles.btn}>
             <Icon style={styles.btnIcon} name={panel.name} size={20}></Icon>
@@ -55,13 +56,13 @@ class Panel extends Component {
     )
   }
   render(){
-    let {closeDrawer, test } = this.props
+    let {closeDrawer, test, handleNavigate } = this.props
     return(
       <View style={styles.sideMenuContainer}>
         <View style={styles.control}>
           <View style={styles.imageCon}>
             <Image
-              source={require('../../Assets/logo.png')}
+              source={require('../../../Assets/logo.png')}
               style={styles.logoimage}/>
           </View>
           <TouchableHighlight underlayColor= 'transparent' style={styles.close} onPress={closeDrawer}>
