@@ -1,15 +1,15 @@
-import { View, Text } from 'react-native';
+import { View, Text, NavigationExperimental, Navigator } from 'react-native';
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux';
 import * as actions from './actions'
-import { Global } from './components'
-import { Intro, Network } from '../panel/components'
+import { Intro, Network } from '../feed/components'
 import Feed from '../feed/Feed'
 import Drawer from 'react-native-drawer'
-// import Panel from '../panel/Panel'
 import Panel from './components/Panel'
 
-
+const {
+  CardStack: NavigationCardStack
+} = NavigationExperimental;
 
 class Root extends Component {
   state={
@@ -22,18 +22,39 @@ class Root extends Component {
 	openDrawer = () => {
 		this._drawer.open()
 	};
-  _replacePanel (i) {
-    const { replacePanel } = this.props
-    replacePanel(i)
-  }
-  _renderPanelContent (key) {
-    switch (key) {
-      case 'news':
-        return <Feed />
-      case 'intro':
-        return <Intro />
-      case 'network':
-        return <Network />
+  // isReplacePanel = (key) => {
+  //   const { replaceRoute } = this.props
+  //   replaceRoute(key)
+  // }
+  // isRenderScene = (key) => {
+  //   switch (key) {
+  //     case 'news':
+  //       return <Feed />
+  //     case 'intro':
+  //       return <Intro />
+  //     case 'network':
+  //       return <Network />
+  //   }
+  // }
+  renderScene(route, navigator){
+    const {state, actions} = this.props
+    const routeId = route.id
+
+    if (routeId === 'news') {
+      return (
+        <Feed
+        {...this.props}
+        closeDrawer={this.closeDrawer}
+        navigator={navigator} />
+      )
+    }
+    if (routeId === 'intro') {
+      return (
+        <Intro
+        {...this.props}
+        closeDrawer={this.closeDrawer}
+        navigator={navigator} />
+      )
     }
   }
   render(){
@@ -45,8 +66,8 @@ class Root extends Component {
           <Panel
             {...this.props}
             closeDrawer={this.closeDrawer}
-            replacePanel={this._replacePanel}
-            renderPanelContent={this._renderPanelContent}
+            isReplacePanel={this.isReplacePanel}
+            isRenderScene={this.isRenderScene}
           />
         }
         styles={{main: {shadowColor: '#000000', shadowOpacity: 0.3, shadowRadius: 15}}}
@@ -64,7 +85,11 @@ class Root extends Component {
         openDrawerOffset={0.2}
         negotiatePan
         >
-        <Global />
+          <Navigator
+           style={{flex: 1}}
+           ref={'NAV'}
+           initialRoute={{id: 'news', name: 'news'}}
+           renderScene={this.renderScene.bind(this)}/>
       </Drawer>
     )
   }
@@ -72,14 +97,18 @@ class Root extends Component {
 // panOpenMask={0.2} => 추가하면 손으로 열기 가능..ㅎㅎㅎ
 Root.displayName = 'Root'
 Root.propTypes = {
-  replacePanel: PropTypes.func.isRequired
+  pushRoute: PropTypes.func.isRequired,
+  popRoute: PropTypes.func.isRequired,
+  replaceRoute: PropTypes.func.isRequired
 }
 export default connect(
   (state) => ({
-    panels: state.root
+    panels: state.root,
     //constant와 연결
   }),
   (dispatch) => ({
-    replacePanel: (index) => dispatch(actions.replacePanel(index))
+    pushRoute: (route) => dispatch(actions.push(route)),
+    popRoute: () => dispatch(actions.pop()),
+    replaceRoute: (index) => dispatch(actions.replace(index))
   })
 )(Root)

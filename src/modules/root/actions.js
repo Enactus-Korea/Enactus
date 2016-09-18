@@ -13,7 +13,7 @@ export const pop = () => {
   }
 }
 
-export const replacePanel = (index, route) => {
+export const replace = (index, route) => {
   return {
     type: REPLACE_PANEL,
     index,

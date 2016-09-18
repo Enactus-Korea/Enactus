@@ -1,6 +1,6 @@
 import { NavigationExperimental } from 'react-native'
 import { handleActions } from 'redux-actions'
-import { PUSH_ROUTE, POP_ROUTE, REPLACE_PANEL } from './constants'
+import { PUSH_ROUTE, POP_ROUTE, REPLACE_ROUTE } from './constants'
 
 const {
   // CardStack: NavigationCardStack,
@@ -8,23 +8,15 @@ const {
 } = NavigationExperimental;
 
 const panels = [
-  { key: 'news', name:'md-paper', title: '뉴스피드' },
-  { key: 'intro', name:"md-share", title: '인액터스 소개' },
-  { key: 'network',name:'md-git-network',  title: '네트워크' },
-  // { key: 'unknown', name:'md-volume-down', title: '대나무 숲' },
-  // { key: 'archive', name:'md-cloud-download',  title: '아카이브' },
-  // { key: 'config', name:'ios-construct', title: '설정' },
-  // { key: 'login', name:'ios-unlock', title: '로그인/회원가입' }
+  { key: 'news', route: 'news', name:'md-paper', title: '뉴스피드' },
+  { key: 'intro', route: 'intro', name:"md-share", title: '인액터스 소개' },
+  { key: 'network',route: 'network', name:'md-git-network',  title: '네트워크' },
 ]
-
 
 const initialState = {
 	key: 'root',
 	index: 0,
-	routes: [
-    { key: 'Tabs', index: 0 },
-    { key: 'intro', name:"md-share", title: '인액터스 소개' },
-  ],
+	panels
 };
 
 export default handleActions({
@@ -36,7 +28,7 @@ export default handleActions({
     if (state.index === 0 || state.routes.length === 1) return state
       return NavigationStateUtils.pop(state)
   },
-  [REPLACE_PANEL]: (state, action) => {
+  [REPLACE_ROUTE]: (state, action) => {
     return {
       ...state,
       index: action.index,
