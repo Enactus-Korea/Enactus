@@ -1,19 +1,22 @@
 import { NavigationExperimental } from 'react-native'
 import { handleActions } from 'redux-actions'
-import { PUSH_ROUTE, POP_ROUTE } from './constants'
+import { PUSH_ROUTE, POP_ROUTE, REPLACE_ROUTE } from './constants'
 
 const {
   // CardStack: NavigationCardStack,
   StateUtils: NavigationStateUtils
 } = NavigationExperimental;
 
+const panels = [
+  { key: 'news', route: 'news', name:'md-paper', title: '뉴스피드' },
+  { key: 'intro', route: 'intro', name:"md-share", title: '인액터스 소개' },
+  { key: 'network',route: 'network', name:'md-git-network',  title: '네트워크' },
+]
+
 const initialState = {
 	key: 'root',
 	index: 0,
-	routes: [{
-			key: 'Tabs',
-			index: 0
-		}],
+	panels
 };
 
 export default handleActions({
@@ -25,4 +28,11 @@ export default handleActions({
     if (state.index === 0 || state.routes.length === 1) return state
       return NavigationStateUtils.pop(state)
   },
+  [REPLACE_ROUTE]: (state, action) => {
+    return {
+      ...state,
+      index: action.index,
+      route: action.route
+    }
+  }
 },initialState)
