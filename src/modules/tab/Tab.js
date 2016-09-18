@@ -13,8 +13,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 class Tab extends Component {
   _changeTab (i) {
-    const { changeTab } = this.props
-    changeTab(i)
+    const { replaceTab } = this.props
+    replaceTab(i)
   }
   _renderTabContent (key) {
     switch (key) {
@@ -27,13 +27,15 @@ class Tab extends Component {
     }
   }
   render() {
+    debugger
     const tabs = this.props.tabs.tabs.map((tab, i) => {
       return(
         <Icon.TabBarItem key={tab.key}
 						iconName={tab.iconName}
 						selectedIconName={tab.selectedIconName}
 						title={tab.title}
-            onPress={ () => this._changeTab(i) }
+            onPress={ () =>
+              this._changeTab(i) }
 						selected={this.props.tabs.index === i}>
 						{ this._renderTabContent(tab.key) }
 				</Icon.TabBarItem>
@@ -50,13 +52,15 @@ class Tab extends Component {
 Tab.displayName = 'Tab'
 
 Tab.propTypes = {
-  changeTab: PropTypes.func.isRequired
+  changeTab: PropTypes.func.isRequired,
+  replaceTab: PropTypes.func.isRequired
 }
 export default connect(
   (state) => ({
     tabs: state.tab
   }),
   (dispatch) => ({
-    changeTab: (index) => dispatch(actions.changeTab(index))
+    changeTab: (index) => dispatch(actions.changeTab(index)),
+    replaceTab: (index) => dispatch(actions.replaceTab(index))
   })
 )(Tab)

@@ -1,4 +1,4 @@
-import { PUSH_ROUTE, POP_ROUTE } from './constants'
+import { PUSH_ROUTE, POP_ROUTE, REPLACE_PANEL } from './constants'
 
 export const push = (route) => {
   return {
@@ -10,5 +10,13 @@ export const push = (route) => {
 export const pop = () => {
   return {
     type: POP_ROUTE
+  }
+}
+
+export const replacePanel = (index, route) => {
+  return {
+    type: REPLACE_PANEL,
+    index,
+    route
   }
 }
