@@ -14,6 +14,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Home from './home';
 import Intro from './intro';
 import Network from './network';
+import Search from './search';
+import Notification from './notification';
 
 
 // import Convo from './each_convo';
@@ -58,29 +60,60 @@ class Root extends Component {
 
     if (routeId === 'home') {
       return (
-        <Home
-        {...this.props}
-        userData ={route.userData}
-        close = {() => this.closeControlPanel()}
-        navigator={navigator} />
-        );
+        <View>
+          <Nav {...this.props} pop = {() => this.refs.NAV} name={this.props} onPress = {() => this.openControlPanel()}  />
+          <Home
+          {...this.props}
+          userData ={route.userData}
+          close = {() => this.closeControlPanel()}
+          navigator={navigator} />
+        </View>
+      );
     }
       if (routeId === 'intro') {
       return (
-        <Intro
-        {...this.props}
-        data ={route.data}
-        close = {() => this.closeControlPanel()}
-        navigator={navigator} />
+        <View>
+          <Nav {...this.props} pop = {() => this.refs.NAV} name={this.props} onPress = {() => this.openControlPanel()}  />
+          <Intro
+          {...this.props}
+          data ={route.data}
+          close = {() => this.closeControlPanel()}
+          navigator={navigator} />
+        </View>
         );
     }
     if (routeId === 'network') {
       return (
+        <View>
+          <Nav {...this.props} pop = {() => this.refs.NAV} name={this.props} onPress = {() => this.openControlPanel()}  />
           <Network
               {...this.props}
               data ={route.data}
               close = {() => this.closeControlPanel()}
               navigator={navigator} />
+        </View>
+
+      );
+    }
+    if (routeId === 'search') {
+      return (
+
+          <Search
+              {...this.props}
+              data ={route.data}
+              close = {() => this.closeControlPanel()}
+              navigator={navigator} />
+
+      );
+    }
+    if (routeId === 'notification') {
+      return (
+        <Notification
+            {...this.props}
+            data ={route.data}
+            close = {() => this.closeControlPanel()}
+            navigator={navigator} />
+
       );
     }
     // if (routeId === 'inbox') {
@@ -150,7 +183,6 @@ class Root extends Component {
         panCloseMask={0.2}
         content={<ControlPanel {...this.props} onPress = {() => this.closeControlPanel()}/>}
         >
-        <Nav {...this.props} pop = {() => this.refs.NAV} name={this.props} onPress = {() => this.openControlPanel()}  />
        <Navigator
        style={{flex: 1}}
        ref={'NAV'}
