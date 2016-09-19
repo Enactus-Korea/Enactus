@@ -14,8 +14,6 @@ class Panel extends Component {
         <PanelBody
           {...this.props}
           closeDrawer={this.props.closeDrawer}
-          isReplacePanel={this.isReplacePanel}
-          isRenderScene={this.isRenderScene}
         />
 
       </View>

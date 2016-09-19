@@ -8,9 +8,6 @@ class PanelBody extends Component{
     super(props)
     console.log(this.props)
   }
-  // onRoute(){
-  //     this.props.panels.panels.navigator.replace({id:this.props.panels.panels.route})
-  // }
   render(){
     debugger
     const panels = this.props.panels.panels.map((panel, i) => {
@@ -19,7 +16,6 @@ class PanelBody extends Component{
 
         <TouchableHighlight underlayColor="#888"
           onPress={() => {
-
             this.props.closeDrawer()
             // this.onRoute()
           }}
