@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import Nav from "./global_widgets/nav"
 import Drawer from 'react-native-drawer'
 import ControlPanel from './controlPanel'
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/Ionicons';
 import Tabbar from 'react-native-tabbar'
 
 import Home from './home';
@@ -56,20 +56,23 @@ class Root extends Component {
 
   renderTabs() {
     return (
-      <View style={{ flex: 1, flexDirection: 'row', borderTopWidth: 1, borderTopColor: 'green' }}>
+      <View style={{ flex: 1, flexDirection: 'row', borderTopWidth: 1, borderTopColor: '#E9EAED' }}>
         <TouchableOpacity style={styles.tabItem} onPress={() => this.onTabSelect('post')}>
           <View>
+            <Icon name ='ios-create-outline' size={20} color="#333" style={{marginLeft: 8}}/>
             <Text>Post</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.tabItem}  onPress={() => this.onTabSelect('feed')}>
           <View>
+            <Icon name ='ios-paper-outline' size={20} color="#333" style={{marginLeft: 8}}/>
             <Text>Feed</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.tabItem}  onPress={() => this.onTabSelect('user')}>
           <View>
-            <Text>Profile</Text>
+            <Icon name ='ios-contact-outline' size={20} color="#333" style={{marginLeft: 8}}/>
+            <Text>User</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -118,7 +121,7 @@ class Root extends Component {
           <Tabbar show={true}
                 disable={false}
                 ref={(ref) => this.tabarRef = ref}
-                style={{ backgroundColor: 'red' }}>
+                style={{ backgroundColor: 'white' }}>
             {this.renderTabs()}
           </Tabbar>
         </View>
