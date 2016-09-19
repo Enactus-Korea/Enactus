@@ -4,7 +4,7 @@ import { View, Text} from 'react-native';
 class Network extends Component{
   constructor(props){
     super(props)
-    this.props.actions.changeNav('light')
+    this.props.actions.changeNav('network')
   }
   componentDidMount(){
     this.props.close()

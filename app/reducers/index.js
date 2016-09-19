@@ -53,29 +53,41 @@ return{
 }
 
 case types.CHANGE_NAV_STYLE:
+console.log("action prop :")
 console.log(action.prop)
 
-if(action.prop == "light"){
+if(action.prop == "home"){
 return {
 ...state,
-navStyle : {backgroundColor:'#fff', color:'#444'},
+navStyle: {backgroundColor:'#5e5e5e', color:'#fff'},
 navProps:{
-  name:"",
+  name:"인액터스",
   type:"menu",
   icon:"menu"
  }
 }
 }
-else if(action.prop == "dark"){
+else if(action.prop == "intro"){
   return{
     ...state,
-    navStyle: {backgroundColor:'#ff585b', color:'#fff'},
+    navStyle: {backgroundColor:'#5e5e5e', color:'#fff'},
     navProps:{
-  name:"",
+  name:"인액터스 소개",
   type:"menu",
   icon:"menu"
  }
   }
+}
+  else if(action.prop == "network"){
+    return{
+      ...state,
+      navStyle: {backgroundColor:'#5e5e5e', color:'#fff'},
+      navProps:{
+    name:"네트워크",
+    type:"menu",
+    icon:"menu"
+   }
+    }
 }
 
 

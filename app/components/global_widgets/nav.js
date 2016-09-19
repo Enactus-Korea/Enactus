@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 export default class Nav extends Component {
 constructor(props){
 	super(props)
+	console.log("props :")
 	console.log(this.props)
 }
 
@@ -22,7 +23,7 @@ menu(){
     	<TouchableOpacity onPress ={() => this.menu()}>
         <View style= {{padding:20, backgroundColor:this.props.state.navStyle.backgroundColor, flexDirection:'row'}}>
           <Icon color={this.props.state.navStyle.color} name={this.props.state.navProps.icon} size={24} />
-          <Text style={{alignSelf:'center', marginLeft:10, fontWeight:'600', color:'#444', fontSize:16}}>{this.props.state.navProps.name}</Text>
+          <Text style={{alignSelf:'center', marginLeft:10, fontWeight:'600', color:'#fff', fontSize:16}}>{this.props.state.navProps.name}</Text>
         </View>
       </TouchableOpacity>
     );

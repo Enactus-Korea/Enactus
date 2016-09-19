@@ -150,7 +150,7 @@ class Root extends Component {
         panCloseMask={0.2}
         content={<ControlPanel {...this.props} onPress = {() => this.closeControlPanel()}/>}
         >
-        <Nav {...this.props} pop = {() => this.refs.NAV} onPress = {() => this.openControlPanel()}  />
+        <Nav {...this.props} pop = {() => this.refs.NAV} name={this.props} onPress = {() => this.openControlPanel()}  />
        <Navigator
        style={{flex: 1}}
        ref={'NAV'}
