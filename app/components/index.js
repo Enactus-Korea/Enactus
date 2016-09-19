@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import Nav from "./global_widgets/nav"
 import Drawer from 'react-native-drawer'
 import ControlPanel from './controlPanel'
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/Ionicons';
 import Tabbar from 'react-native-tabbar'
 
 import Home from './home';
@@ -20,16 +20,6 @@ import Post from './post'
 import User from './user'
 import Feed from './feed'
 
-
-// import Convo from './each_convo';
-// import Inbox from './inbox';
-// import Invite from './invite';
-// import Profile from './profile';
-// import Settings from './settings';
-// import Search from './search';
-// import Trips from './trips';
-// import Wish from './wish';
-// import EachCity from './each_city';
 
 var drawerRef = {
   close: () => console.log("close"),
@@ -65,20 +55,23 @@ class Root extends Component {
   }
   renderTabs() {
     return (
-      <View style={{ flex: 1, flexDirection: 'row', borderTopWidth: 1, borderTopColor: 'green' }}>
+      <View style={{ flex: 1, flexDirection: 'row', borderTopWidth: 1, borderTopColor: '#E9EAED' }}>
         <TouchableOpacity style={styles.tabItem} onPress={() => this.onTabSelect('post')}>
           <View>
+            <Icon name ='ios-create-outline' size={20} color="#333" style={{marginLeft: 8}}/>
             <Text>Post</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.tabItem}  onPress={() => this.onTabSelect('feed')}>
           <View>
+            <Icon name ='ios-paper-outline' size={20} color="#333" style={{marginLeft: 8}}/>
             <Text>Feed</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.tabItem}  onPress={() => this.onTabSelect('user')}>
           <View>
-            <Text>Profile</Text>
+            <Icon name ='ios-contact-outline' size={20} color="#333" style={{marginLeft: 8}}/>
+            <Text>User</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -136,7 +129,7 @@ class Root extends Component {
           <Tabbar show={true}
                 disable={false}
                 ref={(ref) => this.tabarRef = ref}
-                style={{ backgroundColor: 'red' }}>
+                style={{ backgroundColor: 'white' }}>
             {this.renderTabs()}
           </Tabbar>
         </View>
@@ -185,58 +178,8 @@ class Root extends Component {
             data ={route.data}
             close = {() => this.closeControlPanel()}
             navigator={navigator} />
-
       );
     }
-    // if (routeId === 'inbox') {
-    //   return (
-    //       <Inbox
-    //           {...this.props}
-    //           data ={route.data}
-    //           close = {() => this.closeControlPanel()}
-    //           navigator={navigator} />
-    //   );
-    // }
-    // if (routeId === 'convo') {
-    //   return (
-    //       <Convo
-    //           {...this.props}
-    //           data ={route.data}
-    //           close = {() => this.closeControlPanel()}
-    //           navigator={navigator} />
-    //   );
-    // }
-    // if (routeId === 'wish') {
-    //   return (
-    //     <Wish
-    //     {...this.props}
-    //     data ={route.data}
-    //     close = {() => this.closeControlPanel()}
-    //     navigator={navigator} />
-    //     );
-    // }
-    //
-    // if (routeId === 'settings') {
-    //   return (
-    //     <Settings {...this.props}
-    //     close = {() => this.closeControlPanel()}
-    //     navigator={navigator} />
-    //     );
-    // }
-    // if (routeId === 'trips') {
-    //   return (
-    //     <Trips {...this.props}
-    //     close = {() => this.closeControlPanel()}
-    //     navigator={navigator} />
-    //     );
-    // }
-    // if (routeId === 'search') {
-    //   return (
-    //     <Search {...this.props}
-    //     close = {() => this.closeControlPanel()}
-    //     navigator={navigator} />
-    //     );
-    // }
   }
 
 
