@@ -4,9 +4,10 @@ import { View, Text} from 'react-native';
 class Network extends Component{
   constructor(props){
     super(props)
-    this.props.actions.changeNav('network')
+
   }
   componentDidMount(){
+    this.props.actions.changeNav('network')
     this.props.close()
   }
   render(){
