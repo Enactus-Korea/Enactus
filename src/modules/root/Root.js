@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import * as actions from '../feed/actions'
 import styles from '../feed/styles'
 import Panel from '../feed/components/Panel'
+import Tab from '../tab/Tab'
 import Icon from 'react-native-vector-icons/Ionicons';
 const { Header: NavigationHeader, CardStack: NavigationCardStack } = NavigationExperimental
 const NavigationHeaderBackButton = require('NavigationHeaderBackButton');
@@ -58,6 +59,7 @@ class Root extends Component {
     return true
   }
   _renderScene (props) {
+    debugger
     const { route } = props.scene
     if (route.key === 'home') {
      return (
