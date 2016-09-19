@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { View, Navigator } from 'react-native';
+import { View, Navigator, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import {bindActionCreators} from 'redux';
 import * as actions from '../actions/actions';
 import { connect } from 'react-redux';
@@ -9,7 +9,7 @@ import Nav from "./global_widgets/nav"
 import Drawer from 'react-native-drawer'
 import ControlPanel from './controlPanel'
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
+import Tabbar from 'react-native-tabbar'
 
 import Home from './home';
 import Intro from './intro';
@@ -42,6 +42,10 @@ connect(state => ({
 class Root extends Component {
   constructor(props) {
     super(props);
+    this.tabarRef = null
+    this.state = {
+      tab: 'item1'
+    }
   }
 
   componentDidMount(){
@@ -52,6 +56,47 @@ class Root extends Component {
   }
   openControlPanel(){
     drawerRef.open()
+  }
+  onTabSelect(tab) {
+    this.setState({ tab })
+  }
+  renderTabs() {
+    return (
+      <View style={{ flex: 1, flexDirection: 'row', borderTopWidth: 1, borderTopColor: 'green' }}>
+        <TouchableOpacity style={styles.tabItem} onPress={() => this.onTabSelect('item1')}>
+          <View>
+            <Text>Item 1</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.tabItem}  onPress={() => this.onTabSelect('item2')}>
+          <View>
+            <Text>Item 2</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.tabItem}  onPress={() => this.onTabSelect('item3')}>
+          <View>
+            <Text>Item 3</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+  renderContent() {
+    const { tab } = this.state
+    let content
+    switch(tab) {
+      case 'item1':
+        content = <Text>This is the content 1</Text>
+        break
+      case 'item2':
+        content = <Text>This is the content 2</Text>
+        break
+      case 'item3':
+        content = <Text>This is the content 3</Text>
+        break
+    }
+
+    return content
   }
 
   renderScene(route, navigator) {
@@ -66,7 +111,14 @@ class Root extends Component {
           {...this.props}
           userData ={route.userData}
           close = {() => this.closeControlPanel()}
-          navigator={navigator} />
+          navigator={navigator}
+          renderContent={this.renderContent()} />
+          <Tabbar show={true}
+                disable={false}
+                ref={(ref) => this.tabarRef = ref}
+                style={{ backgroundColor: 'red' }}>
+            {this.renderTabs()}
+          </Tabbar>
         </View>
       );
     }
@@ -193,6 +245,23 @@ class Root extends Component {
      );
   }
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'white'
+  },
+  scrollViewContainer: {
+    height: 1000,
+  },
+  scrollView: {
+    backgroundColor: 'yellow'
+  },
+  tabItem: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+})
 
 export default connect(state => ({
   state: state.airbnb
