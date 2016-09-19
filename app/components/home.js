@@ -14,7 +14,7 @@ class Home extends Component{
   render(){
     return(
       <View>
-        <Text>{this.props.renderContent}</Text>
+        {this.props.renderContent}
       </View>
     )
   }

@@ -57,38 +57,49 @@ console.log("action prop :")
 console.log(action.prop)
 
 if(action.prop == "home"){
-return {
-...state,
-navStyle: {backgroundColor:'#5e5e5e', color:'#fff'},
-navProps:{
-  name:"인액터스",
-  type:"menu",
-  icon:"menu"
- }
-}
-}
-else if(action.prop == "intro"){
-  return{
+  return {
     ...state,
     navStyle: {backgroundColor:'#5e5e5e', color:'#fff'},
     navProps:{
-  name:"인액터스 소개",
-  type:"menu",
-  icon:"menu"
- }
+      name:"인액터스",
+      type:"menu",
+      icon:"menu"
+     }
   }
 }
+  else if(action.prop == "intro"){
+    return{
+      ...state,
+      navStyle: {backgroundColor:'#5e5e5e', color:'#fff'},
+      navProps:{
+        name:"인액터스 소개",
+        type:"menu",
+        icon:"menu"
+      }
+    }
+  }
   else if(action.prop == "network"){
     return{
       ...state,
       navStyle: {backgroundColor:'#5e5e5e', color:'#fff'},
       navProps:{
-    name:"네트워크",
-    type:"menu",
-    icon:"menu"
-   }
+        name:"네트워크",
+        type:"menu",
+        icon:"menu"
+      }
     }
-}
+  }
+  else if(action.prop == "feed"){
+    return{
+      ...state,
+      navStyle: {backgroundColor:'#5e5e5e', color:'#fff'},
+      navProps:{
+        name:"인액터스",
+        type:"menu",
+        icon:"menu"
+      }
+    }
+  }
 
 
 
