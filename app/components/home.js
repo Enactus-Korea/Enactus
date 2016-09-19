@@ -14,7 +14,7 @@ class Home extends Component{
   render(){
     return(
       <View>
-        <Text>호호</Text>
+        <Text>{this.props.renderContent}</Text>
       </View>
     )
   }
