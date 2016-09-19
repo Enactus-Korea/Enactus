@@ -1,5 +1,5 @@
-import Util from '../assets/utils';
-import { StyleSheet, PixelRatio } from 'react-native';
+import Util from '../assets/utils'
+import { StyleSheet, PixelRatio } from 'react-native'
 
 export default StyleSheet.create({
   container:{
