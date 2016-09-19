@@ -7,10 +7,10 @@ const initialState = {
 	navColor:'#fff',
   navStyle:{backgroundColor:'#ff585b', color:'#fff', padding:20},
   userDeets: {
-  	email:"s.okoro07@gmail.com",
-  	first_name:'Samuel',
-  	last_name:'Okoro',
-  	image:'https://scontent-dft4-1.xx.fbcdn.net/v/t1.0-9/13434970_10209841206091706_4316142461215331993_n.jpg?oh=6dcd8a17df9c06adfaab46ac1e108d52&oe=58271748'
+  	email:"koeun.lee@gmail.com",
+  	first_name:'이고은',
+  	last_name:'',
+  	image:'https://scontent.xx.fbcdn.net/v/t1.0-9/67707_1218935049621_959381_n.jpg?oh=39346cf19c9ec696e915d7990e459deb&oe=586E5521'
  },
  trips: {},
  listings: {},
