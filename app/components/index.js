@@ -20,13 +20,10 @@ import Post from './post'
 import User from './user'
 import Feed from './feed'
 
-
 var drawerRef = {
   close: () => console.log("close"),
   open: () => console.log("open"),
-
 }
-
 
 connect(state => ({
  state: state.seven
@@ -44,15 +41,19 @@ class Root extends Component {
   componentDidMount(){
     drawerRef = this.refs.drawer;
   }
+
   closeControlPanel(){
     drawerRef.close()
   }
+
   openControlPanel(){
     drawerRef.open()
   }
+
   onTabSelect(tab) {
     this.setState({ tab })
   }
+
   renderTabs() {
     return (
       <View style={{ flex: 1, flexDirection: 'row', borderTopWidth: 1, borderTopColor: '#E9EAED' }}>
@@ -77,18 +78,11 @@ class Root extends Component {
       </View>
     )
   }
+
   renderContent() {
-    const { tab } = this.state
-    switch(tab) {
-      case 'post':
-        return(
-          <View>
-            <Post />
-          </View>
-        )
-        break
-      case 'feed':
-      return(
+    const { tab } = this.state;
+    if ( tab === 'feed') {
+      return (
         <View>
           <Nav {...this.props} pop = {() => this.refs.NAV} name={this.props} onPress = {() => this.openControlPanel()}  />
           <Feed
@@ -97,17 +91,15 @@ class Root extends Component {
             navigator={navigator}/>
         </View>
       )
-        break
-      case 'user':
-      return(
-        <View>
-          <User />
-        </View>
+    } else if ( tab === 'post') {
+      return (
+        <Post />
       )
-        break
+    } else if ( tab === 'user') {
+      return (
+        <User />
+      )
     }
-
-    return
   }
 
   renderScene(route, navigator) {
@@ -135,79 +127,74 @@ class Root extends Component {
         </View>
       );
     }
-      if (routeId === 'intro') {
-      return (
-        <View>
-          <Nav {...this.props} pop = {() => this.refs.NAV} name={this.props} onPress = {() => this.openControlPanel()}  />
-          <Intro
-          {...this.props}
-          data ={route.data}
-          close = {() => this.closeControlPanel()}
-          navigator={navigator} />
-        </View>
-        );
+    if (routeId === 'intro') {
+    return (
+      <View>
+        <Nav {...this.props} pop = {() => this.refs.NAV} name={this.props} onPress = {() => this.openControlPanel()}  />
+        <Intro
+        {...this.props}
+        data ={route.data}
+        close = {() => this.closeControlPanel()}
+        navigator={navigator} />
+      </View>
+      );
     }
     if (routeId === 'network') {
       return (
         <View>
           <Nav {...this.props} pop = {() => this.refs.NAV} name={this.props} onPress = {() => this.openControlPanel()}  />
           <Network
-              {...this.props}
-              data ={route.data}
-              close = {() => this.closeControlPanel()}
-              navigator={navigator} />
+            {...this.props}
+            data ={route.data}
+            close = {() => this.closeControlPanel()}
+            navigator={navigator} />
         </View>
-
       );
     }
     if (routeId === 'search') {
       return (
-
-          <Search
-              {...this.props}
-              data ={route.data}
-              close = {() => this.closeControlPanel()}
-              navigator={navigator} />
-
+        <Search
+          {...this.props}
+          data ={route.data}
+          close = {() => this.closeControlPanel()}
+          navigator={navigator} />
       );
     }
     if (routeId === 'notification') {
       return (
         <Notification
-            {...this.props}
-            data ={route.data}
-            close = {() => this.closeControlPanel()}
-            navigator={navigator} />
+          {...this.props}
+          data ={route.data}
+          close = {() => this.closeControlPanel()}
+          navigator={navigator} />
       );
     }
   }
-
 
   render() {
     const { state, actions } = this.props;
     console.log(this.props)
     return (
-
       <View style ={{flex:1}}>
-       <Drawer
-        ref = "drawer"
-        tapToClose={true}
-        type="overlay"
-        tapToClose={true}
-        openDrawerOffset={0.2}
-        panCloseMask={0.2}
-        content={<ControlPanel {...this.props} onPress = {() => this.closeControlPanel()}/>}
-        >
-       <Navigator
-       style={{flex: 1}}
-       ref={'NAV'}
-       initialRoute={{id: 'home', name: 'home'}}
-       renderScene={this.renderScene.bind(this)}/>
-     </Drawer>
+        <Drawer
+          ref = "drawer"
+          tapToClose={true}
+          type="overlay"
+          tapToClose={true}
+          openDrawerOffset={0.2}
+          panCloseMask={0.2}
+          content={<ControlPanel {...this.props} onPress = {() => this.closeControlPanel()}/>}>
+           <Navigator
+           style={{flex: 1}}
+           ref={'NAV'}
+           initialRoute={{id: 'home', name: 'home'}}
+           renderScene={this.renderScene.bind(this)}/>
+        </Drawer>
      </View>
      );
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
