@@ -16,6 +16,9 @@ import Intro from './intro';
 import Network from './network';
 import Search from './search';
 import Notification from './notification';
+import Post from './post'
+import User from './user'
+import Feed from './feed'
 
 
 // import Convo from './each_convo';
@@ -44,7 +47,7 @@ class Root extends Component {
     super(props);
     this.tabarRef = null
     this.state = {
-      tab: 'item1'
+      tab: 'feed'
     }
   }
 
@@ -63,19 +66,19 @@ class Root extends Component {
   renderTabs() {
     return (
       <View style={{ flex: 1, flexDirection: 'row', borderTopWidth: 1, borderTopColor: 'green' }}>
-        <TouchableOpacity style={styles.tabItem} onPress={() => this.onTabSelect('item1')}>
+        <TouchableOpacity style={styles.tabItem} onPress={() => this.onTabSelect('post')}>
           <View>
-            <Text>Item 1</Text>
+            <Text>Post</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.tabItem}  onPress={() => this.onTabSelect('item2')}>
+        <TouchableOpacity style={styles.tabItem}  onPress={() => this.onTabSelect('feed')}>
           <View>
-            <Text>Item 2</Text>
+            <Text>Feed</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.tabItem}  onPress={() => this.onTabSelect('item3')}>
+        <TouchableOpacity style={styles.tabItem}  onPress={() => this.onTabSelect('user')}>
           <View>
-            <Text>Item 3</Text>
+            <Text>Profile</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -83,20 +86,35 @@ class Root extends Component {
   }
   renderContent() {
     const { tab } = this.state
-    let content
     switch(tab) {
-      case 'item1':
-        content = <Text>This is the content 1</Text>
+      case 'post':
+        return(
+          <View>
+            <Post />
+          </View>
+        )
         break
-      case 'item2':
-        content = <Text>This is the content 2</Text>
+      case 'feed':
+      return(
+        <View>
+          <Nav {...this.props} pop = {() => this.refs.NAV} name={this.props} onPress = {() => this.openControlPanel()}  />
+          <Feed
+            {...this.props}
+            close = {() => this.closeControlPanel()}
+            navigator={navigator}/>
+        </View>
+      )
         break
-      case 'item3':
-        content = <Text>This is the content 3</Text>
+      case 'user':
+      return(
+        <View>
+          <User />
+        </View>
+      )
         break
     }
 
-    return content
+    return
   }
 
   renderScene(route, navigator) {
@@ -106,9 +124,11 @@ class Root extends Component {
     if (routeId === 'home') {
       return (
         <View>
-          <Nav {...this.props} pop = {() => this.refs.NAV} name={this.props} onPress = {() => this.openControlPanel()}  />
           <Home
           {...this.props}
+          name={this.props}
+          onPress = {() => this.openControlPanel()}
+          pop = {() => this.refs.NAV}
           userData ={route.userData}
           close = {() => this.closeControlPanel()}
           navigator={navigator}
