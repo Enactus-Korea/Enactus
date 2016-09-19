@@ -1,6 +1,11 @@
-'use strict';
+import React, { Component } from 'react';
+import {
+  AppRegistry,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 
-import { AppRegistry } from 'react-native';
-import Enactus from './src';
+import Enactus from './app/container/indexios';
 
 AppRegistry.registerComponent('Enactus', () => Enactus);
