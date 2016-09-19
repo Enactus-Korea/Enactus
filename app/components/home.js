@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text} from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import Nav from "./global_widgets/nav"
 
 class Home extends Component{
@@ -13,9 +13,9 @@ class Home extends Component{
   }
   render(){
     return(
-      <View>
+      <ScrollView>
         {this.props.renderContent}
-      </View>
+      </ScrollView>
     )
   }
 }
