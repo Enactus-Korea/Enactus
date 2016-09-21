@@ -3,31 +3,6 @@ import { View, Text,Image,ScrollView,TouchableOpacity } from 'react-native';
 import styles from './styles'
 
 class FeedComp extends Component{
-  goDetail(feeds) {
-    this.props.state.navigator.push({id:'detail', data: feeds});
-  }
-  textEllipsis(feeds) {
-    if(this.props.content.length > 100) {
-      debbuger
-      return (
-        <View>
-          <TouchableOpacity onPress={() => this.goDetail(feeds)}>
-            <Text numberOfLines={3}>
-              {this.props.content.substring(0,100-7)} <Text style={styles.readMore}>...더보기</Text>
-            </Text>
-          </TouchableOpacity>
-        </View>
-      )
-    } else {
-      return (
-        <View>
-          <TouchableOpacity onPress={() => this.goDetail(feeds)}>
-            <Text>{this.props.content}</Text>
-          </TouchableOpacity>
-        </View>
-      )
-    }
-  }
   render(feeds){
     return(
       <View style={styles.feedListView} >
@@ -47,7 +22,7 @@ class FeedComp extends Component{
           </View>
           <View  style={styles.ctxContainer}>
               <View style={styles.txtContents}>
-              {this.textEllipsis(feeds)}</View>
+              {this.props.textEllipsis}</View>
           </View>
         </View>
         <View style={styles.likeAndComment}>

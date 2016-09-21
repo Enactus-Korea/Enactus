@@ -37,6 +37,31 @@ class Feed extends Component{
       console.error(error);
     }
   }
+  goDetail(feeds) {
+    this.props.state.navigator.replace({id:'detail', data: feeds});
+  }
+  textEllipsis(feeds) {
+    if(feeds.content.length > 100) {
+      debbuger
+      return (
+        <View>
+          <TouchableOpacity onPress={() => this.goDetail(feeds)}>
+            <Text numberOfLines={3}>
+              {feeds.content.substring(0,100-7)} <Text style={styles.readMore}>...더보기</Text>
+            </Text>
+          </TouchableOpacity>
+        </View>
+      )
+    } else {
+      return (
+        <View>
+          <TouchableOpacity onPress={() => this.goDetail(feeds)}>
+            <Text>{feeds.content}</Text>
+          </TouchableOpacity>
+        </View>
+      )
+    }
+  }
   render() {
     if(!this.state.loaded) {
       return (
@@ -61,6 +86,7 @@ class Feed extends Component{
                 content = {feeds.content}
                 likes = {feeds.likes}
                 comment = {feeds.comment}
+                textEllipsis = {this.textEllipsis(feeds)}
               />}
           />
   			</ScrollView>
