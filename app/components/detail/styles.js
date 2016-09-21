@@ -2,118 +2,39 @@ import { StyleSheet } from 'react-native';
 import Dimensions from 'Dimensions';
 
 export default StyleSheet.create({
-  feedWrapper: {
-    backgroundColor: '#f2f2f2'
-  },
-  slide1: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#9DD6EB',
-  },
-  slide2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#97CAE5',
-  },
-  slide3: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#92BBD9',
-  },
-  text: {
-    color: '#fff',
-    fontSize: 30,
-    fontWeight: 'bold',
-  },
-  notiWrapper: {
-    paddingTop: 10,
-    paddingBottom: 10,
-    backgroundColor:'#f2f2f2'
-  },
-  notiContent: {
-    backgroundColor: '#fff',
-    borderWidth: .5,
-    borderColor: '#e9e9e9'
-  },
-  notiText: {
-    flex:1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontWeight: '400'
-  },
-  flexRow: {
-    padding: 10,
-    backgroundColor: '#fff',
-    flexDirection: 'row'
-  },
-  red: {
-    color: 'red'
-  },
-  userImage: {
-    width: 40,
-    height: 40,
-    borderWidth: 1,
-    borderColor: '#e9e9e9',
-    borderRadius: 20
-  },
-  feedListView: {
-    height: 185,
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: '#e9e9e9',
+  container: {
+    height:Dimensions.get('window').height,
+    justifyContent:'space-between',
     backgroundColor: '#fff',
   },
-  feedContainer: {
-    padding: 15
+  comment:{
+    position:"absolute",
+    bottom:50,
+    left:0,
+    height:60,
+    width:Dimensions.get('window').width,
+    borderTopWidth:1,
+    borderColor:'#f3f3f3',
+    backgroundColor:'#fff',
+    flexDirection:'row'
   },
-  feedTopContainer: {
-    flexDirection: 'row'
+  commentBox:{
+    width:Dimensions.get('window').width/1.3,
+    padding: 5,
+    borderTopWidth:1,
+    borderColor:'#f3f3f3',
   },
-  feedInfoContainer: {
-    marginLeft: 10
+  activeBtn:{
+    marginVertical:5,
+    height:40,
+    width:Dimensions.get('window').width/5,
+    alignItems:"center",
+    justifyContent:"center",
+    borderRadius:5,
+    backgroundColor:"#E8B11D"
   },
-  feedUser: {
-    fontWeight: '500'
+  activeBtnText:{
+    color:"#fff",
+    fontSize:12
   },
-  feedUserUniv: {
-    color: '#a7a7a7'
-  },
-  feedUserTime: {
-    color: '#ccc'
-  },
-  ctxContainer: {
-    marginTop: 15
-  },
-  likeAndComment: {
-    flexDirection: 'row',
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderColor: '#e9e9e9',
-    backgroundColor: '#fcfcfc'
-  },
-  likeAndCommentBox: {
-    width: Dimensions.get('window').width/3,
-    padding: 15,
-    borderRightWidth: 1,
-    borderColor: '#e9e9e9'
-  },
-  shareText: {
-    width: Dimensions.get('window').width/3,
-    padding: 15,
-  },
-  textAlign: {
-    textAlign: 'center',
-    color: '#bfbfbf',
-    fontWeight: '500'
-  },
-  spaceBetween: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-  readMore: {
-    color: '#d6d6d6'
-  }
 })

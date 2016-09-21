@@ -60,10 +60,7 @@ export default StyleSheet.create({
     borderRadius: 20
   },
   feedListView: {
-    height: 185,
     marginBottom: 10,
-    borderWidth: 1,
-    borderColor: '#e9e9e9',
     backgroundColor: '#fff',
   },
   feedContainer: {

@@ -63,6 +63,7 @@ class Feed extends Component{
     }
   }
   render() {
+    debugger
     if(!this.state.loaded) {
       return (
         <View style={styles.feedWrapper}>
