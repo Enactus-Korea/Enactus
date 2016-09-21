@@ -1,8 +1,8 @@
 package com.enactus;
 
 import com.facebook.react.ReactActivity;
-import com.imagepicker.ImagePickerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.imagepicker.ImagePickerPackage;
 
 public class MainActivity extends ReactActivity {
 

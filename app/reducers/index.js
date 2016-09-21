@@ -47,10 +47,11 @@ return {
 };
 
 case types.NAV_TO_POP:
-return{
-  ...state,
-  navProps: {name:action.name, type:"pop", icon:'arrow-back'}
-}
+  return{
+    ...state,
+    navProps: {name:action.name, type:"pop", icon:'arrow-back', data:"testestestset"}
+  }
+
 
 case types.CHANGE_NAV_STYLE:
 console.log("action prop :")
@@ -100,11 +101,6 @@ if(action.prop == "home"){
       }
     }
   }
-
-
-
-
-
 
 default:
 return state;

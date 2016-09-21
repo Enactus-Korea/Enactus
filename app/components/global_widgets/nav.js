@@ -16,7 +16,7 @@ menu(){
     this.props.onPress();
 
   } else if(this.props.state.navProps.type == "pop"){
-    this.props.state.navigator.push({id:'feed'});
+    this.props.state.navigator.replace({id:'home'});
   }
 }
 

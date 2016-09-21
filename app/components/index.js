@@ -18,7 +18,8 @@ import Search from './search';
 import Notification from './notification';
 import Post from './post'
 import User from './user'
-import Feed from './feed'
+import Feed from './feed/index'
+import Detail from './detail/index'
 
 var drawerRef = {
   close: () => console.log("close"),
@@ -167,6 +168,18 @@ class Root extends Component {
           data ={route.data}
           close = {() => this.closeControlPanel()}
           navigator={navigator} />
+      );
+    }
+    if (routeId === 'detail') {
+      return (
+        <View>
+          <Nav {...this.props} pop = {() => this.refs.NAV} name={this.props} onPress = {() => this.openControlPanel()}  />
+          <Detail
+            {...this.props}
+            data ={route.data}
+            close = {() => this.closeControlPanel()}
+            navigator={navigator} />
+        </View>
       );
     }
   }
