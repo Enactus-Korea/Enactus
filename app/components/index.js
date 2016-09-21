@@ -18,7 +18,7 @@ import Search from './search';
 import Notification from './notification';
 import Post from './post'
 import User from './user'
-import Feed from './feed/index'
+import Feed from './feed/Feed'
 import Detail from './detail/index'
 
 var drawerRef = {
