@@ -21,8 +21,12 @@ class FeedComp extends Component{
           <Text style={styles.feedUserTime}>{this.props.posted}</Text>
           </View>
           <View  style={styles.ctxContainer}>
-              <View style={styles.txtContents}>
-              {this.props.textEllipsis}</View>
+            <View style= {styles.txtContents}>
+              <Text>{this.props.children}</Text>
+            </View>
+            <View style= {styles.txtContents}>
+              {this.props.textEllipsis}
+            </View>
           </View>
         </View>
         <View style={styles.likeAndComment}>
@@ -40,5 +44,16 @@ class FeedComp extends Component{
     )
   }
 }
+// {this.props.textEllipsis === true
+//   ?
+//   <View style= {styles.txtContents}>
+//     {this.props.textEllipsis}
+//   </View>
+//   :
+//   <View style= {styles.txtContents}>
+//     <Text>{this.props.content}</Text>
+//   </View>
+// }
+
 
 export default FeedComp
