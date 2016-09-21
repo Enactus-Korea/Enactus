@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Image, TextInput, Text, CameraRoll, View,TouchableHighlight,TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles'
-import ImagePicker from 'react-native-image-picker'
+// import ImagePicker from 'react-native-image-picker'
 
 class Post extends Component{
   constructor(props){
@@ -38,46 +38,46 @@ class Post extends Component{
       console.log(formErrors)
     }
   }
-  selectPhotoTapped() {
-  const options = {
-      quality: 1.0,
-      maxWidth: 500,
-      maxHeight: 500,
-      storageOptions: {
-        skipBackup: true
-      }
-    }
-    ImagePicker.showImagePicker(options, (response) => {
-        console.log('Response = ', response);
-
-        if (response.didCancel) {
-          console.log('User cancelled photo picker');
-        }
-        else if (response.error) {
-          console.log('ImagePicker Error: ', response.error);
-        }
-        else if (response.customButton) {
-          console.log('User tapped custom button: ', response.customButton);
-        }
-        else {
-          var source;
-
-          // You can display the image using either:
-          //source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
-
-          //Or:
-          if (Platform.OS === 'android') {
-            source = {uri: response.uri, isStatic: true};
-          } else {
-            source = {uri: response.uri.replace('file://', ''), isStatic: true};
-          }
-
-          this.setState({
-            avatarSource: source
-          });
-        }
-      })
-  }
+  // selectPhotoTapped() {
+  // const options = {
+  //     quality: 1.0,
+  //     maxWidth: 500,
+  //     maxHeight: 500,
+  //     storageOptions: {
+  //       skipBackup: true
+  //     }
+  //   }
+  //   ImagePicker.showImagePicker(options, (response) => {
+  //       console.log('Response = ', response);
+  //
+  //       if (response.didCancel) {
+  //         console.log('User cancelled photo picker');
+  //       }
+  //       else if (response.error) {
+  //         console.log('ImagePicker Error: ', response.error);
+  //       }
+  //       else if (response.customButton) {
+  //         console.log('User tapped custom button: ', response.customButton);
+  //       }
+  //       else {
+  //         var source;
+  //
+  //         // You can display the image using either:
+  //         //source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
+  //
+  //         //Or:
+  //         if (Platform.OS === 'android') {
+  //           source = {uri: response.uri, isStatic: true};
+  //         } else {
+  //           source = {uri: response.uri.replace('file://', ''), isStatic: true};
+  //         }
+  //
+  //         this.setState({
+  //           avatarSource: source
+  //         });
+  //       }
+  //     })
+  // }
   render(){
     return(
       <View style={styles.container}>
