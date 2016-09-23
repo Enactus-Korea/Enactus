@@ -133,7 +133,6 @@ class Root extends Component {
           <Home
           {...this.props}
           name={this.props}
-          onPress = {() => this.openControlPanel()}
           pop = {() => this.refs.NAV}
           userData ={route.userData}
           close = {() => this.closeControlPanel()}
@@ -230,7 +229,9 @@ class Root extends Component {
            style={{flex: 1}}
            ref={'NAV'}
            initialRoute={{id: 'home', name: 'home'}}
-           renderScene={this.renderScene.bind(this)}/>
+           renderScene={this.renderScene.bind(this)}
+           configureScene={(route, routeStack) =>
+             Navigator.SceneConfigs.HorizontalSwipeJump}/>
            {this.renderModal()}
         </Drawer>
      </View>
