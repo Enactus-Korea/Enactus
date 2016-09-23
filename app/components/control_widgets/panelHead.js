@@ -14,9 +14,8 @@ export default class UserBlock extends Component {
 
   render() {
     return(
-
       <View>
-      {this.props.state.userDeets === true ?
+      {this.props.state.userDeets.email.length > 0 ?
         <View style={{flexDirection:'row', paddingTop:15, backgroundColor:'#5e5e5e'}}>
           <Image source ={{uri : this.props.state.userDeets.image}} resizeMode="contain" style={{margin:15, width:60, height:60, borderRadius:30}} />
           <View style ={{justifyContent:'center', margin:15}}>

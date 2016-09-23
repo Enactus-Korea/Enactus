@@ -19,7 +19,8 @@ const initialState = {
   name:"",
   type:"menu",
   icon:"menu"
- }
+}
+
 
 };
 
