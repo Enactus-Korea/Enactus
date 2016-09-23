@@ -8,10 +8,6 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
   },
   comment:{
-    position:"absolute",
-    bottom:50,
-    left:0,
-    height:60,
     width:Dimensions.get('window').width,
     borderTopWidth:1,
     borderColor:'#f3f3f3',

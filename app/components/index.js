@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { View, Navigator, TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { View, Navigator, TouchableOpacity, StyleSheet, Text, TouchableHighlight, Modal } from 'react-native';
 import {bindActionCreators} from 'redux';
 import * as actions from '../actions/actions';
 import { connect } from 'react-redux';
@@ -35,7 +35,8 @@ class Root extends Component {
     super(props);
     this.tabarRef = null
     this.state = {
-      tab: 'feed'
+      tab: 'feed',
+      modalVisible: false
     }
   }
 
@@ -55,10 +56,29 @@ class Root extends Component {
     this.setState({ tab })
   }
 
+  setModalVisible(visible) {
+    // post.js에서 param이 넘어올 때, bind(this)에 담겨서 넘어온다.
+    this.setState({modalVisible: visible});
+  }
+
+  renderModal() {
+    return(
+      <Modal
+        animationType={"slide"}
+        transparent={false}
+        visible={this.state.modalVisible}
+        onRequestClose={() => {alert("Modal has been closed.")}}
+        >
+        <Post
+          setModalVisible={this.setModalVisible.bind(this)}/>
+      </Modal>
+    )
+  }
+
   renderTabs() {
     return (
       <View style={{ flex: 1, flexDirection: 'row', borderTopWidth: 1, borderTopColor: '#E9EAED' }}>
-        <TouchableOpacity style={styles.tabItem} onPress={() => this.onTabSelect('post')}>
+        <TouchableOpacity style={styles.tabItem} onPress={() => this.setModalVisible(true)}>
           <View>
             <Icon name ='ios-create-outline' size={20} color="#333" style={{marginLeft: 8}}/>
             <Text>Post</Text>
@@ -182,6 +202,15 @@ class Root extends Component {
         </View>
       );
     }
+    if (routeId === 'Post') {
+      return (
+        <Post
+          {...this.props}
+          data ={route.data}
+          close = {() => this.closeControlPanel()}
+          navigator={navigator} />
+      );
+    }
   }
 
   render() {
@@ -202,6 +231,7 @@ class Root extends Component {
            ref={'NAV'}
            initialRoute={{id: 'home', name: 'home'}}
            renderScene={this.renderScene.bind(this)}/>
+           {this.renderModal()}
         </Drawer>
      </View>
      );

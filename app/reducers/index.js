@@ -49,7 +49,7 @@ return {
 case types.NAV_TO_POP:
   return{
     ...state,
-    navProps: {name:action.name, type:"pop", icon:'arrow-back', data:"testestestset"}
+    navProps: {name:action.name, type:"pop", icon:'arrow-back'}
   }
 
 
