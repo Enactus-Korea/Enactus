@@ -25,45 +25,7 @@ class Feed extends Component{
     this.fetchData();
   }
 
-	async fetchData(){
-    try {
-      let response = await fetch(REQUEST_URL);
-      let responseJson = await response.json();
-      return this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(responseJson.feed),
-        loaded: true
-      })
-    } catch(error) {
-      console.error(error);
-    }
-  }
-  goDetail(feeds) {
-    this.props.state.navigator.replace({id:'detail', data: feeds});
-  }
-  textEllipsis(feeds) {
-    if(feeds.content.length > 100) {
-      debbuger
-      return (
-        <View>
-          <TouchableOpacity onPress={() => this.goDetail(feeds)}>
-            <Text numberOfLines={3}>
-              {feeds.content.substring(0,100-7)} <Text style={styles.readMore}>...더보기</Text>
-            </Text>
-          </TouchableOpacity>
-        </View>
-      )
-    } else {
-      return (
-        <View>
-          <TouchableOpacity onPress={() => this.goDetail(feeds)}>
-            <Text>{feeds.content}</Text>
-          </TouchableOpacity>
-        </View>
-      )
-    }
-  }
   render() {
-    debugger
     if(!this.state.loaded) {
       return (
         <View style={styles.feedWrapper}>
@@ -93,6 +55,43 @@ class Feed extends Component{
   			</ScrollView>
       </View>
     )
+  }
+
+	async fetchData(){
+    try {
+      let response = await fetch(REQUEST_URL);
+      let responseJson = await response.json();
+      return this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(responseJson.feed),
+        loaded: true
+      })
+    } catch(error) {
+      console.error(error);
+    }
+  }
+  goDetail(feeds) {
+    this.props.state.navigator.replace({id:'detail', data: feeds});
+  }
+  textEllipsis(feeds) {
+    if(feeds.content.length > 100) {
+      return (
+        <View>
+          <TouchableOpacity onPress={() => this.goDetail(feeds)}>
+            <Text numberOfLines={3}>
+              {feeds.content.substring(0,100-7)} <Text style={styles.readMore}>...더보기</Text>
+            </Text>
+          </TouchableOpacity>
+        </View>
+      )
+    } else {
+      return (
+        <View>
+          <TouchableOpacity onPress={() => this.goDetail(feeds)}>
+            <Text>{feeds.content}</Text>
+          </TouchableOpacity>
+        </View>
+      )
+    }
   }
 }
 

@@ -17,7 +17,7 @@ class Detail extends Component{
   }
   render(){
     return(
-      <View style={styles.container}>
+      <View >
         <FeedComp
           {...this.props}
           username = {this.state.feed.username}
@@ -31,7 +31,7 @@ class Detail extends Component{
         <View>
           {this.state.feed.comment.map((key, i) => {
               return(
-                <View style={{flexDirection:'row'}}key={i}>
+                <View style={{flexDirection:'row'}} key={i}>
                   <Text>{key.c_username} : </Text>
                   <Text>{key.c_usercmt}</Text>
                 </View>

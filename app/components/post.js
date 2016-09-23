@@ -12,9 +12,11 @@ class Post extends Component{
       userimg: 'Avatar',
       content: '',
       avatarSource: null,
+      modalVisible: true
       // imageSource: '', =>  prop 이상하다고 오류 메시지 생김
     }
   }
+
   async onPostPressed() {
     try {
       let response = await fetch('http://localhost:9000/feed',{
@@ -40,6 +42,11 @@ class Post extends Component{
   render(){
     return(
       <View style={styles.container}>
+          <TouchableHighlight onPress={() => {
+            this.props.setModalVisible(false);
+          }}>
+            <Text>Hide Modal</Text>
+          </TouchableHighlight>
         <View style={styles.iconContainer}>
           <Image style={styles.icon} source={require('../assets/user.png')}></Image>
           <View style={styles.InfoContainer}>
