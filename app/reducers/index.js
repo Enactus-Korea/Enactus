@@ -2,7 +2,6 @@ import * as types from '../actions/actionTypes';
 import * as actions from '../actions/actions';
 import React, {Component, ScrollView, Text, View, Image, Dimensions } from 'react-native';
    var userData;
-   var user;
 
 const requestUserURL = "http://localhost:9000/user";
 
@@ -36,6 +35,8 @@ export function airbnb(state = initialState, action = {}) {
         ...state,
         userDatas:userData
       };
+
+
 
     case types.NAV:
       return {
@@ -142,13 +143,13 @@ export function airbnb(state = initialState, action = {}) {
       })
       .then((response) => response.json())
       .then((responseData) => {
-        userData = responseData;
+        const user = responseData;
         debugger;
         return {
           ...state,
           userDatas: {
-            email: userData.userEmail,
-            userName: userData.userName
+            email: user.userEmail,
+            userName: user.userName
          }
         }
       })

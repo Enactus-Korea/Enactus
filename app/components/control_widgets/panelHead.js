@@ -13,8 +13,6 @@ export default class UserBlock extends Component {
   }
 
   componentDidMount() {
-    this.props.actions.getUserInfo(DeviceInfo.getUniqueID());
-    debugger;
   }
 
   render() {
