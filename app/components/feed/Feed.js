@@ -25,6 +25,15 @@ class Feed extends Component{
     this.fetchData();
   }
 
+	async fetchData(){
+    let response = await fetch(REQUEST_URL);
+    let responseJson = await response.json();
+    return this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(responseJson.feed),
+      loaded: true
+    })
+  }
+
   render() {
     if(!this.state.loaded) {
       return (
@@ -57,18 +66,6 @@ class Feed extends Component{
     )
   }
 
-	async fetchData(){
-    try {
-      let response = await fetch(REQUEST_URL);
-      let responseJson = await response.json();
-      return this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(responseJson.feed),
-        loaded: true
-      })
-    } catch(error) {
-      console.error(error);
-    }
-  }
   goDetail(feeds) {
     this.props.state.navigator.replace({id:'detail', data: feeds});
   }
