@@ -1,15 +1,24 @@
 'use strict';
 
-import React, { Component } from 'react';
-import { View, Navigator, TouchableOpacity, StyleSheet, Text, TouchableHighlight, Modal } from 'react-native';
-import {bindActionCreators} from 'redux';
-import * as actions from '../actions/actions';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import {
+  View,
+  Navigator,
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  Modal
+} from 'react-native';
+import { bindActionCreators } from 'redux'
+import * as actions from '../actions/actions'
+import { connect } from 'react-redux'
 import Nav from "./global_widgets/nav"
 import Drawer from 'react-native-drawer'
 import ControlPanel from './controlPanel'
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons'
 import Tabbar from 'react-native-tabbar'
+import DeviceInfo from 'react-native-device-info'
 
 import Home from './home';
 import Intro from './intro';
@@ -26,10 +35,6 @@ var drawerRef = {
   open: () => console.log("open"),
 }
 
-connect(state => ({
- state: state.seven
-}));
-
 class Root extends Component {
   constructor(props) {
     super(props);
@@ -42,6 +47,7 @@ class Root extends Component {
 
   componentDidMount(){
     drawerRef = this.refs.drawer;
+    this.props.actions.getUserInfo(DeviceInfo.getUniqueID());
   }
 
   closeControlPanel(){

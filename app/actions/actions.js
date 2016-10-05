@@ -9,6 +9,7 @@ export function login(navProps, res) {
     data: res
   };
 }
+
 export function setNav(nav) {
   console.log(nav)
   return {
@@ -26,15 +27,25 @@ export function changeNav(propz){
 }
 
 export function navToPop(propz){
+  debugger;
   console.log(propz)
   return{
   type: types.NAV_TO_POP,
   name: propz
   }
 }
+
 export function navigate(id){
   return {
     type: types.NAVTO,
     props : id
+  }
+}
+
+export function getUserInfo(uuid) {
+  console.log(uuid);
+  return {
+    type: types.GET_USER_INFO,
+    id: uuid
   }
 }
