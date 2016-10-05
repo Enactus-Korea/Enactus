@@ -45,12 +45,30 @@ class Root extends Component {
     }
   }
 
-  componentDidMount(){
-    drawerRef = this.refs.drawer;
-    this.props.actions.getUserInfo(DeviceInfo.getUniqueID());
+  componentWillMount() {
+    fetch('http://localhost:9000/user/getUser', {
+      method: 'POST',
+      headers:
+        {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+      body: JSON.stringify({
+        uuid: DeviceInfo.getUniqueID()
+      })
+    })
+    .then((response) => response.json())
+    .then((responseData) => {
+      const user = responseData;
+      this.props.actions.getUserInfo(user);
+    });
   }
 
-  closeControlPanel(){
+  componentDidMount(){
+    drawerRef = this.refs.drawer;
+  }
+
+  closeControlPanel (){
     drawerRef.close()
   }
 
@@ -104,29 +122,6 @@ class Root extends Component {
         </TouchableOpacity>
       </View>
     )
-  }
-
-  renderContent() {
-    const { tab } = this.state;
-    if ( tab === 'feed') {
-      return (
-        <View>
-          <Nav {...this.props} pop = {() => this.refs.NAV} name={this.props} onPress = {() => this.openControlPanel()}  />
-          <Feed
-            {...this.props}
-            close = {() => this.closeControlPanel()}
-            navigator={navigator}/>
-        </View>
-      )
-    } else if ( tab === 'post') {
-      return (
-        <Post />
-      )
-    } else if ( tab === 'user') {
-      return (
-        <User />
-      )
-    }
   }
 
   renderScene(route, navigator) {
@@ -215,6 +210,30 @@ class Root extends Component {
           close = {() => this.closeControlPanel()}
           navigator={navigator} />
       );
+    }
+  }
+
+  renderContent() {
+    const { state, actions } = this.props;
+    const { tab } = this.state;
+    if ( tab === 'feed') {
+      return (
+        <View>
+          <Nav {...this.props} pop = {() => this.refs.NAV} name={this.props} onPress = {() => this.openControlPanel()}  />
+          <Feed
+            {...this.props}
+            close = {() => this.closeControlPanel()}
+            navigator={navigator}/>
+        </View>
+      )
+    } else if ( tab === 'post') {
+      return (
+        <Post {...this.props} />
+      )
+    } else if ( tab === 'user') {
+      return (
+        <User />
+      )
     }
   }
 

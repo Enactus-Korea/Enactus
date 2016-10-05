@@ -129,30 +129,16 @@ export function airbnb(state = initialState, action = {}) {
     }
 
     case types.GET_USER_INFO:
-      console.log('actionID : ' + action.id)
-      fetch(requestUserURL+'/getUser', {
-        method: 'POST',
-        headers:
-          {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-        body: JSON.stringify({
-          uuid: action.id
-        })
-      })
-      .then((response) => response.json())
-      .then((responseData) => {
-        const user = responseData;
-        debugger;
+      // console.log('actionID : ' + action.id)
+      console.log('actionData : ');
+      console.log( action.data);
         return {
           ...state,
           userDatas: {
-            email: user.userEmail,
-            userName: user.userName
+            email: action.data.userEmail,
+            userName: action.data.userName
          }
         }
-      })
 
     default:
       return state;
