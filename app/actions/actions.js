@@ -27,7 +27,6 @@ export function changeNav(propz){
 }
 
 export function navToPop(propz){
-  debugger;
   console.log(propz)
   return{
   type: types.NAV_TO_POP,
@@ -42,10 +41,10 @@ export function navigate(id){
   }
 }
 
-export function getUserInfo(uuid) {
-  console.log(uuid);
+export function getUserInfo(data) {
+  console.log(data);
   return {
     type: types.GET_USER_INFO,
-    id: uuid
+    data: data
   }
 }

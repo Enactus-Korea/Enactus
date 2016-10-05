@@ -6,9 +6,8 @@ import styles from './styles'
 class Post extends Component{
   constructor(props){
     super(props)
+    debugger;
     this.state = {
-      username: '이유경',
-      useruniv: '명지대학교',
       userimg: 'Avatar',
       content: '',
       avatarSource: null,
@@ -27,8 +26,8 @@ class Post extends Component{
             'Content-Type': 'application/json',
           },
         body: JSON.stringify({
-          username: this.state.username,
-          useruniv: this.state.useruniv,
+          username: this.props.state.userDatas.userName,
+          useruniv: this.props.state.userDatas.email,
           userimg: this.state.userimg,
           content: this.state.content
         })
@@ -40,6 +39,7 @@ class Post extends Component{
     }
   }
   render(){
+    debugger;
     return(
       <View style={styles.container}>
           <TouchableHighlight onPress={() => {
