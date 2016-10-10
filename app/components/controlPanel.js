@@ -10,7 +10,7 @@ var eachNav = [
 {icon: "ios-chatboxes-outline", name:"Network", route:"network"},
 // {icon: "ios-navigate-outline", name:"Trips", route:"trips"},
 // {icon: "ios-heart-outline", name:"Wish List", route:"wish"},
-// {icon: "ios-person-outline", name:"Profile", route:"profile"},
+{icon: "ios-person-outline", name:"Login", route:"login"},
 // {icon: "ios-settings-outline", name:"Settings", route:"settings"},
 ]
 
