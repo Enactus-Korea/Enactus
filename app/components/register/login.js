@@ -36,8 +36,7 @@ class Login extends Component {
           },
         body: JSON.stringify({
           userEmail: this.state.useremail,
-          password: this.state.password,
-          uuid: DeviceInfo.getUniqueID()
+          password: this.state.password
         })
       })
       let res = await response.text();
