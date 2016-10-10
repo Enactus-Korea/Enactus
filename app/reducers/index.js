@@ -3,8 +3,6 @@ import * as actions from '../actions/actions';
 import React, {Component, ScrollView, Text, View, Image, Dimensions } from 'react-native';
    var userData;
 
-const requestUserURL = "http://localhost:9000/user";
-
 const initialState = {
   navColor: '#fff',
   navStyle: {
@@ -35,8 +33,6 @@ export function airbnb(state = initialState, action = {}) {
         ...state,
         userDatas:userData
       };
-
-
 
     case types.NAV:
       return {
@@ -128,17 +124,13 @@ export function airbnb(state = initialState, action = {}) {
       }
     }
 
-    // case types.GET_USER_INFO:
-    //   // console.log('actionID : ' + action.id)
-    //   console.log('actionData : ');
-    //   console.log( action.data);
-    //     return {
-    //       ...state,
-    //       userDatas: {
-    //         email: action.data.userEmail,
-    //         userName: action.data.userName
-    //      }
-    //     }
+    case types.GET_USER_INFO:
+      console.log('actionData : ');
+      console.log( action.data);
+      return Object.assign({}, state, {
+          ...state,
+          userDatas: action.data
+        })
 
     default:
       return state;
