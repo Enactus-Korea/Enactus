@@ -15,10 +15,14 @@ class Login extends Component {
       errors:[],
     }
   }
+  componentDidMount(){
+    // this.props.actions.changeNav('login')
+    this.props.close()
+  }
   render() {
     return (
       <View style={styles.container}>
-        <Image style={styles.logo} source={require('../../Assets/logo-gray.png')} resizeMode='contain' />
+        <Image style={styles.logo} source={require('../../assets/logo-black.png')} resizeMode='contain' />
         <TextInput
           onChangeText={(val) => this.setState({email: val})}
           style={styles.input} placeholder="이메일"/>

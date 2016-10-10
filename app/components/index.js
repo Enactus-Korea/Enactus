@@ -27,7 +27,7 @@ import Search from './search';
 import Notification from './notification';
 import Post from './post'
 import User from './user'
-import Login from './register'
+import Login from './register/login'
 import Feed from './feed/Feed'
 import Detail from './detail/index'
 
