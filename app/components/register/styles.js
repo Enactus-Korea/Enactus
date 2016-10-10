@@ -45,4 +45,16 @@ export default StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
   },
+  activeBtn:{
+    height:35,
+    width:60,
+    alignItems:"center",
+    justifyContent:"center",
+    borderRadius:6,
+    backgroundColor:"#E8B11D"
+  },
+  activeBtnText:{
+    color:"#fff",
+    fontSize:14
+  },
 });
