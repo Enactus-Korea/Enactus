@@ -17,7 +17,6 @@ class Login extends Component {
     }
   }
   componentDidMount(){
-    this.props.actions.changeNav('login')
     this.props.close()
   }
 
@@ -42,7 +41,7 @@ class Login extends Component {
       let res = await response.text();
       let UserInfo = JSON.parse(res);
       if(UserInfo.user != null) {
-        return this.callbackSignIn()
+        return this.callbackSignIn(UserInfo.user)
       } else {
         return this.errorSignIn()
       }
@@ -52,12 +51,17 @@ class Login extends Component {
     }
   }
 
-  callbackSignIn() {
-    AlertIOS.alert('Enactus', '로그인 되었습니다', this.props.state.navigator.replace({id:'home'}))
+  callbackSignIn(info) {
+    AlertIOS.alert('Enactus', '로그인 되었습니다', this.getUserInfo(info))
   }
 
   errorSignIn() {
     AlertIOS.alert('Enactus', '이메일 또는 비밀번호를 확인하세요')
+  }
+
+  getUserInfo(info) {
+    this.props.actions.getUserInfo(info);
+    this.props.state.navigator.replace({id:'home'});
   }
 
   render() {

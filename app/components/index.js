@@ -96,6 +96,7 @@ class Root extends Component {
         onRequestClose={() => {alert("Modal has been closed.")}}
         >
         <Post
+          {...this.props}
           setModalVisible={this.setModalVisible.bind(this)}/>
       </Modal>
     )

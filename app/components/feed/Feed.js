@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ListView, Image, ScrollView,TouchableOpacity } from 'react-native';
+import { View, Text, ListView, Image, ScrollView,TouchableOpacity, RefreshControl } from 'react-native';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import FeedSlide from './FeedSlide'
@@ -15,7 +15,7 @@ class Feed extends Component{
         rowHasChanged: (row1, row2) => row1 !== row2
       }),
       loaded: false,
-			toggle: false
+			toggle: false,
 		}
   }
 

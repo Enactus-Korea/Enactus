@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
-import { Image, TextInput, Text, CameraRoll, View,TouchableHighlight,TouchableOpacity } from 'react-native';
+import { Image,
+  TextInput,
+  Text,
+  CameraRoll,
+  View,
+  TouchableHighlight,
+  TouchableOpacity,
+  AlertIOS
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles'
 
 class Post extends Component{
   constructor(props){
     super(props)
-    debugger;
     this.state = {
       userimg: 'Avatar',
       content: '',
@@ -27,19 +34,33 @@ class Post extends Component{
           },
         body: JSON.stringify({
           username: this.props.state.userDatas.userName,
-          useruniv: this.props.state.userDatas.email,
+          useruniv: this.props.state.userDatas.userUniv,
           userimg: this.state.userimg,
           content: this.state.content
         })
       })
       let res = await response.text()
+      return this.callbackPosting()
     } catch(errors) {
       let formErrors = JSON.parse(errors);
       console.log(formErrors)
     }
   }
+
+  callbackPosting() {
+    AlertIOS.alert('Enactus', '작성되었습니다', this.hideModal())
+  }
+
+  hideModal() {
+    this.setState = {
+      content: ''
+    }
+    this.props.setModalVisible(false);
+    // TODO: refreshing 추가
+  }
+
   render(){
-    debugger;
+    let userInfo = this.props.state.userDatas;
     return(
       <View style={styles.container}>
           <TouchableHighlight onPress={() => {
@@ -50,8 +71,8 @@ class Post extends Component{
         <View style={styles.iconContainer}>
           <Image style={styles.icon} source={require('../assets/user.png')}></Image>
           <View style={styles.InfoContainer}>
-            <Text style={styles.User}>이고은</Text>
-            <Text style={styles.UserUniv}>인액터스대학교</Text>
+            <Text style={styles.User}>{userInfo.userName}</Text>
+            <Text style={styles.UserUniv}>{userInfo.userUniv}</Text>
           </View>
           <Text>옵션 붙일 곳</Text>
         </View>
@@ -78,7 +99,7 @@ class Post extends Component{
           </TouchableOpacity>
         </View>
         <View style={styles.funcBtn}>
-          <TouchableOpacity style={styles.activeBtn} onPress={this.onPostPressed.bind(this)}>
+          <TouchableOpacity style={styles.activeBtn} onPress={() => this.onPostPressed()}>
             <Text style={styles.activeBtnText}>Post</Text>
           </TouchableOpacity>
         </View>
