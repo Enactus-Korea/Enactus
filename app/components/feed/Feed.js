@@ -45,23 +45,21 @@ class Feed extends Component{
     }
     return(
       <View>
-        <ScrollView style={styles.feedWrapper}>
-          <FeedSlide />
-  				<ListView
-  					dataSource={this.state.dataSource}
-  					renderRow={(feeds) =>
-              <FeedComp
-                {...this.props}
-                username = {feeds.username}
-                useruniv = {feeds.useruniv}
-                posted = {feeds.posted}
-                content = {feeds.content}
-                likes = {feeds.likes}
-                comment = {feeds.comment}
-                textEllipsis = {this.textEllipsis(feeds)}
-              />}
-          />
-  			</ScrollView>
+        <FeedSlide />
+				<ListView
+					dataSource={this.state.dataSource}
+					renderRow={(feeds) =>
+            <FeedComp
+              {...this.props}
+              username = {feeds.username}
+              useruniv = {feeds.useruniv}
+              posted = {feeds.posted}
+              content = {feeds.content}
+              likes = {feeds.likes}
+              comment = {feeds.comment}
+              textEllipsis = {this.textEllipsis(feeds)}
+            />}
+        />
       </View>
     )
   }
