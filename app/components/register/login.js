@@ -16,12 +16,20 @@ class Login extends Component {
     }
   }
   componentDidMount(){
-    // this.props.actions.changeNav('login')
+    this.props.actions.changeNav('login')
     this.props.close()
   }
+
+  goRegister() {
+    this.props.state.navigator.replace({id:'register'});
+  }
+
   render() {
     return (
       <View style={styles.container}>
+        <TouchableHighlight onPress={() => this.props.state.navigator.replace({id:'home'})}>
+          <Text>홈으로 가기</Text>
+        </TouchableHighlight>
         <Image style={styles.logo} source={require('../../assets/logo-black.png')} resizeMode='contain' />
         <TextInput
           onChangeText={(val) => this.setState({email: val})}
@@ -36,17 +44,13 @@ class Login extends Component {
         <View style={styles.findUserInfo}>
           <Text> <Text style={{color: 'blue'}}>이메일/비밀번호</Text> 찾기 </Text>
         </View>
-        <TouchableHighlight style={styles.register} onPress={this.props.onSelectRegister}>
+        <TouchableHighlight underlayColor="transparent" style={styles.register} onPress={() => this.goRegister()}>
           <Text>계정이 아직 없으신가요? 회원가입</Text>
         </TouchableHighlight>
       </View>
     );
   }
 }
-Login.propTypes = {
-	onSelectRegister: React.PropTypes.func.isRequired,
-  onSelectLogin: React.PropTypes.func.isRequired
-};
 
 // module.exports = Login;
 export default Login;

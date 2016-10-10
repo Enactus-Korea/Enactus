@@ -11,7 +11,12 @@ export default class EachNav extends Component {
     }
   }
   onRoute(){
-        this.props.state.navigator.replace({id:this.props.route})
+    if( this.props.route != 'login') {
+      this.props.state.navigator.replace({id:this.props.route})
+    } else {
+      this.props.state.navigator.push({id:this.props.route})
+    }
+
   }
   render() {
     return(
