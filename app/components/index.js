@@ -27,6 +27,7 @@ import Search from './search';
 import Notification from './notification';
 import Post from './post'
 import User from './user'
+import Login from './register'
 import Feed from './feed/Feed'
 import Detail from './detail/index'
 
@@ -188,6 +189,14 @@ class Root extends Component {
           data ={route.data}
           close = {() => this.closeControlPanel()}
           navigator={navigator} />
+      );
+    }
+    if (routeId === 'login') {
+      return (
+        <Login
+          close = {() => this.closeControlPanel()}
+          navigator={navigator}
+        />
       );
     }
     if (routeId === 'detail') {
