@@ -16,23 +16,6 @@ class Register extends Component {
       errors:[],
     }
   }
-  componentDidMount(){
-    // this.props.actions.changeNav('login')
-    this.props.close()
-  }
-  // onRegisterPressed(){
-  //   try {
-  //     let response = await fetch('http://localhost:9000/register', {
-  //       method: 'POST',
-  //       body: JSON.stringfy({
-  //
-  //       })
-  //     })
-  //
-  //   } catch(errors) {
-  //
-  //   }
-  // }
   render() {
     return (
       <View style={styles.container}>

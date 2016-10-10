@@ -13,8 +13,8 @@ const initialState = {
     padding:20
   },
   userDatas: {
-    email: "",
-    userName: "",
+    userEmail: "goeun111",
+    userName: "이고은",
     image: 'https://scontent.xx.fbcdn.net/v/t1.0-9/67707_1218935049621_959381_n.jpg?oh=39346cf19c9ec696e915d7990e459deb&oe=586E5521'
   },
   trips: {},
@@ -128,17 +128,17 @@ export function airbnb(state = initialState, action = {}) {
       }
     }
 
-    case types.GET_USER_INFO:
-      // console.log('actionID : ' + action.id)
-      console.log('actionData : ');
-      console.log( action.data);
-        return {
-          ...state,
-          userDatas: {
-            email: action.data.userEmail,
-            userName: action.data.userName
-         }
-        }
+    // case types.GET_USER_INFO:
+    //   // console.log('actionID : ' + action.id)
+    //   console.log('actionData : ');
+    //   console.log( action.data);
+    //     return {
+    //       ...state,
+    //       userDatas: {
+    //         email: action.data.userEmail,
+    //         userName: action.data.userName
+    //      }
+    //     }
 
     default:
       return state;

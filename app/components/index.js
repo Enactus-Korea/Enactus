@@ -28,6 +28,7 @@ import Notification from './notification';
 import Post from './post'
 import User from './user'
 import Login from './register/login'
+import Register from './register'
 import Feed from './feed/Feed'
 import Detail from './detail/index'
 
@@ -194,11 +195,19 @@ class Root extends Component {
     if (routeId === 'login') {
       return (
         <Login
+          {...this.props}
           close = {() => this.closeControlPanel()}
           navigator={navigator}
         />
       );
     }
+        if (routeId === 'register') {
+          return (
+            <Register
+              {...this.props}
+              navigator={navigator} />
+          );
+        }
     if (routeId === 'detail') {
       return (
         <View>
