@@ -48,23 +48,34 @@ class Root extends Component {
     }
   }
 
+  async getUser() {
+    try {
+      if(this.props.state.userDatas.userEmail.length > 0) {
+        let response = await fetch('http://localhost:9000/user/login',{
+          method: 'POST',
+          headers:
+            {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+          body: JSON.stringify({
+            userEmail: this.props.state.userDatas.useremail,
+            password: this.state.password
+          })
+        })
+        let user = await response.json().user;
+        if(user != null) {
+          return this.props.actions.getUserInfo(user);
+        }
+      }
+    } catch(errors) {
+      let formErrors = JSON.parse(errors);
+      console.log(formErrors)
+    }
+  }
+
   componentWillMount() {
-    fetch('http://localhost:9000/user/getUser', {
-      method: 'POST',
-      headers:
-        {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-      body: JSON.stringify({
-        uuid: DeviceInfo.getUniqueID()
-      })
-    })
-    .then((response) => response.json())
-    .then((responseData) => {
-      const user = responseData;
-      this.props.actions.getUserInfo(user);
-    });
+    this.getUser();
   }
 
   componentDidMount(){
