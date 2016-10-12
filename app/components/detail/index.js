@@ -7,7 +7,8 @@ class Detail extends Component{
   constructor(props){
     super(props);
     this.state = {
-      feed: props.data
+      feed: props.data,
+      comment: ''
     }
   }
 
@@ -15,6 +16,32 @@ class Detail extends Component{
     this.props.close();
     this.props.actions.navToPop('피드 상세보기');
   }
+
+  async addComment() {
+    let user = this.props.state.userDatas;
+    try {
+      let response = await fetch('http://localhost:9000/feed/addComment', {
+        method: 'POST',
+        headers:
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+        body: JSON.stringify({
+          _id: this.state.feed._id,
+          comment: {
+            c_username: user.userName,
+            c_useruniv: user.userUniv,
+            c_usercmt: this.state.comment
+          }
+        })});
+        let res = response.Json();
+        //TODO: 댓글 새로고침
+    } catch(error) {
+      console.log(JSON.parse(errors));
+    }
+  }
+
   render(){
     return(
       <View >
@@ -42,8 +69,9 @@ class Detail extends Component{
           <TextInput
             style={styles.commentBox}
             placeholder ="댓글을 적어주세요"
+            onChangeText={(comment) => this.setState({comment: comment})}
           />
-          <TouchableOpacity style={styles.activeBtn}>
+          <TouchableOpacity style={styles.activeBtn} onPress={() => this.addComment()}>
             <Text style={styles.activeBtnText}>댓글</Text>
           </TouchableOpacity>
         </View>
