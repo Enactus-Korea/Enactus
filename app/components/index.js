@@ -3,6 +3,7 @@
 import React, { Component } from 'react'
 import {
   View,
+  ScrollView,
   Navigator,
   TouchableOpacity,
   StyleSheet,
@@ -133,7 +134,8 @@ class Root extends Component {
 
     if (routeId === 'home') {
       return (
-        <View>
+        <ScrollView>
+
           <Home
           {...this.props}
           name={this.props}
@@ -148,7 +150,7 @@ class Root extends Component {
                 style={{ backgroundColor: 'white' }}>
             {this.renderTabs()}
           </Tabbar>
-        </View>
+        </ScrollView>
       );
     }
     if (routeId === 'intro') {
@@ -165,14 +167,14 @@ class Root extends Component {
     }
     if (routeId === 'network') {
       return (
-        <View>
+        <ScrollView>
           <Nav {...this.props} pop = {() => this.refs.NAV} name={this.props} onPress = {() => this.openControlPanel()}  />
           <Network
             {...this.props}
             data ={route.data}
             close = {() => this.closeControlPanel()}
             navigator={navigator} />
-        </View>
+        </ScrollView>
       );
     }
     if (routeId === 'search') {
@@ -237,13 +239,13 @@ class Root extends Component {
     const { tab } = this.state;
     if ( tab === 'feed') {
       return (
-        <View>
+        <ScrollView>
           <Nav {...this.props} pop = {() => this.refs.NAV} name={this.props} onPress = {() => this.openControlPanel()}  />
           <Feed
             {...this.props}
             close = {() => this.closeControlPanel()}
             navigator={navigator}/>
-        </View>
+        </ScrollView>
       )
     } else if ( tab === 'post') {
       return (
