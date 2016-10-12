@@ -9,6 +9,10 @@ export default StyleSheet.create({
 		flex: 1,
 		flexDirection: 'row',
 	},
+	separator: {
+		height: 0.5,
+		backgroundColor: '#C1C1C1',
+	},
 	row: {
 		alignItems: 'center',
 		backgroundColor: 'white',

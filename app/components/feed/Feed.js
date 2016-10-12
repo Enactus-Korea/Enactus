@@ -20,7 +20,9 @@ class Feed extends Component{
   }
 
   componentDidMount(){
-    this.props.actions.changeNav('feed');
+    this.props.actions.changeNav('home');
+    // this.props.actions.changeNav('feed');
+    this.props.actions.setNav(this.props.navigator);
     this.props.close();
     this.fetchData();
   }
@@ -44,10 +46,10 @@ class Feed extends Component{
       )
     }
     return(
-      <View>
-        <FeedSlide />
+
 				<ListView
 					dataSource={this.state.dataSource}
+          renderHeader={() => <FeedSlide />}
 					renderRow={(feeds) =>
             <FeedComp
               {...this.props}
@@ -60,7 +62,7 @@ class Feed extends Component{
               textEllipsis = {this.textEllipsis(feeds)}
             />}
         />
-      </View>
+
     )
   }
 

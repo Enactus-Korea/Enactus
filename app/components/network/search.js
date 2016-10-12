@@ -1,22 +1,33 @@
+import React from 'react';
+import { View, Text, StyleSheet, TextInput } from 'react-native';
 
-import React, { Component } from 'react';
-import { View, Text, TextInput } from 'react-native';
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#C1C1C1',
+  },
+  input: {
+    height: 30,
+    flex: 1,
+    paddingHorizontal: 8,
+    fontSize: 15,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 2,
+  },
+});
 
-class SearchPeople extends Component{
-  render(){
-    return(
-      <View style={styles.searchBar}>
-        <TextInput
-          autoCapitalize="none"
-          autoCorrect={false}
-          onChange={this.props.onSearchChange}
-          placeholder="Search beers..."
-          onFocus={this.props.onFocus}
-          style={styles.searchBarInput}
-        />
-      </View>
-    )
-  }
-}
+const SearchMember = (users) => (
+  <View style={styles.container}>
+    <TextInput
+      style={styles.input}
+      value={users.value}
+      placeholder="Search..."
+      onChangeText={users.onChange}
+    />
+  </View>
+);
 
-export default SearchPeople
+export default SearchMember;

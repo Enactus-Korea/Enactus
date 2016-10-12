@@ -7,7 +7,7 @@ class Home extends Component{
     super(props)
   }
   componentDidMount(){
-  this.props.actions.changeNav('home')
+  // this.props.actions.changeNav('home')
   this.props.actions.setNav(this.props.navigator);
   this.props.close();
   }
