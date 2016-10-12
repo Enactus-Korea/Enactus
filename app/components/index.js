@@ -20,7 +20,7 @@ import ControlPanel from './controlPanel'
 import Icon from 'react-native-vector-icons/Ionicons'
 import Tabbar from 'react-native-tabbar'
 import DeviceInfo from 'react-native-device-info'
-
+import Dimensions from 'Dimensions';
 import Home from './home';
 import Intro from './intro';
 import Network from './network';
@@ -32,6 +32,7 @@ import Login from './register/login'
 import Register from './register'
 import Feed from './feed/Feed'
 import Detail from './detail/index'
+import SafariView from 'react-native-safari-view'
 
 var drawerRef = {
   close: () => console.log("close"),
@@ -80,6 +81,11 @@ class Root extends Component {
 
   componentDidMount(){
     drawerRef = this.refs.drawer;
+    this.dismissSubscription = () => {
+      console.log("SafariView onDismiss");
+      this.props.state.navigator.replace({id:'home'})
+    };
+    SafariView.addEventListener("onDismiss", this.dismissSubscription);
   }
 
   closeControlPanel (){
@@ -138,7 +144,24 @@ class Root extends Component {
       </View>
     )
   }
-
+  _pressIntro() {
+    SafariView.isAvailable()
+      .then(SafariView.show({
+        url: "http://blog.naver.com/enactusblog/220208208280"
+      }))
+      .catch(error => {
+        // Fallback WebView code for iOS 8 and earlier
+      });
+  }
+  _pressArchive() {
+    SafariView.isAvailable()
+      .then(SafariView.show({
+        url: "http://enactuskorea.org/goarchive"
+      }))
+      .catch(error => {
+        // Fallback WebView code for iOS 8 and earlier
+      });
+  }
   renderScene(route, navigator) {
     var {state,actions} = this.props;
     var routeId = route.id;
@@ -146,7 +169,6 @@ class Root extends Component {
     if (routeId === 'home') {
       return (
         <ScrollView>
-
           <Home
           {...this.props}
           name={this.props}
@@ -155,7 +177,9 @@ class Root extends Component {
           close = {() => this.closeControlPanel()}
           navigator={navigator}
           renderContent={this.renderContent()} />
-          <Tabbar show={true}
+          <Tabbar
+
+                show={true}
                 disable={false}
                 ref={(ref) => this.tabarRef = ref}
                 style={{ backgroundColor: 'white' }}>
@@ -166,14 +190,12 @@ class Root extends Component {
     }
     if (routeId === 'intro') {
     return (
-      <View>
-        <Nav {...this.props} pop = {() => this.refs.NAV} name={this.props} onPress = {() => this.openControlPanel()}  />
-        <Intro
-        {...this.props}
-        data ={route.data}
-        close = {() => this.closeControlPanel()}
-        navigator={navigator} />
-      </View>
+        this._pressIntro()
+      );
+    }
+    if (routeId === 'archive') {
+    return (
+        this._pressArchive()
       );
     }
     if (routeId === 'network') {
@@ -234,15 +256,7 @@ class Root extends Component {
         </View>
       );
     }
-    if (routeId === 'Post') {
-      return (
-        <Post
-          {...this.props}
-          data ={route.data}
-          close = {() => this.closeControlPanel()}
-          navigator={navigator} />
-      );
-    }
+
   }
 
   renderContent() {
@@ -250,13 +264,13 @@ class Root extends Component {
     const { tab } = this.state;
     if ( tab === 'feed') {
       return (
-        <ScrollView>
+        <View>
           <Nav {...this.props} pop = {() => this.refs.NAV} name={this.props} onPress = {() => this.openControlPanel()}  />
           <Feed
             {...this.props}
             close = {() => this.closeControlPanel()}
             navigator={navigator}/>
-        </ScrollView>
+        </View>
       )
     } else if ( tab === 'post') {
       return (
@@ -302,10 +316,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   scrollViewContainer: {
-    height: 1000,
-  },
-  scrollView: {
-    backgroundColor: 'yellow'
+    height:1000
   },
   tabItem: {
     flex: 1,

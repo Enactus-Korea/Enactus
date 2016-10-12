@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, ListView, Image, ScrollView,TouchableOpacity } from 'react-native';
-import Swiper from 'react-native-swiper';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import PeopleCell from './peopleCell'
+import { View, Text, ListView, Image, ScrollView,TextInput,TouchableOpacity } from 'react-native';
+import MemberRow from './memberRow'
+import Search from './search'
 import styles from './styles'
 
 const REQUEST_URL = "http://localhost:9000/user";
@@ -15,7 +14,8 @@ class Network extends Component{
         rowHasChanged: (row1, row2) => row1 !== row2
       }),
       loaded: false,
-			toggle: false
+			toggle: false,
+      searchText:"",
 		}
   }
 
@@ -24,34 +24,34 @@ class Network extends Component{
     this.props.close();
     this.fetchData();
   }
+  setSearchText(event){
+    const searchText = event.nativeEvent.text;
+    this.setState({searchText});
+    userLength= this.state.users.length
+    aUser = this.state.movies
 
+    const filteredUsers = this.state.users.filter(checkName)
+    function checkName() {
+          for(i=0;i<userLength;i++){
+            if(aUser[i].title === searchText){
+              console.log("found:  " + aUser[i].userName);
+              return aUser[i];
+            }
+          }
+      }
+    this.setState({
+        searchText,
+        dataSource: this.state.dataSource.cloneWithRows(filteredMovies),
+    })
+  }
   async fetchData(){
     let response = await fetch(REQUEST_URL);
     let responseJson = await response.json();
     return this.setState({
       dataSource: this.state.dataSource.cloneWithRows(responseJson.users),
-      loaded: true
+      loaded: true,
+      users: responseJson.users,
     })
-  }
-  renderMember(user){
-    return(
-      <View>
-        <TouchableOpacity>
-          <View style={styles.textContainer}>
-            <View style={styles.row}>
-              <View style={{flex: 0, justifyContent: 'flex-end'}}>
-                <Image source={require('../../assets/user.png')} style={styles.userImage}/>
-              </View>
-              <View style={{flex: 1}}>
-                <Text style={styles.userName} numberOfLines={1} >{user.userName}</Text>
-                <Text style={styles.userUniv} numberOfLines={1} >{user.userUniv}</Text>
-              </View>
-            </View>
-          </View>
-        </TouchableOpacity>
-        <View style={styles.cellBorder} />
-      </View>
-    )
   }
   render() {
     if(!this.state.loaded) {
@@ -64,10 +64,18 @@ class Network extends Component{
     return(
   			<ListView
   				dataSource={this.state.dataSource}
-  				renderRow={this.renderMember.bind(this)}
+  				renderRow={(user) => <MemberRow {...user} />}
+          renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
+          renderHeader={(users) =>
+            <Search
+              {...users}
+              value={this.state.searchText}
+              onChange={this.setSearchText.bind(this)}
+            />}
         />
     )
   }
 }
+
 
 export default Network

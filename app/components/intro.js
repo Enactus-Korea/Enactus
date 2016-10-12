@@ -1,19 +1,27 @@
 import React, { Component } from 'react';
-import { View, Text} from 'react-native';
+import { View, Text, WebView} from 'react-native';
 
 class Intro extends Component{
   constructor(props){
     super(props)
+    this.state = {
+      scalesPageToFit: true,
+    }
   }
   componentDidMount(){
-    this.props.actions.changeNav('intro')
+    // this.props.actions.changeNav('intro')
     this.props.close()
   }
   render(){
     return(
-      <View>
-        <Text>나는 인트로다잉ㅇㅇㅇ</Text>
-      </View>
+      <WebView
+          style={{
+            backgroundColor: 'white',
+            height: 1000,
+          }}
+          source={{uri: 'https://m.facebook.com/enactuskoreapage'}}
+          scalesPageToFit={this.state.scalesPageToFit}
+        />
     )
   }
 }
