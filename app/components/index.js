@@ -30,7 +30,7 @@ import Post from './post'
 import User from './user'
 import Login from './register/login'
 import Register from './register'
-import Feed from './feed/Feed'
+import {Feed, Unknown }from './feed'
 import Detail from './detail/index'
 import SafariView from 'react-native-safari-view'
 
@@ -237,13 +237,25 @@ class Root extends Component {
         />
       );
     }
-        if (routeId === 'register') {
-          return (
-            <Register
-              {...this.props}
-              navigator={navigator} />
-          );
-        }
+    if (routeId === 'register') {
+      return (
+        <Register
+          {...this.props}
+          navigator={navigator} />
+      );
+    }
+    if (routeId === 'unknown') {
+      return (
+        <ScrollView>
+        <Nav {...this.props} pop = {() => this.refs.NAV} name={this.props} onPress = {() => this.openControlPanel()}  />
+          <Unknown
+            {...this.props}
+            close = {() => this.closeControlPanel()}
+            navigator={navigator}
+          />
+        </ScrollView>
+      );
+    }
     if (routeId === 'detail') {
       return (
         <View>

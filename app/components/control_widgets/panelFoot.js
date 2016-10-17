@@ -43,13 +43,13 @@ export default class Control extends Component {
         </View>
         <View style={styles.snsContainer} >
           <TouchableHighlight onPress={this._pressfacebook}>
-            <Image source={require('../../assets/facebook.png')} style={styles.snsIcon}/>
+            <Image source={require('../../assets/user.png')} style={styles.snsIcon}/>
           </TouchableHighlight>
           <TouchableHighlight onPress={this._pressyoutube}>
-            <Image source={require('../../assets/youtube.png')} style={styles.snsIcon} />
+            <Image source={require('../../assets/user.png')} style={styles.snsIcon} />
           </TouchableHighlight>
           <TouchableHighlight onPress={this._pressflickr}>
-            <Image source={require('../../assets/flickr.png')} style={styles.snsIcon}/>
+            <Image source={require('../../assets/user.png')} style={styles.snsIcon}/>
           </TouchableHighlight>
         </View>
       </View>

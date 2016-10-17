@@ -109,6 +109,20 @@ export function airbnb(state = initialState, action = {}) {
           }
         }
       }
+      else if(action.prop == "unknown"){
+        return {
+          ...state,
+          navStyle: {
+            backgroundColor:'#5e5e5e',
+            color:'#fff'
+          },
+          navProps:{
+          name:"대나무숲",
+          type:"menu",
+          icon:"menu"
+          }
+        }
+      }
       else if(action.prop == "feed"){
         return {
           ...state,
