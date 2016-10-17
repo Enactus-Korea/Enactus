@@ -9,6 +9,7 @@ var eachNav = [
 {icon: "ios-home-outline", name:"Home", route:"home"},
 {icon: "ios-search", name:"Intro", route:"intro"},
 {icon: "ios-chatboxes-outline", name:"Network", route:"network"},
+{icon: "ios-chatboxes-outline", name:"대나무숲", route:"unknown"},
 {icon: "md-cloud-download", name:"Archive", route:"archive"},
 {icon: "ios-person-outline", name:"Login", route:"login"},
 // {icon: "ios-settings-outline", name:"Settings", route:"settings"},
