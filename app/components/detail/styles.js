@@ -3,30 +3,29 @@ import Dimensions from 'Dimensions';
 
 export default StyleSheet.create({
   container: {
-    height:Dimensions.get('window').height,
-    justifyContent:'space-between',
-    backgroundColor: '#fff',
+    width:Dimensions.get('window').width,
+    height:Dimensions.get('window').height-100,
   },
   comment:{
     width:Dimensions.get('window').width,
     borderTopWidth:1,
     borderColor:'#f3f3f3',
-    backgroundColor:'#fff',
-    flexDirection:'row'
+    flexDirection: 'row',
   },
   commentBox:{
     width:Dimensions.get('window').width/1.3,
-    padding: 5,
+    padding:5,
     borderTopWidth:1,
     borderColor:'#f3f3f3',
+    fontSize:12,
   },
   activeBtn:{
     marginVertical:5,
-    height:40,
-    width:Dimensions.get('window').width/5,
+    height:26,
+    width:Dimensions.get('window').width/6,
     alignItems:"center",
     justifyContent:"center",
-    borderRadius:5,
+    borderRadius:3,
     backgroundColor:"#E8B11D"
   },
   activeBtnText:{
@@ -35,8 +34,9 @@ export default StyleSheet.create({
   },
   feedTopContainer: {
     flexDirection: 'row',
-    marginBottom: 10,
-    marginLeft: 10,
+    padding: 5,
+    borderBottomWidth:1,
+    borderColor:'#f3f3f3',
   },
   userImage: {
     width: 40,
@@ -49,7 +49,8 @@ export default StyleSheet.create({
     marginLeft: 10
   },
   feedUser: {
-    fontWeight: '500'
+    fontWeight: '500',
+    marginRight: 5,
   },
   feedUserUniv: {
     color: 'gray'
