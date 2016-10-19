@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text,Image,TextInput,TouchableOpacity } from 'react-native';
 import styles from './styles'
 import {FeedComp} from '../feed'
+import CommentComp from './comment'
 
 class Detail extends Component{
   constructor(props){
@@ -58,10 +59,11 @@ class Detail extends Component{
         <View>
           {this.state.feed.comment.map((key, i) => {
               return(
-                <View style={{flexDirection:'row'}} key={i}>
-                  <Text>{key.c_username} : </Text>
-                  <Text>{key.c_usercmt}</Text>
-                </View>
+                <CommentComp
+                  key={i}
+                  c_username = {key.c_username}
+                  c_usercmt = {key.c_usercmt}
+                />
               )
           })}
   			</View>
