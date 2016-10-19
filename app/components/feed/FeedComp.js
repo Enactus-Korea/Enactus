@@ -3,6 +3,9 @@ import { View, Text,Image,ScrollView,TouchableOpacity } from 'react-native';
 import styles from './styles'
 
 class FeedComp extends Component{
+  constructor(props){
+    super(props)
+  }
   render(feeds){
     return(
       <View style={styles.feedListView} >
@@ -33,7 +36,7 @@ class FeedComp extends Component{
           <View style={styles.likeAndCommentBox}>
             <Text style={styles.textAlign}>좋아요 · {this.props.likes.length}</Text>
           </View>
-          <View style={styles.likeAndCommentBox} >
+          <View>
             {this.props.goComment}
           </View>
           <View style={styles.shareText}>
@@ -44,6 +47,11 @@ class FeedComp extends Component{
     )
   }
 }
+
+// <TouchableOpacity style={styles.likeAndCommentBox} onPress={() => this.props.goComment} >
+//   <Text style={styles.textAlign}>댓글 · {this.props.comment.length}</Text>
+// </TouchableOpacity>
+
 // {this.props.textEllipsis === true
 //   ?
 //   <View style= {styles.txtContents}>

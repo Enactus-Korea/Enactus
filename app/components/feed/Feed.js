@@ -72,7 +72,7 @@ class Feed extends Component{
   }
   goComment(feeds) {
     return(
-      <TouchableOpacity onPress={() => this.goDetail(feeds)}>
+      <TouchableOpacity onPress={() => this.goDetail(feeds)} style={styles.likeAndCommentBox}>
         <Text style={styles.textAlign}>댓글 · {feeds.comment.length}</Text>
       </TouchableOpacity>
     )

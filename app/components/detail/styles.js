@@ -34,7 +34,9 @@ export default StyleSheet.create({
     fontSize:12
   },
   feedTopContainer: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginBottom: 10,
+    marginLeft: 10,
   },
   userImage: {
     width: 40,
@@ -50,6 +52,6 @@ export default StyleSheet.create({
     fontWeight: '500'
   },
   feedUserUniv: {
-    color: '#a7a7a7'
+    color: 'gray'
   },
 })
