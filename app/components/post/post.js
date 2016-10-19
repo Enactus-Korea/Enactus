@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
-import { Image,
-  TextInput,
-  Text,
-  CameraRoll,
-  View,
-  TouchableHighlight,
-  TouchableOpacity,
-  AlertIOS
-} from 'react-native';
+import { Image,TextInput, Text, CameraRoll,View,TouchableOpacity,AlertIOS} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import PostHead from './postHead'
 import styles from './styles'
 
 class Post extends Component{
@@ -58,18 +51,24 @@ class Post extends Component{
     this.props.setModalVisible(false);
     // TODO: refreshing 추가
   }
-
+  onPost(){
+    return(
+      <TouchableOpacity onPress={() => this.onPostPressed()}>
+        <Text style={styles.TextBold}>게시</Text>
+      </TouchableOpacity>
+    )
+  }
   render(){
     let userInfo = this.props.state.userDatas;
     return(
       <View style={styles.container}>
-          <TouchableHighlight onPress={() => {
-            this.props.setModalVisible(false);
-          }}>
-            <Text>Hide Modal</Text>
-          </TouchableHighlight>
+        <PostHead
+          setModalVisible = {this.props.setModalVisible}
+          onPost = {this.onPost()}
+          content = {this.state.content}
+        />
         <View style={styles.iconContainer}>
-          <Image style={styles.icon} source={require('../assets/user.png')}></Image>
+          <Image style={styles.icon} source={require('../../assets/user.png')}></Image>
           <View style={styles.InfoContainer}>
             <Text style={styles.User}>{userInfo.userName}</Text>
             <Text style={styles.UserUniv}>{userInfo.userUniv}</Text>
@@ -98,14 +97,10 @@ class Post extends Component{
             </View>
           </TouchableOpacity>
         </View>
-        <View style={styles.funcBtn}>
-          <TouchableOpacity style={styles.activeBtn} onPress={() => this.onPostPressed()}>
-            <Text style={styles.activeBtnText}>Post</Text>
-          </TouchableOpacity>
-        </View>
       </View>
     )
   }
 }
+
 
 export default Post

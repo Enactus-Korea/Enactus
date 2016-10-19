@@ -26,7 +26,7 @@ import Intro from './intro';
 import Network from './network';
 import Search from './search';
 import Notification from './notification';
-import Post from './post'
+import Post from './post/post'
 import User from './user'
 import {Login, Register} from './register'
 import {Feed, Unknown }from './feed'
