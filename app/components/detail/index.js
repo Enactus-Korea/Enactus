@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text,Image,TextInput,TouchableOpacity } from 'react-native';
+import { View, Text,Image,TextInput,TouchableOpacity,ScrollView, ListView } from 'react-native';
 import styles from './styles'
 import {FeedComp} from '../feed'
 import CommentComp from './comment'
@@ -45,28 +45,31 @@ class Detail extends Component{
 
   render(){
     return(
-      <View >
-        <FeedComp
-          {...this.props}
-          username = {this.state.feed.username}
-          useruniv = {this.state.feed.useruniv}
-          posted = {this.state.feed.posted}
-          likes = {this.state.feed.likes}
-          comment = {this.state.feed.comment}
-        >
-          {this.state.feed.content}
-        </FeedComp>
-        <View>
-          {this.state.feed.comment.map((key, i) => {
-              return(
-                <CommentComp
-                  key={i}
-                  c_username = {key.c_username}
-                  c_usercmt = {key.c_usercmt}
-                />
-              )
-          })}
-  			</View>
+      <View>
+        <ScrollView style={styles.container}>
+            <FeedComp
+              {...this.props}
+              username = {this.state.feed.username}
+              useruniv = {this.state.feed.useruniv}
+              posted = {this.state.feed.posted}
+              likes = {this.state.feed.likes}
+              comment = {this.state.feed.comment}
+            >
+              {this.state.feed.content}
+            </FeedComp>
+            <View>
+              {this.state.feed.comment.map((key, i) => {
+                  return(
+                    <CommentComp
+                      key={i}
+                      c_username = {key.c_username}
+                      c_useruniv = {key.c_useruniv}
+                      c_usercmt = {key.c_usercmt}
+                    />
+                  )
+              })}
+            </View>
+        </ScrollView>
         <View style={styles.comment}>
           <TextInput
             style={styles.commentBox}
@@ -79,9 +82,24 @@ class Detail extends Component{
         </View>
       </View>
 
+
     )
   }
 }
 
+
+
+// <ListView
+//   renderHeader={() => <FeedComp
+//     {...this.props}
+//     username = {this.state.feed.username}
+//     useruniv = {this.state.feed.useruniv}
+//     posted = {this.state.feed.posted}
+//     likes = {this.state.feed.likes}
+//     comment = {this.state.feed.comment}
+//   >
+//     {this.state.feed.content}
+//   </FeedComp>}
+// />
 
 export default Detail

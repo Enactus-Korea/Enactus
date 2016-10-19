@@ -4,6 +4,9 @@ import styles from './styles'
 
 
 class CommentComp extends Component{
+  constructor(props){
+    super(props)
+  }
   render(){
     return(
       <View style={styles.feedTopContainer}>

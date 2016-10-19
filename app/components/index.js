@@ -28,11 +28,11 @@ import Search from './search';
 import Notification from './notification';
 import Post from './post'
 import User from './user'
-import Login from './register/login'
-import Register from './register'
+import {Login, Register} from './register'
 import {Feed, Unknown }from './feed'
 import Detail from './detail/index'
 import SafariView from 'react-native-safari-view'
+const {width, height} = Dimensions.get('window')
 
 var drawerRef = {
   close: () => console.log("close"),
@@ -168,7 +168,8 @@ class Root extends Component {
 
     if (routeId === 'home') {
       return (
-        <ScrollView>
+        <View>
+        <ScrollView style={{width: width, height:height-40}}>
           <Home
           {...this.props}
           name={this.props}
@@ -177,15 +178,15 @@ class Root extends Component {
           close = {() => this.closeControlPanel()}
           navigator={navigator}
           renderContent={this.renderContent()} />
-          <Tabbar
-
-                show={true}
-                disable={false}
-                ref={(ref) => this.tabarRef = ref}
-                style={{ backgroundColor: 'white' }}>
-            {this.renderTabs()}
-          </Tabbar>
         </ScrollView>
+        <Tabbar
+          show={true}
+          disable={false}
+          ref={(ref) => this.tabarRef = ref}
+          style={{ backgroundColor: 'white', height:40, width:width }}>
+          {this.renderTabs()}
+        </Tabbar>
+        </View>
       );
     }
     if (routeId === 'intro') {

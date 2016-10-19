@@ -46,7 +46,6 @@ class Feed extends Component{
       )
     }
     return(
-
 				<ListView
 					dataSource={this.state.dataSource}
           renderHeader={() => <FeedSlide />}
@@ -63,7 +62,6 @@ class Feed extends Component{
               goComment = {this.goComment(feeds)}
             />}
         />
-
     )
   }
 

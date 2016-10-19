@@ -13,6 +13,7 @@ const initialState = {
   userDatas: {
     userEmail: "",
     userName: "",
+    userUniv: "",
     image: 'https://scontent.xx.fbcdn.net/v/t1.0-9/67707_1218935049621_959381_n.jpg?oh=39346cf19c9ec696e915d7990e459deb&oe=586E5521'
   },
   trips: {},
