@@ -33,8 +33,8 @@ class FeedComp extends Component{
           <View style={styles.likeAndCommentBox}>
             <Text style={styles.textAlign}>좋아요 · {this.props.likes.length}</Text>
           </View>
-          <View style={styles.likeAndCommentBox}>
-            <Text style={styles.textAlign}>댓글 · {this.props.comment.length}</Text>
+          <View style={styles.likeAndCommentBox} >
+            {this.props.goComment}
           </View>
           <View style={styles.shareText}>
             <Text style={styles.textAlign}>공유</Text>

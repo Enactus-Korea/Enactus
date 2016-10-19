@@ -60,6 +60,7 @@ class Feed extends Component{
               likes = {feeds.likes}
               comment = {feeds.comment}
               textEllipsis = {this.textEllipsis(feeds)}
+              goComment = {this.goComment(feeds)}
             />}
         />
 
@@ -69,24 +70,27 @@ class Feed extends Component{
   goDetail(feeds) {
     this.props.state.navigator.replace({id:'detail', data: feeds});
   }
+  goComment(feeds) {
+    return(
+      <TouchableOpacity onPress={() => this.goDetail(feeds)}>
+        <Text style={styles.textAlign}>댓글 · {feeds.comment.length}</Text>
+      </TouchableOpacity>
+    )
+  }
   textEllipsis(feeds) {
     if(feeds.content.length > 100) {
       return (
-        <View>
-          <TouchableOpacity onPress={() => this.goDetail(feeds)}>
-            <Text numberOfLines={3}>
-              {feeds.content.substring(0,100-7)} <Text style={styles.readMore}>...더보기</Text>
-            </Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={() => this.goDetail(feeds)}>
+          <Text numberOfLines={3}>
+            {feeds.content.substring(0,100-7)} <Text style={styles.readMore}>...더보기</Text>
+          </Text>
+        </TouchableOpacity>
       )
     } else {
       return (
-        <View>
-          <TouchableOpacity onPress={() => this.goDetail(feeds)}>
-            <Text>{feeds.content}</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={() => this.goDetail(feeds)}>
+          <Text>{feeds.content}</Text>
+        </TouchableOpacity>
       )
     }
   }
