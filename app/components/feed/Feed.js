@@ -52,6 +52,7 @@ class Feed extends Component{
 					renderRow={(feeds) =>
             <FeedComp
               {...this.props}
+              id = {feeds._id}
               username = {feeds.username}
               useruniv = {feeds.useruniv}
               posted = {feeds.posted}
@@ -66,6 +67,7 @@ class Feed extends Component{
   }
 
   goDetail(feeds) {
+    debugger;
     this.props.state.navigator.replace({id:'detail', data: feeds});
   }
 

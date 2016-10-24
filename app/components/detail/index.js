@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text,Image,TextInput,TouchableOpacity,ScrollView, ListView } from 'react-native';
+import { View,
+  Text,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+  ListView,
+  AlertIOS
+} from 'react-native';
 import styles from './styles'
 import {FeedComp} from '../feed'
 import CommentComp from './comment'
@@ -19,6 +27,7 @@ class Detail extends Component{
   }
 
   async addComment() {
+    debugger;
     let user = this.props.state.userDatas;
     try {
       let response = await fetch('http://localhost:9000/feed/addComment', {
@@ -29,19 +38,29 @@ class Detail extends Component{
             'Content-Type': 'application/json',
           },
         body: JSON.stringify({
-          _id: this.state.feed._id,
+          _id: this.props.data.id,
           comment: {
             c_username: user.userName,
             c_useruniv: user.userUniv,
             c_usercmt: this.state.comment
           }
         })});
-        let res = response.Json();
-        //TODO: 댓글 새로고침
+        let res = response.json();
+        return this.callbackAddCmt();
+        debugger
     } catch(error) {
-      console.log(JSON.parse(errors));
+      console.log(JSON.parse(error));
     }
   }
+
+  callbackAddCmt() {
+    AlertIOS.alert('Enactus', '작성되었습니다');
+
+    //TODO: 댓글 새로고침
+    //AlertIOS.alert('Enactus', '작성되었습니다', 댓글 새로고침 function )
+  }
+
+
 
   render(){
     return(
