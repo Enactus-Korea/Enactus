@@ -31,6 +31,8 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		9B2EF7FC380A4A79ACFDF57F /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FBB09CF7879543E1BCB46EBA /* libRNImagePicker.a */; };
 		AFC0983690AC4C769B727A37 /* libReact-Native-Webview-Bridge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C65C012145F4F3BB8235EEF /* libReact-Native-Webview-Bridge.a */; };
+		CAA593661DBDB45C00B4E246 /* SafariViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA593651DBDB45C00B4E246 /* SafariViewManager.m */; };
+		CAA593E91DBDC15900B4E246 /* libSafariViewManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CAA593E81DBDC11400B4E246 /* libSafariViewManager.a */; };
 		D45E3C6C6F264ACFB5AADA43 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13FF98ED40CB4FB59260054A /* FontAwesome.ttf */; };
 		DE0793B28B18447EBE650116 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB6E7241A64243BC883ED1EE /* Zocial.ttf */; };
 		E5640888C19D4FAA9E5EB688 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B64D70BBAE1346B2B427BC13 /* Entypo.ttf */; };
@@ -130,19 +132,19 @@
 			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
 			remoteInfo = RNVectorIcons;
 		};
-		7B745B5E1DAB427000118A78 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CB04A645C99249F8B0423E1E /* SafariViewManager.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = SafariViewManager;
-		};
 		832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
+		};
+		CAA593E71DBDC11400B4E246 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DF21E0D74FDB45578185FF80 /* SafariViewManager.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = SafariViewManager;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -181,8 +183,10 @@
 		AE4E4A5B3FA1481E95A72D33 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		B3639FCB063C4676B0F935AC /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		B64D70BBAE1346B2B427BC13 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
-		CB04A645C99249F8B0423E1E /* SafariViewManager.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SafariViewManager.xcodeproj; path = "../node_modules/react-native-safari-view/SafariViewManager.xcodeproj"; sourceTree = "<group>"; };
+		CAA593641DBDB45C00B4E246 /* SafariViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SafariViewManager.h; path = "../node_modules/react-native-safari-view/SafariViewManager.h"; sourceTree = "<group>"; };
+		CAA593651DBDB45C00B4E246 /* SafariViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SafariViewManager.m; path = "../node_modules/react-native-safari-view/SafariViewManager.m"; sourceTree = "<group>"; };
 		DB6E7241A64243BC883ED1EE /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		DF21E0D74FDB45578185FF80 /* SafariViewManager.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SafariViewManager.xcodeproj; path = "../node_modules/react-native-safari-view/SafariViewManager.xcodeproj"; sourceTree = "<group>"; };
 		E2A5A5F311844E7C81FDD75B /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		FBB09CF7879543E1BCB46EBA /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -200,6 +204,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAA593E91DBDC15900B4E246 /* libSafariViewManager.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
@@ -297,6 +302,8 @@
 		13B07FAE1A68108700A75B9A /* Enactus */ = {
 			isa = PBXGroup;
 			children = (
+				CAA593641DBDB45C00B4E246 /* SafariViewManager.h */,
+				CAA593651DBDB45C00B4E246 /* SafariViewManager.m */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -320,14 +327,6 @@
 			isa = PBXGroup;
 			children = (
 				78C398B91ACF4ADC00677621 /* libRCTLinking.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		7B745B421DAB427000118A78 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7B745B5F1DAB427000118A78 /* libSafariViewManager.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -370,9 +369,9 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				579EC76FFDC7493D9F472522 /* RNImagePicker.xcodeproj */,
-				CB04A645C99249F8B0423E1E /* SafariViewManager.xcodeproj */,
 				AE4E4A5B3FA1481E95A72D33 /* RNVectorIcons.xcodeproj */,
 				55E66388D59B405BB4E6FBEA /* RNDeviceInfo.xcodeproj */,
+				DF21E0D74FDB45578185FF80 /* SafariViewManager.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -403,6 +402,14 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* Enactus.app */,
 				00E356EE1AD99517003FC87E /* EnactusTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CAA593D71DBDC11400B4E246 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CAA593E81DBDC11400B4E246 /* libSafariViewManager.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -541,8 +548,8 @@
 					ProjectRef = AE4E4A5B3FA1481E95A72D33 /* RNVectorIcons.xcodeproj */;
 				},
 				{
-					ProductGroup = 7B745B421DAB427000118A78 /* Products */;
-					ProjectRef = CB04A645C99249F8B0423E1E /* SafariViewManager.xcodeproj */;
+					ProductGroup = CAA593D71DBDC11400B4E246 /* Products */;
+					ProjectRef = DF21E0D74FDB45578185FF80 /* SafariViewManager.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -638,18 +645,18 @@
 			remoteRef = 7B745B5B1DAB427000118A78 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		7B745B5F1DAB427000118A78 /* libSafariViewManager.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libSafariViewManager.a;
-			remoteRef = 7B745B5E1DAB427000118A78 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		832341B51AAA6A8300B99B32 /* libRCTText.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libRCTText.a;
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CAA593E81DBDC11400B4E246 /* libSafariViewManager.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSafariViewManager.a;
+			remoteRef = CAA593E71DBDC11400B4E246 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -712,6 +719,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				CAA593661DBDB45C00B4E246 /* SafariViewManager.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -796,11 +804,13 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-safari-view",
+					"$(SRCROOT)/../node_modules/react-native-safari-view/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-search-bar/**",
-					"$(SRCROOT)/../node_modules/react-native-webview-bridge/ios",
+					"$(SRCROOT)/../node_modules/react-native-webview-bridge/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-safari-view/SafariViewManager/**",
+					"$(SRCROOT)/../node_modules/react-native-safari-view/**",
 				);
 				INFOPLIST_FILE = Enactus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -822,11 +832,13 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-safari-view",
+					"$(SRCROOT)/../node_modules/react-native-safari-view/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-search-bar/**",
-					"$(SRCROOT)/../node_modules/react-native-webview-bridge/ios",
+					"$(SRCROOT)/../node_modules/react-native-webview-bridge/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-safari-view/SafariViewManager/**",
+					"$(SRCROOT)/../node_modules/react-native-safari-view/**",
 				);
 				INFOPLIST_FILE = Enactus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -883,6 +895,7 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-search-bar/**",
 					"$(SRCROOT)/../node_modules/react-native-webview-bridge/ios",
+					"$(SRCROOT)/../node_modules/react-native-safari-view",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -929,6 +942,7 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-search-bar/**",
 					"$(SRCROOT)/../node_modules/react-native-webview-bridge/ios",
+					"$(SRCROOT)/../node_modules/react-native-safari-view",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;

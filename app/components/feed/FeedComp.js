@@ -37,7 +37,9 @@ class FeedComp extends Component{
             <Text style={styles.textAlign}>좋아요 · {this.props.likes.length}</Text>
           </View>
           <View>
-            {this.props.goComment}
+          <TouchableOpacity onPress={() => this.props.goDetail(this.props)} style={styles.likeAndCommentBox}>
+            <Text style={styles.textAlign}>댓글 · {this.props.comment.length}</Text>
+          </TouchableOpacity>
           </View>
           <View style={styles.shareText}>
             <Text style={styles.textAlign}>공유</Text>
@@ -47,21 +49,5 @@ class FeedComp extends Component{
     )
   }
 }
-
-// <TouchableOpacity style={styles.likeAndCommentBox} onPress={() => this.props.goComment} >
-//   <Text style={styles.textAlign}>댓글 · {this.props.comment.length}</Text>
-// </TouchableOpacity>
-
-// {this.props.textEllipsis === true
-//   ?
-//   <View style= {styles.txtContents}>
-//     {this.props.textEllipsis}
-//   </View>
-//   :
-//   <View style= {styles.txtContents}>
-//     <Text>{this.props.content}</Text>
-//   </View>
-// }
-
 
 export default FeedComp

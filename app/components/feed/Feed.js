@@ -59,7 +59,7 @@ class Feed extends Component{
               likes = {feeds.likes}
               comment = {feeds.comment}
               textEllipsis = {this.textEllipsis(feeds)}
-              goComment = {this.goComment(feeds)}
+              goDetail = {this.goDetail.bind(this)}
             />}
         />
     )
@@ -68,13 +68,7 @@ class Feed extends Component{
   goDetail(feeds) {
     this.props.state.navigator.replace({id:'detail', data: feeds});
   }
-  goComment(feeds) {
-    return(
-      <TouchableOpacity onPress={() => this.goDetail(feeds)} style={styles.likeAndCommentBox}>
-        <Text style={styles.textAlign}>댓글 · {feeds.comment.length}</Text>
-      </TouchableOpacity>
-    )
-  }
+
   textEllipsis(feeds) {
     if(feeds.content.length > 100) {
       return (
