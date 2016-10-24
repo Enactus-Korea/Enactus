@@ -44,7 +44,6 @@ class Detail extends Component{
   }
 
   render(){
-    debugger;
     return(
       <View>
         <ScrollView style={styles.container}>
