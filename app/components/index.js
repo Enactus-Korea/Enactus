@@ -1,16 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react'
-import {
-  View,
-  ScrollView,
-  Navigator,
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  Modal
-} from 'react-native';
+import { View, ScrollView, Navigator, TouchableOpacity, StyleSheet, Text, TouchableHighlight, Modal, Image } from 'react-native';
 import { bindActionCreators } from 'redux'
 import * as actions from '../actions/actions'
 import { connect } from 'react-redux'
@@ -22,9 +13,8 @@ import Tabbar from 'react-native-tabbar'
 import DeviceInfo from 'react-native-device-info'
 import Dimensions from 'Dimensions';
 import Home from './home';
-import Intro from './intro';
 import Network from './network';
-import Search from './search';
+import {Search} from './search';
 import Notification from './notification';
 import Post from './post/post'
 import User from './user'
@@ -124,22 +114,23 @@ class Root extends Component {
     return (
       <View style={{ flex: 1, flexDirection: 'row', borderTopWidth: 1, borderTopColor: '#E9EAED' }}>
         <TouchableOpacity style={styles.tabItem} onPress={() => this.setModalVisible(true)}>
-          <View>
-            <Icon name ='ios-create-outline' size={20} color="#333" style={{marginLeft: 8}}/>
-            <Text>Post</Text>
-          </View>
+          <Icon name ='ios-create-outline' size={20} color="#333"/>
+          <Text>글쓰기</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.tabItem} onPress={() => this.onTabSelect('search')}>
+          <Icon name ='ios-search-outline' size={20} color="#333"/>
+          <Text>검색</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.tabItem}  onPress={() => this.onTabSelect('feed')}>
-          <View>
-            <Icon name ='ios-paper-outline' size={20} color="#333" style={{marginLeft: 8}}/>
-            <Text>Feed</Text>
-          </View>
+          <Icon name ='ios-paper-outline' size={20} color="#333"/>
+          <Text>피드</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.tabItem} onPress={() => this.onTabSelect('notification')} >
+          <Icon name ='ios-notifications-outline' size={20} color="#333"/>
+          <Text>알림</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.tabItem}  onPress={() => this.onTabSelect('user')}>
-          <View>
-            <Icon name ='ios-contact-outline' size={20} color="#333" style={{marginLeft: 8}}/>
-            <Text>User</Text>
-          </View>
+          <Image style={styles.tabUser} source={require('../assets/user.png')}/>
         </TouchableOpacity>
       </View>
     )
@@ -211,24 +202,24 @@ class Root extends Component {
         </ScrollView>
       );
     }
-    if (routeId === 'search') {
-      return (
-        <Search
-          {...this.props}
-          data ={route.data}
-          close = {() => this.closeControlPanel()}
-          navigator={navigator} />
-      );
-    }
-    if (routeId === 'notification') {
-      return (
-        <Notification
-          {...this.props}
-          data ={route.data}
-          close = {() => this.closeControlPanel()}
-          navigator={navigator} />
-      );
-    }
+    // if (routeId === 'search') {
+    //   return (
+    //     <Search
+    //       {...this.props}
+    //       data ={route.data}
+    //       close = {() => this.closeControlPanel()}
+    //       navigator={navigator} />
+    //   );
+    // }
+    // if (routeId === 'notification') {
+    //   return (
+    //     <Notification
+    //       {...this.props}
+    //       data ={route.data}
+    //       close = {() => this.closeControlPanel()}
+    //       navigator={navigator} />
+    //   );
+    // }
     if (routeId === 'login') {
       return (
         <Login
@@ -293,6 +284,14 @@ class Root extends Component {
       return (
         <User />
       )
+    } else if ( tab === 'search') {
+      return (
+        <Search />
+      )
+    } else if ( tab === 'notification') {
+      return (
+        <Notification />
+      )
     }
   }
 
@@ -332,10 +331,18 @@ const styles = StyleSheet.create({
     height:1000
   },
   tabItem: {
-    flex: 1,
+    width: Dimensions.get('window').width/5,
+    flexDirection:'column',
     alignItems: 'center',
     justifyContent: 'center'
-  }
+  },
+  tabUser:{
+    width: 35,
+    height: 35,
+    borderRadius: 18,
+    borderWidth: 0.2,
+    borderColor: 'lightgray',
+  },
 })
 
 export default connect(state => ({

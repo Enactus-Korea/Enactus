@@ -1,10 +1,11 @@
 import Util from '../../assets/utils'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Navigator } from 'react-native'
 
 export default StyleSheet.create({
   navContainer:{
     paddingTop: 23,
     paddingBottom: 10,
+    // height: Navigator.Height,
     flexDirection:'row',
     backgroundColor: '#5e5e5e',
     justifyContent:"space-between",
