@@ -556,6 +556,10 @@
 					ProjectRef = 7BD77C331DC05C0C00C3F46A /* RCTCameraRoll.xcodeproj */;
 				},
 				{
+					ProductGroup = 7BD77C341DC05C0C00C3F46A /* Products */;
+					ProjectRef = 7BD77C331DC05C0C00C3F46A /* RCTCameraRoll.xcodeproj */;
+				},
+				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
 					ProjectRef = 00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */;
 				},
@@ -709,6 +713,13 @@
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		CA666CBA1DC04D5F00610FAF /* libRCTCamera.a */ = {
+		7BD77C381DC05C0C00C3F46A /* libRCTCameraRoll.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTCameraRoll.a;
+			remoteRef = 7BD77C371DC05C0C00C3F46A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		7BD77C381DC05C0C00C3F46A /* libRCTCameraRoll.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
