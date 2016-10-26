@@ -16,7 +16,7 @@ import Home from './home';
 import Network from './network';
 import {Search} from './search';
 import Notification from './notification';
-import Post from './post/post'
+import {Post, PostCamera } from './post'
 import User from './user'
 import {Login, Register} from './register'
 import {Feed, Unknown }from './feed'
@@ -202,15 +202,14 @@ class Root extends Component {
         </ScrollView>
       );
     }
-    // if (routeId === 'search') {
-    //   return (
-    //     <Search
-    //       {...this.props}
-    //       data ={route.data}
-    //       close = {() => this.closeControlPanel()}
-    //       navigator={navigator} />
-    //   );
-    // }
+    if (routeId === 'launchcamera') {
+      return (
+        <PostCamera
+          {...this.props}
+          close = {() => this.closeControlPanel()}
+          navigator={navigator} />
+      );
+    }
     // if (routeId === 'notification') {
     //   return (
     //     <Notification

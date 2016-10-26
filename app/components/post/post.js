@@ -15,6 +15,7 @@ class Post extends Component{
       avatarSource: null,
       modalVisible: true,
       ImageVisible: false,
+      CameraVisible: false,
       // imageSource: '', =>  prop 이상하다고 오류 메시지 생김
     }
   }
@@ -54,12 +55,31 @@ class Post extends Component{
     this.props.setModalVisible(false);
     // TODO: refreshing 추가
   }
+  setCameraVisible(visible) {
+    // post.js에서 param이 넘어올 때, bind(this)에 담겨서 넘어온다.
+    this.setState({CameraVisible: visible});
+  }
+
+  CameraModal() {
+    return(
+      <Modal
+        animationType={"slide"}
+        transparent={false}
+        visible={this.state.CameraVisible}
+        onRequestClose={() => {alert("Modal has been closed.")}}
+        >
+        <PostCamera
+          {...this.props}
+          setCameraVisible={this.setCameraVisible.bind(this)}/>
+      </Modal>
+    )
+  }
   setImageVisible(visible) {
     // post.js에서 param이 넘어올 때, bind(this)에 담겨서 넘어온다.
     this.setState({ImageVisible: visible});
   }
 
-  renderModal() {
+  AlbumModal() {
     return(
       <Modal
         animationType={"slide"}
@@ -69,6 +89,8 @@ class Post extends Component{
         >
         <PostAlbum
           {...this.props}
+          close = {() => this.props.close}
+          navigator={navigator}
           setImageVisible={this.setImageVisible.bind(this)}/>
       </Modal>
     )
@@ -106,25 +128,31 @@ class Post extends Component{
           selectionColor="#2aa2ef"
           placeholderTextColor="#ced8de"
           />
-        <View>
-          {this.renderModal()}
+        <View style={styles.buttonContainer}>
           <TouchableOpacity
-            style={styles.avatarContainer}
-            onPress={() => this.setImageVisible(true)}
-          >
-            <View>
-            { this.state.avatarSource === null ?
-              <Icon name="ios-camera" size={30} color="#8899a5" />
-              :
-              <Image style={styles.avatar} source={this.state.avatarSource} />
-            }
-            </View>
+            style={styles.iconButton}
+            onPress={() => this.setCameraVisible(true)}
+            >
+            {this.CameraModal()}
+            <Icon name="ios-camera" size={30} color="#8899a5" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.iconButton}
+            onPress={() => this.setImageVisible(true)}>
+            {this.AlbumModal()}
+            <Icon name="ios-images" size={30} color="#8899a5" />
           </TouchableOpacity>
         </View>
       </View>
     )
   }
 }
+//이미지 추가할 경우
+// { this.state.avatarSource === null ?
+//   <Icon name="ios-camera" size={30} color="#8899a5" />
+//   :
+//   <Image style={styles.avatar} source={this.state.avatarSource} />
+// }
 
 
 export default Post

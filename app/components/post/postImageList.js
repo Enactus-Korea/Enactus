@@ -52,7 +52,10 @@ class ImageList extends React.Component{
     const fetchParams ={
       first: 25,
     }
-    CameraRoll.getPhotos(fetchParams, this.storeImages.bind(this), this.logImageError)
+    CameraRoll.getPhotos(fetchParams, this.storeImages.bind(this), this.logImageError.bind(this))
+  }
+  onCamera() {
+  	this.props.state.navigator.push({id:'launchcamera'});
   }
   // setCameraVisible(visible) {
   //   // post.js에서 param이 넘어올 때, bind(this)에 담겨서 넘어온다.
@@ -77,15 +80,17 @@ class ImageList extends React.Component{
     return(
       <ScrollView style={styles.container}>
         <View style={styles.imageGrid}>
-          <TouchableOpacity
-            style={[styles.image, styles.camera]}>
-            <Icon name="ios-camera" size={45} color="#8899a5" />
-          </TouchableOpacity>
           { this.state.images.map(image => <Image style={styles.image} source={{ uri: image.uri }} />) }
         </View>
       </ScrollView>
     )
   }
 }
+// imagelist에 카메라 기능 추가할 경우
+// <TouchableOpacity
+//
+//   style={[styles.image, styles.camera]}>
+//   <Icon name="ios-camera" size={45} color="#8899a5" />
+// </TouchableOpacity>
 
 export default ImageList
