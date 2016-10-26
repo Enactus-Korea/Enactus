@@ -37,16 +37,17 @@ notification() {
 					<Icon color='white' name={this.props.state.navProps.icon} size={24} />
 				</TouchableOpacity>
         <Text style={styles.TitleComp}>{this.props.state.navProps.name}</Text>
-				{this.props.state.navProps.name === "인액터스" ?
-				<View style={styles.RightComp}>
-					<TouchableOpacity onPress ={() => this.notification()}>
-						<Icon name="notifications" color='white' size={24} style={{paddingLeft:10}}/>
-					</TouchableOpacity>
-					<TouchableOpacity onPress ={() => this.search()}>
-						<Icon name="search" color='white' size={24} style={{paddingLeft:10}} />
-					</TouchableOpacity>
-				</View> : <View style={styles.RightComp} />}
+				<View style={styles.RightComp} />
       </View>
     );
   }
 }
+// {this.props.state.navProps.name === "인액터스" ?
+// <View style={styles.RightComp}>
+// 	<TouchableOpacity onPress ={() => this.notification()}>
+// 		<Icon name="notifications" color='white' size={24} style={{paddingLeft:10}}/>
+// 	</TouchableOpacity>
+// 	<TouchableOpacity onPress ={() => this.search()}>
+// 		<Icon name="search" color='white' size={24} style={{paddingLeft:10}} />
+// 	</TouchableOpacity>
+// </View> : <View style={styles.RightComp} />}

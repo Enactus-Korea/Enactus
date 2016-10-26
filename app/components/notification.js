@@ -12,20 +12,17 @@ class Notification extends Component{
 
   }
   componentDidMount(){
-    this.props.actions.changeNav('notification')
+    // this.props.actions.changeNav('notification')
     // this.props.close()
   }
-  close() {
-    this.props.state.navigator.pop();
-  }
+  // close() {
+  //   this.props.state.navigator.pop();
+  // }
 
   render(){
     return(
       <View>
         <Text>notification</Text>
-        <TouchableOpacity onPress ={() => this.close()}>
-					<Icon color="#000" name="close" size={24} />
-				</TouchableOpacity>
       </View>
     )
   }
