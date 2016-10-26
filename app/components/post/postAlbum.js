@@ -30,7 +30,10 @@ class PostAlbum extends React.Component {
           <Text style={styles.Text}>이미지롤</Text>
           <Text style={styles.Text}>완료</Text>
         </View>
-        <ImageList />
+        <ImageList
+          {...this.props}
+          close = {() => this.props.close}
+          navigator={navigator}/>
       </View>
     )
   }
