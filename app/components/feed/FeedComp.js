@@ -53,21 +53,19 @@ class FeedComp extends Component{
           </View>
         </View>
         <View style={styles.likeAndComment}>
-          <View style={styles.likeAndCommentBox}>
+          <Image
+              source={require('./img/like.png')}
+              style={styles.iconButton} />
+          <Text style={styles.textAlign}>{this.props.likes.length}</Text>
+          <TouchableOpacity onPress={() => this.props.goDetail(this.props)}>
             <Image
-                source={require('./img/like.png')}
-                style={{width:28, height:32}} />
-            <Text style={styles.textAlign}>{this.props.likes.length}</Text>
-            <TouchableOpacity onPress={() => this.props.goDetail(this.props)} style={{width:56}} >
-              <Image
-                  source={require('./img/comment.png')}
-                  style={{width:28, height:32}} />
-              <Text style={styles.textAlign}>{this.props.comment.length}</Text>
-            </TouchableOpacity>
-            <Image
-                source={require('./img/share.png')}
-                style={{width:28, height:32}} />
-          </View>
+                source={require('./img/comment.png')}
+                style={styles.iconButton} />
+          </TouchableOpacity>
+          <Text style={styles.textAlign}>{this.props.comment.length}</Text>
+          <Image
+              source={require('./img/share.png')}
+              style={[styles.iconButton, styles.shareButton]} />
         </View>
       </View>
     )

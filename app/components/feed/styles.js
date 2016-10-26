@@ -62,7 +62,8 @@ export default StyleSheet.create({
     borderColor: '#d9d9d9',
   },
   feedContainer: {
-    padding: 15
+    padding: 15,
+    paddingBottom:0,
   },
   feedTopContainer: {
     flexDirection: 'row'
@@ -83,16 +84,27 @@ export default StyleSheet.create({
     marginTop: 15
   },
   likeAndComment: {
-    height: 50,
-    marginLeft: 20
-  },
-  likeAndCommentBox: {
+    height: 40,
+    marginLeft: 15,
+    width: Dimensions.get('window').width,
     flexDirection: 'row',
+    alignItems:'center',
+  },
+  iconButton: {
+    width:28,
+    height:32,
+    marginRight: 5,
+  },
+  shareButton:{
+    right:30,
+    bottom:2,
+    position:'absolute',
   },
   textAlign: {
     textAlign: 'center',
     color: '#bfbfbf',
-    fontWeight: '500'
+    fontWeight: '500',
+    marginRight: 15,
   },
   spaceBetween: {
     flexDirection: 'row',
