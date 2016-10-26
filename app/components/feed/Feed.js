@@ -47,6 +47,7 @@ class Feed extends Component{
     }
     return(
 				<ListView
+          style={{backgroundColor:'#ebebeb'}}
 					dataSource={this.state.dataSource}
           renderHeader={() => <FeedSlide />}
 					renderRow={(feeds) =>
@@ -59,7 +60,6 @@ class Feed extends Component{
               content = {feeds.content}
               likes = {feeds.likes}
               comment = {feeds.comment}
-              textEllipsis = {this.textEllipsis(feeds)}
               goDetail = {this.goDetail.bind(this)}
             />}
         />
@@ -67,27 +67,9 @@ class Feed extends Component{
   }
 
   goDetail(feeds) {
-    debugger;
     this.props.state.navigator.replace({id:'detail', data: feeds});
   }
-
-  textEllipsis(feeds) {
-    if(feeds.content.length > 100) {
-      return (
-        <TouchableOpacity onPress={() => this.goDetail(feeds)}>
-          <Text numberOfLines={3}>
-            {feeds.content.substring(0,100-7)} <Text style={styles.readMore}>...더보기</Text>
-          </Text>
-        </TouchableOpacity>
-      )
-    } else {
-      return (
-        <TouchableOpacity onPress={() => this.goDetail(feeds)}>
-          <Text>{feeds.content}</Text>
-        </TouchableOpacity>
-      )
-    }
-  }
+  
 }
 
 export default Feed

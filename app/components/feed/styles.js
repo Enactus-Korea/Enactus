@@ -3,25 +3,22 @@ import Dimensions from 'Dimensions';
 
 export default StyleSheet.create({
   feedWrapper: {
-    backgroundColor: '#f2f2f2'
+    backgroundColor: '#ebebeb'
   },
   slide1: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#9DD6EB',
   },
   slide2: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#97CAE5',
   },
   slide3: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#92BBD9',
   },
   text: {
     color: '#fff',
@@ -29,9 +26,8 @@ export default StyleSheet.create({
     fontWeight: 'bold',
   },
   notiWrapper: {
-    paddingTop: 10,
-    paddingBottom: 10,
-    backgroundColor:'#f2f2f2'
+    paddingTop: 5,
+    paddingBottom: 5,
   },
   notiContent: {
     backgroundColor: '#fff',
@@ -62,6 +58,8 @@ export default StyleSheet.create({
   feedListView: {
     marginBottom: 10,
     backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#d9d9d9',
   },
   feedContainer: {
     padding: 15
@@ -85,21 +83,11 @@ export default StyleSheet.create({
     marginTop: 15
   },
   likeAndComment: {
-    flexDirection: 'row',
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderColor: '#e9e9e9',
-    backgroundColor: '#fcfcfc'
+    height: 50,
+    marginLeft: 20
   },
   likeAndCommentBox: {
-    width: Dimensions.get('window').width/3,
-    padding: 15,
-    borderRightWidth: 1,
-    borderColor: '#e9e9e9'
-  },
-  shareText: {
-    width: Dimensions.get('window').width/3,
-    padding: 15,
+    flexDirection: 'row',
   },
   textAlign: {
     textAlign: 'center',

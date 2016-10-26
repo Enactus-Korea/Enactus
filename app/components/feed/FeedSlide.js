@@ -6,8 +6,9 @@ class FeedSlide extends Component{
   renderPagination(index, total, context) {
     return (
       <View style={{
-        position: 'absolute',
-        bottom: -25
+        backgroundColor: '#ebebeb',
+        width: 45
+
       }}>
       </View>
     )
@@ -15,7 +16,7 @@ class FeedSlide extends Component{
   render(){
     return(
       <View>
-        <Swiper style={styles.wrapper} height={165} autoplay={true}>
+        <Swiper height={146} autoplay={true}>
           <View style={styles.slide1}>
             <Text style={styles.text}>Hello Swiper</Text>
           </View>
@@ -27,7 +28,7 @@ class FeedSlide extends Component{
           </View>
         </Swiper>
         <View style={styles.notiWrapper}>
-          <Swiper style={styles.notiContent} height={42} autoplay={true} renderPagination={this.renderPagination}>
+          <Swiper style={styles.notiContent} height={45} autoplay={false} renderPagination={this.renderPagination}>
             <View style={styles.flexRow} >
               <Text style={styles.notiText, styles.red}>[공지]</Text>
               <Text style={styles.notiText}>이고은 PM 축 결혼</Text>
@@ -49,7 +50,7 @@ class FeedSlide extends Component{
 
 var styles = StyleSheet.create({
   feedWrapper: {
-    backgroundColor: '#f2f2f2'
+    backgroundColor: '#ebebeb'
   },
   slide1: {
     flex: 1,
@@ -75,23 +76,24 @@ var styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   notiWrapper: {
-    paddingTop: 10,
-    paddingBottom: 10,
-    backgroundColor:'#f2f2f2'
+    paddingTop: 5,
+    paddingBottom: 5,
+    backgroundColor:'#ebebeb'
   },
   notiContent: {
     backgroundColor: '#fff',
-    borderWidth: .5,
-    borderColor: '#e9e9e9'
+    borderWidth: 1,
+    borderColor: '#d9d9d9'
   },
   notiText: {
-    flex:1,
     justifyContent: 'center',
     alignItems: 'center',
     fontWeight: '400'
   },
   flexRow: {
-    padding: 10,
+    paddingLeft: 12,
+    paddingTop: 12,
+    paddingBottom: 12,
     backgroundColor: '#fff',
     flexDirection: 'row'
   },
