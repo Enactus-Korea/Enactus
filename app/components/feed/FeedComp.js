@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text,Image,ScrollView,TouchableOpacity } from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles'
 
 class FeedComp extends Component{
@@ -7,14 +8,14 @@ class FeedComp extends Component{
     super(props)
   }
 
-  textEllipsis(content) {
-    debugger;
+  textEllipsis = (content) => {
+    const { navigation } = this.props;
     if(content === undefined) {
       content = this.props.children;
     }
     if(content.length > 100) {
       return (
-        <TouchableOpacity onPress={() => this.props.goDetail(this.props)}>
+        <TouchableOpacity onPress={() => navigation.navigate('Detail',{...this.props})}>
           <Text numberOfLines={3}>
             {feeds.content.substring(0,100-7)} <Text style={styles.readMore}>...더보기</Text>
           </Text>
@@ -22,7 +23,7 @@ class FeedComp extends Component{
       )
     } else {
       return (
-        <TouchableOpacity onPress={() => this.props.goDetail(this.props)}>
+        <TouchableOpacity onPress={() => navigation.navigate('Detail',{...this.props})}>
           <Text>{content}</Text>
         </TouchableOpacity>
       )
@@ -30,13 +31,14 @@ class FeedComp extends Component{
   }
 
   render(feeds){
+    const { username, useruniv, posted, content, comment } = this.props;
     return(
       <View style={styles.feedListView} >
         <View style={styles.feedContainer}>
           <View style={styles.spaceBetween}>
           <View style={styles.feedTopContainer}>
             <Image
-                source={require('./user.png')}
+                // source={require('./user.png')}
                 style={styles.userImage}
                 />
             <View style={styles.feedInfoContainer}>
@@ -48,24 +50,28 @@ class FeedComp extends Component{
           </View>
           <View  style={styles.ctxContainer}>
             <View style= {styles.txtContents}>
-              {this.textEllipsis(this.props.content)}
+              {this.textEllipsis(content)}
             </View>
           </View>
         </View>
         <View style={styles.likeAndComment}>
-          <Image
-              source={require('./img/like.png')}
-              style={styles.iconButton} />
+          <MaterialIcons
+            name='favorite-border'
+            size={24}
+            style={styles.iconButton}
+          />
           <Text style={styles.textAlign}>{this.props.likes.length}</Text>
-          <TouchableOpacity onPress={() => this.props.goDetail(this.props)}>
-            <Image
-                source={require('./img/comment.png')}
-                style={styles.iconButton} />
-          </TouchableOpacity>
+          <MaterialIcons
+            name='chat-bubble-outline'
+            size={22}
+            style={styles.iconButton}
+          />
           <Text style={styles.textAlign}>{this.props.comment.length}</Text>
-          <Image
-              source={require('./img/share.png')}
-              style={[styles.iconButton, styles.shareButton]} />
+          <MaterialIcons
+            name='reply'
+            size={24}
+            style={styles.iconButton}
+          />
         </View>
       </View>
     )

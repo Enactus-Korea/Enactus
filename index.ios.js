@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ * @flow
+ */
 
-import Enactus from './app/container/indexios';
 
-AppRegistry.registerComponent('Enactus', () => Enactus);
+import { AppRegistry } from 'react-native';
+import EnactusApp from './app/app'
+
+
+
+AppRegistry.registerComponent('EnactusApp', () => EnactusApp);

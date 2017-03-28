@@ -1,5 +1,2 @@
-export { default as Post } from './post'
-export { default as PostAlbum } from './postAlbum'
-export { default as PostCamera } from './postCamera'
-export { default as PostImageList } from './postImageList'
-export { default as PostHead } from './postHead'
+
+export { default as PostView } from './PostView'

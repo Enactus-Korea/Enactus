@@ -1,9 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import Dimensions from 'Dimensions';
 
 export default StyleSheet.create({
   feedWrapper: {
-    backgroundColor: '#ebebeb'
+    backgroundColor: '#ebebeb',
+    // marginTop: Platform.OS === 'ios' ? 20 : 0,
   },
   slide1: {
     flex: 1,
@@ -91,8 +92,7 @@ export default StyleSheet.create({
     alignItems:'center',
   },
   iconButton: {
-    width:28,
-    height:32,
+    color: '#e9e9e9',
     marginRight: 5,
   },
   shareButton:{

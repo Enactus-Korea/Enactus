@@ -8,7 +8,6 @@ class FeedSlide extends Component{
       <View style={{
         backgroundColor: '#ebebeb',
         width: 45
-
       }}>
       </View>
     )
@@ -82,7 +81,7 @@ var styles = StyleSheet.create({
   },
   notiContent: {
     backgroundColor: '#fff',
-    borderWidth: 1,
+    borderWidth: 0.5,
     borderColor: '#d9d9d9'
   },
   notiText: {
