@@ -153,4 +153,33 @@ export default StyleSheet.create({
  buttonsSpace: {
    width: 10,
  },
+ button: {
+   borderColor:'#5e5e5e',
+   borderWidth: 0.5,
+   borderRadius: 2,
+   paddingVertical: 6,
+   paddingHorizontal: 15
+ },
+ buttonText: {
+    fontSize: 12,
+    textAlign: 'center',
+    color: '#5e5e5e'
+  },
+  modal: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    // backgroundColor: 'rgba(0,0,0,0.2)',
+    // backgroundColor: 'transparent'
+ },
+  modalBtn:{
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 10,
+    width: Dimensions.get('window').width/1.1,
+    height: Dimensions.get('window').height/15,
+    alignItems:'center',
+    marginBottom: 10,
+   justifyContent:'center',
+  }
 });

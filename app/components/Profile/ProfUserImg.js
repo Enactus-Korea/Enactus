@@ -1,29 +1,27 @@
 import React, {Component} from 'react'
-import {ImagePickerIOS, TouchableOpacity, Image, Modal, View, Text, LayoutAnimation} from 'react-native'
+import {ImagePickerIOS, TouchableOpacity, Image, Modal, View, Text, LayoutAnimation, Alert} from 'react-native'
 import styles from './styles'
 
 
 // style= {styles.modal}
 class ProfUserImg extends Component {
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state = {
       modalVisible: false,
+      image: props.userImage || null,
     }
   }
   chooseImageFromGallery = () => {
     ImagePickerIOS.openSelectDialog({}, imageUri => {
-      this.setState({image: imageUri});
+      this.setState({image: imageUri, modalVisible: false});
     }, error => console.error(error));
   }
   chooseImageFromCamera = () => {
     ImagePickerIOS.openCameraDialog({}, imageUri => {
-      this.setState({image: imageUri});
+      this.setState({image: imageUri, modalVisible: false});
     }, error => console.error(error));
   }
-  // chooseWay2GetImg = () => {
-  //
-  // }
   onPress = () => {
       LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
       this.setState({modalVisible: true})
@@ -34,19 +32,30 @@ class ProfUserImg extends Component {
         onPress={() => this.onPress()}>
         <Modal
             animationType={"slide"}
-            transparent={false}
+            transparent={true}
             visible={this.state.modalVisible}
-            style={styles.modal}
             >
-            <View style={{marginTop: 50}}>
-               <TouchableOpacity onPress= {() => this.setState({modalVisible: false})}>
-                  <Text>Hide Modal</Text>
+            <View style={styles.modal}>
+               <TouchableOpacity
+                 style={styles.modalBtn}
+                 onPress= {() => this.chooseImageFromGallery()}>
+                  <Text>사진첩</Text>
+               </TouchableOpacity>
+               <TouchableOpacity
+                 style={styles.modalBtn}
+                 onPress= {() => this.chooseImageFromCamera()}>
+                  <Text>사진찍기</Text>
+               </TouchableOpacity>
+               <TouchableOpacity
+                 style={styles.modalBtn}
+                 onPress= {() => this.setState({modalVisible: false})}>
+                  <Text>취소</Text>
                </TouchableOpacity>
             </View>
          </Modal>
         <Image
           style={styles.profile_img}
-          source={require('../../assets/defaultUser.jpg')}/>
+          source={this.state.image ? {uri: this.state.image} : require('../../assets/defaultUser.jpg')}/>
       </TouchableOpacity>
     )
   }
@@ -56,16 +65,3 @@ class ProfUserImg extends Component {
 
 
 export default ProfUserImg
-
-/* <Modal>
-
-</Modal> */
-
-
-    // <Modal
-    //   animationType={"slide"}
-    //   transparent={false}
-    //   visible={this.state.CameraVisible}
-    //   onRequestClose={() => {alert("Modal has been closed.")}}
-    //   >
-    // </Modal>

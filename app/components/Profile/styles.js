@@ -83,9 +83,19 @@ export default StyleSheet.create({
   },
   modal: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    backgroundColor: 'black',
-    opacity: 0.9,
+    backgroundColor: 'rgba(0,0,0,0.2)',
+    // backgroundColor: 'transparent'
  },
+ modalBtn:{
+   backgroundColor: 'white',
+   borderRadius: 10,
+   padding: 10,
+   width: Dimensions.get('window').width/1.1,
+   height: Dimensions.get('window').height/15,
+   alignItems:'center',
+   marginBottom: 10,
+  justifyContent:'center',
+ }
 })

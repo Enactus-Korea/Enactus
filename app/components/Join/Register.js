@@ -42,7 +42,7 @@ class Register extends Component{
   render(){
     let permissions = this.props.permissions
     return(
-      <Image style={styles.imageBack} source={require('../../assets/WeAllWin.jpg')}>
+      // <Image style={styles.imageBack} source={require('../../assets/WeAllWin.jpg')}>
         <View style={styles.container}>
           <View style={styles.rgst_body}>
 
@@ -92,7 +92,7 @@ class Register extends Component{
             </TouchableOpacity>
           </View>
         </View>
-      </Image>
+      // </Image>
     )
   }
 }

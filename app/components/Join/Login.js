@@ -16,6 +16,14 @@ class Login extends Component {
     this.props.isRequestedSignIn(this.state.email, this.state.password)
     Alert.alert('인액터스 로그인','로그인이 완료 되었습니다.',[{text:'확인', onPress: () => this.props.navigation.navigate('Feed') }])
   }
+  isPreNotice = () => {
+    Alert.alert(
+      '회원가입 사전안내',
+      '인액터스 코리아 사무국에 \n 사전등록한 학생, 기관, 알룸나이만 \n 회원가입이 가능합니다. \n 미등록 회원은 사무국에 문의하세요.',
+      [{text: '회원가입 진행', onPress: () => this.props.navigation.navigate('Register')},
+      {text: '뉴스피드 가기', onPress: () => this.props.navigation.navigate('Feed')}]
+    )
+  }
   render() {
     return (
       <Image style={styles.imageBack} source={require('../../assets/WeAllWin.jpg')}>
@@ -46,7 +54,7 @@ class Login extends Component {
           </View>
           <View style={styles.login_btm}>
             <TouchableHighlight
-              onPress={() => this.props.navigation.navigate('Register')}
+              onPress={() => this.isPreNotice()}
               underlayColor="transparent" style={styles.bottom_btn}>
               <Text>계정이 아직 없으신가요? <Text style={{fontWeight:'bold'}}>회원가입</Text></Text>
             </TouchableHighlight>

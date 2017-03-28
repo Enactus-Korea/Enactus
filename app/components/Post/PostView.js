@@ -1,23 +1,30 @@
 import React , {Component} from 'react'
+import { connect } from 'react-redux';
+import * as actions from './actions'
 import { Text, View } from 'react-native'
 import Post from './Post'
 
 class PostView extends Component{
-  constructor(props){
-    super(props)
-  }
-  setModalVisible = (visible) => {
-    this.setState({modalVisible: visible});
-  }
   render(){
+    console.log("post", this.props)
     return(
-      <Post
-          {...this.props}/>
+      <View>
+        <Post {...this.props}/>
+      </View>
     )
   }
 }
 
-export default PostView;
+
+function mapStateToProps(state){
+  return {
+    user: state.permissions.user
+  }
+}
+
+export default connect(mapStateToProps,actions)(PostView)
+
+// export default PostView;
 
 
 // <Modal
