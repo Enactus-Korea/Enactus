@@ -45,51 +45,37 @@ class Register extends Component{
       // <Image style={styles.imageBack} source={require('../../assets/WeAllWin.jpg')}>
         <View style={styles.container}>
           <View style={styles.rgst_body}>
-
-            {/* <Text>인액터스 회원을 인증하세요.</Text> */}
-
-            <TextInput
-              ref='email'
-              autoCapitalize= "none"
-              onChangeText={(text) => this.setState({email: text})}
-              style={styles.input} placeholder="이메일을 입력해주세요."/>
-            {!this.state.isVaildEmail
-            ? <TouchableHighlight
-                style={styles.button}
+            <View style={styles.rgst_email}>
+              <TextInput
+                ref='email'
+                autoCapitalize= "none"
+                style={styles.email_input}
+                onChangeText={(text) => this.setState({email: text})}
+                placeholder="이메일을 입력해주세요." />
+              <TouchableHighlight
+                style={styles.email_button}
                 onPress={() => this.isValidEmail(this.state.email)}>
                 <Text style={styles.buttonText}>인액터스 인증하기</Text>
               </TouchableHighlight>
-            : <View>
-                <TextInput
-                  ref='password'
-                  autoCapitalize = "none"
-                  onChangeText={(text) => this.setState({password: text})}
-                  style={styles.input} placeholder="비밀번호"
-                  secureTextEntry={true}/>
-                <TextInput
-                  ref='passwordConfirm'
-                  autoCapitalize = "none"
-                  onChangeText={(text) => this.setState({passwordConfirm: text})}
-                  style={styles.input} placeholder="비밀번호 확인"
-                  secureTextEntry={true}/>
-                <TouchableHighlight
-                  style={styles.button}
-                  onPress={this.isRequestSignUp}>
-                  <Text style={styles.buttonText}>회원가입</Text>
-                </TouchableHighlight>
-                <TouchableHighlight
-                  style={styles.home_btn}
-                  onPress={() => this.props.navigation.navigate('Feed')}>
-                  <Text style={styles.home_btn_Text}>홈으로 가기</Text>
-                </TouchableHighlight>
-              </View>
-          }
-          </View>
-          <View style={styles.bottom_btn}>
+            </View>
+            <TextInput
+              ref='password'
+              autoCapitalize= "none"
+              onChangeText={(text) => this.setState({password: text})}
+              style={styles.input} placeholder="비밀번호"
+              secureTextEntry={true}/>
+            <TextInput
+              ref='passwordConfirm'
+              autoCapitalize= "none"
+              onChangeText={(text) => this.setState({passwordConfirm: text})}
+              style={styles.input} placeholder="비밀번호 확인"
+              secureTextEntry={true}/>
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('Login')}>
-              <Text style={{fontWeight:'bold'}}>로그인 하기</Text>
+              style={styles.type_input}
+              onPress={() => console.log('Action Sheet')}>
+              <Text style={styles.type_inputText}>분류</Text>
             </TouchableOpacity>
+            <Text><Text>서비스 이용약관</Text>과<Text>개인정보 취급방침</Text>에 동의합니다.</Text>
           </View>
         </View>
       // </Image>
@@ -115,3 +101,23 @@ export default connect(mapStateToProps, actions)(Register)
     return this.props.navigation.navigate('FirstViewStack')}}>
   <Text style={{fontWeight:'bold'}}>홈으로</Text>
 </TouchableOpacity> */
+
+
+/* <TouchableHighlight
+  style={styles.button}
+  onPress={this.isRequestSignUp}>
+  <Text style={styles.buttonText}>회원가입</Text>
+</TouchableHighlight>
+<TouchableHighlight
+  style={styles.home_btn}
+  onPress={() => this.props.navigation.navigate('Feed')}>
+  <Text style={styles.home_btn_Text}>홈으로 가기</Text>
+</TouchableHighlight> */
+
+
+/* <View style={styles.bottom_btn}>
+  <TouchableOpacity
+    onPress={() => this.props.navigation.navigate('Login')}>
+    <Text style={{fontWeight:'bold'}}>로그인 하기</Text>
+  </TouchableOpacity>
+</View> */

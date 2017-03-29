@@ -216,6 +216,20 @@ const TabRoutes = TabNavigator(Tab, {
   },
 })
 
+const RegisterStack = {
+  Register: {
+		screen: Register,
+    navigationOptions: {
+      header: ({navigate}) =>({
+        title: '회원가입',
+        left: <Text>취소</Text>,
+        right: <Text>다음</Text>,
+        ...HeaderColor
+      }),
+    }
+	},
+}
+
 const DrawerRoutes = {
 	FirstViewStack: {
 		name: 'FirstViewStack',
@@ -245,8 +259,8 @@ const DrawerRoutes = {
     path: '/login',
     screen: Login,
   },
-  Register: {
-    screen: Register,
+  RegisterStack: {
+    screen: StackNavigator(RegisterStack, { initialRouteName: 'Register' }),
   },
   Facebook: {
     name: 'Facebook',
