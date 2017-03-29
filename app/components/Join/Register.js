@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import * as actions from './actions'
-import {View, Text, ScrollView, Button, TouchableHighlight, TouchableOpacity, TextInput, Alert, Image, Modal} from 'react-native'
+import {View, Text, ScrollView, Button, TouchableHighlight, ActionSheetIOS, TouchableOpacity, TextInput, Alert, Image, Modal} from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import styles from './styles'
 
@@ -24,6 +24,7 @@ class Register extends Component{
       email: '',
       password: '',
       passwordConfirm: '',
+      userType: undefined,
       isVaildEmail: false,
       checked: false,
       termsVisible: false,
@@ -61,6 +62,21 @@ class Register extends Component{
       {text: '프로필 설정하기', onPress: () => this.props.navigation.navigate('Profile')},
     ])
   }
+  showActionSheet = () => {
+    var BUTTONS = [ '인액터스 회원', '후원기업/기관 외', 'Cancel'];
+
+
+    ActionSheetIOS.showActionSheetWithOptions({
+      options: BUTTONS,
+      cancelButtonIndex: 2,
+      title: '분류',
+    },
+    (buttonIndex) => {
+      if(buttonIndex !== 2){
+        this.setState({ userType: BUTTONS[buttonIndex] });
+      }
+    });
+  };
   render(){
     let permissions = this.props.permissions
     return(
@@ -95,9 +111,10 @@ class Register extends Component{
                 secureTextEntry={true}/>
             </View>
             <TouchableOpacity
+              activeOpacity={1}
               style={styles.type_input}
-              onPress={() => console.log('Action Sheet')}>
-              <Text style={styles.type_inputText}>분류</Text>
+              onPress={this.showActionSheet}>
+              <Text style={this.state.userType? '' : styles.type_inputText}>{this.state.userType ? this.state.userType :"분류"}</Text>
             </TouchableOpacity>
             <View style={{flexDirection:'row', alignItems: 'center'}}>
               <Text style={{fontSize: 12}}>
