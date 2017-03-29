@@ -27,21 +27,25 @@ class Login extends Component {
   render() {
     return (
       <Image style={styles.imageBack} source={require('../../assets/WeAllWin.jpg')}>
-        <View style={styles.container}>
+        <View style={styles.login_container}>
           <View style={[styles.cen_column, styles.login_head]}>
             <Image style={styles.logo} source={require('../../assets/logo.png')} resizeMode='contain' />
             <Text style={styles.login_title}>KOREA COMMUNITY</Text>
           </View>
           <View style={styles.login_body}>
+            <View style={styles.line}>
             <TextInput
               autoCapitalize = "none"
               onChangeText={(val) => this.setState({email: val})}
               style={styles.input} placeholder="이메일"/>
+            </View>
+            <View style={styles.line}>
             <TextInput
               autoCapitalize = "none"
               onChangeText={(val) => this.setState({password: val})}
               style={styles.input} placeholder="비밀번호"
               secureTextEntry={true}/>
+            </View>
             <TouchableHighlight style={styles.button} onPress={this.isSignIn}>
               <Text style={styles.buttonText}>로그인</Text>
             </TouchableHighlight>

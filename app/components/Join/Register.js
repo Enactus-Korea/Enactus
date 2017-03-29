@@ -1,22 +1,44 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import * as actions from './actions'
-import {View, Text, Button, TouchableHighlight, TouchableOpacity, TextInput, Alert, Image} from 'react-native'
+import {View, Text, ScrollView, Button, TouchableHighlight, TouchableOpacity, TextInput, Alert, Image, Modal} from 'react-native'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import styles from './styles'
 
 class Register extends Component{
+  static navigationOptions = {
+    // title: '상태매세지',
+    header: (props) => ({
+      title: '회원가입',
+      left: <Button title='뒤로' color='#fff' onPress={() => props.navigate('Login')} />,
+    right: <Button title='다음' color='#FEC13A' onPress={() => props.state.params.handleNext()} />,
+      style: {
+        backgroundColor: '#30333C'
+      },
+      tintColor: 'white'
+    })
+  }
   constructor(props){
     super(props)
     this.state ={
       email: '',
       password: '',
       passwordConfirm: '',
-      isVaildEmail: false
+      isVaildEmail: false,
+      checked: false,
+      termsVisible: false,
+      policyVisible: false,
+      checkedTerms: false,
+      checkedPolicy: false,
     }
   }
   componentDidMount(){
     this.props.isFetchedPermissions()
+    this.props.navigation.setParams({ handleNext: this.isNextStep });
     console.log("DidMount", this.props.permissions)
+  }
+  isNextStep = () => {
+    this.props.navigation.navigate('RegisterSecond')
   }
   isValidEmail = (email) => {
     let { permissions } = this.props.permissions,
@@ -42,9 +64,7 @@ class Register extends Component{
   render(){
     let permissions = this.props.permissions
     return(
-      // <Image style={styles.imageBack} source={require('../../assets/WeAllWin.jpg')}>
-        <View style={styles.container}>
-          <View style={styles.rgst_body}>
+        <View style={styles.rgst_container}>
             <View style={styles.rgst_email}>
               <TextInput
                 ref='email'
@@ -58,27 +78,102 @@ class Register extends Component{
                 <Text style={styles.buttonText}>인액터스 인증하기</Text>
               </TouchableHighlight>
             </View>
-            <TextInput
-              ref='password'
-              autoCapitalize= "none"
-              onChangeText={(text) => this.setState({password: text})}
-              style={styles.input} placeholder="비밀번호"
-              secureTextEntry={true}/>
-            <TextInput
-              ref='passwordConfirm'
-              autoCapitalize= "none"
-              onChangeText={(text) => this.setState({passwordConfirm: text})}
-              style={styles.input} placeholder="비밀번호 확인"
-              secureTextEntry={true}/>
+            <View style={styles.line}>
+              <TextInput
+                ref='password'
+                autoCapitalize= "none"
+                onChangeText={(text) => this.setState({password: text})}
+                style={styles.input} placeholder="비밀번호"
+                secureTextEntry={true}/>
+            </View>
+            <View style={styles.line}>
+              <TextInput
+                ref='passwordConfirm'
+                autoCapitalize= "none"
+                onChangeText={(text) => this.setState({passwordConfirm: text})}
+                style={styles.input} placeholder="비밀번호 확인"
+                secureTextEntry={true}/>
+            </View>
             <TouchableOpacity
               style={styles.type_input}
               onPress={() => console.log('Action Sheet')}>
               <Text style={styles.type_inputText}>분류</Text>
             </TouchableOpacity>
-            <Text><Text>서비스 이용약관</Text>과<Text>개인정보 취급방침</Text>에 동의합니다.</Text>
-          </View>
+            <View style={{flexDirection:'row', alignItems: 'center'}}>
+              <Text style={{fontSize: 12}}>
+                <Text
+                  style={styles.rgst_service}
+                  onPress={() => this.setState({termsVisible: true})}>
+                  서비스 이용약관
+                </Text>
+
+                {' '}과{' '}
+                <Text
+                  style={styles.rgst_service}
+                  onPress={() => this.setState({policyVisible: true})}>
+                  개인정보 취급방침
+                </Text>
+
+                {' '}에 동의합니다.
+              </Text>
+              <Ionicons
+                name={this.state.checked ? "md-square" : "md-square-outline"}
+                size={20}
+                style={{marginLeft: 5, marginBottom: -2}}
+                onPress={() => this.setState({checked: !this.state.checked})}
+              />
+              <Modal
+                animationType={"slide"}
+                transparent={true}
+                visible={this.state.termsVisible}
+                >
+                <View style={styles.agreement_cont}>
+                <Button onPress={() => this.setState({termsVisible: false})} title='닫기'/>
+                <ScrollView style={styles.agreement_box}>
+                  <Text>
+                    서비스 약관동의은 궁시렁 궁시렁
+                  </Text>
+                </ScrollView>
+                <View style={{flexDirection:'row', alignItems: 'center'}}>
+                  <Text>
+                    서비스 약관동의에 동의합니다.
+                  </Text>
+                  <Ionicons
+                    name={this.state.checkedTerms ? "md-square" : "md-square-outline"}
+                    size={20}
+                    style={{marginLeft: 5, marginBottom: -2}}
+                    onPress={() => this.setState({checked: !this.state.checkedTerms})}
+                  />
+                </View>
+                </View>
+              </Modal>
+              <Modal
+                animationType={"slide"}
+                transparent={true}
+                visible={this.state.policyVisible}
+                >
+                <View style={styles.agreement_cont}>
+                  <Button onPress={() => this.setState({policyVisible: false})} title='닫기'/>
+                  <ScrollView style={styles.agreement_box}>
+                    <Text>
+                      개인 정보 정책 동의
+                    </Text>
+                  </ScrollView>
+                  <View style={{flexDirection:'row', alignItems: 'center'}}>
+                    <Text>
+                      개인 정보 정책에 동의합니다.
+                    </Text>
+                    <Ionicons
+                      name={this.state.checkedPolicy ? "md-square" : "md-square-outline"}
+                      size={20}
+                      style={{marginLeft: 5, marginBottom: -2}}
+                      onPress={() => this.setState({checked: !this.state.checkedPolicy})}
+                    />
+                  </View>
+                </View>
+              </Modal>
+            </View>
         </View>
-      // </Image>
     )
   }
 }

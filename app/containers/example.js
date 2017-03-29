@@ -4,10 +4,9 @@ import { View, Text, StatusBar, TouchableOpacity, Image, ScrollView, StyleSheet,
 import {FeedContainer, FeedDetail} from '../components/Feed'
 import { StackNavigator, DrawerNavigator, TabNavigator} from 'react-navigation';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Ionicons from 'react-native-vector-icons/Ionicons'
 import CustomDrawer from '../components/CustomDrawer'
 import {PostView} from '../components/Post'
-import {Register, Login} from '../components/Join'
+import {Register, Login, RegisterSecond} from '../components/Join'
 import WebViews from '../components/WebViews'
 import Contact from '../components/Contact'
 import { ProfileStack } from '../components/Profile'
@@ -219,14 +218,25 @@ const TabRoutes = TabNavigator(Tab, {
 const RegisterStack = {
   Register: {
 		screen: Register,
-    navigationOptions: {
-      header: ({navigate}) =>({
-        title: '회원가입',
-        left: <Text>취소</Text>,
-        right: <Text>다음</Text>,
-        ...HeaderColor
-      }),
-    }
+    // navigationOptions: {
+    //   header: ({navigate}) =>({
+    //     title: '회원가입',
+    //     left: <Text>취소</Text>,
+    //     right: <Text>다음</Text>,
+    //     ...HeaderColor
+    //   }),
+    // }
+	},
+  RegisterSecond: {
+		screen: RegisterSecond,
+    // navigationOptions: {
+    //   header: ({navigate}) =>({
+    //     title: '회원가입',
+    //     left: <Text>취소</Text>,
+    //     right: <Text>다음</Text>,
+    //     ...HeaderColor
+    //   }),
+    // }
 	},
 }
 
