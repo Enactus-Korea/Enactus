@@ -68,6 +68,18 @@ export default StyleSheet.create({
     borderBottomWidth: 0.5,
     borderColor:'#d8d8d8',
   },
+  type_half_input:{
+    // marginTop: 19,
+    // marginBottom: 10,
+    height: 50,
+    padding: 10,
+    width: Dimensions.get('window').width/2,
+    backgroundColor: '#ffffff',
+    justifyContent: 'center',
+    borderTopWidth: 0.5,
+    borderBottomWidth: 0.5,
+    borderColor:'#d8d8d8',
+  },
   button: {
     height: 40,
     backgroundColor: '#FEC13A',
@@ -126,8 +138,22 @@ export default StyleSheet.create({
     height: 50,
     width:Dimensions.get('window').width,
     borderTopWidth: 0.5,
+    // borderBottomWidth: 0.5,
+    // marginBottom: 0.5,
+    backgroundColor: '#fff',
+    borderColor:'#d8d8d8',
+  },
+  half_line:{
+    height: 50,
+    width:Dimensions.get('window').width/2,
+    borderTopWidth: 0.5,
+    borderLeftWidth: 0.5,
     borderBottomWidth: 0.5,
     backgroundColor: '#fff',
+    borderColor:'#d8d8d8',
+  },
+  btm_line:{
+    borderBottomWidth: 0.5,
     borderColor:'#d8d8d8',
   },
   email_input:{
@@ -174,5 +200,36 @@ export default StyleSheet.create({
     borderColor: '#dbdbdb',
     borderWidth: 2,
     borderRadius: 10,
+  },
+  showtimeContainer: {
+  	borderTopColor: '#ededed',
+    borderTopWidth:1
+  },
+  showtime: {
+  	padding:20,
+    textAlign: 'center'
+  },
+  button: {
+  	marginTop:25,
+    marginBottom:25
+  },
+  closeButtonContainer: {
+  	flexDirection: 'row',
+    justifyContent: 'flex-end',
+    borderTopColor: '#e2e2e2',
+    borderTopWidth: 1,
+    borderBottomColor: '#e2e2e2',
+    borderBottomWidth:1
+  },
+  closeButton: {
+  	paddingRight:10,
+    paddingTop:10,
+    paddingBottom:10
+  },
+  buttonText: {
+  	textAlign: 'center'
+  },
+  closeButtonText: {
+  	color: '#027afe'
   },
 });
