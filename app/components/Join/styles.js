@@ -201,4 +201,35 @@ export default StyleSheet.create({
     borderWidth: 2,
     borderRadius: 10,
   },
+  showtimeContainer: {
+  	borderTopColor: '#ededed',
+    borderTopWidth:1
+  },
+  showtime: {
+  	padding:20,
+    textAlign: 'center'
+  },
+  button: {
+  	marginTop:25,
+    marginBottom:25
+  },
+  closeButtonContainer: {
+  	flexDirection: 'row',
+    justifyContent: 'flex-end',
+    borderTopColor: '#e2e2e2',
+    borderTopWidth: 1,
+    borderBottomColor: '#e2e2e2',
+    borderBottomWidth:1
+  },
+  closeButton: {
+  	paddingRight:10,
+    paddingTop:10,
+    paddingBottom:10
+  },
+  buttonText: {
+  	textAlign: 'center'
+  },
+  closeButtonText: {
+  	color: '#027afe'
+  },
 });
