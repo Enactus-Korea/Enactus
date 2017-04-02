@@ -10,7 +10,6 @@ export default StyleSheet.create({
   logo:{
     height: Dimensions.get('window').height/10,
     margin: 5,
-    // resizeMode: 'cover',
   },
   login_container:{
     paddingTop: Platform.OS === 'ios' ? 20 : 0,
@@ -32,7 +31,6 @@ export default StyleSheet.create({
     color: 'white',
     fontFamily:'AvenirNextCondensed-UltraLight',
     fontWeight: "600"
-    // letterSpacing 간격 넓히는 것
   },
   home_btn:{
     justifyContent: 'center',
@@ -68,15 +66,23 @@ export default StyleSheet.create({
     borderBottomWidth: 0.5,
     borderColor:'#d8d8d8',
   },
+  select_input:{
+    height: 50,
+    padding: 10,
+    width: Dimensions.get('window').width,
+    backgroundColor: '#ffffff',
+    justifyContent: 'center',
+    borderTopWidth: 0.5,
+    borderBottomWidth: 0.5,
+    borderColor:'#d8d8d8',
+  },
   type_half_input:{
-    // marginTop: 19,
-    // marginBottom: 10,
     height: 50,
     padding: 10,
     width: Dimensions.get('window').width/2,
     backgroundColor: '#ffffff',
     justifyContent: 'center',
-    borderTopWidth: 0.5,
+    // borderTopWidth: 0.5,
     borderBottomWidth: 0.5,
     borderColor:'#d8d8d8',
   },
@@ -128,25 +134,23 @@ export default StyleSheet.create({
     height: 50,
     backgroundColor: '#fff',
     marginBottom: 20,
+    paddingLeft:10,
+    paddingRight:10,
     borderTopWidth: 0.5,
     borderBottomWidth: 0.5,
     borderColor:'#d8d8d8',
-    // borderWidth:1,
-    // borderColor: 'black',
   },
   line:{
     height: 50,
     width:Dimensions.get('window').width,
     borderTopWidth: 0.5,
-    // borderBottomWidth: 0.5,
-    // marginBottom: 0.5,
     backgroundColor: '#fff',
     borderColor:'#d8d8d8',
   },
   half_line:{
     height: 50,
     width:Dimensions.get('window').width/2,
-    borderTopWidth: 0.5,
+    // borderTopWidth: 0.5,
     borderLeftWidth: 0.5,
     borderBottomWidth: 0.5,
     backgroundColor: '#fff',
@@ -161,8 +165,6 @@ export default StyleSheet.create({
     fontSize: 14,
     marginLeft: 5,
     width:Dimensions.get('window').width/1.4,
-    // borderWidth:1,
-    // borderColor: 'black',
   },
 
   email_button:{
@@ -190,7 +192,6 @@ export default StyleSheet.create({
     margin: 20,
     borderRadius:2,
     backgroundColor: '#fff',
-    // justifyContent: 'center',
     alignItems: 'center',
   },
   agreement_box:{
