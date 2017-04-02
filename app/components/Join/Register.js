@@ -64,8 +64,6 @@ class Register extends Component{
   }
   showActionSheet = () => {
     var BUTTONS = [ '인액터스 회원', '후원기업/기관 외', 'Cancel'];
-
-
     ActionSheetIOS.showActionSheetWithOptions({
       options: BUTTONS,
       cancelButtonIndex: 2,
