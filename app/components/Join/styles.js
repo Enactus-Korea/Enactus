@@ -193,11 +193,12 @@ export default StyleSheet.create({
     borderRadius:2,
     backgroundColor: '#fff',
     alignItems: 'center',
+    justifyContent: 'space-around'
   },
   agreement_box:{
-    margin: 20,
+    margin: 15,
     width: Dimensions.get('window').width/1.3,
-    flex:1,
+    // flex:1,
     borderColor: '#dbdbdb',
     borderWidth: 2,
     borderRadius: 10,

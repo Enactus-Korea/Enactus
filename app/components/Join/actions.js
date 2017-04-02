@@ -9,7 +9,8 @@ export const SUCCESS_USER_LOG_OUT = 'SUCCESS_USER_LOG_OUT';
 export const FAILED_USER_LOG_IN = 'FAILED_USER_LOG_IN';
 export const IS_FETCHED_USER_DATA = 'IS_FETCHED_USER_DATA';
 export const EMAIL_IN_STORAGE = 'EMAIL_IN_STORAGE';
-export const NEED_USER_LOGIN = 'NEED_USER_LOGIN'
+export const NEED_USER_LOGIN = 'NEED_USER_LOGIN';
+export const IS_CLEAR_FIRST_PHASE = 'IS_CLEAR_FIRST_PHASE';
 /*============================*/
 
 const REQUEST_URL = "http://localhost:9000";
@@ -138,6 +139,12 @@ export const isFetchedUserData = (email) => (dispatch) => {
   .then(res => dispatch({type: IS_FETCHED_USER_DATA, user: res.userData[0]}))
   .catch(err => console.log(err))
 }
+
+export const isFirstPhase = (first) => (dispatch) => {
+  console.log("isFirstPhase",first)
+  dispatch({type: IS_CLEAR_FIRST_PHASE, first})
+}
+
 
 // Alert.alert('가입완료','가입이 완료되었습니다.\n프로필을 설정해주세요.',[
 //   {text: '프로필 설정하기', onPress: () => this.props.navigation.navigate('Profile')},

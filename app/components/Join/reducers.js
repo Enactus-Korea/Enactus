@@ -27,6 +27,9 @@ export default function (state = initialState, action) {
         ...state.user,
         selfIntro: action.selfIntro
       }}
+    case types.IS_CLEAR_FIRST_PHASE:
+    let { email, password, userType } = action.first
+      return { ...state, rgst:{ email, password, userType }}
     default:
       return state
   }
