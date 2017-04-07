@@ -29,10 +29,9 @@ class RegisterSecond extends Component{
       univ: '',
       joined: '',
       intro: '',
+      userImg: '',
       univList: ['가천대', '경희대', '고려대', '명지대', '서울대'],
       joinedList: ['2006','2007', '2008', '2009', '2010', '2011','2012', '2013', '2014', '2015', '2016','2017'],
-      selectedUniv: '',
-      selectedJoined:'',
       univModal: false,
       joinedModal: false,
     }
@@ -45,7 +44,13 @@ class RegisterSecond extends Component{
 		this.setState({ univ, univIndex: univ })
 	}
   isRequestSignUp = () => {
-    console.log('회원가입으로 넘어가쟝')
+    this.props.isSecondPhase(this.state)
+    Alert.alert(
+      '회원가입',
+      '회원가입을 완료 하시겠습니까?',
+      [ {text: '취소'},
+        {text: '확인', onPress: () => this.props.isRequestedSignUp(this.props.rgst)}]
+      )
   }
   showActionSheet = () => {
     var BUTTONS = [ '학생', '오비', '알룸나이'];
@@ -59,6 +64,10 @@ class RegisterSecond extends Component{
   setModalVisible = (visible) => {
     this.setState({univModal: visible});
   }
+  getUserImg = (userImg) => {
+    console.log(userImg)
+    this.setState({userImg})
+  }
   render(){
     let serviceItems = this.state.univList.map( (l, i) => {
             return <Picker.Item key={i} value={l} label={l} />
@@ -70,7 +79,7 @@ class RegisterSecond extends Component{
     return(
         <View style={styles.rgst_container}>
           <View style={{margin: 30}}>
-            <ProfUserImg />
+            <ProfUserImg getUserImg={this.getUserImg} />
           </View>
           <View style={styles.line}>
             <TextInput
@@ -83,8 +92,8 @@ class RegisterSecond extends Component{
           <TouchableOpacity
             onPress={()=> this.setState({univModal: true})}
             style={styles.select_input}>
-            <Text style={this.state.selectedUniv? '' : styles.type_inputText} >
-              {this.state.selectedUniv? this.state.selectedUniv :"소속학교"}
+            <Text style={this.state.univ? '' : styles.type_inputText} >
+              {this.state.univ? this.state.univ :"소속학교"}
             </Text>
           </TouchableOpacity>
             <View style={{
@@ -106,7 +115,7 @@ class RegisterSecond extends Component{
                 style={[styles.half_line, styles.type_half_input]}
                 onPress={() => this.setState({joinedModal: true})}
                 >
-                  <Text style={this.state.selectedJoined ? '' : styles.type_inputText}>{this.state.selectedJoined ? this.state.selectedJoined :"가입년도"}</Text>
+                  <Text style={this.state.joined ? '' : styles.type_inputText}>{this.state.joined ? this.state.joined :"가입년도"}</Text>
               </TouchableOpacity>
             </View>
             <View style={[styles.line, styles.btm_line]}>
@@ -137,8 +146,8 @@ class RegisterSecond extends Component{
                       >완료</Text>
                   </TouchableOpacity>
                   <Picker
-                    selectedValue={this.state.selectedUniv}
-                    onValueChange={ (univ) => (this.setState({selectedUniv:univ}))}
+                    selectedValue={this.state.univ}
+                    onValueChange={ (univ) => (this.setState({univ}))}
                     itemStyle={{height: 170}}
                     >
                     {serviceItems}
@@ -167,8 +176,8 @@ class RegisterSecond extends Component{
                       >완료</Text>
                   </TouchableOpacity>
                   <Picker
-                    selectedValue={this.state.selectedJoined}
-                    onValueChange={ (joined) => (this.setState({selectedJoined:joined}))}
+                    selectedValue={this.state.joined}
+                    onValueChange={ (joined) => (this.setState({joined}))}
                     itemStyle={{height: 170}}
                     >
                     {joinedItems}
@@ -184,7 +193,8 @@ class RegisterSecond extends Component{
 
 function mapStateToProps(state){
   return {
-    permissions: state.permissions
+    permissions: state.permissions,
+    rgst: state.permissions.rgst
   }
 }
 

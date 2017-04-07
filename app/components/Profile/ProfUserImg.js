@@ -15,11 +15,13 @@ class ProfUserImg extends Component {
   chooseImageFromGallery = () => {
     ImagePickerIOS.openSelectDialog({}, imageUri => {
       this.setState({image: imageUri, modalVisible: false});
+      this.props.getUserImg(imageUri)
     }, error => console.error(error));
   }
   chooseImageFromCamera = () => {
     ImagePickerIOS.openCameraDialog({}, imageUri => {
       this.setState({image: imageUri, modalVisible: false});
+      this.props.getUserImg(imageUri)
     }, error => console.error(error));
   }
   showActionSheet = () => {

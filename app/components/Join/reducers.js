@@ -30,6 +30,9 @@ export default function (state = initialState, action) {
     case types.IS_CLEAR_FIRST_PHASE:
     let { email, password, userType } = action.first
       return { ...state, rgst:{ email, password, userType }}
+    case types.IS_CLEAR_SECOND_PHASE:
+    let { name, enactusType, univ, joined, intro, userImg} = action.second;
+      return { ...state, rgst:{ ...state.rgst, name, joined, univ, enactusType, selfIntro: intro, userImg}}
     default:
       return state
   }
