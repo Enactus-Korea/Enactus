@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import * as actions from './actions'
-import { View, Text, ActionSheetIOS, TouchableOpacity, TextInput, Alert} from 'react-native'
+import { View, Text, ActionSheetIOS, TouchableOpacity, TextInput, Alert, Button} from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Agreement from './Agreement'
 import styles from './styles'

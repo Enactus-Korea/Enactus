@@ -11,6 +11,7 @@ export const IS_FETCHED_USER_DATA = 'IS_FETCHED_USER_DATA';
 export const EMAIL_IN_STORAGE = 'EMAIL_IN_STORAGE';
 export const NEED_USER_LOGIN = 'NEED_USER_LOGIN';
 export const IS_CLEAR_FIRST_PHASE = 'IS_CLEAR_FIRST_PHASE';
+export const IS_CLEAR_SECOND_PHASE = 'IS_CLEAR_SECOND_PHASE'
 /*============================*/
 
 const REQUEST_URL = "http://localhost:9000";
@@ -34,10 +35,23 @@ export const isFetchedPermissions = () => (dispatch) =>{
   .catch(err => console.log(err))
 }
 
-export const isRequestedSignUp = (email, password, name, univ) => (dispatch) => {
+
+export const isFirstPhase = (first) => (dispatch) => {
+  console.log("isFirstPhase",first)
+  dispatch({type: IS_CLEAR_FIRST_PHASE, first})
+}
+
+export const isSecondPhase = (second) => (dispatch) => {
+  console.log("isSecondPhase",second)
+  dispatch({type: IS_CLEAR_SECOND_PHASE, second})
+}
+
+
+export const isRequestedSignUp = (rgst) => (dispatch) => {
+  console.log("하하하하")
   fetch(`${REQUEST_URL}/user`, {
     ...methodPost,
-    body: JSON.stringify({ email, password, univ, name }),
+    body: JSON.stringify({ ...rgst }),
   })
   .then(response => {
     if (response.status >= 200 && response.status < 300) {
@@ -140,10 +154,7 @@ export const isFetchedUserData = (email) => (dispatch) => {
   .catch(err => console.log(err))
 }
 
-export const isFirstPhase = (first) => (dispatch) => {
-  console.log("isFirstPhase",first)
-  dispatch({type: IS_CLEAR_FIRST_PHASE, first})
-}
+
 
 
 // Alert.alert('가입완료','가입이 완료되었습니다.\n프로필을 설정해주세요.',[
