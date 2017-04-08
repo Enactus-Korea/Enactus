@@ -13,8 +13,14 @@ class Login extends Component {
     }
   }
   isSignIn = () => {
-    this.props.isRequestedSignIn(this.state.email, this.state.password)
-    Alert.alert('인액터스 로그인','로그인이 완료 되었습니다.',[{text:'확인', onPress: () => this.props.navigation.navigate('Feed') }])
+    const {email, password} = this.state
+    //TODO: navigation with redux
+    if(!email || !password) {
+      Alert.alert('정확한 양식을 입력하세요.')
+    } else {
+      this.props.isRequestedSignIn(this.state.email, this.state.password)
+      Alert.alert('인액터스 로그인','로그인이 완료 되었습니다.',[{text:'확인', onPress: () => this.props.navigation.navigate('Feed') }])
+    }
   }
   isPreNotice = () => {
     Alert.alert(
@@ -46,7 +52,7 @@ class Login extends Component {
               style={styles.input} placeholder="비밀번호"
               secureTextEntry={true}/>
             </View>
-            <TouchableHighlight style={styles.button} onPress={this.isSignIn}>
+            <TouchableHighlight style={styles.loginButton} onPress={this.isSignIn}>
               <Text style={styles.buttonText}>로그인</Text>
             </TouchableHighlight>
             <View style={styles.cen_column}>

@@ -1,18 +1,20 @@
 import React , {Component} from 'react'
 import { connect } from 'react-redux';
 import * as actions from './actions'
-import { Text, View } from 'react-native'
+import { Text, View, Alert } from 'react-native'
 import Post from './Post'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 class PostView extends Component{
   render(){
-    console.log("post", this.props)
     return(
       <View>
         <Post {...this.props}/>
       </View>
     )
   }
+
+
 }
 
 
@@ -23,6 +25,7 @@ function mapStateToProps(state){
 }
 
 export default connect(mapStateToProps,actions)(PostView)
+
 
 // export default PostView;
 

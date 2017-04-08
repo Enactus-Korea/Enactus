@@ -124,20 +124,21 @@ const Tab = {
   Post: {
     screen: PostView,
     path: 'chat',
-    navigationOptions: {
-      tabBar: {
-        label: '글쓰기',
-        icon: ({tintColor, focused}) => (
-          <MaterialIcons
-            name={focused ?'add-circle':'add-circle-outline'}
-            size={24}
-            style={{ color: tintColor }}
-          />
-        ),
-        visible: false
-        // 탭이 보이지 않도록 하는 것,,,
-      },
-    }
+    navigationOptions : {
+     tabBar: {
+       label: '글쓰기',
+       icon: ({tintColor, focused}) => {
+         return(
+         <MaterialIcons
+           name={focused ?'add-circle':'add-circle-outline'}
+           size={24}
+           style={{ color: tintColor }}
+         />
+       )},
+       visible: false
+       // 탭이 보이지 않도록 하는 것,,,
+     },
+   }
   },
   Notification: {
     screen: NotificationView,
@@ -207,6 +208,7 @@ const TabRoutes = TabNavigator(Tab, {
   initialRouteName: 'Feed',
   swipeEnabled: true,
   // animationEnabled: true,
+  ...TabNavigator.Presets.iOSBottomTabs,
   tabBarOptions: {
     activeTintColor: Platform.OS === 'ios' ? '#30333C' : '#fff',
     labelStyle:{
@@ -215,28 +217,14 @@ const TabRoutes = TabNavigator(Tab, {
   },
 })
 
+
+
 const RegisterStack = {
   Register: {
 		screen: Register,
-    // navigationOptions: {
-    //   header: ({navigate}) =>({
-    //     title: '회원가입',
-    //     left: <Text>취소</Text>,
-    //     right: <Text>다음</Text>,
-    //     ...HeaderColor
-    //   }),
-    // }
 	},
   RegisterSecond: {
 		screen: RegisterSecond,
-    // navigationOptions: {
-    //   header: ({navigate}) =>({
-    //     title: '회원가입',
-    //     left: <Text>취소</Text>,
-    //     right: <Text>다음</Text>,
-    //     ...HeaderColor
-    //   }),
-    // }
 	},
 }
 
@@ -324,4 +312,5 @@ const styles = StyleSheet.create({
   }
 });
 
-export default RootNavigator;
+
+export default RootNavigator

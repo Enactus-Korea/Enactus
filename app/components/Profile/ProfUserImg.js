@@ -9,7 +9,7 @@ class ProfUserImg extends Component {
     super(props)
     this.state = {
       modalVisible: false,
-      image: props.userImage || null,
+      image: props.userImg || null,
     }
   }
   chooseImageFromGallery = () => {
@@ -48,7 +48,7 @@ class ProfUserImg extends Component {
     return(
       <TouchableOpacity
         onPress={this.showActionSheet}>
-
+        {console.log(this.state.image)}
         <Image
           style={styles.profile_img}
           source={this.state.image ? {uri: this.state.image} : require('../../assets/defaultUser.jpg')}/>

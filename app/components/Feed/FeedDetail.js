@@ -5,10 +5,7 @@ import FeedComp from './FeedComp'
 const FeedDetail = (props) => {
   console.log(props.navigation.state.params)
   return(
-  <FeedComp
-    {...props.navigation.state.params}
-
-  />
+    <FeedComp {...props.navigation.state.params}/>
 
 )}
 FeedDetail.navigationOptions = {

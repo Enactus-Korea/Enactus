@@ -215,6 +215,12 @@ export default StyleSheet.create({
   	marginTop:25,
     marginBottom:25
   },
+  loginButton: {
+  	marginTop:25,
+    marginBottom:25,
+    backgroundColor: '#FEC13A',
+    padding: 10,
+  },
   closeButtonContainer: {
   	flexDirection: 'row',
     justifyContent: 'flex-end',

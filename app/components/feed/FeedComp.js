@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text,Image,ScrollView,TouchableOpacity } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles'
+import moment from 'moment-timezone'
 
 class FeedComp extends Component{
   constructor(props){
@@ -46,7 +47,7 @@ class FeedComp extends Component{
               <Text style={styles.feedUserUniv}>{this.props.useruniv}</Text>
             </View>
           </View>
-          <Text style={styles.feedUserTime}>{this.props.posted}</Text>
+          <Text style={styles.feedUserTime}>{moment(this.props.posted).tz('Asia/Seoul').format('YYYY년MM월DD일')}</Text>
           </View>
           <View  style={styles.ctxContainer}>
             <View style= {styles.txtContents}>
