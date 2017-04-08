@@ -11,7 +11,7 @@ class Profile extends Component{
       return(
         <View>
           <View style={styles.profile_top}>
-            <ProfUserImg />
+            <ProfUserImg userImg={user.userImg} />
             <Text style={styles.profile_name}>{user.name}</Text>
             <Text style={styles.profile_univ}>{user.univ} 인액터스</Text>
             {user.selfIntro

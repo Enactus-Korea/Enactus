@@ -6,16 +6,6 @@ import { StackNavigator } from 'react-navigation';
 import FeedList from './FeedList'
 import styles from './styles'
 
-// class FeedContainer extends Component {
-//   render(){
-//     const {navigation} = this.props;
-//     return(
-//       <View>
-//         <FeedList navigation={navigation}/>
-//       </View>
-//     )
-//   }
-// }
 
 const FeedContainer = ({navigation}) => (
   <View>

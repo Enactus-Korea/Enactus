@@ -49,9 +49,20 @@ export const isSecondPhase = (second) => (dispatch) => {
 
 export const isRequestedSignUp = (rgst) => (dispatch) => {
   console.log("하하하하")
+  const body = new FormData();
+  Object.keys(rgst).forEach(key=>{
+    if(key === "userImg") {
+      body.append(key, {
+        uri: rgst.userImg,
+        type: "image/jpeg",
+        name: rgst.email
+      });
+    } else {
+      body.append(key, rgst[key]);
+    }
+  });
   fetch(`${REQUEST_URL}/user`, {
-    ...methodPost,
-    body: JSON.stringify({ ...rgst }),
+    ...methodPost, body,
   })
   .then(response => {
     if (response.status >= 200 && response.status < 300) {
@@ -93,7 +104,6 @@ async function _onValueChange(item, selectedValue) {
 // }
 
 export function isGetEmail(){
-  console.log("isgeeeettt")
   return async function(dispatch){
     const email = await AsyncStorage.getItem('user_email');
     if(email){
@@ -102,9 +112,6 @@ export function isGetEmail(){
     } else {
       dispatch({type: NEED_USER_LOGIN})
     }
-
-    console.log("세션에 등록된 메일을 찾는 중",email);
-
   }
 }
 
