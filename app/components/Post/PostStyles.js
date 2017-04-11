@@ -46,6 +46,13 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     color: '#E8B11D'
   },
+  NonTextBold:{
+    fontSize: 16,
+    alignItems: 'center',
+    color: '#fff',
+    fontWeight: 'bold',
+    color: '#DBDBDB'
+  },
   icon:{
     width: 40,
     height: 40,
