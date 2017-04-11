@@ -7,14 +7,15 @@ import styles from './PostStyles'
 class Post extends PureComponent{
   constructor(props){
     super(props)
-    this.state = {
-      userImg: props.user.userImg || null,
-      name: props.user.name || '',
-      univ: props.user.univ || '',
+    this.isGetInitialState = () => ({
+      userImg: this.props.user.userImg || null,
+      name: this.props.user.name || '',
+      univ: this.props.user.univ || '',
       content: '',
-      board: '전체공개',
-      postImg: null
-    }
+      typeOf: '전체공개',
+      postImg: ''
+    })
+    this.state = this.isGetInitialState()
   }
   componentWillReceiveProps(newProps){
     if(newProps.user !== this.props.user){
@@ -41,19 +42,28 @@ class Post extends PureComponent{
       options: BUTTONS,
       title: '분류',
     },
-    (buttonIndex) => this.setState({ board: BUTTONS[buttonIndex] }));
+    (buttonIndex) => this.setState({ typeOf: BUTTONS[buttonIndex] }));
   }
   handleSave = () => {
-    this.props.onPostPressed(this.state)
-    AlertIOS.alert('Enactus', '작성되었습니다', [{'text': '확인', onPress: () => this.props.navigation.navigate('Feed')}])
+    if(this.state.typeOf === '대나무숲'){
+      this.props.isPostToBamboo(this.state)
+      AlertIOS.alert('Enactus', '익명으로 작성이 완료 되었습니다', [{'text': '확인', onPress: this.handleCancle}])
+    } else {
+      this.props.onPostPressed(this.state)
+      AlertIOS.alert('Enactus', '작성되었습니다', [{'text': '확인', onPress: this.handleCancle}])
+    }
+  }
+  handleCancle = () => {
+    this.setState(this.isGetInitialState())
+    this.props.navigation.navigate('Feed')
   }
   render(){
-    let { board, userImg } = this.state;
+    let { typeOf, userImg } = this.state;
     let { user } = this.props;
     return(
       <View>
         <View style={styles.post_top}>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Feed')}>
+          <TouchableOpacity onPress={this.handleCancle}>
             <Text style={styles.TextBold}>취소</Text>
           </TouchableOpacity>
           <Text style={styles.titleText}>글쓰기</Text>
@@ -72,7 +82,7 @@ class Post extends PureComponent{
             <Text style={styles.UserUniv}>{this.state.univ} {user.userType}</Text>
           </View>
           <TouchableOpacity style={styles.button} underlayColor="transparent" onPress={this.showActionSheet}>
-             <Text style={styles.buttonText}>{board}</Text>
+             <Text style={styles.buttonText}>{typeOf}</Text>
            </TouchableOpacity>
         </View>
         {/* <View style={{flex: 1}}> */}
@@ -82,7 +92,8 @@ class Post extends PureComponent{
           ref="textarea"
           style={styles.textArea}
           multiline={true}
-          onChangeText={ (text)=> this.setState({content: text}) }
+          value={this.state.content}
+          onChangeText={text => this.setState({content: text})}
           placeholder="너의 하루를 말해봐봐봡？"
           selectionColor="#2aa2ef"
           placeholderTextColor="#ced8de"

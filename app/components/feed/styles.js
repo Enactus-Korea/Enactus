@@ -112,5 +112,11 @@ export default StyleSheet.create({
   },
   readMore: {
     color: '#d6d6d6'
-  }
+  },
+  postedImg:{
+    // flex: 1,
+    width: Dimensions.get('window').width/1.1,
+    height: 150,
+    marginTop: 10
+  },
 })

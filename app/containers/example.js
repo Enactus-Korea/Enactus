@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import { connect } from 'react-redux'
 import { View, Text, StatusBar, TouchableOpacity, Image, ScrollView, StyleSheet, WebView, Button,  Platform, Modal } from 'react-native';
-import {FeedContainer, FeedDetail} from '../components/Feed'
+import {FeedContainer, FeedDetail, Bamboo} from '../components/Feed'
 import { StackNavigator, DrawerNavigator, TabNavigator} from 'react-navigation';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import CustomDrawer from '../components/CustomDrawer'
@@ -23,12 +23,6 @@ const HeaderColor = {
 const FirstView = () => (
   <View style={styles.container}>
     <Text>FirstView</Text>
-  </View>
-)
-
-const Bamboo = () => (
-  <View style={styles.container}>
-    <Text>아카이브</Text>
   </View>
 )
 
