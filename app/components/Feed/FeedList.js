@@ -4,7 +4,7 @@ import styles from './styles'
 import FeedSlide from './FeedSlide'
 import FeedComp from './FeedComp'
 
-const REQUEST_URL = "http://localhost:9000/feed";
+
 class FeedList extends Component {
   constructor(props){
     super(props);
@@ -20,7 +20,8 @@ class FeedList extends Component {
     this.fetchData();
   }
   async fetchData(){
-    let response = await fetch(REQUEST_URL);
+    const REQUEST_URL = "http://localhost:9000";
+    let response = await fetch(`${REQUEST_URL}/${this.props.typeOf}`);
     let responseJson = await response.json();
     return this.setState({
       dataSource: this.state.dataSource.cloneWithRows(responseJson.feed),
@@ -39,17 +40,12 @@ class FeedList extends Component {
     return(
       <ListView
 					dataSource={this.state.dataSource}
-          renderHeader={() => <FeedSlide />}
+          renderHeader={() => this.props.typeOf === 'feed' ? <FeedSlide /> : false }
 					renderRow={(feeds) =>
             <FeedComp
               {...this.props}
-              id = {feeds._id}
-              username = {feeds.username}
-              useruniv = {feeds.useruniv}
-              posted = {feeds.posted}
-              content = {feeds.content}
-              likes = {feeds.likes}
-              comment = {feeds.comment}
+              id={feeds._id}
+              {...feeds}
             />}
         />
     )

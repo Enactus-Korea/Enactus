@@ -13,20 +13,75 @@ const methodPost = {
   },
 }
 
+export const isPostToBamboo = (post) => (dispatch) => {
+  console.log('aaaaaaa');
+  let bamboo = {
+    name: '익명',
+    univ: '',
+    content: post.content,
+    userImg: '',
+    postImg: post.postImg,
+    typeOf: post.typeOf
+  }
+  const body = new FormData();
+  if(bamboo.postImg){
+    console.log('bbbbbb');
+    Object.keys(bamboo).forEach(key=>{
+      if(key === "postImg") {
+        body.append(key, {
+          uri: bamboo.postImg,
+          type: "image/jpeg",
+          name: bamboo.name
+        });
+      } else {
+        body.append(key, bamboo[key]);
+      }
+    });
+  } else {
+    Object.keys(bamboo).forEach(key=>{
+      body.append(key, bamboo[key]);
+    })
+  }
+  fetch(`${REQUEST_URL}/feed`, {
+    ...methodPost, body,
+  })
+  .then(response => {
+    if (response.status >= 200 && response.status < 300) {
+      console.log(response);
+      dispatch({type:SUCCESS_POSTING})
+
+    } else {
+      const error = new Error(response.statusText);
+      error.response = response;
+      dispatch({type:FAILED_POSTING})
+      throw error;
+    }
+  })
+  .catch(error => { console.log('request failed', error); });
+}
+
+
 export const onPostPressed = (post) => (dispatch) => {
   console.log("하하하하", post)
   const body = new FormData();
-  Object.keys(post).forEach(key=>{
-    if(key === "postImg") {
-      body.append(key, {
-        uri: post.postImg,
-        type: "image/jpeg",
-        name: post.name
-      });
-    } else {
+  if(post.postImg){
+    Object.keys(post).forEach(key=>{
+      if(key === "postImg") {
+        body.append(key, {
+          uri: post.postImg,
+          type: "image/jpeg",
+          name: post.name
+        });
+      } else {
+        body.append(key, post[key]);
+      }
+    });
+  } else {
+    Object.keys(post).forEach(key=>{
       body.append(key, post[key]);
-    }
-  });
+    })
+  }
+  console.log(body)
   fetch(`${REQUEST_URL}/feed`, {
     ...methodPost, body,
   })

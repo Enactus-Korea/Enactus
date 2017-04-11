@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text} from 'react-native'
+import {Text, Button} from 'react-native'
 import FeedComp from './FeedComp'
 
 const FeedDetail = (props) => {
@@ -9,13 +9,25 @@ const FeedDetail = (props) => {
 
 )}
 FeedDetail.navigationOptions = {
-  title: '상세보기',
-  header:{
+  header: (props) => ({
+    title: '상세보기',
+    left: <Button title='뒤로' color='#fff' onPress={() => props.goBack()} />,
     style: {
       backgroundColor: '#30333C'
     },
     tintColor: 'white'
-  }
+  })
 };
-{/* <Text>상세보기</Text> */}
+
 export default FeedDetail
+
+
+// header: (props) => ({
+//   title: '회원가입',
+//   left: <Button title='뒤로' color='#fff' onPress={() => props.goBack()} />,
+//   right: <Button title='완료' color='#FEC13A' onPress={() => props.state.params.handleSave()} />,
+//   style: {
+//     backgroundColor: '#30333C'
+//   },
+//   tintColor: 'white'
+// })

@@ -7,6 +7,9 @@ import moment from 'moment-timezone'
 class FeedComp extends Component{
   constructor(props){
     super(props)
+    // this.state = {
+    //   postImg: props.
+    // }
   }
 
   textEllipsis = (content) => {
@@ -30,29 +33,29 @@ class FeedComp extends Component{
       )
     }
   }
-
-  render(feeds){
-    const { username, useruniv, posted, content, comment } = this.props;
+  render(){
+    const { name, univ, posted, content, comment, userImg, postImg } = this.props;
     return(
       <View style={styles.feedListView} >
         <View style={styles.feedContainer}>
           <View style={styles.spaceBetween}>
           <View style={styles.feedTopContainer}>
             <Image
-                // source={require('./user.png')}
+                source={userImg ? {uri: userImg} : require('../../assets/defaultUser.jpg')}
                 style={styles.userImage}
                 />
             <View style={styles.feedInfoContainer}>
-              <Text style={styles.feedUser}>{this.props.username}</Text>
-              <Text style={styles.feedUserUniv}>{this.props.useruniv}</Text>
+              <Text style={styles.feedUser}>{this.props.name}</Text>
+              <Text style={styles.feedUserUniv}>{this.props.univ}</Text>
             </View>
           </View>
           <Text style={styles.feedUserTime}>{moment(this.props.posted).tz('Asia/Seoul').format('YYYY년MM월DD일')}</Text>
           </View>
           <View  style={styles.ctxContainer}>
-            <View style= {styles.txtContents}>
-              {this.textEllipsis(content)}
-            </View>
+            {this.textEllipsis(content)}
+            {postImg
+              ? <Image source={{uri: postImg}} style={styles.postedImg} />
+              : null }
           </View>
         </View>
         <View style={styles.likeAndComment}>
