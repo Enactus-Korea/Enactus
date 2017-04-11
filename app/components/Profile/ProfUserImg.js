@@ -12,6 +12,11 @@ class ProfUserImg extends Component {
       image: props.userImg || null,
     }
   }
+  componentWillReceiveProps(newProps){
+    if(newProps.userImg !== this.props.userImg){
+      this.setState({image: newProps.userImg})
+    }
+  }
   chooseImageFromGallery = () => {
     ImagePickerIOS.openSelectDialog({}, imageUri => {
       this.setState({image: imageUri, modalVisible: false});
@@ -48,7 +53,6 @@ class ProfUserImg extends Component {
     return(
       <TouchableOpacity
         onPress={this.showActionSheet}>
-        {console.log(this.state.image)}
         <Image
           style={styles.profile_img}
           source={this.state.image ? {uri: this.state.image} : require('../../assets/defaultUser.jpg')}/>

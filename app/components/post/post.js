@@ -1,57 +1,54 @@
-import React, { Component } from 'react';
-import { Image,TextInput, Dimensions, Text, ImagePickerIOS , CameraRoll, StyleSheet, View,TouchableOpacity,AlertIOS, Modal,StatusBar, Picker, Animated} from 'react-native';
+import React, { PureComponent } from 'react';
+import { Image,TextInput, Dimensions, Text, ImagePickerIOS , ActionSheetIOS, CameraRoll, StyleSheet, View,TouchableOpacity,AlertIOS,StatusBar, Picker, Animated} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-
-// import PostHead from './postHead'
-// import PostCamera from './postCamera'
-// import PostAlbum from './postAlbum'
 import styles from './PostStyles'
 
-let showBoards = [{val:'global', name: '전체공개'},{val:'bamboo', name:'대나무숲'}];
 
-class Post extends Component{
+class Post extends PureComponent{
   constructor(props){
     super(props)
     this.state = {
-      userimg: props.userImage || null,
+      userImg: props.user.userImg || null,
+      name: props.user.name || '',
+      univ: props.user.univ || '',
       content: '',
-      avatarSource: null,
-      modalVisible: false,
-      ImageVisible: false,
-      CameraVisible: false,
-      board: 'global',
-      boardModal: false,
-      timeIndex:0,
-      image: null,
-      // imageSource: '', =>  prop 이상하다고 오류 메시지 생김
+      board: '전체공개',
+      postImg: null
     }
   }
-  changeBoard = (selected) => {
-    this.setState({ board: selected, modalVisible:false })
-   }
+  componentWillReceiveProps(newProps){
+    if(newProps.user !== this.props.user){
+      this.setState({
+        userImg: newProps.user.userImg,
+        name: newProps.user.name,
+        univ: newProps.user.univ
+      })
+    }
+  }
   chooseImageFromGallery = () => {
     ImagePickerIOS.openSelectDialog({}, imageUri => {
-      this.setState({image: imageUri});
-    }, error => console.error(error));
+      this.setState({postImg: imageUri});
+    }, cancle => false);
   }
   chooseImageFromCamera = () => {
     ImagePickerIOS.openCameraDialog({}, imageUri => {
-      this.setState({image: imageUri});
-    }, error => console.error(error));
+      this.setState({postImg: imageUri});
+    }, cancle => false);
   }
-  callbackPosting() {
-    AlertIOS.alert('Enactus', '작성되었습니다', this.hideModal())
+  showActionSheet = () => {
+    var BUTTONS = [ '전체공개', '대나무숲'];
+    ActionSheetIOS.showActionSheetWithOptions({
+      options: BUTTONS,
+      title: '분류',
+    },
+    (buttonIndex) => this.setState({ board: BUTTONS[buttonIndex] }));
   }
-  onPost(){
-    return(
-      <TouchableOpacity onPress={() => this.onPostPressed()}>
-        <Text style={styles.TextBold}>게시</Text>
-      </TouchableOpacity>
-    )
+  handleSave = () => {
+    this.props.onPostPressed(this.state)
+    AlertIOS.alert('Enactus', '작성되었습니다', [{'text': '확인', onPress: () => this.props.navigation.navigate('Feed')}])
   }
   render(){
-    console.log(this.props)
-    let { board, userimg } = this.state;
+    let { board, userImg } = this.state;
     let { user } = this.props;
     return(
       <View>
@@ -60,24 +57,27 @@ class Post extends Component{
             <Text style={styles.TextBold}>취소</Text>
           </TouchableOpacity>
           <Text style={styles.titleText}>글쓰기</Text>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Feed')}>
-            <Text style={styles.TextBold}>완료</Text>
-          </TouchableOpacity>
+          {this.state.content.length > 0
+            ? <TouchableOpacity onPress={this.handleSave}>
+                <Text style={styles.TextBold}>완료</Text>
+              </TouchableOpacity>
+            : <Text style={styles.NonTextBold}>완료</Text>
+          }
         </View>
         <View style={styles.container}>
         <View style={styles.iconContainer}>
-          <Image style={styles.icon} source={userimg? {uri: this.state.userimg} : require('../../assets/defaultUser.jpg')}></Image>
+          <Image style={styles.icon} source={userImg ? {uri: userImg} : require('../../assets/defaultUser.jpg')}></Image>
           <View style={styles.InfoContainer}>
-            <Text style={styles.User}>{this.props.user.name}</Text>
-            <Text style={styles.UserUniv}>{user.univ} {user.userType}</Text>
+            <Text style={styles.User}>{this.state.name}</Text>
+            <Text style={styles.UserUniv}>{this.state.univ} {user.userType}</Text>
           </View>
-          <TouchableOpacity style={styles.button} underlayColor="transparent" onPress={ () => this.setState({modalVisible: true}) }>
-             <Text style={styles.buttonText}>{showBoards.find(b => b.val === board).name}</Text>
+          <TouchableOpacity style={styles.button} underlayColor="transparent" onPress={this.showActionSheet}>
+             <Text style={styles.buttonText}>{board}</Text>
            </TouchableOpacity>
         </View>
-        <View style={{flex: 1}}>
-          {this.state.image?<Image style={{flex: 1}} source={{uri: this.state.image}}></Image>:null}
-        </View>
+        {/* <View style={{flex: 1}}> */}
+          {this.state.postImg? <Image style={{flex: 1}} source={{uri: this.state.postImg}}></Image> : null}
+        {/* </View> */}
         <TextInput
           ref="textarea"
           style={styles.textArea}
@@ -100,21 +100,6 @@ class Post extends Component{
             <Icon name="ios-images" size={30} color="#8899a5" />
           </TouchableOpacity>
         </View>
-        <Modal
-          animationType={"slide"}
-          transparent={true}
-          visible={this.state.modalVisible}
-          >
-          <View style={styles.modal}>
-            {showBoards.map((brd, i) => (
-              <TouchableOpacity
-                style={styles.modalBtn}
-                key={i} onPress={() => this.changeBoard(brd.val)}>
-                <Text>{brd.name}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </Modal>
         </View>
       </View>
     )

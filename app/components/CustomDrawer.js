@@ -40,7 +40,7 @@ class CustomDrawer extends Component{
           </View>
           {user
             ? <View style={styles.drawer_User}>
-                <Image style={styles.image} source={user.ingUrl ? '' : require('../assets/defaultUser.jpg')}/>
+                <Image style={styles.image} source={user.userImg ? {uri: user.userImg} : require('../assets/defaultUser.jpg')}/>
                 <View style={{justifyContent: 'center',flexDirection: 'column', marginLeft: 15}}>
                   <Text style={{ color: '#515356', fontSize: 18, fontWeight: 'bold', paddingTop: 5, paddingBottom:5 }}>{user.name}</Text>
                   <Text style={{ color: '#A1A7AD', fontSize: 13}}>{user.univ} 인액터스</Text>
