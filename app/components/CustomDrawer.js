@@ -23,9 +23,9 @@ class CustomDrawer extends Component{
   render(){
     const {navigation, routes, token, user} = this.props;
     const DrawerLists = [
-      { route: 'FirstViewStack', name: '뉴스피드', icon:'ios-paper-outline' },
+      { route: 'FeedViewStack', name: '뉴스피드', icon:'ios-paper-outline' },
       { route: 'AboutStack', name: '인액터스 소개', icon:'ios-information-circle-outline' },
-      { route: 'ThirdViewStack', name: '네트워크', icon:'ios-contacts' },
+      { route: 'NetworkStack', name: '네트워크', icon:'ios-contacts' },
       { route: 'BambooStack', name: '대나무숲', icon:'ios-glasses-outline' },
       { route: 'ArchiveStack', name: '아카이브', icon:'ios-albums-outline' },
       { route: 'ContactStack', name: '문의하기', icon:'ios-help-circle-outline' },

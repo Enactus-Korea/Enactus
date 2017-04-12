@@ -5,13 +5,6 @@ import styles from './styles'
 import moment from 'moment-timezone'
 
 class FeedComp extends Component{
-  constructor(props){
-    super(props)
-    // this.state = {
-    //   postImg: props.
-    // }
-  }
-
   textEllipsis = (content) => {
     const { navigation } = this.props;
     if(content === undefined) {
