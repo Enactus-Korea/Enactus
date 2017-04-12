@@ -6,6 +6,8 @@ import { StackNavigator, DrawerNavigator, TabNavigator} from 'react-navigation';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import CustomDrawer from '../components/CustomDrawer'
 import {PostView} from '../components/Post'
+import { Network, NetworkDetail } from '../components/Network'
+import { Search } from '../components/SearchTab'
 import {Register, Login, RegisterSecond} from '../components/Join'
 import WebViews from '../components/WebViews'
 import Contact from '../components/Contact'
@@ -18,14 +20,6 @@ const HeaderColor = {
   },
   tintColor: 'white'
 }
-
-
-const FirstView = () => (
-  <View style={styles.container}>
-    <Text>FirstView</Text>
-  </View>
-)
-
 
 const HeaderOptios = (navigate) => {
   return({
@@ -41,20 +35,6 @@ const HeaderOptios = (navigate) => {
     ...HeaderColor
   })
 }
-
-const SecondView = () => (
-  <View>
-    <Text>
-      검색창이 되어랍 ㅎㅎㅎ
-    </Text>
-  </View>
-)
-
-const ThirdView = () => (
-  <View style={styles.container}>
-    <Text>ThirdView</Text>
-  </View>
-)
 
 
 const NotificationView = () => (
@@ -81,6 +61,26 @@ export const FeedStack = StackNavigator({
   }
 });
 
+const NetworkStack = StackNavigator({
+  Network: {
+		screen: Network,
+    navigationOptions: {
+      header: ({navigate}) =>({
+        title: '네트워크',
+        ...HeaderOptios(navigate)
+      }),
+    }
+	},
+  NetworkDetail : {
+    screen: NetworkDetail,
+    navigationOptions: {
+      header: ({navigate}) =>({
+        title: '상세보기',
+        ...HeaderColor
+      }),
+    }
+  }
+}, { initialRouteName: 'Network'});
 
 const Tab = {
   Feed: {
@@ -100,8 +100,7 @@ const Tab = {
     }
   },
   People: {
-    screen: SecondView,
-    path: 'cart',
+    screen: Search,
     navigationOptions: {
       tabBar: {
         label: '검색',
@@ -167,17 +166,9 @@ const Tab = {
 }
 
 
+
+
 const Stack = {
-	ThirdView: {
-		screen: ThirdView,
-    navigationOptions: {
-      title: '설정',
-      header: ({navigate}) =>({
-        title: '설정',
-        ...HeaderOptios(navigate)
-      }),
-    }
-	},
   Bamboo: {
 		screen: Bamboo,
     navigationOptions: {
@@ -223,17 +214,18 @@ const RegisterStack = {
 }
 
 const DrawerRoutes = {
-	FirstViewStack: {
-		name: 'FirstViewStack',
+	FeedViewStack: {
+		name: 'FeedViewStack',
 		screen: TabRoutes
 	},
 	AboutStack: {
 		name: 'AboutStack',
 		screen: ({navigation}) => <WebViews {...navigation} forUrl={'http://blog.naver.com/enactusblog/220208208280'}/>
 	},
-	ThirdViewStack: {
-		name: 'ThirdViewStack',
-		screen: StackNavigator(Stack, { initialRouteName: 'ThirdView'}),
+	NetworkStack: {
+		name: 'NetworkStack',
+		screen: NetworkStack,
+    // screen: StackNavigator(Stack, { initialRouteName: 'Network'}),
 	},
   BambooStack: { //여기 이름이 router이기 때문에 이름이 중복되면 계속 stack이 쌓여서 이상해짐
     name: 'BambooStack',

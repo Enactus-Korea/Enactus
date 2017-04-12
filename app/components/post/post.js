@@ -85,9 +85,7 @@ class Post extends PureComponent{
              <Text style={styles.buttonText}>{typeOf}</Text>
            </TouchableOpacity>
         </View>
-        {/* <View style={{flex: 1}}> */}
-          {this.state.postImg? <Image style={{flex: 1}} source={{uri: this.state.postImg}}></Image> : null}
-        {/* </View> */}
+        {this.state.postImg? <Image style={{flex: 1}} source={{uri: this.state.postImg}}></Image> : null}
         <TextInput
           ref="textarea"
           style={styles.textArea}
