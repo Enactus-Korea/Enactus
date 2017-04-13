@@ -23,13 +23,15 @@ const methodPost = {
   },
 }
 
+const methodGet = {
+  method: 'GET',
+  headers: {
+    'Accept': 'application/json'
+  }
+}
+
 export const isFetchedPermissions = () => (dispatch) =>{
-  fetch(`${REQUEST_URL}/permission`,{
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json'
-    }
-  })
+  fetch(`${REQUEST_URL}/permission`,{ ...methodGet })
   .then(res => res.json())
   .then(res => dispatch({type: FETCH_PERMISSION_MEMBER , permissions: res.permissions}))
   .catch(err => console.log(err))
@@ -150,12 +152,7 @@ export const isRequestedSignIn = (email, password) => (dispatch) => {
 
 
 export const isFetchedUserData = (email) => (dispatch) => {
-  fetch(`${REQUEST_URL}/user/isFetched/${email}`,{
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json'
-    }
-  })
+  fetch(`${REQUEST_URL}/user/isFetched/${email}`,{ ...methodGet })
   .then(res => res.json())
   .then(res => dispatch({type: IS_FETCHED_USER_DATA, user: res.userData[0]}))
   .catch(err => console.log(err))

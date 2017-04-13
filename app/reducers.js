@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import * as NVStateUtils from 'NavigationStateUtils'
 import * as types from './actions'
 import permissions from './components/Join/reducers'
+import profile from './components/Profile/reducers'
 
 
 const initialNavState = {
@@ -40,7 +41,7 @@ function navigationState(state = initialNavState, action) {
 }
 
 const appReducers = combineReducers({
-	navigationState, permissions
+	navigationState, permissions, profile
 })
 
 export default appReducers

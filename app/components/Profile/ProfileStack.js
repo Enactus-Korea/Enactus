@@ -4,6 +4,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Profile from './Profile'
 import ProfileSetting from './ProfileSetting'
 import Project from './Project'
+import ProjectDetail from './ProjectDetail'
 import SelfIntro from './SelfIntro'
 import { StackNavigator } from 'react-navigation';
 import { isModifiedIntro } from './actions'
@@ -61,13 +62,15 @@ export default ProfileStack = StackNavigator({
     screen: SelfIntro,
   },
   Project_Setting:{
-    screen: Project,
-    navigationOptions: {
-      header: () => ({
-        title: '프로젝트',
-        right: <Button title='완료' color='#fff' onPress={() => console.log('프로젝트 설정하도록')} />,
-        ...HeaderColor
-      })
-    }
+    screen: Project
   },
+  Project_Detail: {
+    screen: ProjectDetail,
+    navigationOptions: {
+      header:{
+        title: '프로젝트 상세보기',
+        ...HeaderColor
+      }
+    }
+  }
 });

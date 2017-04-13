@@ -1,10 +1,20 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux';
-import {View, Text, Image, TouchableHighlight, TouchableOpacity} from 'react-native';
+import * as actions from './actions'
+import {View, Text, Image, TouchableHighlight, TouchableOpacity, ListView} from 'react-native';
 import ProfUserImg from './ProfUserImg'
 import styles from './styles'
+import ProjectLine from './ProjectLine'
 
 class Profile extends Component{
+  state = {
+    projects : this.props.user.projects,
+  }
+  componentWillReceiveProps(newProps){
+    if(newProps.user.projects !== this.props.user.projects){
+      this.setState({projects: newProps.user.projects})
+    }
+  }
   render(){
     const {user, token, navigation} = this.props;
     if(token && user){
@@ -23,16 +33,7 @@ class Profile extends Component{
                 </TouchableHighlight>
               }
           </View>
-          <View style={styles.profile_btm}>
-            {/* {user.projects.length > 0
-              ? <Text>나의 프로젝트들들</Text>
-              : <TouchableHighlight
-                  style={styles.setting_proj}
-                  onPress={() => navigation.navigate('Project_Setting')}>
-                  <Text style={styles.setting_txt}>프로젝트를 등록해주세요.</Text>
-                </TouchableHighlight>
-            } */}
-          </View>
+          {user._id && <ProjectLine {...this.props}/>}
         </View>
       )
     } else {
@@ -47,10 +48,11 @@ class Profile extends Component{
 
 const mapStateToProps = (state) => ({
   user: state.permissions.user,
-  token: state.permissions.token
+  token: state.permissions.token,
+  joined: state.profile.joined
 })
 
-export default connect(mapStateToProps)(Profile)
+export default connect(mapStateToProps, actions)(Profile)
 
 
 // export default Profile;
