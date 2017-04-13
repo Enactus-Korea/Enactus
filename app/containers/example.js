@@ -82,6 +82,27 @@ const NetworkStack = StackNavigator({
   }
 }, { initialRouteName: 'Network'});
 
+const BambooStack = StackNavigator({
+  Bamboo: {
+		screen: Bamboo,
+    navigationOptions: {
+      header: ({navigate}) =>({
+        title: '대나무숲',
+        ...HeaderOptios(navigate)
+      }),
+    }
+	},
+  Detail : {
+    screen: FeedDetail,
+    navigationOptions: {
+      header: ({navigate}) =>({
+        title: '상세보기',
+        ...HeaderColor
+      }),
+    }
+  }
+}, { initialRouteName: 'Bamboo'})
+
 const Tab = {
   Feed: {
     screen: FeedStack,
@@ -169,15 +190,6 @@ const Tab = {
 
 
 const Stack = {
-  Bamboo: {
-		screen: Bamboo,
-    navigationOptions: {
-      header: ({navigate}) =>({
-        title: '대나무숲',
-        ...HeaderOptios(navigate)
-      }),
-    }
-	},
   Contact: {
 		screen: Contact,
     navigationOptions: {
@@ -229,7 +241,7 @@ const DrawerRoutes = {
 	},
   BambooStack: { //여기 이름이 router이기 때문에 이름이 중복되면 계속 stack이 쌓여서 이상해짐
     name: 'BambooStack',
-    screen: StackNavigator(Stack, { initialRouteName: 'Bamboo' }),
+    screen: BambooStack,
   },
   ArchiveStack: {
     name: 'ArchiveStack',

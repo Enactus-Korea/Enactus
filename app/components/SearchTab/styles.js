@@ -23,4 +23,9 @@ export default StyleSheet.create({
     textAlign: 'center',
     color: '#fff'
   },
+  sch_animate:{
+    // width: Dimensions.get('window').width/1.05,
+    backgroundColor: '#22242A',
+    height: 26,
+  },
 })
