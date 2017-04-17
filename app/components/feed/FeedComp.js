@@ -42,7 +42,7 @@ class FeedComp extends Component{
               <Text style={styles.feedUserUniv}>{this.props.univ}</Text>
             </View>
           </View>
-          <Text style={styles.feedUserTime}>{moment(this.props.posted).tz('Asia/Seoul').format('YYYY년MM월DD일')}</Text>
+          <Text style={styles.feedUserTime}>{moment(this.props.createdOn).tz('Asia/Seoul').format('YYYY년MM월DD일')}</Text>
           </View>
           <View  style={styles.ctxContainer}>
             {this.textEllipsis(content)}
