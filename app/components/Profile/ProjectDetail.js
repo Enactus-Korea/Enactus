@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import styles from './styles'
 
 const ProjectDetail = (props) => {
+  console.log("ProjectDetail", props)
   let {detail} = props.navigation.state.params;
   return(
     <View style={styles.detail_pro}>

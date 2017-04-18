@@ -2,20 +2,14 @@ import React from 'react'
 import {Platform, Button} from 'react-native'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Profile from './Profile'
-import ProfileSetting from './ProfileSetting'
-import Project from './Project'
-import ProjectDetail from './ProjectDetail'
-import SelfIntro from './SelfIntro'
+// import ProfileSetting from './ProfileSetting'
+// import Project from './Project'
+// import ProjectDetail from './ProjectDetail'
+// import SelfIntro from './SelfIntro'
 import { StackNavigator } from 'react-navigation';
 import { isModifiedIntro } from './actions'
 // import { connect } from 'react-redux'
 
-const HeaderColor = {
-  style: {
-    backgroundColor: '#30333C'
-  },
-  tintColor: 'white'
-}
 
 export default ProfileStack = StackNavigator({
   Profile: {
@@ -43,34 +37,12 @@ export default ProfileStack = StackNavigator({
                     marginRight: Platform.OS === 'ios' ? 10 : 0,
                    }}
                 />,
-          ...HeaderColor
-
+          style: {
+            backgroundColor: '#30333C'
+          },
+          tintColor: 'white'
       }),
     }
   }, //StackNavigator을 사용해야지 가능함
-  Setting: {
-    screen: ProfileSetting,
-    navigationOptions: {
-      header:{
-        title: '프로필 설정하기',
-        ...HeaderColor
-      }
-    }
-    // path:'/feed/:id',
-  },
-  SelfIntro_Setting:{
-    screen: SelfIntro,
-  },
-  Project_Setting:{
-    screen: Project
-  },
-  Project_Detail: {
-    screen: ProjectDetail,
-    navigationOptions: {
-      header:{
-        title: '프로젝트 상세보기',
-        ...HeaderColor
-      }
-    }
-  }
+
 });

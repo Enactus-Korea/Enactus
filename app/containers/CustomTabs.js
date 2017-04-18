@@ -18,12 +18,11 @@ import {
   TabNavigator,
   addNavigationHelpers
 } from 'react-navigation';
-import {FeedContainer, FeedDetail } from '../components/Feed'
+import { FeedStack, FeedDetail } from '../components/Feed'
 import { Search } from '../components/SearchTab'
-import {PostView} from '../components/Post'
-import { ProfileStack } from '../components/Profile'
+import { PostView } from '../components/Post'
+import { ProfileStack, Profile, ProfileSetting, Project, ProjectDetail, SelfIntro } from '../components/Profile'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
 
 const HeaderColor = {
   style: {
@@ -33,36 +32,6 @@ const HeaderColor = {
 }
 
 
-const HeaderOptios = (navigate) => {
-  return({
-    left: <MaterialIcons
-            name="menu"
-            size={30}
-            onPress={() => navigate('DrawerOpen')}
-            style={{
-              color: 'white',
-              marginLeft: Platform.OS === 'ios' ? 10 : 0,
-             }}
-          />,
-    ...HeaderColor
-  })
-}
-
-export const FeedStack = StackNavigator({
-  Feed: {
-    screen: FeedContainer,
-    path: '/feed',
-    navigationOptions: {
-      title: '피드',
-      header: ({navigate, tintColor}) =>({
-        title: '뉴스피드',
-        ...HeaderOptios(navigate)
-      }),
-    }
-  }, //StackNavigator을 사용해야지 가능함
-});
-
-
 const NotificationView = () => (
   <View style={styles.container}>
     <Text>알림</Text>
@@ -70,10 +39,16 @@ const NotificationView = () => (
 )
 
 const CustomTabBar = ({
-  navigation,
+  navigation, focused
 }) => {
-  const { routes } = navigation.state;
-  console.log("CustomTabBar",routes );
+  let routes = [
+    {label: '피드', name: 'chrome-reader-mode', routeName: 'Feed'},
+    {label: '검색', name: 'search', routeName: 'Search'},
+    {label: '글쓰기', name: 'add-circle-outline', routeName: 'Post'},
+    {label: '알림', name: 'notifications-none', routeName: 'Notification'},
+    {label: '마이페이지', name: 'chrome-reader-mode', routeName: 'ProfileStack'}
+  ]
+  console.log("CustomTabBar",navigation)
   return (
     <View style={styles.tabContainer}>
       {routes.map(route => (
@@ -82,7 +57,11 @@ const CustomTabBar = ({
             style={styles.tab}
             key={route.routeName}
           >
-            <Text>{route.routeName}</Text>
+           <MaterialIcons
+             name={route.name}
+             size={24}
+             style={{ color: '#30333C' }} />
+            <Text style={styles.tabFont}>{route.label}</Text>
           </TouchableOpacity>
         ))}
     </View>
@@ -111,101 +90,26 @@ const CustomTabView = ({
 
 
 const Routes = {
-  Feed: {
-    screen: FeedStack,
-    path: '/',
-    navigationOptions: {
-      tabBar: {
-        label: '피드',
-        icon: ({tintColor, focused}) => (
-          <MaterialIcons
-            name='chrome-reader-mode'
-            size={24}
-            style={{ color: tintColor }}
-          />
-        )
-      },
-    }
-  },
-  People: {
-    screen: Search,
-    navigationOptions: {
-      tabBar: {
-        label: '검색',
-        icon: ({tintColor, focused}) => (
-          <MaterialIcons
-            name='search'
-            size={24}
-            style={{ color: tintColor }}
-          />
-        )
-      },
-    }
-  },
-  Post: {
-    screen: PostView,
-  //   path: 'chat',
-  //   navigationOptions : {
-  //    tabBar: {
-  //      label: '글쓰기',
-  //      icon: ({tintColor, focused}) => {
-  //        return(
-  //        <MaterialIcons
-  //          name={focused ?'add-circle':'add-circle-outline'}
-  //          size={24}
-  //          style={{ color: tintColor }}
-  //        />
-  //      )},
-  //      visible: false
-  //      // 탭이 보이지 않도록 하는 것,,,
-  //    },
-  //  }
-  },
-  Notification: {
-    screen: NotificationView,
-    // path: 'notification',
-    // navigationOptions: {
-    //   tabBar: {
-    //     label: '알림',
-    //     icon: ({tintColor, focused}) => (
-    //       <MaterialIcons
-    //         name={focused ?'notifications':'notifications-none'}
-    //         size={24}
-    //         style={{ color: tintColor }}
-    //       />
-    //     )
-    //   },
-    // }
-  },
-	ProfileStack: {
-    screen: ProfileStack,
-    // path: 'profile',
-    // navigationOptions: {
-    //   tabBar: {
-    //     label: '마이페이지',
-    //     icon: ({tintColor, focused}) => (
-    //       <Image
-    //         style={focused ? styles.tab_focused_user_img : styles.tab_user_img}
-    //         source={require('../assets/defaultUser.jpg')}/>
-    //     )
-    //   },
-    // }
-  },
+  Feed: { screen: FeedStack },
+  Search: { screen: Search },
+  Post: { screen: PostView },
+  Notification: { screen: NotificationView },
+	ProfileStack: { screen: ProfileStack }
 }
 
 
 
 const TabRoutes = TabRouter(Routes, {
   initialRouteName: 'Feed',
-  swipeEnabled: true,
-  // animationEnabled: true,
-  ...TabNavigator.Presets.iOSBottomTabs,
-  tabBarOptions: {
-    activeTintColor: Platform.OS === 'ios' ? '#30333C' : '#fff',
-    labelStyle:{
-      marginBottom: 5
-    },
-  },
+  // swipeEnabled: true,
+  // // animationEnabled: true,
+  // ...TabNavigator.Presets.iOSBottomTabs,
+  // tabBarOptions: {
+  //   activeTintColor: Platform.OS === 'ios' ? '#30333C' : '#fff',
+  //   labelStyle:{
+  //     marginBottom: 5
+  //   },
+  // },
 })
 
 const CustomTabs = createNavigationContainer(createNavigator(TabRoutes)(CustomTabView));
@@ -218,9 +122,33 @@ const CustomTabsStack = StackNavigator({
   Detail: {
     screen: FeedDetail,
     navigationOptions: {
-        title: '상세보기',
-      },
+      title: '상세보기',
+    },
+  },
+  Setting: {
+    screen: ProfileSetting,
+    navigationOptions: {
+      header:{
+        title: '프로필 설정하기',
+        ...HeaderColor
+      }
+    }
     // path:'/feed/:id',
+  },
+  SelfIntro_Setting:{
+    screen: SelfIntro,
+  },
+  Project_Setting:{
+    screen: Project
+  },
+  Project_Detail: {
+    screen: ProjectDetail,
+    navigationOptions: {
+      header:{
+        title: '프로젝트 상세보기',
+        ...HeaderColor
+      }
+    }
   }
   // NotifSettings: {
   //   screen: MyNotificationsSettingsScreen,
@@ -239,7 +167,7 @@ const CustomTabsStack = StackNavigator({
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: Platform.OS === 'ios' ? 20 : 0,
+    // marginTop: Platform.OS === 'ios' ? 20 : 0,
     flex: 1,
   },
   tabContainer: {
@@ -257,10 +185,15 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    width: Dimensions.get('window').width/5,
     // margin: 4,
     // borderWidth: 1,
     // borderColor: '#ddd',
     // borderRadius: 4,
+  },
+  tabFont:{
+    fontSize: 10,
+    marginTop: 3
   }
 });
 
