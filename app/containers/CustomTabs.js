@@ -24,13 +24,6 @@ import { PostView } from '../components/Post'
 import { ProfileStack, Profile, ProfileSetting, Project, ProjectDetail, SelfIntro } from '../components/Profile'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const HeaderColor = {
-  style: {
-    backgroundColor: '#30333C'
-  },
-  tintColor: 'white'
-}
-
 
 const NotificationView = () => (
   <View style={styles.container}>
@@ -39,28 +32,29 @@ const NotificationView = () => (
 )
 
 const CustomTabBar = ({
-  navigation, focused
+  navigation
 }) => {
   let routes = [
-    {label: '피드', name: 'chrome-reader-mode', routeName: 'Feed'},
-    {label: '검색', name: 'search', routeName: 'Search'},
-    {label: '글쓰기', name: 'add-circle-outline', routeName: 'Post'},
-    {label: '알림', name: 'notifications-none', routeName: 'Notification'},
-    {label: '마이페이지', name: 'chrome-reader-mode', routeName: 'ProfileStack'}
-  ]
-  console.log("CustomTabBar",navigation)
+    {label: '피드', name: 'chrome-reader-mode', active:'chrome-reader-mode', routeName: 'Feed'},
+    {label: '검색', name: 'search', active:'search', routeName: 'Search'},
+    {label: '글쓰기', name: 'add-circle', active:'add-circle-outline',routeName: 'Post'},
+    {label: '알림', name: 'notifications', active:'notifications-none',routeName: 'Notification'},
+    {label: '마이페이지', name: 'chrome-reader-mode', active:'chrome-reader-mode',routeName: 'ProfileStack'}
+  ],
+      focused = navigation.state.index;
+
   return (
     <View style={styles.tabContainer}>
-      {routes.map(route => (
+      {routes.map((route, i) => (
           <TouchableOpacity
             onPress={() => navigation.navigate(route.routeName)}
             style={styles.tab}
             key={route.routeName}
           >
            <MaterialIcons
-             name={route.name}
+             name={focused === i ? route.name : route.active}
              size={24}
-             style={{ color: '#30333C' }} />
+             style={focused === i ? {color: '#30333C'} : {color: '#dbdbdb'}} />
             <Text style={styles.tabFont}>{route.label}</Text>
           </TouchableOpacity>
         ))}
@@ -98,23 +92,11 @@ const Routes = {
 }
 
 
-
-const TabRoutes = TabRouter(Routes, {
-  initialRouteName: 'Feed',
-  // swipeEnabled: true,
-  // // animationEnabled: true,
-  // ...TabNavigator.Presets.iOSBottomTabs,
-  // tabBarOptions: {
-  //   activeTintColor: Platform.OS === 'ios' ? '#30333C' : '#fff',
-  //   labelStyle:{
-  //     marginBottom: 5
-  //   },
-  // },
-})
-
+const TabRoutes = TabRouter(Routes, { initialRouteName: 'Feed' })
 const CustomTabs = createNavigationContainer(createNavigator(TabRoutes)(CustomTabView));
 
 
+const HeaderColor = { style: { backgroundColor: '#30333C' }, tintColor: 'white' }
 const CustomTabsStack = StackNavigator({
   Root: {
     screen: CustomTabs,
@@ -133,7 +115,6 @@ const CustomTabsStack = StackNavigator({
         ...HeaderColor
       }
     }
-    // path:'/feed/:id',
   },
   SelfIntro_Setting:{
     screen: SelfIntro,
@@ -150,12 +131,6 @@ const CustomTabsStack = StackNavigator({
       }
     }
   }
-  // NotifSettings: {
-  //   screen: MyNotificationsSettingsScreen,
-  //   navigationOptions: {
-  //     title: 'Notification Settings',
-  //   },
-  // },
   // Profile: {
   //   screen: MyProfileScreen,
   //   path: '/people/:name',
@@ -186,10 +161,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: Dimensions.get('window').width/5,
-    // margin: 4,
-    // borderWidth: 1,
-    // borderColor: '#ddd',
-    // borderRadius: 4,
   },
   tabFont:{
     fontSize: 10,
