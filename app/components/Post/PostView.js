@@ -1,20 +1,23 @@
 import React , {Component} from 'react'
 import { connect } from 'react-redux';
 import * as actions from './actions'
-import { Text, View, Alert } from 'react-native'
+import { Text, Modal, Alert, TouchableOpacity } from 'react-native'
 import Post from './PostCont'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 class PostView extends Component{
+  state = {
+    visible: this.props.visible
+  }
   render(){
     return(
-      <View>
+      <Modal
+        animationType={"slide"}
+        visible={this.state.visible}>
         <Post {...this.props}/>
-      </View>
+      </Modal>
     )
   }
-
-
 }
 
 
@@ -25,16 +28,3 @@ function mapStateToProps(state){
 }
 
 export default connect(mapStateToProps,actions)(PostView)
-
-
-// export default PostView;
-
-
-// <Modal
-//   animationType={"slide"}
-//   transparent={false}
-//   visible={this.state.modalVisible}
-  // style={styles.container}
-//   >
-//   <Text>Post</Text>
-// </Modal>
