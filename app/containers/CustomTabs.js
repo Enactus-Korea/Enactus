@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     backgroundColor: "#fff",
     borderTopWidth: 1,
-    borderTopColor: "#dbdbdb"
+    borderTopColor: "#dbdbdb",
   },
   tab: {
     flex: 1,
