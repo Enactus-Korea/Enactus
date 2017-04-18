@@ -5,13 +5,12 @@ import {FeedContainer, FeedDetail, Bamboo} from '../components/Feed'
 import { StackNavigator, DrawerNavigator, TabNavigator} from 'react-navigation';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import CustomDrawer from '../components/CustomDrawer'
-import {PostView} from '../components/Post'
 import { Network, NetworkDetail } from '../components/Network'
-import { Search } from '../components/SearchTab'
 import {Register, Login, RegisterSecond} from '../components/Join'
 import WebViews from '../components/WebViews'
 import Contact from '../components/Contact'
-import { ProfileStack } from '../components/Profile'
+
+import CustomTabs from './CustomTabs'
 
 
 const HeaderColor = {
@@ -20,6 +19,7 @@ const HeaderColor = {
   },
   tintColor: 'white'
 }
+
 
 const HeaderOptios = (navigate) => {
   return({
@@ -37,29 +37,6 @@ const HeaderOptios = (navigate) => {
 }
 
 
-const NotificationView = () => (
-  <View style={styles.container}>
-    <Text>알림</Text>
-  </View>
-)
-
-export const FeedStack = StackNavigator({
-  Feed: {
-    screen: FeedContainer,
-    path: '/feed',
-    navigationOptions: {
-      title: '피드',
-      header: ({navigate, tintColor}) =>({
-        title: '뉴스피드',
-        ...HeaderOptios(navigate)
-      }),
-    }
-  }, //StackNavigator을 사용해야지 가능함
-  Detail: {
-    screen: FeedDetail,
-    // path:'/feed/:id',
-  }
-});
 
 const NetworkStack = StackNavigator({
   Network: {
@@ -103,88 +80,6 @@ const BambooStack = StackNavigator({
   }
 }, { initialRouteName: 'Bamboo'})
 
-const Tab = {
-  Feed: {
-    screen: FeedStack,
-    path: '/',
-    navigationOptions: {
-      tabBar: {
-        label: '피드',
-        icon: ({tintColor, focused}) => (
-          <MaterialIcons
-            name='chrome-reader-mode'
-            size={24}
-            style={{ color: tintColor }}
-          />
-        )
-      },
-    }
-  },
-  People: {
-    screen: Search,
-    navigationOptions: {
-      tabBar: {
-        label: '검색',
-        icon: ({tintColor, focused}) => (
-          <MaterialIcons
-            name='search'
-            size={24}
-            style={{ color: tintColor }}
-          />
-        )
-      },
-    }
-  },
-  Post: {
-    screen: PostView,
-    path: 'chat',
-    navigationOptions : {
-     tabBar: {
-       label: '글쓰기',
-       icon: ({tintColor, focused}) => {
-         return(
-         <MaterialIcons
-           name={focused ?'add-circle':'add-circle-outline'}
-           size={24}
-           style={{ color: tintColor }}
-         />
-       )},
-       visible: false
-       // 탭이 보이지 않도록 하는 것,,,
-     },
-   }
-  },
-  Notification: {
-    screen: NotificationView,
-    path: 'notification',
-    navigationOptions: {
-      tabBar: {
-        label: '알림',
-        icon: ({tintColor, focused}) => (
-          <MaterialIcons
-            name={focused ?'notifications':'notifications-none'}
-            size={24}
-            style={{ color: tintColor }}
-          />
-        )
-      },
-    }
-  },
-	ProfileStack: {
-    screen: ProfileStack,
-    // path: 'profile',
-    navigationOptions: {
-      tabBar: {
-        label: '마이페이지',
-        icon: ({tintColor, focused}) => (
-          <Image
-            style={focused ? styles.tab_focused_user_img : styles.tab_user_img}
-            source={require('../assets/defaultUser.jpg')}/>
-        )
-      },
-    }
-  },
-}
 
 
 
@@ -201,18 +96,6 @@ const Stack = {
 	},
 };
 
-const TabRoutes = TabNavigator(Tab, {
-  initialRouteName: 'Feed',
-  swipeEnabled: true,
-  // animationEnabled: true,
-  ...TabNavigator.Presets.iOSBottomTabs,
-  tabBarOptions: {
-    activeTintColor: Platform.OS === 'ios' ? '#30333C' : '#fff',
-    labelStyle:{
-      marginBottom: 5
-    },
-  },
-})
 
 
 
@@ -228,7 +111,7 @@ const RegisterStack = {
 const DrawerRoutes = {
 	FeedViewStack: {
 		name: 'FeedViewStack',
-		screen: TabRoutes
+		screen: CustomTabs
 	},
 	AboutStack: {
 		name: 'AboutStack',
