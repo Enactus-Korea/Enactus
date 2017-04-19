@@ -63,9 +63,9 @@ const CustomTabsStack = StackNavigator({
   Root: { screen: CustomTabs },
   Detail: {
     screen: FeedDetail,
-    navigationOptions: {
-      title: '상세보기',
-    },
+    // navigationOptions: {
+    //   title: '상세보기',
+    // },
   },
   Setting: {
     screen: ProfileSetting,

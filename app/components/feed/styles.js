@@ -119,4 +119,37 @@ export default StyleSheet.create({
     height: 150,
     marginTop: 10
   },
+  detail_view:{
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+  comment_cont:{
+    height: 50,
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems:'center',
+    padding:10,
+    borderTopColor: '#dbdbdb',
+    borderTopWidth: 1,
+
+  },
+  comment_btn:{
+    fontWeight: '600'
+  },
+  comment:{
+    // paddingLeft: 10,
+    fontSize: 15,
+    alignItems:'center',
+    width: Dimensions.get('window').width/1.2,
+    height: 44,
+  },
+  comment_box:{
+    backgroundColor: '#fff',
+    borderTopWidth:1,
+    borderTopColor: '#dbdbdb',
+    borderBottomWidth:1,
+    borderBottomColor: '#dbdbdb',
+    marginBottom: 2,
+  }
 })
