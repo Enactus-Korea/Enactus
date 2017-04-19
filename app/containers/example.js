@@ -177,20 +177,6 @@ const styles = StyleSheet.create({
   container: {
     marginTop: Platform.OS === 'ios' ? 20 : 0,
   },
-  tab_user_img:{
-    width: 26,
-    height: 26,
-    borderRadius: 13,
-    borderWidth: 0.5,
-    borderColor: 'white',
-  },
-  tab_focused_user_img:{
-    width: 26,
-    height: 26,
-    borderRadius: 13,
-    borderWidth: 0.5,
-    borderColor:'#FEC13A',
-  }
 });
 
 

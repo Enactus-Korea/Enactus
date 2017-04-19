@@ -4,11 +4,33 @@ import styles from './styles'
 import Dimensions from 'Dimensions'
 
 class Search extends Component {
+  static navigationOptions = {
+    header: ({state}) => ({
+      title: <TextInput
+                style={styles.sch_input}
+                onChangeText={(text) => state.params.handleChange("sch",text)}
+                placeholder='멤버 혹은 뉴스피드 검색'
+                placeholderTextColor='#8E8F92'
+              />,
+      right: false,
+      left: false,
+      style: {
+        backgroundColor: '#30333C'
+      },
+      tintColor: 'white'
+    })
+  }
   state = {
     sch: ''
   }
   componentWillMount() {
     this.animatedValue = new Animated.Value(Dimensions.get('window').width/1.05)
+  }
+  componentDidMount(){
+    this.props.navigation.setParams({handleChange: this.handleChange})
+  }
+  handleChange = (name, text) => {
+    this.setState({[name]: text})
   }
   handleSize = () => {
     Animated.timing(this.animatedValue, {
@@ -28,23 +50,8 @@ class Search extends Component {
     const animatedStyle = { width: this.animatedValue }
     return(
       <View>
-        <View style={styles.sch_top}>
-          <TextInput
-            value={this.state.sch}
-            style={styles.sch_input}
-            onChangeText={(text) => this.setState({sch: text})}
-            placeholder='멤버 혹은 뉴스피드 검색'
-            placeholderTextColor='#8E8F92'
-          />
-          {/* <Animated.View> */}
-        </View>
-        {/* <TouchableOpacity
-          onPressMove={this.handleSizeBack}
-          onPressIn={this.handleSize}
-          >
-        <Animated.View
-           style={[styles.sch_animate, animatedStyle]} />
-        </TouchableOpacity> */}
+        <Text>검색</Text>
+
       </View>
     )
   }
@@ -52,3 +59,16 @@ class Search extends Component {
 
 
 export default Search
+
+
+
+//  <View style={styles.sch_top}>
+//         <TextInput
+//           // value={this.state.sch}
+//           style={styles.sch_input}
+//           // onChangeText={(text) => this.setState({sch: text})}
+//           placeholder='멤버 혹은 뉴스피드 검색'
+//           placeholderTextColor='#8E8F92'
+//         />
+//          <Animated.View>
+//       </View>

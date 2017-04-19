@@ -13,15 +13,16 @@ export default StyleSheet.create({
     justifyContent: 'space-between'
   },
   sch_input:{
-    flex: 1,
+    // flex: 1,
     width: Dimensions.get('window').width/1.05,
     backgroundColor: '#22242A',
-    marginTop: Platform.OS === 'ios' ? 22 : 0,
+    marginTop: Platform.OS === 'ios' ? 7 : 0,
+    marginLeft: -30,
     height: 26,
     borderRadius: 3,
     fontSize: 13,
     textAlign: 'center',
-    color: '#fff'
+    color: '#fff',
   },
   sch_animate:{
     // width: Dimensions.get('window').width/1.05,
