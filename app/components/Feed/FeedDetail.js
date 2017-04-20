@@ -102,6 +102,24 @@ const mapStateToProps = ({permissions}) => ({
 })
 
 export default connect(mapStateToProps, actions)(FeedDetail)
+//
+//
+//
+// <ListView
+//     dataSource={this.state.dataSource}
+//     renderHeader={() =>  }
+//     renderRow={(feeds) =>
+//       <FeedComp
+//         {...this.props}
+//         id={feeds._id}
+//         {...feeds}
+//       />}
+//   />
+//
+
+
+
+
 
 
 // header: (props) => ({
