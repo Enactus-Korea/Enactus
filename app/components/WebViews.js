@@ -6,7 +6,7 @@ class WebViews extends Component {
   render(){
     return(
       <WebView
-        onShouldStartLoadWithRequest={()=>{
+        onShouldStartLoadWithRequest={(e) => {
           Linking.openURL(this.props.forUrl)
           return false;
         }}

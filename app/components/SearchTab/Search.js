@@ -4,21 +4,17 @@ import styles from './styles'
 import Dimensions from 'Dimensions'
 
 class Search extends Component {
-  static navigationOptions = () => ({
-    header: ({state}) => ({
-      title: <TextInput
-                style={styles.sch_input}
-                onChangeText={(text) => state.params.handleChange("sch",text)}
-                placeholder='멤버 혹은 뉴스피드 검색'
-                placeholderTextColor='#8E8F92'
-              />,
-      right: false,
-      left: false,
-      style: {
-        backgroundColor: '#30333C'
-      },
-      tintColor: 'white'
-    })
+  static navigationOptions = ({navigation}) => ({
+    headerTitle: <TextInput
+              style={styles.sch_input}
+              onChangeText={(text) => navigation.state.params.handleChange("sch",text)}
+              placeholder='멤버 혹은 뉴스피드 검색'
+              placeholderTextColor='#8E8F92'
+            />,
+    headerRight: false,
+    headerLeft: false,
+    headerStyle: { backgroundColor: '#30333C' },
+    headerTintColor: 'white'
   })
   state = {
     sch: ''

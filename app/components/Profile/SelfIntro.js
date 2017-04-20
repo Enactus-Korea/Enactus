@@ -6,16 +6,11 @@ import styles from './styles'
 
 
 class SelfIntro extends Component{
-  static navigationOptions = () => ({
-    title: '상태매세지',
-    header: ({state}) => ({
-      title: '상태메세지',
-      right: <Button title='완료' color='#fff' onPress={() => state.params.handleSave()} />,
-      style: {
-        backgroundColor: '#30333C'
-      },
-      tintColor: 'white'
-    })
+  static navigationOptions = ({navigation}) => ({
+      headerTitle: '상태메세지',
+      headerRight: <Button title='완료' color='#fff' onPress={() => navigation.state.params.handleSave()} />,
+      headerStyle: { backgroundColor: '#30333C' },
+      headerTintColor: 'white'
   })
   constructor(props){
     super(props)

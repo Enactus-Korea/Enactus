@@ -58,34 +58,27 @@ const CustomTabs = createNavigationContainer(createNavigator(TabRoutes)(CustomTa
 
 */
 
-const HeaderColor = { style: { backgroundColor: '#30333C' }, tintColor: 'white' }
+const HeaderColor = { headerStyle: { backgroundColor: '#30333C' }, headerTintColor: 'white' }
 const CustomTabsStack = StackNavigator({
   Root: { screen: CustomTabs },
   Detail: {
     screen: FeedDetail,
-    // navigationOptions: {
-    //   title: '상세보기',
-    // },
   },
   Setting: {
     screen: ProfileSetting,
-    navigationOptions: {
-      header:{
-        title: '프로필 설정하기',
-        ...HeaderColor
-      }
-    }
+    navigationOptions: ({navigation}) => ({
+      headerTitle: '프로필 설정하기',
+      ...HeaderColor
+    })
   },
   SelfIntro_Setting:{ screen: SelfIntro },
   Project_Setting:{ screen: Project },
   Project_Detail: {
     screen: ProjectDetail,
-    navigationOptions: {
-      header:{
-        title: '프로젝트 상세보기',
-        ...HeaderColor
-      }
-    }
+    navigationOptions: ({navigation}) => ({
+      headerTitle: '프로젝트 상세보기',
+      ...HeaderColor
+    })
   }
 });
 

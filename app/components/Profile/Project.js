@@ -8,15 +8,11 @@ import styles from './styles'
 
 //TODO: 프로젝트 선택하지 않았을 경우 먼저 선택하라는 알림 띄우기
 class Project extends Component{
-  static navigationOptions = () => ({
-    header: ({state}) => ({
-      title: '프로젝트',
-      right: <Button title='완료' color='#fff' onPress={() => state.params.handleSave()} />,
-      style: {
-        backgroundColor: '#30333C'
-      },
-      tintColor: 'white'
-    })
+  static navigationOptions = ({navigation}) => ({
+    headerTitle: '프로젝트',
+    headerRight: <Button title='완료' color='#fff' onPress={() => navigation.state.params.handleSave()} />,
+    headerStyle: { backgroundColor: '#30333C' },
+    headerTintColor: 'white'
   })
   state = {
     projectList: this.props.projects,

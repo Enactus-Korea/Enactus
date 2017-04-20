@@ -7,18 +7,13 @@ import Agreement from './Agreement'
 import styles from './styles'
 
 class Register extends Component{
-  static navigationOptions = {
-    // title: '상태매세지',
-    header: (props) => ({
-      title: '회원가입',
-      left: <Button title='뒤로' color='#fff' onPress={() => props.navigate('Login')} />,
-      right: <Button title='다음' color='#FEC13A' onPress={() => props.state.params.handleNext()} />,
-      style: {
-        backgroundColor: '#30333C'
-      },
-      tintColor: 'white'
-    })
-  }
+  static navigationOptions = ({navigation}) => ({
+      headerTitle: '회원가입',
+      headerLeft: <Button title='뒤로' color='#fff' onPress={() => navigation.navigate('Login')} />,
+      headerRight:<Button title='다음' color='#FEC13A' onPress={() => navigation.state.params.handleNext()} />,
+      headerStyle: {backgroundColor: '#30333C'},
+      headerTintColor: 'white'
+  })
   constructor(props){
     super(props)
     this.state ={
