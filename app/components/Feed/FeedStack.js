@@ -8,25 +8,23 @@ const FeedStack = StackNavigator({
   Feed: {
     screen: FeedContainer,
     path: '/feed',
-    navigationOptions: {
+    navigationOptions: ({ navigation }) => ({
       title: '피드',
-      header: ({navigate, tintColor}) =>({
-        title: '뉴스피드',
-        left: <MaterialIcons
-                name="menu"
-                size={30}
-                onPress={() => navigate('DrawerOpen')}
-                style={{
-                  color: 'white',
-                  marginLeft: Platform.OS === 'ios' ? 10 : 0,
-                 }}
-              />,
-        style: {
-          backgroundColor: '#30333C'
-        },
-        tintColor: 'white'
-      }),
-    }
+      headerTitle: '뉴스피드',
+      headerLeft: <MaterialIcons
+              name="menu"
+              size={30}
+              onPress={() => navigation.navigate('DrawerOpen')}
+              style={{
+                color: 'white',
+                marginLeft: Platform.OS === 'ios' ? 10 : 0,
+               }}
+            />,
+      headerStyle: {
+        backgroundColor: '#30333C'
+      },
+      headerTintColor: 'white'
+    })
   }, //StackNavigator을 사용해야지 가능함
 });
 
