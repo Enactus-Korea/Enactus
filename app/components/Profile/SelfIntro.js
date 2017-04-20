@@ -6,7 +6,7 @@ import styles from './styles'
 
 
 class SelfIntro extends Component{
-  static navigationOptions = {
+  static navigationOptions = () => ({
     title: '상태매세지',
     header: ({state}) => ({
       title: '상태메세지',
@@ -16,7 +16,7 @@ class SelfIntro extends Component{
       },
       tintColor: 'white'
     })
-  }
+  })
   constructor(props){
     super(props)
     this.state = {

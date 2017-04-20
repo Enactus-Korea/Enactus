@@ -4,7 +4,7 @@ import styles from './styles'
 import Dimensions from 'Dimensions'
 
 class Search extends Component {
-  static navigationOptions = {
+  static navigationOptions = () => ({
     header: ({state}) => ({
       title: <TextInput
                 style={styles.sch_input}
@@ -19,7 +19,7 @@ class Search extends Component {
       },
       tintColor: 'white'
     })
-  }
+  })
   state = {
     sch: ''
   }

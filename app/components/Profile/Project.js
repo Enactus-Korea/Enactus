@@ -8,7 +8,7 @@ import styles from './styles'
 
 //TODO: 프로젝트 선택하지 않았을 경우 먼저 선택하라는 알림 띄우기
 class Project extends Component{
-  static navigationOptions = {
+  static navigationOptions = () => ({
     header: ({state}) => ({
       title: '프로젝트',
       right: <Button title='완료' color='#fff' onPress={() => state.params.handleSave()} />,
@@ -17,7 +17,7 @@ class Project extends Component{
       },
       tintColor: 'white'
     })
-  }
+  })
   state = {
     projectList: this.props.projects,
     name: '',
