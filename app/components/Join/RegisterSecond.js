@@ -9,18 +9,13 @@ import ProfUserImg from '../Profile/ProfUserImg'
 
 
 class RegisterSecond extends Component{
-  static navigationOptions = {
-    // title: '상태매세지',
-    header: (props) => ({
-      title: '회원가입',
-      left: <Button title='뒤로' color='#fff' onPress={() => props.goBack()} />,
-      right: <Button title='완료' color='#FEC13A' onPress={() => props.state.params.handleSave()} />,
-      style: {
-        backgroundColor: '#30333C'
-      },
-      tintColor: 'white'
-    })
-  }
+  static navigationOptions = ({navigation}) => ({
+    headerTitle: '회원가입',
+    headerLeft: <Button title='뒤로' color='#fff' onPress={() => navigation.goBack()} />,
+  headerRight: <Button title='완료' color='#FEC13A' onPress={() => navigation.state.params.handleSave()} />,
+    headerStyle: {backgroundColor: '#30333C'},
+    headerTintColor: 'white'
+  })
   constructor(props){
     super(props)
     this.state ={

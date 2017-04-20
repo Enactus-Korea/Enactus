@@ -15,34 +15,31 @@ export default ProfileStack = StackNavigator({
   Profile: {
     screen: Profile,
     // path: '/feed',
-    navigationOptions: {
-      title: '프로필',
-      header: ({navigate, tintColor}) =>({
-        title: '프로필',
-          left: <MaterialIcons
-                  name="menu"
-                  size={30}
-                  onPress={() => navigate('DrawerOpen')}
-                  style={{
-                    color: 'white',
-                    marginLeft: Platform.OS === 'ios' ? 10 : 0,
-                   }}
-                />,
-          right: <MaterialIcons
-                  name="settings"
-                  size={20}
-                  onPress={() => navigate('Setting')}
-                  style={{
-                    color: 'white',
-                    marginRight: Platform.OS === 'ios' ? 10 : 0,
-                   }}
-                />,
-          style: {
-            backgroundColor: '#30333C'
-          },
-          tintColor: 'white'
-      }),
-    }
+    navigationOptions: ({navigation}) => ({
+      headerTitle: '프로필',
+      headerLeft: <MaterialIcons
+                    name="menu"
+                    size={30}
+                    onPress={() => navigation.navigate('DrawerOpen')}
+                    style={{
+                      color: 'white',
+                      marginLeft: Platform.OS === 'ios' ? 10 : 0,
+                     }}
+                  />,
+      headerRight: <MaterialIcons
+                      name="settings"
+                      size={20}
+                      onPress={() => navigation.navigate('Setting')}
+                      style={{
+                        color: 'white',
+                        marginRight: Platform.OS === 'ios' ? 10 : 0,
+                       }}
+                    />,
+      headerStyle:{
+        backgroundColor: '#30333C'
+      },
+      headerTintColor: 'white'
+    })
   }, //StackNavigator을 사용해야지 가능함
 
 });

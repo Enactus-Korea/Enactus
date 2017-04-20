@@ -14,69 +14,57 @@ import CustomTabs from './CustomTabs'
 
 
 const HeaderColor = {
-  style: {
+  headerStyle: {
     backgroundColor: '#30333C'
   },
-  tintColor: 'white'
+  headerTintColor: 'white'
 }
 
 
-const HeaderOptios = (navigate) => {
-  return({
-    left: <MaterialIcons
+const HeaderOptios = (navigation) => ({
+    headerLeft: <MaterialIcons
             name="menu"
             size={30}
-            onPress={() => navigate('DrawerOpen')}
+            onPress={() => navigation.navigate('DrawerOpen')}
             style={{
               color: 'white',
               marginLeft: Platform.OS === 'ios' ? 10 : 0,
              }}
           />,
     ...HeaderColor
-  })
-}
-
-
+})
 
 const NetworkStack = StackNavigator({
   Network: {
 		screen: Network,
-    navigationOptions: {
-      header: ({navigate}) =>({
-        title: '네트워크',
-        ...HeaderOptios(navigate)
-      }),
-    }
+    navigationOptions: ({navigation}) => ({
+      headerTitle: '네트워크',
+      ...HeaderOptios(navigation)
+    })
 	},
   NetworkDetail : {
     screen: NetworkDetail,
-    navigationOptions: {
-      header: ({navigate}) =>({
-        title: '상세보기',
-        ...HeaderColor
-      }),
-    }
+    navigationOptions: ({navigation}) => ({
+      headerTitle: '상세보기',
+      ...HeaderOptios(navigation)
+    })
   }
 }, { initialRouteName: 'Network'});
 
 const BambooStack = StackNavigator({
   Bamboo: {
 		screen: Bamboo,
-    navigationOptions: {
-      header: ({navigate}) =>({
-        title: '대나무숲',
-        ...HeaderOptios(navigate)
-      }),
-    }
+    navigationOptions: ({navigation}) => ({
+      headerTitle: '대나무숲',
+      ...HeaderOptios(navigation)
+    })
 	},
   Detail : {
     screen: FeedDetail,
-    navigationOptions: {
-      header: ({navigate}) =>({
-        title: '상세보기',
-        ...HeaderColor
-      }),
-    }
+    navigationOptions: ({navigation}) => ({
+      headerTitle: '상세보기',
+      ...HeaderOptios(navigation)
+    })
   }
 }, { initialRouteName: 'Bamboo'})
 
@@ -87,12 +75,10 @@ const BambooStack = StackNavigator({
 const Stack = {
   Contact: {
 		screen: Contact,
-    navigationOptions: {
-      header: ({navigate}) =>({
-        title: '문의하기',
-        ...HeaderOptios(navigate)
-      }),
-    }
+    navigationOptions: ({navigation}) => ({
+      headerTitle: '문의하기',
+      ...HeaderOptios(navigation)
+    })
 	},
 };
 

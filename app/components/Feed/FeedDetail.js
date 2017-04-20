@@ -65,7 +65,8 @@ class FeedDetail extends React.PureComponent{
     }
   }
   render(){
-    console.log("FeedDetail",this.state.cl);
+    console.log("FeedDetail",this.props)
+    // console.log("FeedDetail",this.state.cl);
     return(
       <View style={styles.detail_view}>
         <FeedComp {...this.props.navigation.state.params} detail={true}/>
@@ -86,16 +87,12 @@ class FeedDetail extends React.PureComponent{
 }
 
 
-FeedDetail.navigationOptions = {
-  header: (props) => ({
-    title: '상세보기',
-    left: <Button title='뒤로' color='#fff' onPress={() => props.goBack()} />,
-    style: {
-      backgroundColor: '#30333C'
-    },
-    tintColor: 'white'
-  })
-};
+FeedDetail.navigationOptions = ({navigation}) => ({
+  headerTitle: '상세보기',
+  headerLeft: <Button title='뒤로' color='#fff' onPress={() => navigation.goBack()} />,
+  headerStyle: { backgroundColor: '#30333C' },
+  headerTintColor: 'white'
+});
 
 const mapStateToProps = ({permissions}) => ({
   user: permissions.user
@@ -116,18 +113,3 @@ export default connect(mapStateToProps, actions)(FeedDetail)
 //       />}
 //   />
 //
-
-
-
-
-
-
-// header: (props) => ({
-//   title: '회원가입',
-//   left: <Button title='뒤로' color='#fff' onPress={() => props.goBack()} />,
-//   right: <Button title='완료' color='#FEC13A' onPress={() => props.state.params.handleSave()} />,
-//   style: {
-//     backgroundColor: '#30333C'
-//   },
-//   tintColor: 'white'
-// })

@@ -7,6 +7,7 @@ import styles from './styles'
 
 class NetworkDetail extends Component{
   render(){
+    console.log("NetworkDetail",this.props);
     const { params } = this.props.navigation.state
     return(
       <View>
