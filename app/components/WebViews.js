@@ -1,16 +1,22 @@
 import React, {Component} from 'react'
-import {WebView, Linking} from 'react-native'
+import {WebView, Linking, View} from 'react-native'
 
 
 class WebViews extends Component {
+  handleOpenLink = (url) => {
+    Linking.canOpenURL(url).then(supported => {
+      if (!supported) {
+        console.log('Can\'t handle url: ' + url);
+      } else {
+        return Linking.openURL(url);
+      }
+    }).catch(err => console.error('An error occurred', err))
+  }
   render(){
     return(
-      <WebView
-        onShouldStartLoadWithRequest={(e) => {
-          Linking.openURL(this.props.forUrl)
-          return false;
-        }}
-      />
+      <View>
+        {this.handleOpenLink(this.props.forUrl)}
+      </View>
     )
   }
   componentDidMount(){

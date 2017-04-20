@@ -106,7 +106,6 @@ const DrawerRoutes = {
 	NetworkStack: {
 		name: 'NetworkStack',
 		screen: NetworkStack,
-    // screen: StackNavigator(Stack, { initialRouteName: 'Network'}),
 	},
   BambooStack: { //여기 이름이 router이기 때문에 이름이 중복되면 계속 stack이 쌓여서 이상해짐
     name: 'BambooStack',
