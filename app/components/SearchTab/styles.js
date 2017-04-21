@@ -12,12 +12,18 @@ export default StyleSheet.create({
     paddingRight: 10,
     justifyContent: 'space-between'
   },
+  sch_input_bar:{
+    width: Dimensions.get('window').width,
+    height: 55,
+    backgroundColor: '#30333C',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   sch_input:{
     // flex: 1,
     width: Dimensions.get('window').width/1.05,
     backgroundColor: '#22242A',
-    marginTop: Platform.OS === 'ios' ? 7 : 0,
-    marginLeft: -30,
+    marginTop: Platform.OS === 'ios' ? 10 : 0,
     height: 26,
     borderRadius: 3,
     fontSize: 13,

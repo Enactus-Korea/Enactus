@@ -6,13 +6,13 @@ import moment from 'moment-timezone'
 
 class FeedComp extends Component{
   textEllipsis = (content) => {
-    const { navigation } = this.props;
+    const { navigation, detailRoute } = this.props;
     if(content === undefined) {
       content = this.props.children;
     }
     if(content.length > 100) {
       return (
-        <TouchableOpacity onPress={() => this.props.detail ? false : navigation.navigate('Detail',{...this.props})}>
+        <TouchableOpacity onPress={() => this.props.detail ? false : navigation.navigate(detailRoute,{...this.props})}>
           <Text numberOfLines={3}>
             {feeds.content.substring(0,100-7)} <Text style={styles.readMore}>...더보기</Text>
           </Text>
@@ -20,7 +20,7 @@ class FeedComp extends Component{
       )
     } else {
       return (
-        <TouchableOpacity onPress={() => this.props.detail ? false : navigation.navigate('Detail',{...this.props})}>
+        <TouchableOpacity onPress={() => this.props.detail ? false : navigation.navigate(detailRoute,{...this.props})}>
           <Text>{content}</Text>
         </TouchableOpacity>
       )

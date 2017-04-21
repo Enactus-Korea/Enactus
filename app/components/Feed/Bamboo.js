@@ -5,7 +5,7 @@ import FeedList from './FeedList'
 
 const Bamboo = ({navigation}) => (
   <View>
-    <FeedList navigation={navigation} typeOf={'feed/bamboo'}/>
+    <FeedList navigation={navigation} typeOf={'feed/bamboo'} detailRoute={'BambooDetail'}/>
   </View>
 )
 

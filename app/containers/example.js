@@ -45,8 +45,9 @@ const NetworkStack = StackNavigator({
   NetworkDetail : {
     screen: NetworkDetail,
     navigationOptions: ({navigation}) => ({
-      headerTitle: '상세보기',
-      ...HeaderOptios(navigation)
+      headerTitle: `${navigation.state.params.name} 프로필`,
+      headerLeft: <Button title='뒤로' color='#fff' onPress={() => navigation.goBack()} />,
+      ...HeaderColor
     })
   }
 }, { initialRouteName: 'Network'});
@@ -59,11 +60,12 @@ const BambooStack = StackNavigator({
       ...HeaderOptios(navigation)
     })
 	},
-  Detail : {
+  BambooDetail : {
     screen: FeedDetail,
     navigationOptions: ({navigation}) => ({
       headerTitle: '상세보기',
-      ...HeaderOptios(navigation)
+      headerLeft: <Button title='뒤로' color='#fff' onPress={() => navigation.goBack()} />,
+      ...HeaderColor
     })
   }
 }, { initialRouteName: 'Bamboo'})
