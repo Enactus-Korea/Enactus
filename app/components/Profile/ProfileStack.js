@@ -2,13 +2,8 @@ import React from 'react'
 import {Platform, Button} from 'react-native'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Profile from './Profile'
-// import ProfileSetting from './ProfileSetting'
-// import Project from './Project'
-// import ProjectDetail from './ProjectDetail'
-// import SelfIntro from './SelfIntro'
 import { StackNavigator } from 'react-navigation';
 import { isModifiedIntro } from './actions'
-// import { connect } from 'react-redux'
 
 
 export default ProfileStack = StackNavigator({

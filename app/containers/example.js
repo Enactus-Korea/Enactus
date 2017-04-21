@@ -98,46 +98,46 @@ const RegisterStack = {
 
 const DrawerRoutes = {
 	FeedViewStack: {
-		name: 'FeedViewStack',
+		// name: 'FeedViewStack',
 		screen: CustomTabs
 	},
 	AboutStack: {
-		name: 'AboutStack',
+		// name: 'AboutStack',
 		screen: ({navigation}) => <WebViews {...navigation} forUrl={'http://blog.naver.com/enactusblog/220208208280'}/>
 	},
 	NetworkStack: {
-		name: 'NetworkStack',
+		// name: 'NetworkStack',
 		screen: NetworkStack,
 	},
   BambooStack: { //여기 이름이 router이기 때문에 이름이 중복되면 계속 stack이 쌓여서 이상해짐
-    name: 'BambooStack',
+    // name: 'BambooStack',
     screen: BambooStack,
   },
   ArchiveStack: {
-    name: 'ArchiveStack',
+    // name: 'ArchiveStack',
     screen: ({navigation}) => <WebViews {...navigation} forUrl={'http://enactuskorea.org/goarchive'}/>
   },
   ContactStack: {
-    name: 'ContactStack',
+    // name: 'ContactStack',
     screen: StackNavigator(Stack, { initialRouteName: 'Contact' }),
   },
   Login: {
-    path: '/login',
+    // path: '/login',
     screen: Login,
   },
   RegisterStack: {
     screen: StackNavigator(RegisterStack, { initialRouteName: 'Register' }),
   },
   Facebook: {
-    name: 'Facebook',
+    // name: 'Facebook',
     screen: ({navigation}) => <WebViews {...navigation} forUrl={'https://www.facebook.com/enactuskoreapage'}/>
   },
   Youtube: {
-    name: 'Youtube',
+    // name: 'Youtube',
     screen: ({navigation}) => <WebViews {...navigation} forUrl={'https://www.youtube.com/user/EnactusKorea'}/>
   },
   Flickr: {
-    name: 'Flickr',
+    // name: 'Flickr',
     screen: ({navigation}) => <WebViews {...navigation} forUrl={'https://www.flickr.com/photos/enactuskorea'}/>
   },
 };

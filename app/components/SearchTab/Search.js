@@ -1,20 +1,24 @@
 import React, {Component} from 'react'
-import {View , Text, TextInput, Animated , Easing, TouchableOpacity} from 'react-native'
+import {View , Text, TextInput, Animated , Easing, TouchableOpacity, SectionList} from 'react-native'
 import styles from './styles'
 import Dimensions from 'Dimensions'
 
+const AnimatedSectionList = Animated.createAnimatedComponent(SectionList);
+
+const VIEWABILITY_CONFIG = {
+  minimumViewTime: 3000,
+  viewAreaCoveragePercentThreshold: 100,
+  waitForInteraction: true,
+};
+
+const renderSectionHeader = ({section}) => (
+  <View style={styles.header}>
+    <Text style={styles.headerText}>SECTION HEADER: {section.key}</Text>
+  </View>
+);
+
 class Search extends Component {
   static navigationOptions = ({navigation}) => ({
-    // headerTitle: <TextInput
-    //           style={styles.sch_input}
-    //           onChangeText={(text) => navigation.state.params.handleChange("sch",text)}
-    //           placeholder='멤버 혹은 뉴스피드 검색'
-    //           placeholderTextColor='#8E8F92'
-    //         />,
-    // headerRight: null,
-    // headerLeft: null,
-    // headerStyle: { backgroundColor: '#30333C' },
-    // headerTintColor: 'white',
     headerVisible: false
   })
   state = {
@@ -65,7 +69,16 @@ class Search extends Component {
 
 export default Search
 
-
+// headerTitle: <TextInput
+//           style={styles.sch_input}
+//           onChangeText={(text) => navigation.state.params.handleChange("sch",text)}
+//           placeholder='멤버 혹은 뉴스피드 검색'
+//           placeholderTextColor='#8E8F92'
+//         />,
+// headerRight: null,
+// headerLeft: null,
+// headerStyle: { backgroundColor: '#30333C' },
+// headerTintColor: 'white',
 
 //  <View style={styles.sch_top}>
 //         <TextInput
