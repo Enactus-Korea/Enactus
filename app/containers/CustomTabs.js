@@ -38,7 +38,7 @@ const CustomTabView = ({
 
 const Routes = {
   Feed: { screen: FeedStack },
-  Search: { screen: Search },
+  Search: {screen: Search },
   Post: { screen: PostView },
   Notification: { screen: NotificationView },
 	ProfileStack: { screen: ProfileStack }
@@ -46,7 +46,11 @@ const Routes = {
 const TabRoutes = TabRouter(Routes, { initialRouteName: 'Feed' })
 const CustomTabs = createNavigationContainer(createNavigator(TabRoutes)(CustomTabView));
 
-
+// StackNavigator({
+//     screen: Search
+//   },
+//   {headerMode: 'none'}
+// ),
 
 /*
  Profile: {
@@ -87,7 +91,7 @@ const CustomTabsStack = StackNavigator({
       ...HeaderColor
     })
   }
-});
+},{ headerMode:'screen' });
 
 
 export default CustomTabsStack

@@ -5,16 +5,17 @@ import Dimensions from 'Dimensions'
 
 class Search extends Component {
   static navigationOptions = ({navigation}) => ({
-    headerTitle: <TextInput
-              style={styles.sch_input}
-              onChangeText={(text) => navigation.state.params.handleChange("sch",text)}
-              placeholder='멤버 혹은 뉴스피드 검색'
-              placeholderTextColor='#8E8F92'
-            />,
-    headerRight: false,
-    headerLeft: false,
-    headerStyle: { backgroundColor: '#30333C' },
-    headerTintColor: 'white'
+    // headerTitle: <TextInput
+    //           style={styles.sch_input}
+    //           onChangeText={(text) => navigation.state.params.handleChange("sch",text)}
+    //           placeholder='멤버 혹은 뉴스피드 검색'
+    //           placeholderTextColor='#8E8F92'
+    //         />,
+    // headerRight: null,
+    // headerLeft: null,
+    // headerStyle: { backgroundColor: '#30333C' },
+    // headerTintColor: 'white',
+    headerVisible: false
   })
   state = {
     sch: ''
@@ -46,6 +47,14 @@ class Search extends Component {
     const animatedStyle = { width: this.animatedValue }
     return(
       <View>
+        <View style={styles.sch_input_bar}>
+          <TextInput
+            style={styles.sch_input}
+            onChangeText={(text) => this.handleChange("sch",text)}
+            placeholder='멤버 혹은 뉴스피드 검색'
+            placeholderTextColor='#8E8F92'
+          />
+        </View>
         <Text>검색</Text>
 
       </View>

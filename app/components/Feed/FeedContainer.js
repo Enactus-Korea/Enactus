@@ -9,7 +9,7 @@ import FeedList from './FeedList'
 
 const FeedContainer = ({navigation}) => (
   <View>
-    <FeedList navigation={navigation} typeOf={'feed'}/>
+    <FeedList navigation={navigation} typeOf={'feed'} detailRoute={'Detail'}/>
   </View>
 )
 

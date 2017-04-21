@@ -5,7 +5,6 @@ import styles from './styles'
 
 class FeedComment extends PureComponent {
   render(){
-    console.log("FeedComment",this.props)
     let {name, univ, userImg } = this.props;
     return(
       <View style={styles.comment_box}>

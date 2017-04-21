@@ -89,7 +89,7 @@ class FeedDetail extends PureComponent{
 
 FeedDetail.navigationOptions = ({navigation}) => ({
   headerTitle: '댓글',
-  headerLeft: <Button title='뒤로' color='#fff' onPress={() => navigation.goBack()} />,
+  // headerLeft: <Button title='뒤로' color='#fff' onPress={() => navigation.goBack()} />,
   headerStyle: { backgroundColor: '#30333C' },
   headerTintColor: 'white'
 });
