@@ -1,16 +1,30 @@
-import React from 'react'
+import React, {PureComponent} from 'react'
 import * as actions from './actions'
 import {connect} from 'react-redux'
-import {Text, TouchableOpacity, View, TextInput, Button, Image} from 'react-native'
+import {Text, TouchableOpacity, View, TextInput, Button, Image, FlatList, Animated } from 'react-native'
 import FeedComp from './FeedComp'
+import FeedComment from './FeedComment'
 import styles from './styles'
-import moment from 'moment-timezone'
 
 
-class FeedDetail extends React.PureComponent{
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+const VIEWABILITY_CONFIG = {
+  minimumViewTime: 3000,
+  viewAreaCoveragePercentThreshold: 100,
+  waitForInteraction: true,
+};
+
+class SeparatorComponent extends PureComponent {
+  render() {
+    return <View style={{backgroundColor: 'rgb(200, 199, 204)', height:1}} />;
+  }
+}
+
+
+class FeedDetail extends PureComponent{
   state = {
     comment: '',
-    cl: '',
+    cl: [], //comment List
     loaded: false
   }
   componentDidMount(){
@@ -21,18 +35,13 @@ class FeedDetail extends React.PureComponent{
     id = this.props.navigation.state.params.id;
     let response = await fetch(`${REQUEST_URL}/feed/${id}/comment`);
     let responseJson = await response.json();
-    console.log(responseJson);
-    return this.setState({
-      cl: responseJson.comment,
-      loaded: true
-    })
+    return this.setState({ cl: responseJson.comment, loaded: true })
   }
-  // componentWillReceiveProps(newProps){
-  //   this.setState({cl: newProps.navigation.state.params.comment})
-  // }
   handlePostComment = () => {
     let feed = this.props.navigation.state.params.id, comment = this.state.comment
     this.props.createFeedCmt(feed, comment, this.props.user)
+    this.setState({comment: ''})
+    this.fetchData();
   }
   renderPostBtn = () => {
     if(this.state.comment){
@@ -43,52 +52,43 @@ class FeedDetail extends React.PureComponent{
       return <Text style={{fontWeight: '600', color: '#dbdbdb'}}>게시</Text>
     }
   }
-  renderComment = () => {
-    // console.log(this.state.loaded);
-    // console.log(this.state.cl);
+  renderComment = ({item}) => {
     if(this.state.loaded){
-      return this.state.cl.map((c,i) => (
-        <View key={i} className="comment_box">
-          <View style={{flexDirection:'row', alignItems:'center', justifyContent: 'space-between'}}>
-            <Image style={styles.userImage} source={require('../../assets/defaultUser.jpg')}/>
-            <View style={{flexDirection:'column', width: 220}}>
-              <Text>{c.name}</Text>
-              <Text>{c.univ}</Text>
-            </View>
-            <Text>{moment(c.createdOn).tz('Asia/Seoul').format('YYYY년MM월DD일')}</Text>
-          </View>
-          <Text style={{marginLeft: 45}}>{c.comment}</Text>
-        </View>
-      ))
+      return <FeedComment {...item} navigation={this.props.navigation}/>
     } else {
       return false
     }
   }
   render(){
-    console.log("FeedDetail",this.props)
-    // console.log("FeedDetail",this.state.cl);
     return(
       <View style={styles.detail_view}>
-        <FeedComp {...this.props.navigation.state.params} detail={true}/>
-        {this.renderComment()}
-        <View style={styles.comment_cont}>
-          <TextInput
-            style={styles.comment}
-            autoCapitalize= "none"
-            multiline={true}
-            value={this.state.comment}
-            onChangeText={(val) => this.setState({comment: val})}
-            placeholder="댓글을 입력하세요"/>
-          {this.renderPostBtn()}
+        <AnimatedFlatList
+            ItemSeparatorComponent={SeparatorComponent}
+            ListHeaderComponent={() => <FeedComp {...this.props.navigation.state.params} detail={true}/>}
+            data={this.state.cl}
+            keyExtractor={item => item._id}
+            renderItem={this.renderComment}
+            // shouldItemUpdate={this._shouldItemUpdate}
+            viewabilityConfig={VIEWABILITY_CONFIG}
+          />
+          <View style={styles.comment_input_cont}>
+            <TextInput
+              style={styles.comment_input}
+              autoCapitalize= "none"
+              multiline={true}
+              value={this.state.comment}
+              onChangeText={(val) => this.setState({comment: val})}
+              placeholder="댓글을 입력하세요"/>
+            {this.renderPostBtn()}
+          </View>
         </View>
-      </View>
     )
   }
 }
 
 
 FeedDetail.navigationOptions = ({navigation}) => ({
-  headerTitle: '상세보기',
+  headerTitle: '댓글',
   headerLeft: <Button title='뒤로' color='#fff' onPress={() => navigation.goBack()} />,
   headerStyle: { backgroundColor: '#30333C' },
   headerTintColor: 'white'
@@ -99,17 +99,3 @@ const mapStateToProps = ({permissions}) => ({
 })
 
 export default connect(mapStateToProps, actions)(FeedDetail)
-//
-//
-//
-// <ListView
-//     dataSource={this.state.dataSource}
-//     renderHeader={() =>  }
-//     renderRow={(feeds) =>
-//       <FeedComp
-//         {...this.props}
-//         id={feeds._id}
-//         {...feeds}
-//       />}
-//   />
-//

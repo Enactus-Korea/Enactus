@@ -50,14 +50,13 @@ export default StyleSheet.create({
     color: 'red'
   },
   userImage: {
-    width: 40,
-    height: 40,
+    width: 34,
+    height: 34,
     borderWidth: 1,
     borderColor: '#e9e9e9',
-    borderRadius: 20
+    borderRadius: 17
   },
   feedListView: {
-    marginBottom: 10,
     backgroundColor: '#fff',
     borderWidth: 1,
     borderColor: '#d9d9d9',
@@ -67,19 +66,25 @@ export default StyleSheet.create({
     paddingBottom:0,
   },
   feedTopContainer: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   feedInfoContainer: {
     marginLeft: 10
   },
   feedUser: {
-    fontWeight: '500'
+    fontWeight: '500',
+    marginBottom: 5
   },
   feedUserUniv: {
-    color: '#a7a7a7'
+    color: '#a7a7a7',
+    fontWeight: '100',
+    fontSize: 13,
   },
   feedUserTime: {
-    color: '#ccc'
+    color: '#ccc',
+    fontWeight: '100',
+    fontSize: 11,
   },
   ctxContainer: {
     marginTop: 15
@@ -123,7 +128,7 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
   },
-  comment_cont:{
+  comment_input_cont:{
     height: 50,
     backgroundColor: '#fff',
     flexDirection: 'row',
@@ -137,19 +142,22 @@ export default StyleSheet.create({
   comment_btn:{
     fontWeight: '600'
   },
-  comment:{
-    // paddingLeft: 10,
+  comment_input:{
     fontSize: 15,
     alignItems:'center',
     width: Dimensions.get('window').width/1.2,
     height: 44,
   },
   comment_box:{
+    padding: 15,
     backgroundColor: '#fff',
-    borderTopWidth:1,
-    borderTopColor: '#dbdbdb',
-    borderBottomWidth:1,
-    borderBottomColor: '#dbdbdb',
-    marginBottom: 2,
+  },
+  separator: {
+    height: 5,
+    backgroundColor: '#EBEBEB',
+  },
+  time_text:{
+    fontWeight: '100',
+    fontSize:10,
   }
 })

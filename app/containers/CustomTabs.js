@@ -1,10 +1,11 @@
 import React from 'react'
-import { Text, View } from 'react-native';
+import { Text, View, Button } from 'react-native';
 import { createNavigator, createNavigationContainer, TabRouter, StackNavigator, TabNavigator, addNavigationHelpers } from 'react-navigation';
 import { FeedStack, FeedDetail } from '../components/Feed'
 import { Search } from '../components/SearchTab'
 import { PostView } from '../components/Post'
 import { ProfileStack, Profile, ProfileSetting, Project, ProjectDetail, SelfIntro } from '../components/Profile'
+import { NetworkDetail } from '../components/Network'
 import CustomTabBar from './CustomTabBar'
 
 
@@ -61,8 +62,14 @@ const CustomTabs = createNavigationContainer(createNavigator(TabRoutes)(CustomTa
 const HeaderColor = { headerStyle: { backgroundColor: '#30333C' }, headerTintColor: 'white' }
 const CustomTabsStack = StackNavigator({
   Root: { screen: CustomTabs },
-  Detail: {
-    screen: FeedDetail,
+  Detail: { screen: FeedDetail },
+  CommentUserDetail : {
+    screen: NetworkDetail,
+    navigationOptions: ({navigation}) => ({
+      headerTitle: `${navigation.state.params.name} 프로필`,
+      headerLeft: <Button title='뒤로' color='#fff' onPress={() => navigation.goBack()} />,
+      ...HeaderColor
+    })
   },
   Setting: {
     screen: ProfileSetting,

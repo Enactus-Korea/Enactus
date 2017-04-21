@@ -16,6 +16,7 @@ class Profile extends Component{
     }
   }
   render(){
+    console.log("ProfileDetail",this.props)
     const {user, token, navigation} = this.props;
     if(token && user){
       return(
