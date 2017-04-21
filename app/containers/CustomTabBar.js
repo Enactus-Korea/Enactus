@@ -1,6 +1,5 @@
-import React, {Component} from 'react'
+import React, {PureComponent} from 'react'
 import {connect} from 'react-redux';
-// import * as actions from './actions'
 import { Platform, StyleSheet, Text, TouchableOpacity, View, Image, Alert } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Dimensions from 'Dimensions';
@@ -10,10 +9,36 @@ let routes = [
   {label: '검색', name: 'search', active:'search', routeName: 'Search'},
   {label: '글쓰기', name: 'add-circle', active:'add-circle-outline',routeName: 'Post'},
   {label: '알림', name: 'notifications', active:'notifications-none',routeName: 'Notification'},
-  {label: '마이페이지', name: 'chrome-reader-mode', active:'chrome-reader-mode',routeName: 'ProfileStack'}
+  {label: '마이페이지', active:'chrome-reader-mode',routeName: 'ProfileStack'}
 ]
 
-class CustomTabBar extends Component{
+class FocusedTabItem extends PureComponent{
+  renderIcon = (route) => (
+    <MaterialIcons
+      name={route.name}
+      size={24}
+      style={{color: '#30333C'}} />
+  )
+  renderImage = (user) => (
+    <Image
+       style={styles.tab_focused_user_img}
+       source={ user ? { uri: user } :require('../assets/defaultUser.jpg')}/>
+  )
+  render(){
+    let { route, user } = this.props
+    return(
+      <View style={styles.tab}>
+        {route.routeName === 'ProfileStack'
+          ? this.renderImage(user)
+          : this.renderIcon(route)
+        }
+        <Text style={styles.tabFont}>{this.props.route.label}</Text>
+      </View>
+    )
+  }
+}
+
+class CustomTabBar extends PureComponent{
   state = {
     user: this.props.user
   }
@@ -21,24 +46,24 @@ class CustomTabBar extends Component{
     this.setState({user: newProps.user})
   }
   handleNavigation = (route) => {
-    let { navigation } = this.props;
-    if(this.props.user.hasOwnProperty("email")){
-      this.props.navigation.navigate(route)
-    } else {
-      Alert.alert(
-        '인액터스 회원 인증 필요',
-        '로그인이 필요합니다.',
-        [{text: '로그인 하기', onPress: () => navigation.navigate('Login')},{text:'확인', onPress: () => navigation.navigate('Feed')}]
-      )
-    }
+    let { navigation } = this.props, { user } = this.state;
+    if(!((route === 'Feed') || (route ==='Search'))){
+      if(!user.hasOwnProperty("email")){
+        Alert.alert(
+          '인액터스 회원 인증 필요',
+          '로그인이 필요합니다.',
+          [{text: '로그인 하기', onPress: () => navigation.navigate('Login')},{text:'확인', onPress: () => navigation.navigate('Feed')}]
+        )
+      } else { navigation.navigate(route)}
+    } else { navigation.navigate(route)}
   }
   render(){
     let { navigation } = this.props, focused = navigation.state.index;
-
     return(
       <View style={styles.tabContainer}>
         {routes.map((route, i) => {
           if(route.routeName === 'ProfileStack'){
+            if(focused === i) return <FocusedTabItem key={i} route={route} user={this.state.user.userImg} />
             return (
               <TouchableOpacity
                 onPress={() => this.handleNavigation(route.routeName)}
@@ -46,40 +71,27 @@ class CustomTabBar extends Component{
                 key={route.routeName}
               >
                 <Image
-                   style={focused === i ? styles.tab_focused_user_img : styles.tab_user_img}
+                   style={styles.tab_user_img}
                    source={this.state.user.userImg ?{ uri: this.state.user.userImg } :require('../assets/defaultUser.jpg')}/>
                 <Text style={styles.tabFont}>{route.label}</Text>
               </TouchableOpacity>
             )
-          }
-          if(route.routeName === 'Feed' || route.routeName === 'Search'){
-            return (
+          } else{
+            if(focused === i) return<FocusedTabItem key={i} route={route} user={this.state.user.userImg} />
+            return(
               <TouchableOpacity
-                onPress={() => navigation.navigate(route.routeName)}
+                onPress={() => this.handleNavigation(route.routeName)}
                 style={styles.tab}
                 key={route.routeName}
               >
-                <MaterialIcons
-                  name={focused === i ? route.name : route.active}
-                  size={24}
-                  style={focused === i ? {color: '#30333C'} : {color: '#dbdbdb'}} />
-                 <Text style={styles.tabFont}>{route.label}</Text>
+               <MaterialIcons
+                 name={route.active}
+                 size={24}
+                 style={{color: '#dbdbdb'}} />
+                <Text style={styles.tabFont}>{route.label}</Text>
               </TouchableOpacity>
             )
-          }
-          return(
-            <TouchableOpacity
-              onPress={() => this.handleNavigation(route.routeName)}
-              style={styles.tab}
-              key={route.routeName}
-            >
-             <MaterialIcons
-               name={focused === i ? route.name : route.active}
-               size={24}
-               style={focused === i ? {color: '#30333C'} : {color: '#dbdbdb'}} />
-              <Text style={styles.tabFont}>{route.label}</Text>
-            </TouchableOpacity>
-          )})}
+          }})}
       </View>
     )
   }
