@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {PureComponent} from 'react'
 import {View , Text, TextInput, Animated , Easing, TouchableOpacity, SectionList} from 'react-native'
 import styles from './styles'
 import Dimensions from 'Dimensions'
@@ -13,22 +13,52 @@ const VIEWABILITY_CONFIG = {
 
 const renderSectionHeader = ({section}) => (
   <View style={styles.header}>
-    <Text style={styles.headerText}>SECTION HEADER: {section.key}</Text>
+    <Text style={styles.headerText}>{section.key}</Text>
+  </View>
+);
+const REQUEST_URL = "http://localhost:9000";
+
+
+const renderSearchUsers = ({item}) => (
+  <View>
+    <Text>{item.name} - {item.univ}</Text>
   </View>
 );
 
-class Search extends Component {
+const renderSearchFeeds = ({item}) => (
+  <View>
+    <Text>{item.name} - {item.univ} - {item.content}</Text>
+  </View>
+);
+
+
+class Search extends PureComponent {
   static navigationOptions = ({navigation}) => ({
     headerVisible: false
   })
   state = {
-    sch: ''
+    searchText: '',
+    searchUsers: '',
+    searchFeeds: '',
+    userloaded: false,
+    feedloaded: false
   }
   componentWillMount() {
     this.animatedValue = new Animated.Value(Dimensions.get('window').width/1.05)
   }
   componentDidMount(){
-    this.props.navigation.setParams({handleChange: this.handleChange})
+    this.fetchFeedData()
+    this.fetchUserData()
+  }
+  async fetchFeedData(){
+    let response = await fetch(`${REQUEST_URL}/feed`);
+    let feedData = await response.json();
+    return this.setState({ searchFeeds: feedData.feed , userloaded: true })
+  }
+  async fetchUserData(){
+    let response = await fetch(`${REQUEST_URL}/user`);
+    let userData = await response.json();
+    return this.setState({ searchUsers: userData.users , feedloaded: true })
   }
   handleChange = (name, text) => {
     this.setState({[name]: text})
@@ -47,22 +77,53 @@ class Search extends Component {
       easing: Easing.ease
     }).start()
   }
-  render(){
-    const animatedStyle = { width: this.animatedValue }
+  renderSearchBar = () => {
     return(
-      <View>
-        <View style={styles.sch_input_bar}>
-          <TextInput
-            style={styles.sch_input}
-            onChangeText={(text) => this.handleChange("sch",text)}
-            placeholder='멤버 혹은 뉴스피드 검색'
-            placeholderTextColor='#8E8F92'
-          />
-        </View>
-        <Text>검색</Text>
-
+      <View style={styles.sch_input_bar}>
+        <TextInput
+          style={styles.sch_input}
+          onChangeText={(text) => this.handleChange("searchText",text)}
+          placeholder='멤버 혹은 뉴스피드 검색'
+          placeholderTextColor='#8E8F92'
+        />
       </View>
     )
+  }
+  renderSearchContent = (searchUsers, searchFeeds) => (
+    [
+      { renderItem: renderSearchUsers,
+        key: '네트워크',
+        data: searchUsers
+      },
+      { renderItem: renderSearchFeeds,
+        key: '피드',
+        data: searchFeeds
+      }
+    ]
+  )
+  renderEmptySearch = (searchUsers) => [{renderItem: renderSearchUsers, key: '검색어를 입력하세요.', data: ''}]
+  render(){
+    let searchText = this.state.searchText.trim(), { searchUsers, searchFeeds, userloaded, feedloaded } = this.state;
+    const animatedStyle = { width: this.animatedValue }
+    if(searchText.length > 0) {
+      searchFeeds = searchFeeds.filter(l => l.name.match(searchText)
+          || l.content.match(searchText));
+      searchUsers = searchUsers.filter(l => l.name.match(searchText))
+    }
+    return(
+      <AnimatedSectionList
+          ListHeaderComponent={this.renderSearchBar}
+          ItemSeparatorComponent={() => <View style={styles.customSeparator}></View>}
+          // enableVirtualization={this.state.virtualized}
+          // onRefresh={() => alert('onRefresh: nothing to refresh :P')}
+          keyExtractor={item => item._id}
+          renderSectionHeader={renderSectionHeader}
+          sections={searchText === "" ? this.renderEmptySearch(searchUsers) : this.renderSearchContent(searchUsers, searchFeeds)}
+          style={styles.list}
+          viewabilityConfig={VIEWABILITY_CONFIG}
+        />
+    )
+
   }
 }
 
