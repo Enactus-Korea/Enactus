@@ -4,7 +4,7 @@
  * @flow
  */
 
-
+import './ReactotronConfig'
 import { AppRegistry } from 'react-native';
 import EnactusApp from './app/app'
 

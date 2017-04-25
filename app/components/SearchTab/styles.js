@@ -13,15 +13,18 @@ export default StyleSheet.create({
     justifyContent: 'space-between'
   },
   sch_input_bar:{
+    // flex: 1,
     width: Dimensions.get('window').width,
     height: 55,
     backgroundColor: '#30333C',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingRight: 10,
+    paddingLeft: 10
   },
   sch_input:{
     // flex: 1,
-    width: Dimensions.get('window').width/1.05,
+    // width: Dimensions.get('window').width/1.05,
     backgroundColor: '#22242A',
     marginTop: Platform.OS === 'ios' ? 10 : 0,
     height: 26,
