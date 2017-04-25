@@ -15,7 +15,7 @@ export default StyleSheet.create({
   sch_input_bar:{
     // flex: 1,
     width: Dimensions.get('window').width,
-    height: 55,
+    height: 64,
     backgroundColor: '#30333C',
     justifyContent: 'center',
     alignItems: 'center',
@@ -27,7 +27,7 @@ export default StyleSheet.create({
     // width: Dimensions.get('window').width/1.05,
     backgroundColor: '#22242A',
     marginTop: Platform.OS === 'ios' ? 10 : 0,
-    height: 26,
+    height: 29,
     borderRadius: 3,
     fontSize: 13,
     textAlign: 'center',
@@ -38,4 +38,15 @@ export default StyleSheet.create({
     backgroundColor: '#22242A',
     height: 26,
   },
+  sectionHeader:{
+    height: 60,
+    // alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+  },
+  sectionHeaderText:{
+    fontWeight: '500',
+    color: '#8F969E',
+    fontSize: 14,
+  }
 })

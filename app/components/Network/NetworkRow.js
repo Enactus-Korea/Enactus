@@ -4,11 +4,11 @@ import styles from './styles'
 
 
 const NetworkRow = (props) => {
-  let {name, univ, userImg, selfIntro} = props.user;
+  let { name, univ, userImg, selfIntro } = props.user, { route } = props;
+  console.log(route);
   return(
   <TouchableOpacity
-    onPress={() => props.navigation.navigate(
-      'NetworkDetail', props.user)}
+    onPress={() => props.navigation.navigate( route , props.user )}
     style={styles.row_cont}>
     <Image
       style={styles.profile_img}

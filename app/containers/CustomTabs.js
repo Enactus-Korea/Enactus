@@ -61,7 +61,16 @@ const HeaderColor = { headerStyle: { backgroundColor: '#30333C' }, headerTintCol
 const CustomTabsStack = StackNavigator({
   Root: { screen: CustomTabs },
   Detail: { screen: FeedDetail },
+  SearchFeedDetail: { screen: FeedDetail },
   CommentUserDetail : {
+    screen: NetworkDetail,
+    navigationOptions: ({navigation}) => ({
+      headerTitle: `${navigation.state.params.name} 프로필`,
+      headerLeft: <Button title='뒤로' color='#fff' onPress={() => navigation.goBack()} />,
+      ...HeaderColor
+    })
+  },
+  SearchUserDetail : {
     screen: NetworkDetail,
     navigationOptions: ({navigation}) => ({
       headerTitle: `${navigation.state.params.name} 프로필`,
