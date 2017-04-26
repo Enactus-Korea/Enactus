@@ -1,5 +1,5 @@
-import React from 'react'
-import { View, MapView, Text, StyleSheet, Platform } from 'react-native'
+import React, {PureComponent} from 'react'
+import { View, MapView, Text, StyleSheet, Platform, Linking, TouchableOpacity } from 'react-native'
 
 function regionFrom(lat, lon, accuracy) {
     const oneDegreeOfLongitudeInMeters = 111.32 * 1000;
@@ -16,38 +16,56 @@ function regionFrom(lat, lon, accuracy) {
     };
   }
 
+class Contact extends PureComponent {
+  handleLink = (url) => {
+    Linking.canOpenURL(url)
+      .then( supported => {
+        if(supported) {
+          Linking.openURL(url)
+        } else {
+          console.log('Don\'t know how to open URI: ' + url);
+        }
+      }
 
-const Contact = () => (
-  <View>
-    <MapView style={{height: 300, margin:10}}
-        region={{
-          latitude: 37.548273,
-          longitude: 127.041858,
-          latitudeDelta: 0.0432,
-          longitudeDelta: 0.0412
-        }}
-        // annotations={[{
-        //   atitude: 37.548273,
-        //   longitude: 127.041858,
-        //   title: '인액터스 코리아 본사'
-        // }]}
-      />
-    <View style={{marginTop: 30}}>
-      <View style={styles.infoBox}>
-        <Text style={styles.headTxt}>주소</Text>
-        <Text style={styles.infoTxt}>서울툭별시 성동구 성수동 668-100 3층</Text>
+      )
+  }
+  render(){
+    return(
+      <View>
+        <MapView style={{height: 300, margin:10}}
+            region={{
+              latitude: 37.548273,
+              longitude: 127.041858,
+              latitudeDelta: 0.0432,
+              longitudeDelta: 0.0412
+            }}
+            // annotations={[{
+            //   atitude: 37.548273,
+            //   longitude: 127.041858,
+            //   title: '인액터스 코리아 본사'
+            // }]}
+          />
+        <View style={{marginTop: 30}}>
+          <View style={styles.infoBox}>
+            <Text style={styles.headTxt}>주소</Text>
+            <Text style={styles.infoTxt}>서울툭별시 성동구 성수동 668-100 3층</Text>
+          </View>
+          <View style={styles.infoBox}>
+            <Text style={styles.headTxt}>이메일</Text>
+            <Text style={styles.infoTxt}>admin@enactuskorea.org</Text>
+          </View>
+          <View style={styles.infoBox}>
+            <Text style={styles.headTxt}>연락처</Text>
+            <TouchableOpacity onPress={() => this.handleLink('tel:07042748184')}>
+            <Text style={styles.infoTxt}>070-4274-8184</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
-      <View style={styles.infoBox}>
-        <Text style={styles.headTxt}>이메일</Text>
-        <Text style={styles.infoTxt}>admin@enactuskorea.org</Text>
-      </View>
-      <View style={styles.infoBox}>
-        <Text style={styles.headTxt}>연락처</Text>
-        <Text style={styles.infoTxt}>070-4274-8184</Text>
-      </View>
-    </View>
-  </View>
-)
+    )
+  }
+}
+
 
 const styles = StyleSheet.create({
   container: {

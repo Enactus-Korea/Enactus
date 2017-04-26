@@ -78,27 +78,30 @@ class Search extends PureComponent {
       }
     ]
   )
-  renderEmptySearch = (searchUsers) => [{renderItem: this.renderSearchUsers, key: '검색어를 입력하세요.', data: ''}]
+  renderEmptySearch = (searchUsers) => [{renderItem: this.renderSearchUsers, key: '1자 이상으로 검색어를 입력하세요.', data: ''}]
   render(){
     let searchText = this.state.searchText.trim(), { searchUsers, searchFeeds, userloaded, feedloaded } = this.state;
     const animatedStyle = { width: this.animatedValue }
-    if(searchText.length > 0) {
+    if(searchText.length > 1) {
       searchFeeds = searchFeeds.filter(l => l.name.match(searchText)
           || l.content.match(searchText));
       searchUsers = searchUsers.filter(l => l.name.match(searchText))
     }
     return(
-      <AnimatedSectionList
-          ListHeaderComponent={this.renderSearchBar}
-          ItemSeparatorComponent={() => <View style={styles.customSeparator}></View>}
-          // enableVirtualization={this.state.virtualized}
-          // onRefresh={() => alert('onRefresh: nothing to refresh :P')}
-          keyExtractor={item => item._id}
-          renderSectionHeader={renderSectionHeader}
-          sections={searchText === "" ? this.renderEmptySearch(searchUsers) : this.renderSearchContent(searchUsers, searchFeeds)}
-          style={styles.list}
-          viewabilityConfig={VIEWABILITY_CONFIG}
-        />
+      <View>
+        {this.renderSearchBar()}
+        <AnimatedSectionList
+            ItemSeparatorComponent={() => <View style={styles.customSeparator}></View>}
+            // enableVirtualization={this.state.virtualized}
+            // onRefresh={() => alert('onRefresh: nothing to refresh :P')}
+            keyExtractor={item => item._id}
+            renderSectionHeader={renderSectionHeader}
+            sections={(!searchText || (searchText.length === 1)) ? this.renderEmptySearch(searchUsers) : this.renderSearchContent(searchUsers, searchFeeds)}
+            style={styles.list}
+            viewabilityConfig={VIEWABILITY_CONFIG}
+          />
+      </View>
+
     )
 
   }

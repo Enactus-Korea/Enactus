@@ -3,14 +3,13 @@ import { StyleSheet, Platform } from 'react-native'
 export default StyleSheet.create({
   drawer_Cont:{
     flex: 1,
-    marginTop: -20,
     backgroundColor: '#F1F3F5',
     justifyContent: 'space-between'
   },
   drawer_Header:{
     height: Platform.OS === 'ios'? 64 : 54,
     paddingTop: 10,
-    backgroundColor: '#515356',
+    backgroundColor: '#30333C',
     justifyContent: 'center',
     alignItems: 'center',
   },

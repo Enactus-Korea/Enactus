@@ -32,7 +32,7 @@ class Network extends Component {
     let data = await response.json();
     return this.setState({ data , loaded: true })
   }
-  renderItemComponent = ({item}) => <NetworkRow user={item} navigation={this.props.navigation} route={'SearchUserDetail'}/>
+  renderItemComponent = ({item}) => <NetworkRow user={item} navigation={this.props.navigation} route={'NetworkDetail'}/>
   render(){
     return(
       <AnimatedSectionList

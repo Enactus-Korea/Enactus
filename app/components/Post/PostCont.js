@@ -8,7 +8,7 @@ class Post extends PureComponent{
   constructor(props){
     super(props)
     this.isGetInitialState = () => ({
-      userImg: this.props.user.userImg || null,
+      userImg: this.props.user.userImg || "",
       name: this.props.user.name || '',
       univ: this.props.user.univ || '',
       content: '',
