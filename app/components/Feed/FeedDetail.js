@@ -32,13 +32,13 @@ class FeedDetail extends PureComponent{
   }
   async fetchData(){
     const REQUEST_URL = "http://localhost:9000",
-    id = this.props.navigation.state.params.id;
-    let response = await fetch(`${REQUEST_URL}/feed/${id}/comment`);
+    _id = this.props.navigation.state.params._id;
+    let response = await fetch(`${REQUEST_URL}/feed/${_id}/comment`);
     let responseJson = await response.json();
     return this.setState({ cl: responseJson.comment, loaded: true })
   }
   handlePostComment = () => {
-    let feed = this.props.navigation.state.params.id, comment = this.state.comment
+    let feed = this.props.navigation.state.params._id, comment = this.state.comment
     this.props.createFeedCmt(feed, comment, this.props.user)
     this.setState({comment: ''})
     this.fetchData();

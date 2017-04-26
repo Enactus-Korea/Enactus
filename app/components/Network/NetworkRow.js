@@ -5,7 +5,6 @@ import styles from './styles'
 
 const NetworkRow = (props) => {
   let { name, univ, userImg, selfIntro } = props.user, { route } = props;
-  console.log(route);
   return(
   <TouchableOpacity
     onPress={() => props.navigation.navigate( route , props.user )}

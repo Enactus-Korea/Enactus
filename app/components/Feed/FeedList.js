@@ -1,8 +1,13 @@
 import React, {PureComponent} from 'react'
+import {connect} from 'react-redux'
+import { handleLikeUnLike } from './actions'
 import { View, Text, ListView, Image, ScrollView,TouchableOpacity, Animated, FlatList } from 'react-native';
 import styles from './styles'
 import FeedSlide from './FeedSlide'
 import FeedComp from './FeedComp'
+
+
+
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 const VIEWABILITY_CONFIG = {
@@ -21,9 +26,15 @@ class FeedList extends PureComponent {
   state = {
     data: [],
     loaded: false,
+    userloaded: false
 	}
   componentDidMount(){
     this.fetchData();
+  }
+  componentWillReceiveProps(newProps){
+    if(newProps.user !== this.props.user){
+      this.setState({userloaded: true})
+    }
   }
   async fetchData(){
     const REQUEST_URL = "http://localhost:9000";
@@ -32,43 +43,47 @@ class FeedList extends PureComponent {
     return this.setState({ data: responseJson.feed, loaded: true })
   }
   render(){
-    if(!this.state.loaded){
+    if(this.state.loaded && this.state.userloaded){
       //TODO: 데이터 불러오는 애니메이션
       return(
-        <View style={styles.feedWrapper}>
-          <FeedSlide />
-          <Text style={{marginTop:100}}> 피드 불러오는 중</Text>
-        </View>
+        <AnimatedFlatList
+            ItemSeparatorComponent={SeparatorComponent}
+            ListHeaderComponent={this.props.typeOf === 'feed' ? FeedSlide : false}
+            data={this.state.data}
+            disableVirtualization={!this.state.virtualized}
+            ref={this._captureRef}
+            onRefresh={this._onRefresh}
+            refreshing={false}
+            keyExtractor={item => item._id}
+            renderItem={this._renderItemComponent}
+            shouldItemUpdate={this._shouldItemUpdate}
+            viewabilityConfig={VIEWABILITY_CONFIG}
+            // getItemLayout={this.state.fixedHeight ?
+            //   this._getItemLayout :
+            //   undefined
+            // }
+            // legacyImplementation={false}
+            // onScroll={this.state.horizontal ? this._scrollSinkX : this._scrollSinkY}
+          />
+
       )
     }
     return(
-      <AnimatedFlatList
-          ItemSeparatorComponent={SeparatorComponent}
-          ListHeaderComponent={this.props.typeOf === 'feed' ? FeedSlide: false}
-          data={this.state.data}
-          disableVirtualization={!this.state.virtualized}
-          ref={this._captureRef}
-          onRefresh={this._onRefresh}
-          refreshing={false}
-          keyExtractor={item => item._id}
-          renderItem={this._renderItemComponent}
-          shouldItemUpdate={this._shouldItemUpdate}
-          viewabilityConfig={VIEWABILITY_CONFIG}
-          // getItemLayout={this.state.fixedHeight ?
-          //   this._getItemLayout :
-          //   undefined
-          // }
-          // legacyImplementation={false}
-          // onScroll={this.state.horizontal ? this._scrollSinkX : this._scrollSinkY}
-        />
-
+      <View style={styles.feedWrapper}>
+        <FeedSlide />
+        <Text style={{marginTop:100}}> 피드 불러오는 중</Text>
+      </View>
     )
   }
-  _renderItemComponent = ({item}) => <FeedComp {...this.props} id={item._id} {...item} />
+  _renderItemComponent = ({item}) => <FeedComp {...this.props} {...item} />
   _onRefresh = () => {
     alert('onRefresh: nothing to refresh :P');
   }
 }
 
+const mapStateToProps = ({permissions}) => ({
+  user: permissions.user
+})
 
-export default FeedList;
+export default connect(mapStateToProps, { handleLikeUnLike } )(FeedList)
+// export default FeedList;

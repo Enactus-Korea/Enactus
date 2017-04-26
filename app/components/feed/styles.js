@@ -91,9 +91,13 @@ export default StyleSheet.create({
   },
   likeAndComment: {
     height: 40,
-    marginLeft: 15,
     width: Dimensions.get('window').width,
     flexDirection: 'row',
+    alignItems:'center',
+  },
+  feedBtmIcon: {
+    flexDirection: 'row',
+    marginLeft: 15,
     alignItems:'center',
   },
   iconButton: {
@@ -116,7 +120,8 @@ export default StyleSheet.create({
     justifyContent: 'space-between'
   },
   readMore: {
-    color: '#d6d6d6'
+    color: '#d6d6d6',
+    fontWeight: "500"
   },
   postedImg:{
     // flex: 1,
