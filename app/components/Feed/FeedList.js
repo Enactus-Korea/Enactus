@@ -30,6 +30,9 @@ class FeedList extends PureComponent {
 	}
   componentDidMount(){
     this.props.fetchFeedData(this.props.typeOf)
+    if(this.props.user){
+      this.setState({userloaded: true})
+    }
   }
   componentWillReceiveProps(newProps){
     if(newProps.feed !== this.props.feed){
