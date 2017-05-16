@@ -75,14 +75,14 @@ class FeedList extends PureComponent {
       </View>
     )
   }
-  _renderItemComponent = ({item}) => <FeedComp {...this.props} {...item} />
+  _renderItemComponent = ({item}) => <FeedComp {...this.props} {...item}/>
   _onRefresh = () => {
     alert('onRefresh: nothing to refresh :P');
   }
 }
 
-const mapStateToProps = ({permissions}) => ({
-  user: permissions.user
+const mapStateToProps = (state) => ({
+  user: state.permissions.user
 })
 
 export default connect(mapStateToProps, { handleLikeUnLike } )(FeedList)
