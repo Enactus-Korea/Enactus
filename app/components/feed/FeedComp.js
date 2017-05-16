@@ -6,19 +6,18 @@ import moment from 'moment-timezone'
 
 class FeedComp extends PureComponent{
   state = {
-    likes: '',
-    likeloaded: false
+    likes: this.props.likes.length,
+    likeloaded: false,
+    likeStatus: false, // 서버에서 눌렀는지 않 눌렀는지... 확인을 해야 할 것 같딘한데..
+    likeBtnColor: '#e9e9e9'
   }
-  //
+  componentWillMount(){
+    if(this.props.likes.indexOf(this.props.user._id) !== -1){
+      this.setState({likeStatus: true, likeBtnColor: '#D54C3F'})
+    }
+  }
   componentDidMount(){
-    this.fetchData();
-  }
-  async fetchData(){
-    const REQUEST_URL = "http://localhost:9000";
-    let response = await fetch(`${REQUEST_URL}/feed/handle/like/${this.props._id}`);
-    let likes = await response.json();
-    console.log("fetchData",this.state.likes)
-    return this.setState({ likes , likeloaded: true})
+    this.setState({likeloaded: true})
   }
   textEllipsis = (content) => {
     // FIXME: 리팩토링 필요함!!!!
@@ -49,11 +48,14 @@ class FeedComp extends PureComponent{
   }
   handleLikeUnLike = () => {
     const { user, _id } = this.props;
+    if(!this.state.likeStatus){
+      this.setState({ likeStatus: true, likes: this.state.likes+1, likeBtnColor: '#D54C3F' })
+    } else {
+      this.setState({ likeStatus: false, likes: this.state.likes-1, likeBtnColor: '#e9e9e9' })
+    }
     this.props.handleLikeUnLike(_id, user._id)
-    console.log("handleLikeUnLike",this.state.likes);
   }
   render(){
-    console.log("render",this.state.likes)
     const { name, univ, posted, content, comment, userImg, postImg, user, _id } = this.props;
     if(this.state.likeloaded){
       return(
@@ -82,9 +84,12 @@ class FeedComp extends PureComponent{
           <View style={styles.likeAndComment}>
             <TouchableOpacity onPress={this.handleLikeUnLike} style={styles.feedBtmIcon}>
               <MaterialIcons
-                name='favorite-border'
+                name={this.state.likeStatus ? 'favorite' : 'favorite-border'}
                 size={24}
-                style={styles.iconButton}
+                style={{
+                  color: this.state.likeBtnColor,
+                  marginRight: 5,
+                }}
               />
               <Text style={styles.textAlign}>{this.state.likes}</Text>
             </TouchableOpacity>

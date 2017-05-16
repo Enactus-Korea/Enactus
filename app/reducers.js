@@ -3,7 +3,7 @@ import * as NVStateUtils from 'NavigationStateUtils'
 import * as types from './actions'
 import permissions from './components/Join/reducers'
 import profile from './components/Profile/reducers'
-
+import feeds from './components/Feed/reducers'
 
 const initialNavState = {
 	index: 0,
@@ -41,7 +41,7 @@ function navigationState(state = initialNavState, action) {
 }
 
 const appReducers = combineReducers({
-	navigationState, permissions, profile
+	navigationState, permissions, profile, feeds
 })
 
 export default appReducers

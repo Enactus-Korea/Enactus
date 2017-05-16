@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, Button } from 'react-native';
+import { Text, View, Button, ART } from 'react-native';
 import { createNavigator, createNavigationContainer, TabRouter, StackNavigator, TabNavigator, addNavigationHelpers } from 'react-navigation';
 import { FeedStack, FeedDetail } from '../components/Feed'
 import { Search } from '../components/SearchTab'
@@ -8,10 +8,18 @@ import { ProfileStack, Profile, ProfileSetting, Project, ProjectDetail, SelfIntr
 import { NetworkDetail } from '../components/Network'
 import CustomTabBar from './CustomTabBar'
 
+const { Surface, Group, Shape } = ART
 
 const NotificationView = () => (
   <View style={{ flex: 1 }}>
-    <Text>알림</Text>
+    <Surface width={500} height={500}>
+      <Group x={100} y={0}>
+        <Shape
+          d="M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80"
+          stroke="#000"
+          strokeWidth={1} />
+      </Group>
+    </Surface>
   </View>
 )
 

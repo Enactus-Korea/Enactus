@@ -164,5 +164,5 @@ export default StyleSheet.create({
   time_text:{
     fontWeight: '100',
     fontSize:10,
-  }
+  },
 })
