@@ -16,9 +16,9 @@ class FeedComp extends PureComponent{
       this.setState({likeStatus: true, likeBtnColor: '#D54C3F'})
     }
   }
-  componentDidMount(){
-    this.setState({likeloaded: true})
-  }
+  // componentDidMount(){
+  //   this.setState({likeloaded: true})
+  // }
   textEllipsis = (content) => {
     // FIXME: 리팩토링 필요함!!!!
     const { navigation, detailRoute, detail } = this.props;
@@ -57,7 +57,7 @@ class FeedComp extends PureComponent{
   }
   render(){
     const { name, univ, posted, content, comment, userImg, postImg, user, _id } = this.props;
-    if(this.state.likeloaded){
+    // if(this.state.likeloaded){
       return(
         <View style={styles.feedListView} >
           <View style={styles.feedContainer}>
@@ -111,8 +111,8 @@ class FeedComp extends PureComponent{
           </View>
         </View>
       )
-    }
-    return false
+  //   }
+  //   return false
   }
 }
 
