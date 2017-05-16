@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react'
 import {View , Text, TextInput, Animated , Easing, TouchableOpacity, SectionList, Navigator} from 'react-native'
 import styles from './styles'
+import {connect} from 'react-redux'
 import Dimensions from 'Dimensions'
 import { NetworkRow } from '../Network'
 import { FeedComp } from '../Feed'
@@ -65,7 +66,7 @@ class Search extends PureComponent {
     )
   }
   renderSearchUsers = ({item}) => <NetworkRow user={item} navigation={this.props.navigation} route={'SearchUserDetail'}/>
-  renderSearchFeeds = ({item}) => <FeedComp {...item} navigation={this.props.navigation} detailRoute={'SearchFeedDetail'}/>
+  renderSearchFeeds = ({item}) => <FeedComp {...item} navigation={this.props.navigation} detailRoute={'SearchFeedDetail'} user={this.props.user}/>
   renderSearchContent = (searchUsers, searchFeeds) => (
     [
       { renderItem: this.renderSearchUsers,
@@ -107,8 +108,12 @@ class Search extends PureComponent {
   }
 }
 
+const mapStateToProps = (state) => ({
+  user: state.permissions.user
+})
 
-export default Search
+export default connect(mapStateToProps, null)(Search)
+// export default Search
 
 // headerTitle: <TextInput
 //           style={styles.sch_input}

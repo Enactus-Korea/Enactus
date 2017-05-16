@@ -1,7 +1,7 @@
 
 export const SUCCESS_COMMENT_POSTING = 'SUCCESS_COMMENT_POSTING';
 export const CLICK_LIKE_BUTTON = 'CLICK_LIKE_BUTTON'
-export const FETCH_FEED_LIKES = 'FETCH_FEED_LIKES'
+export const FETCH_FEEDS = 'FETCH_FEEDS'
 
 
 const REQUEST_URL = "http://localhost:9000";
@@ -20,6 +20,16 @@ const methodGet = {
     'Accept': 'application/json'
   }
 }
+export const fetchFeedData = (typeOf) => (dispatch) => {
+  fetch(`${REQUEST_URL}/${typeOf}`,{ ...methodGet })
+    .then(res => res.json())
+    .then(res => {
+      console.log(res);
+      dispatch({type: FETCH_FEEDS, feed: res.feed})
+    })
+    .catch(err => console.log(err))
+}
+
 export const createFeedCmt = (id, comment, user) => (dispatch) => {
   // console.log(id, comment, user);
   let {name, univ, userImg} = user;
@@ -40,16 +50,6 @@ export const handleLikeUnLike = (feedId, userId) => (dispatch) => {
   })
   .then(res => {
     dispatch({type: CLICK_LIKE_BUTTON })
-    dispatch(fetchFeedLikes(feedId))
-  })
-  .catch(err => console.log(err))
-}
-
-export const fetchFeedLikes = (feed_id) => (dispatch) => {
-  fetch(`${REQUEST_URL}/feed/handle/like/${feed_id}`,{ ...methodGet })
-  .then(res => res.json())
-  .then(res => {
-    dispatch({type: FETCH_FEED_LIKES, likeNum: res})
   })
   .catch(err => console.log(err))
 }

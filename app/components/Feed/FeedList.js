@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react'
 import {connect} from 'react-redux'
-import { handleLikeUnLike } from './actions'
+import { handleLikeUnLike, fetchFeedData } from './actions'
 import { View, Text, ListView, Image, ScrollView,TouchableOpacity, Animated, FlatList } from 'react-native';
 import styles from './styles'
 import FeedSlide from './FeedSlide'
@@ -24,31 +24,30 @@ class SeparatorComponent extends PureComponent {
 
 class FeedList extends PureComponent {
   state = {
-    data: [],
+    data: this.props.feed,
     loaded: false,
     userloaded: false
 	}
   componentDidMount(){
-    this.fetchData();
+    this.props.fetchFeedData(this.props.typeOf)
   }
   componentWillReceiveProps(newProps){
+    if(newProps.feed !== this.props.feed){
+      console.log("componentWillReceiveProps",newProps.feed.length);
+      this.setState({data: newProps.feed, loaded: true})
+    }
     if(newProps.user !== this.props.user){
       this.setState({userloaded: true})
     }
   }
-  async fetchData(){
-    const REQUEST_URL = "http://localhost:9000";
-    let response = await fetch(`${REQUEST_URL}/${this.props.typeOf}`);
-    let responseJson = await response.json();
-    return this.setState({ data: responseJson.feed, loaded: true })
-  }
   render(){
     if(this.state.loaded && this.state.userloaded){
       //TODO: 데이터 불러오는 애니메이션
+      console.log("render" , this.props.typeOf);
       return(
         <AnimatedFlatList
             ItemSeparatorComponent={SeparatorComponent}
-            ListHeaderComponent={this.props.typeOf === 'feed' ? FeedSlide : false}
+            ListHeaderComponent={this.props.typeOf === 'feed' && FeedSlide}
             data={this.state.data}
             disableVirtualization={!this.state.virtualized}
             ref={this._captureRef}
@@ -82,8 +81,9 @@ class FeedList extends PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.permissions.user
+  user: state.permissions.user,
+  feed: state.feeds.feed
 })
 
-export default connect(mapStateToProps, { handleLikeUnLike } )(FeedList)
+export default connect(mapStateToProps, { handleLikeUnLike, fetchFeedData } )(FeedList)
 // export default FeedList;

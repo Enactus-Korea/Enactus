@@ -30,7 +30,7 @@ const methodGet = {
   }
 }
 
-export const isFetchedPermissions = () => (dispatch) =>{
+export const isFetchedPermissions = () => (dispatch) => {
   fetch(`${REQUEST_URL}/permission`,{ ...methodGet })
   .then(res => res.json())
   .then(res => dispatch({type: FETCH_PERMISSION_MEMBER , permissions: res.permissions}))

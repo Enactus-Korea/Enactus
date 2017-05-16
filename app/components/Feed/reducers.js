@@ -3,14 +3,14 @@ import * as types from './actions'
 // console.log(this.props.user.selfIntro)
 
 const initialState = {
-  likeNum : ""
+  feed : []
 }
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    // case types.FETCH_FEED_LIKES:
-    //   console.log("FETCH_FEED_LIKES - reducers", action.likeNum);
-    //   return { likeNum : action.likeNum}
+    case types.FETCH_FEEDS:
+      console.log("FETCH_FEEDS - reducers")
+      return { feed : action.feed}
     default:
       return state
   }
