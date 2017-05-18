@@ -5,21 +5,24 @@ import styles from './styles'
 import moment from 'moment-timezone'
 
 class FeedComp extends PureComponent{
-  state = {
-    likes: this.props.likes.length,
-    likeloaded: false,
-    likeStatus: false, // 서버에서 눌렀는지 않 눌렀는지... 확인을 해야 할 것 같딘한데..
-    likeBtnColor: '#e9e9e9'
+  constructor(props){
+    super(props)
+    this.state = {
+      likes: props.likes.length,
+      likeloaded: false,
+      likeStatus: false, // 서버에서 눌렀는지 않 눌렀는지... 확인을 해야 할 것 같딘한데..
+      likeBtnColor: '#e9e9e9'
+    }
+    this.handleLikeUnLike = this.handleLikeUnLike.bind(this)
+    this.textEllipsis = this.textEllipsis.bind(this)
   }
+
   componentWillMount(){
     if(this.props.likes.indexOf(this.props.user._id) !== -1){
       this.setState({likeStatus: true, likeBtnColor: '#D54C3F'})
     }
   }
-  // componentDidMount(){
-  //   this.setState({likeloaded: true})
-  // }
-  textEllipsis = (content) => {
+  textEllipsis(content){
     // FIXME: 리팩토링 필요함!!!!
     const { navigation, detailRoute, detail } = this.props;
     if(content.length > 100) {
@@ -46,7 +49,7 @@ class FeedComp extends PureComponent{
       return <Text>{content}</Text>
     }
   }
-  handleLikeUnLike = () => {
+  handleLikeUnLike(){
     const { user, _id } = this.props;
     if(!this.state.likeStatus){
       this.setState({ likeStatus: true, likes: this.state.likes+1, likeBtnColor: '#D54C3F' })

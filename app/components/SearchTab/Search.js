@@ -26,13 +26,23 @@ class Search extends PureComponent {
   static navigationOptions = ({navigation}) => ({
     headerVisible: false
   })
-  state = {
-    searchText: '',
-    searchUsers: '',
-    searchFeeds: '',
-    userloaded: false,
-    feedloaded: false
+  constructor(props){
+   super(props)
+   this.state = {
+     searchText: '',
+     searchUsers: '',
+     searchFeeds: '',
+     userloaded: false,
+     feedloaded: false
+   }
+   this.handleChange = this.handleChange.bind(this)
+   this.renderSearchBar = this.renderSearchBar.bind(this)
+   this.renderSearchUsers = this.renderSearchUsers.bind(this)
+   this.renderSearchFeeds = this.renderSearchFeeds.bind(this)
+   this.renderSearchContent = this.renderSearchContent.bind(this)
+   this.renderEmptySearch = this.renderEmptySearch.bind(this)
   }
+
   componentWillMount() {
     this.animatedValue = new Animated.Value(Dimensions.get('window').width/1.05)
   }
@@ -50,10 +60,10 @@ class Search extends PureComponent {
     let userData = await response.json();
     return this.setState({ searchUsers: userData.users , feedloaded: true })
   }
-  handleChange = (name, text) => {
+  handleChange(name, text){
     this.setState({[name]: text})
   }
-  renderSearchBar = () => {
+  renderSearchBar(){
     return(
       <View style={styles.sch_input_bar}>
         <TextInput
@@ -65,9 +75,10 @@ class Search extends PureComponent {
       </View>
     )
   }
-  renderSearchUsers = ({item}) => <NetworkRow user={item} navigation={this.props.navigation} route={'SearchUserDetail'}/>
-  renderSearchFeeds = ({item}) => <FeedComp {...item} navigation={this.props.navigation} detailRoute={'SearchFeedDetail'} user={this.props.user}/>
-  renderSearchContent = (searchUsers, searchFeeds) => (
+  renderSearchUsers({item}){ return <NetworkRow user={item} navigation={this.props.navigation} route={'SearchUserDetail'}/> }
+  renderSearchFeeds({item}){ return <FeedComp {...item} navigation={this.props.navigation} detailRoute={'SearchFeedDetail'} user={this.props.user}/>}
+  renderSearchContent(searchUsers, searchFeeds){
+    return(
     [
       { renderItem: this.renderSearchUsers,
         key: '네트워크',
@@ -78,8 +89,8 @@ class Search extends PureComponent {
         data: searchFeeds
       }
     ]
-  )
-  renderEmptySearch = (searchUsers) => [{renderItem: this.renderSearchUsers, key: '1자 이상으로 검색어를 입력하세요.', data: ''}]
+  )}
+  renderEmptySearch(searchUsers){ return [{renderItem: this.renderSearchUsers, key: '1자 이상으로 검색어를 입력하세요.', data: ''}]}
   render(){
     let searchText = this.state.searchText.trim(), { searchUsers, searchFeeds, userloaded, feedloaded } = this.state;
     const animatedStyle = { width: this.animatedValue }
