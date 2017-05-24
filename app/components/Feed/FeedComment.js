@@ -1,4 +1,5 @@
 import React, {PureComponent} from 'react'
+import Reactotron from 'reactotron-react-native'
 import { Text, View, Image, TouchableWithoutFeedback } from 'react-native'
 import moment from 'moment-timezone'
 import styles from './styles'
