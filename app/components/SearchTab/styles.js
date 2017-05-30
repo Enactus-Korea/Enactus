@@ -2,6 +2,9 @@ import { StyleSheet, PixelRatio, Platform } from 'react-native'
 import Dimensions from 'Dimensions'
 
 export default StyleSheet.create({
+  searchPage: {
+    marginBottom: 50
+  },
   sch_top:{
     flexDirection: 'row',
     alignItems: 'center',

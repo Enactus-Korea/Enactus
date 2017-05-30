@@ -49,6 +49,7 @@ class FeedList extends PureComponent {
       console.log("render" , this.props.typeOf);
       return(
         <AnimatedFlatList
+            style={styles.feedPage}
             ItemSeparatorComponent={SeparatorComponent}
             ListHeaderComponent={this.props.typeOf === 'feed' && FeedSlide}
             data={this.state.data}

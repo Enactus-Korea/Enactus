@@ -1,22 +1,29 @@
 import React, {PureComponent} from 'react'
-import { View, MapView, Text, StyleSheet, Platform, Linking, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Platform, Linking, TouchableOpacity, Dimensions } from 'react-native'
+import MapView from 'react-native-maps'
 
-function regionFrom(lat, lon, accuracy) {
-    const oneDegreeOfLongitudeInMeters = 111.32 * 1000;
-    const circumference = (40075 / 360) * 1000;
+let { width, height } = Dimensions.get('window')
 
-    const latDelta = accuracy * (1 / (Math.cos(lat) * circumference));
-    const lonDelta = (accuracy / oneDegreeOfLongitudeInMeters);
-
-    return {
-      latitude: lat,
-      longitude: lon,
-      latitudeDelta: Math.max(0, latDelta),
-      longitudeDelta: Math.max(0, lonDelta)
-    };
-  }
+// function regionFrom(lat, lon, accuracy) {
+//     const oneDegreeOfLongitudeInMeters = 111.32 * 1000;
+//     const circumference = (40075 / 360) * 1000;
+//
+//     const latDelta = accuracy * (1 / (Math.cos(lat) * circumference));
+//     const lonDelta = (accuracy / oneDegreeOfLongitudeInMeters);
+//
+//     return {
+//       latitude: lat,
+//       longitude: lon,
+//       latitudeDelta: Math.max(0, latDelta),
+//       longitudeDelta: Math.max(0, lonDelta)
+//     };
+//   }
 
 class Contact extends PureComponent {
+  // constructor(props){
+  //   super(props)
+  //
+  // }
   handleLink = (url) => {
     Linking.canOpenURL(url)
       .then( supported => {
@@ -32,23 +39,28 @@ class Contact extends PureComponent {
   render(){
     return(
       <View>
-        <MapView style={{height: 300, margin:10}}
+        <MapView
+            style={styles.map}
             region={{
-              latitude: 37.548273,
-              longitude: 127.041858,
-              latitudeDelta: 0.0432,
-              longitudeDelta: 0.0412
+              latitude: 37.5475496,
+              longitude: 127.04272659999992,
+              latitudeDelta: 0.00502,
+              longitudeDelta: 0.00435
+              // 1latitudeDelta = 110.54KM
+              // 1longitudeDelta = 111.32KM
             }}
-            // annotations={[{
-            //   atitude: 37.548273,
-            //   longitude: 127.041858,
-            //   title: '인액터스 코리아 본사'
-            // }]}
-          />
+          >
+            <MapView.Marker
+              coordinate={{latitude: 37.5475496, longitude: 127.04272659999992}}
+              title='인액터스 코리아'
+              // image={require('enactuskoreaLogo')} => 이미지 넣는 것
+              description="서울특별시 성동구 성수동 668-100 3층"
+             />
+          </MapView>
         <View style={{marginTop: 30}}>
           <View style={styles.infoBox}>
             <Text style={styles.headTxt}>주소</Text>
-            <Text style={styles.infoTxt}>서울툭별시 성동구 성수동 668-100 3층</Text>
+            <Text style={styles.infoTxt}>서울특별시 성동구 성수동 668-100 3층</Text>
           </View>
           <View style={styles.infoBox}>
             <Text style={styles.headTxt}>이메일</Text>
@@ -82,6 +94,10 @@ const styles = StyleSheet.create({
   infoTxt:{
     fontWeight: '300',
     fontSize: 16
+  },
+  map: {
+    width: width,
+    height: height/2
   }
 });
 

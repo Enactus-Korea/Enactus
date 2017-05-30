@@ -3,10 +3,9 @@ import { View, Text } from 'react-native'
 import FeedList from './FeedList'
 
 
-const Bamboo = ({navigation}) => (
-  <View>
-    <FeedList navigation={navigation} typeOf={'feed/bamboo'} detailRoute={'BambooDetail'}/>
-  </View>
-)
+const Bamboo = ({
+  navigation
+}) => <FeedList navigation={navigation} typeOf={'feed/bamboo'} detailRoute={'BambooDetail'}/>
+
 
 export default Bamboo

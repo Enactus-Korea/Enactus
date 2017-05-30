@@ -100,16 +100,17 @@ class Search extends PureComponent {
       searchUsers = searchUsers.filter(l => l.name.match(searchText))
     }
     return(
-      <View>
+      <View style={styles.searchPage}>
         {this.renderSearchBar()}
         <AnimatedSectionList
+            style={styles.searchPage}
             ItemSeparatorComponent={() => <View style={styles.customSeparator}></View>}
             // enableVirtualization={this.state.virtualized}
             // onRefresh={() => alert('onRefresh: nothing to refresh :P')}
             keyExtractor={item => item._id}
             renderSectionHeader={renderSectionHeader}
             sections={(!searchText || (searchText.length === 1)) ? this.renderEmptySearch(searchUsers) : this.renderSearchContent(searchUsers, searchFeeds)}
-            style={styles.list}
+            // style={styles.list}
             viewabilityConfig={VIEWABILITY_CONFIG}
           />
       </View>
