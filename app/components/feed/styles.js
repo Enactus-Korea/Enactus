@@ -2,9 +2,13 @@ import { StyleSheet, Platform } from 'react-native';
 import Dimensions from 'Dimensions';
 
 export default StyleSheet.create({
+  feedPage:{
+    marginBottom: 48,
+    backgroundColor: '#ebebeb',
+  },
   feedWrapper: {
     backgroundColor: '#ebebeb',
-    // marginTop: Platform.OS === 'ios' ? 20 : 0,
+    // marginBottom: 50,
   },
   slide1: {
     flex: 1,

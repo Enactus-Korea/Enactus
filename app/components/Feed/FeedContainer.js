@@ -7,11 +7,10 @@ import FeedList from './FeedList'
 // import styles from './styles'
 
 
-const FeedContainer = ({navigation}) => (
-  <View>
-    <FeedList navigation={navigation} typeOf={'feed'} detailRoute={'Detail'}/>
-  </View>
-)
+const FeedContainer = ({
+  navigation
+}) => <FeedList navigation={navigation} typeOf={'feed'} detailRoute={'Detail'}/>
+
 
 
 // export default connect(null, actions)(FeedContainer)
