@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { Image,TextInput, Dimensions, Text, ImagePickerIOS , ActionSheetIOS, CameraRoll, StyleSheet, View,TouchableOpacity,AlertIOS,StatusBar, Picker, Animated} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './PostStyles'
+import Reactotron from 'reactotron-react-native'
 
 
 class Post extends PureComponent{
@@ -45,12 +46,11 @@ class Post extends PureComponent{
     (buttonIndex) => this.setState({ typeOf: BUTTONS[buttonIndex] }));
   }
   handleSave = () => {
+    const { navigation } = this.props;
     if(this.state.typeOf === '대나무숲'){
-      this.props.isPostToBamboo(this.state)
-      AlertIOS.alert('Enactus', '익명으로 작성이 완료 되었습니다', [{'text': '확인', onPress: this.handleCancle}])
+      this.props.isPostToBamboo(this.state, navigation)
     } else {
-      this.props.onPostPressed(this.state)
-      AlertIOS.alert('Enactus', '작성되었습니다', [{'text': '확인', onPress: this.handleCancle}])
+      this.props.onPostPressed(this.state, navigation)
     }
   }
   handleCancle = () => {
@@ -60,6 +60,7 @@ class Post extends PureComponent{
   render(){
     let { typeOf, userImg } = this.state;
     let { user } = this.props;
+    //TODO: component 나누기
     return(
       <View>
         <View style={styles.post_top}>

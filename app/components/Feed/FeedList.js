@@ -5,7 +5,7 @@ import { View, Text, ListView, Image, ScrollView,TouchableOpacity, Animated, Fla
 import styles from './styles'
 import FeedSlide from './FeedSlide'
 import FeedComp from './FeedComp'
-
+// import { addNavigationHelpers } from 'react-navigation'
 
 
 
