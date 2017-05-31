@@ -13,8 +13,7 @@ const methodPost = {
   },
 }
 
-export const isPostToBamboo = (post) => (dispatch) => {
-  console.log('aaaaaaa');
+export const isPostToBamboo = (post, nav) => (dispatch) => {
   let bamboo = {
     name: '익명',
     univ: '',
@@ -47,13 +46,17 @@ export const isPostToBamboo = (post) => (dispatch) => {
   })
   .then(response => {
     if (response.status >= 200 && response.status < 300) {
-      console.log(response);
-      dispatch({type:SUCCESS_POSTING})
-
+      Alert.alert('Enactus', '익명으로 작성이 완료 되었습니다', [{'text': '확인', onPress: () => {
+        dispatch({type:SUCCESS_POSTING})
+        nav.navigate('Feed')
+      }}])
     } else {
       const error = new Error(response.statusText);
       error.response = response;
-      dispatch({type:FAILED_POSTING})
+      Alert.alert('Enactus', '피드 작성에 실패하였습니다.', [{'text': '확인', onPress: () => {
+        dispatch({type:FAILED_POSTING})
+        nav.navigate('Feed')
+      }}])
       throw error;
     }
   })
@@ -61,7 +64,7 @@ export const isPostToBamboo = (post) => (dispatch) => {
 }
 
 
-export const onPostPressed = (post) => (dispatch) => {
+export const onPostPressed = (post, nav) => (dispatch) => {
   console.log("하하하하", post)
   const body = new FormData();
   if(post.postImg){
@@ -87,13 +90,17 @@ export const onPostPressed = (post) => (dispatch) => {
   })
   .then(response => {
     if (response.status >= 200 && response.status < 300) {
-      console.log(response);
-      dispatch({type:SUCCESS_POSTING})
-
+      Alert.alert('Enactus', '작성되었습니다', [{'text': '확인', onPress: () => {
+        dispatch({type:SUCCESS_POSTING})
+        nav.navigate('Feed')
+      }}])
     } else {
       const error = new Error(response.statusText);
       error.response = response;
-      dispatch({type:FAILED_POSTING})
+      Alert.alert('Enactus', '피드 작성에 실패하였습니다.', [{'text': '확인', onPress: () => {
+        dispatch({type:FAILED_POSTING})
+        nav.navigate('Feed')
+      }}])
       throw error;
     }
   })

@@ -1,4 +1,5 @@
 import {AsyncStorage, Alert} from 'react-native'
+import Reactotron from 'reactotron-react-native'
 
 /*==============Types==============*/
 
@@ -95,15 +96,6 @@ async function _onValueChange(item, selectedValue) {
   }
 }
 
-// export const isGetExistEmail = () => {
-//   isGetEmail()
-// }
-
-// export async function isGetEmail(){
-//   const email = await AsyncStorage.getItem('user_email');
-//   dispatch({type: EMAIL_IN_STORAGE, email})
-//   dispatch(isFetchedUserData(email))
-// }
 
 export function isGetEmail(){
   return async function(dispatch){
@@ -122,15 +114,15 @@ export function isUserLogOut(){
     await AsyncStorage.removeItem('user_email')
     await AsyncStorage.removeItem('token')
     const email = await AsyncStorage.getItem('user_email');
-    console.log('로그아웃으로 제대로 지워졌나 확인중',email);
     dispatch({ type: SUCCESS_USER_LOG_OUT })
     Alert.alert('로그아웃이 완료 되었습니다.')
   }
 }
 
 
-export const isRequestedSignIn = (email, password) => (dispatch) => {
+export const isRequestedSignIn = (email, password, navigation) => (dispatch) => {
   // console.log(email, password);
+  Reactotron.log("CCCC")
   fetch(`${REQUEST_URL}/user/login`,{
     ...methodPost,
     body: JSON.stringify({email, password}),
@@ -138,14 +130,28 @@ export const isRequestedSignIn = (email, password) => (dispatch) => {
   .then(res => res.json())
   .then(res => {
     if(res.success){
-      dispatch({type:SUCCESS_USER_LOG_IN})
-      console.log(email);
-      // await AsyncStorage.setItem('token', res.token)
-      _onValueChange('token', res.token)
-      _onValueChange('user_email', email)
-      isGetEmail()
-
-      dispatch(isFetchedUserData(email))
+      Reactotron.log("DDDD")
+      Alert.alert(
+        '인액터스 로그인',
+        '로그인이 완료 되었습니다.',
+        [{text:'확인', onPress: () => {
+          dispatch({type:SUCCESS_USER_LOG_IN})
+          _onValueChange('token', res.token)
+          _onValueChange('user_email', email)
+          isGetEmail()
+          dispatch(isFetchedUserData(email))
+          navigation.navigate('Feed')
+        }}]
+      )
+    } else {
+      Reactotron.log("EEEE")
+      Alert.alert(
+        '로그인 오류',
+        '아이디나 비밀번호가 일치하지 않습니다. 가입을 확인해주세요.',
+        [{
+          text: '확인',
+          onPress: () => { dispatch({type:FAILED_USER_LOG_IN})}
+        }])
     }
   })
 }

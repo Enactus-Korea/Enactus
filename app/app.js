@@ -21,6 +21,7 @@ const store = Reactotron.createStore(reducers, compose(applyMiddleware(thunk)))
 
 
 store.dispatch(isGetEmail())
+// Reactotron.log(store.getState())
 
 export default class App extends Component {
 	render() {

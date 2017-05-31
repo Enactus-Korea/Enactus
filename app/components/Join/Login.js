@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import {View, Text, Button, TouchableHighlight, TextInput, Image, AsyncStorage, Alert} from 'react-native'
 import * as actions from './actions'
 import styles from './styles'
+import Reactotron from 'reactotron-react-native'
 
 class Login extends Component {
   constructor(props){
@@ -13,13 +14,14 @@ class Login extends Component {
     }
   }
   isSignIn = () => {
-    const {email, password} = this.state
+    const {email, password} = this.state, {navigation} = this.props;
     //TODO: navigation with redux
     if(!email || !password) {
+      Reactotron.log("AAA")
       Alert.alert('정확한 양식을 입력하세요.')
     } else {
-      this.props.isRequestedSignIn(this.state.email, this.state.password)
-      Alert.alert('인액터스 로그인','로그인이 완료 되었습니다.',[{text:'확인', onPress: () => this.props.navigation.navigate('Feed') }])
+      Reactotron.log("BBB")
+      this.props.isRequestedSignIn(email, password, navigation)
     }
   }
   isPreNotice = () => {
