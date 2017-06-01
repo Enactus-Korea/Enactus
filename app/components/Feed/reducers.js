@@ -9,7 +9,6 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case types.FETCH_FEEDS:
-      console.log("FETCH_FEEDS - reducers")
       return { feed : action.feed}
     default:
       return state

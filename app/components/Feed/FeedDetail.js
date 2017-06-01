@@ -5,7 +5,7 @@ import {Text, TouchableOpacity, View, TextInput, Button, Image, FlatList, Animat
 import FeedComp from './FeedComp'
 import FeedComment from './FeedComment'
 import styles from './styles'
-
+// import Reactotron from 'reactotron-react-native'
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 const VIEWABILITY_CONFIG = {
@@ -22,11 +22,18 @@ class SeparatorComponent extends PureComponent {
 
 
 class FeedDetail extends PureComponent{
-  state = {
-    comment: '',
-    cl: [], //comment List
-    loaded: false
+  constructor(props){
+    super(props)
+    this.state = {
+      comment: '',
+      cl: [], //comment List
+      loaded: false
+    }
+    this.handlePostComment = this.handlePostComment.bind(this)
+    this.renderComment = this.renderComment.bind(this)
+    this.renderPostBtn = this.renderPostBtn.bind(this)
   }
+
   componentDidMount(){
     this.fetchData();
   }
@@ -37,26 +44,27 @@ class FeedDetail extends PureComponent{
     let responseJson = await response.json();
     return this.setState({ cl: responseJson.comment, loaded: true })
   }
-  handlePostComment = () => {
-    let feed = this.props.navigation.state.params._id, comment = this.state.comment
-    this.props.createFeedCmt(feed, comment, this.props.user)
+  handlePostComment(){
+    let { _id, typeOf }= this.props.navigation.state.params, comment = this.state.comment
+    console.log("FeedDetail",this.props)
+    this.props.createFeedCmt(_id, comment, this.props.user, typeOf)
     this.setState({comment: ''})
     this.fetchData();
   }
-  renderPostBtn = () => {
+  renderComment({item}){
+    if(this.state.loaded){
+      return <FeedComment {...item} navigation={this.props.navigation}/>
+    } else {
+      return false
+    }
+  }
+  renderPostBtn(){
     if(this.state.comment){
       return  <TouchableOpacity onPress={this.handlePostComment}>
                 <Text style={{fontWeight: '600', color: '#FEC13A'}}>게시</Text>
               </TouchableOpacity>
     } else {
       return <Text style={{fontWeight: '600', color: '#dbdbdb'}}>게시</Text>
-    }
-  }
-  renderComment = ({item}) => {
-    if(this.state.loaded){
-      return <FeedComment {...item} navigation={this.props.navigation}/>
-    } else {
-      return false
     }
   }
   render(){
