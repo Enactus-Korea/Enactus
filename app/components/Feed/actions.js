@@ -30,10 +30,17 @@ export const fetchFeedData = (typeOf) => (dispatch) => {
     .catch(err => console.log(err))
 }
 
-export const createFeedCmt = (id, comment, user) => (dispatch) => {
-  // console.log(id, comment, user);
+export const createFeedCmt = (id, comment, user, typeOf) => (dispatch) => {
+  // console.log("createFeedCmt",id, comment, user, typeOf);
   let {name, univ, userImg} = user;
   let feedComment = { name, univ, userImg, comment }
+  if(typeOf === "대나무숲"){
+    feedComment = {
+      name: "익명",
+      univ, userImg, comment
+    }
+  }
+  // console.log("익명",feedComment)
   fetch(`${REQUEST_URL}/feed/${id}/comment`, {
     ...methodPut,
     body: JSON.stringify({ ...feedComment }),

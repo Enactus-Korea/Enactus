@@ -8,9 +8,14 @@ import { ProfileStack, Profile, ProfileSetting, Project, ProjectDetail, SelfIntr
 import { NetworkDetail } from '../components/Network'
 import CustomTabBar from './CustomTabBar'
 
+
+
 const { Surface, Group, Shape } = ART
 
-const NotificationView = () => (
+const NotificationView = () => {
+
+  // const y = d3.scaleLinear().domain([0,100]).range([0,640])
+  return(
   <View style={{ flex: 1 }}>
     <Surface width={500} height={500}>
       <Group x={100} y={0}>
@@ -19,9 +24,15 @@ const NotificationView = () => (
           stroke="#000"
           strokeWidth={1} />
       </Group>
+      <Group x={0} y={100}>
+        <Shape
+          d="M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80"
+          stroke="#000"
+          strokeWidth={1} />
+      </Group>
     </Surface>
   </View>
-)
+)}
 
 const CustomTabView = ({
   router,
