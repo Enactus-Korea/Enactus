@@ -44,16 +44,17 @@ class FeedList extends PureComponent {
     }
   }
   render(){
-    if(this.state.loaded && this.state.userloaded){
+    const { typeOf } = this.props, { loaded, userloaded, data, virtualized } = this.state
+    if(loaded && userloaded){
       //TODO: 데이터 불러오는 애니메이션
-      console.log("render" , this.props.typeOf);
+      // console.log("render" , this.props.typeOf);
       return(
         <AnimatedFlatList
-            style={styles.feedPage}
+            style={typeOf === 'feed' && styles.feedPage}
             ItemSeparatorComponent={SeparatorComponent}
-            ListHeaderComponent={this.props.typeOf === 'feed' && FeedSlide}
-            data={this.state.data}
-            disableVirtualization={!this.state.virtualized}
+            ListHeaderComponent={typeOf === 'feed' && FeedSlide}
+            data={data}
+            disableVirtualization={!virtualized}
             ref={this._captureRef}
             onRefresh={this._onRefresh}
             refreshing={false}
