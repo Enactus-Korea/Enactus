@@ -37,7 +37,8 @@ export const createFeedCmt = (id, comment, user, typeOf) => (dispatch) => {
   if(typeOf === "대나무숲"){
     feedComment = {
       name: "익명",
-      univ, userImg, comment
+      univ: "익명대학교",
+      userImg, comment
     }
   }
   // console.log("익명",feedComment)

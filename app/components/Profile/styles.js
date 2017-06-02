@@ -190,5 +190,8 @@ export default StyleSheet.create({
     borderRadius:10,
     backgroundColor: '#fff',
     margin: 7
+  },
+  timeline: {
+    width: 3,
   }
 })

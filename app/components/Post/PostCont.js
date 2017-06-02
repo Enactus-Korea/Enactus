@@ -1,5 +1,20 @@
 import React, { PureComponent } from 'react';
-import { Image,TextInput, Dimensions, Text, ImagePickerIOS , ActionSheetIOS, CameraRoll, StyleSheet, View,TouchableOpacity,AlertIOS,StatusBar, Picker, Animated} from 'react-native';
+import {
+  ImageEditor,
+  Image,
+  TextInput,
+  Dimensions,
+  Text,
+  ImagePickerIOS ,
+  ActionSheetIOS,
+  CameraRoll,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  AlertIOS,StatusBar,
+  Picker,
+  Animated
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './PostStyles'
 import Reactotron from 'reactotron-react-native'
@@ -28,7 +43,20 @@ class Post extends PureComponent{
     }
   }
   chooseImageFromGallery = () => {
+    // let cropData = {
+    //     offset:{x:0,y:0},
+    //     size:{width:150, height:150},
+    //  displaySize:{width:20, height:20}, THESE 2 ARE OPTIONAL.
+    //     resizeMode:'contain',
+    // }
     ImagePickerIOS.openSelectDialog({}, imageUri => {
+      // cropImage -> crop을 하긴 했지만.... ㅋㅋㅋㅋ 선택을 못하고 바로 잘리는 구나 ㅅㅂ
+      // ImageEditor.cropImage(
+      //   imageUri,
+      //   cropData,
+      //   (successURI) => {this.setState({ postImg : successURI})},
+      //   (errURI) => {console.log(errURI)}
+      // )
       this.setState({postImg: imageUri});
     }, cancle => false);
   }
