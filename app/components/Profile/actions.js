@@ -1,5 +1,5 @@
 import {Alert} from 'react-native'
-
+import app_json from '../../../app.json';
 
 export const MODIFIED_SELF_INTRO = 'MODIFIED_SELF_INTRO';
 export const FETCH_UNIV_PROJECTS = 'FETCH_UNIV_PROJECTS'
@@ -7,7 +7,7 @@ export const SAVE_PROJECT = 'SAVE_PROJECT';
 export const GET_USER_PROJECT = 'GET_USER_PROJECT';
 
 
-const REQUEST_URL = "http://localhost:9000";
+const REQUEST_URL = app_json.REQUEST_URL || "http://localhost:9000";
 const methodPut = {
   method: 'put',
   headers: {

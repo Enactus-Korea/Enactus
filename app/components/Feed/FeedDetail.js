@@ -5,6 +5,7 @@ import {Text, TouchableOpacity, View, TextInput, Button, Image, FlatList, Animat
 import FeedComp from './FeedComp'
 import FeedComment from './FeedComment'
 import styles from './styles'
+import app_json from '../../../app.json';
 // import Reactotron from 'reactotron-react-native'
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
@@ -38,7 +39,7 @@ class FeedDetail extends PureComponent{
     this.fetchData();
   }
   async fetchData(){
-    const REQUEST_URL = "http://localhost:9000",
+    const REQUEST_URL = app_json.REQUEST_URL || "http://localhost:9000";
     _id = this.props.navigation.state.params._id;
     let response = await fetch(`${REQUEST_URL}/feed/${_id}/comment`);
     let responseJson = await response.json();

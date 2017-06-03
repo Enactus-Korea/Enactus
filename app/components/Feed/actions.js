@@ -1,10 +1,11 @@
+import app_json from '../../../app.json';
 
 export const SUCCESS_COMMENT_POSTING = 'SUCCESS_COMMENT_POSTING';
 export const CLICK_LIKE_BUTTON = 'CLICK_LIKE_BUTTON'
 export const FETCH_FEEDS = 'FETCH_FEEDS'
 
 
-const REQUEST_URL = "http://localhost:9000";
+const REQUEST_URL = app_json.REQUEST_URL || "http://localhost:9000";
 
 const methodPut = {
   method: 'put',
@@ -21,6 +22,7 @@ const methodGet = {
   }
 }
 export const fetchFeedData = (typeOf) => (dispatch) => {
+  console.log("REQUEST_URL",REQUEST_URL);
   fetch(`${REQUEST_URL}/${typeOf}`,{ ...methodGet })
     .then(res => res.json())
     .then(res => {

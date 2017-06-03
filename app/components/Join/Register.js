@@ -55,6 +55,7 @@ class Register extends Component{
 
   }
   isValidEmail = (email) => {
+    console.log("permissions",permissions)
     let { permissions } = this.props.permissions,
     isMatchedEmail = permissions.map(p => p.email).indexOf(email);
     if(isMatchedEmail === -1){
