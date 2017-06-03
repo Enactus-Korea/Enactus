@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { View, Text, Animated, SectionList, StyleSheet} from 'react-native'
 import NetworkRow from './NetworkRow'
-
+import app_json from '../../../app.json';
 
 
 const AnimatedSectionList = Animated.createAnimatedComponent(SectionList);
@@ -27,7 +27,7 @@ class Network extends Component {
     this.fetchData();
   }
   async fetchData(){
-    const REQUEST_URL = "http://localhost:9000";
+    const REQUEST_URL = app_json.REQUEST_URL || "http://localhost:9000";
     let response = await fetch(`${REQUEST_URL}/user/fetch/by/univ/section`);
     let data = await response.json();
     return this.setState({ data , loaded: true })

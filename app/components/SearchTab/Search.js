@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import Dimensions from 'Dimensions'
 import { NetworkRow } from '../Network'
 import { FeedComp } from '../Feed'
+import app_json from '../../../app.json';
 
 const AnimatedSectionList = Animated.createAnimatedComponent(SectionList);
 
@@ -19,7 +20,7 @@ const renderSectionHeader = ({section}) => (
     <Text style={styles.sectionHeaderText}>{section.key}</Text>
   </View>
 );
-const REQUEST_URL = "http://localhost:9000";
+const REQUEST_URL = app_json.REQUEST_URL || "http://localhost:9000";
 
 
 class Search extends PureComponent {

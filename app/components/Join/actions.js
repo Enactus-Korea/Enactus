@@ -1,6 +1,6 @@
 import {AsyncStorage, Alert} from 'react-native'
 import Reactotron from 'reactotron-react-native'
-
+import app_json from '../../../app.json';
 /*==============Types==============*/
 
 export const FETCH_PERMISSION_MEMBER = 'FETCH_PERMISSION_MEMBER';
@@ -15,7 +15,7 @@ export const IS_CLEAR_FIRST_PHASE = 'IS_CLEAR_FIRST_PHASE';
 export const IS_CLEAR_SECOND_PHASE = 'IS_CLEAR_SECOND_PHASE'
 /*============================*/
 
-const REQUEST_URL = "http://localhost:9000";
+const REQUEST_URL = app_json.REQUEST_URL || "http://localhost:9000";
 const methodPost = {
   method: 'post',
   headers: {

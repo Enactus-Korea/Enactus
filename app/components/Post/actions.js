@@ -1,10 +1,10 @@
 import {AsyncStorage, Alert} from 'react-native'
-
+import app_json from '../../../app.json';
 export const SUCCESS_POSTING = 'SUCCESS_POSTING';
 export const FAILED_POSTING = 'FAILED_POSTING'
 
 
-const REQUEST_URL = "http://localhost:9000";
+const REQUEST_URL = app_json.REQUEST_URL || "http://localhost:9000";
 const methodPost = {
   method: 'post',
   headers: {
