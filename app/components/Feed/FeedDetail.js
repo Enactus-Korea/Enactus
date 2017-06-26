@@ -6,7 +6,7 @@ import FeedComp from './FeedComp'
 import FeedComment from './FeedComment'
 import styles from './styles'
 import app_json from '../../../app.json';
-// import Reactotron from 'reactotron-react-native'
+import Reactotron from 'reactotron-react-native'
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 const VIEWABILITY_CONFIG = {
@@ -47,7 +47,6 @@ class FeedDetail extends PureComponent{
   }
   handlePostComment(){
     let { _id, typeOf }= this.props.navigation.state.params, comment = this.state.comment
-    console.log("FeedDetail",this.props)
     this.props.createFeedCmt(_id, comment, this.props.user, typeOf)
     this.setState({comment: ''})
     this.fetchData();

@@ -53,6 +53,7 @@ export const isPostToBamboo = (post, nav) => (dispatch) => {
     } else {
       const error = new Error(response.statusText);
       error.response = response;
+      console.log("피드작성 에러",error)
       Alert.alert('Enactus', '피드 작성에 실패하였습니다.', [{'text': '확인', onPress: () => {
         dispatch({type:FAILED_POSTING})
         nav.navigate('Feed')
@@ -97,6 +98,7 @@ export const onPostPressed = (post, nav) => (dispatch) => {
     } else {
       const error = new Error(response.statusText);
       error.response = response;
+      console.log("피드작성 에러",error)
       Alert.alert('Enactus', '피드 작성에 실패하였습니다.', [{'text': '확인', onPress: () => {
         dispatch({type:FAILED_POSTING})
         nav.navigate('Feed')
