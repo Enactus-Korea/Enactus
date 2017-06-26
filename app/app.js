@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { createStore, applyMiddleware, compose } from 'redux'
+import { applyMiddleware, compose } from 'redux'
 import devToolsEnhancer from 'remote-redux-devtools';
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
@@ -12,15 +12,38 @@ import {isGetEmail} from './components/Join/actions'
 //
 // Reactotron.createStore
 
-// const createStoreWithMiddleware = applyMiddleware(thunk)(createStore)
-// const store = createStoreWithMiddleware(reducers, devToolsEnhancer())
-
+//
 const store = Reactotron.createStore(reducers, compose(applyMiddleware(thunk)))
-// import AppContainer from './containers/AppContainer'
-// import AppContainerWithCardStack from './containers/AppContainerWithCardStack'
+//
+// Reactotron.log(module);
+//
+// if (module.hot) {
+//   // Enable Webpack hot module replacement for reducers
+//   module.hot.accept('./reducers', () => {
+//     const nextRootReducer = require('./reducers');
+//     store.replaceReducer(nextRootReducer);
+//   });
+// }
+
+//
+// function configureStore() {
+//   const store = Reactotron.createStore(reducers, compose(applyMiddleware(thunk)))
+//
+//   if (module.hot) {
+//     // Enable Webpack hot module replacement for reducers
+//     module.hot.accept('./reducers', () => {
+//       const nextRootReducer = require('./reducers');
+//       store.replaceReducer(nextRootReducer);
+//     });
+//   }
+//
+//   return store;
+// }
+
 
 
 store.dispatch(isGetEmail())
+// configureStore().dispatch(isGetEmail())
 // Reactotron.log(store.getState())
 
 export default class App extends Component {

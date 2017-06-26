@@ -53,17 +53,24 @@ export const isSecondPhase = (second) => (dispatch) => {
 export const isRequestedSignUp = (rgst) => (dispatch) => {
   console.log("하하하하")
   const body = new FormData();
-  Object.keys(rgst).forEach(key=>{
-    if(key === "userImg") {
-      body.append(key, {
-        uri: rgst.userImg,
-        type: "image/jpeg",
-        name: rgst.email
-      });
-    } else {
+  if(rgst.userImg){
+    console.log('bbbbbb');
+    Object.keys(rgst).forEach(key=> {
+      if(key === "userImg") {
+        body.append(key, {
+          uri: rgst.userImg,
+          type: "image/jpeg",
+          name: rgst.email
+        });
+      } else {
+        body.append(key, rgst[key]);
+      }
+    });
+  } else {
+    Object.keys(rgst).forEach(key=>{
       body.append(key, rgst[key]);
-    }
-  });
+    })
+  }
   fetch(`${REQUEST_URL}/user`, {
     ...methodPost, body,
   })

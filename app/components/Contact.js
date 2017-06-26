@@ -40,7 +40,7 @@ class Contact extends PureComponent {
         <View style={{marginTop: 30}}>
           <View style={styles.infoBox}>
             <Text style={styles.headTxt}>주소</Text>
-            <Text style={styles.infoTxt}>서울특별시 성동구 성수동 668-100 3층</Text>
+            <Text style={styles.infoTxt}>서울특별시 성동구 성수동 668-100 3층이다</Text>
           </View>
           <View style={styles.infoBox}>
             <Text style={styles.headTxt}>이메일</Text>

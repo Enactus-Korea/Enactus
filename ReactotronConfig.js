@@ -7,7 +7,7 @@ Reactotron
     port: 9090,
     name: 'Enactus App'
   }) // controls connection & communication settings
-  //.useReactNative()  // add all built-in react native plugins
+  .useReactNative()  // add all built-in react native plugins
   .use(reactotronRedux())
   .connect() // let's connect!
 
