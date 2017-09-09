@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import * as actions from './actions'
 import {connect} from 'react-redux'
-import {Text, TouchableOpacity, View, TextInput, Button, Image, FlatList, Animated } from 'react-native'
+import {Text, TouchableOpacity, View, TextInput, Button, Image, FlatList, Animated, KeyboardAvoidingView } from 'react-native'
 import FeedComp from './FeedComp'
 import FeedComment from './FeedComment'
 import styles from './styles'
@@ -28,7 +28,8 @@ class FeedDetail extends PureComponent{
     this.state = {
       comment: '',
       cl: [], //comment List
-      loaded: false
+      loaded: false,
+      behavior: 'position',
     }
     this.handlePostComment = this.handlePostComment.bind(this)
     this.renderComment = this.renderComment.bind(this)
@@ -70,6 +71,7 @@ class FeedDetail extends PureComponent{
   render(){
     return(
       <View style={styles.detail_view}>
+
         <AnimatedFlatList
             ItemSeparatorComponent={SeparatorComponent}
             ListHeaderComponent={() => <FeedComp {...this.props.navigation.state.params} detail={true}/>}
@@ -79,16 +81,22 @@ class FeedDetail extends PureComponent{
             // shouldItemUpdate={this._shouldItemUpdate}
             viewabilityConfig={VIEWABILITY_CONFIG}
           />
+
+          <KeyboardAvoidingView
+            behavior={this.state.behavior}
+            keyboardVerticalOffset={-65}
+          >
           <View style={styles.comment_input_cont}>
             <TextInput
               style={styles.comment_input}
               autoCapitalize= "none"
-              multiline={true}
+              // multiline={true}
               value={this.state.comment}
               onChangeText={(val) => this.setState({comment: val})}
               placeholder="댓글을 입력하세요"/>
             {this.renderPostBtn()}
           </View>
+          </KeyboardAvoidingView>
         </View>
     )
   }

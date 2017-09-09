@@ -139,23 +139,23 @@ export default StyleSheet.create({
   },
   comment_input_cont:{
     height: 50,
-    backgroundColor: '#fff',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    width: Dimensions.get('window').width,
+    paddingHorizontal: 10,
     alignItems:'center',
-    padding:10,
     borderTopColor: '#dbdbdb',
     borderTopWidth: 1,
-
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   comment_btn:{
     fontWeight: '600'
   },
   comment_input:{
     fontSize: 15,
-    alignItems:'center',
+    // paddingHorizontal: 10,
     width: Dimensions.get('window').width/1.2,
-    height: 44,
+    height: 48,
   },
   comment_box:{
     padding: 15,

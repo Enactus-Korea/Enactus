@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import * as actions from './actions'
-import { View, Text, ActionSheetIOS, TouchableOpacity, TextInput, Alert, Button} from 'react-native'
+import { View, Text, ActionSheetIOS, TouchableOpacity, TextInput, Alert, Button, KeyboardAvoidingView} from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Agreement from './Agreement'
 import styles from './styles'
@@ -27,6 +27,7 @@ class Register extends Component{
       policyVisible: false,
       checkedTerms: false,
       checkedPolicy: false,
+      behavior: 'padding',
     }
   }
   componentDidMount(){
@@ -81,16 +82,17 @@ class Register extends Component{
       this.setState({checked: !this.state.checked})
     }
   }
-  isGetPermission = (type) => {
-    this.setState({[type]: !this.state[type]})
-  }
-  isCloseAgreementModal = (visible) => {
-    this.setState({[visible]: !this.state[visible]})
+  isGetPermission = (type, visible) => {
+    this.setState({
+      [type]: !this.state[type],
+      [visible]: !this.state[visible]
+    })
   }
   render(){
     let permissions = this.props.permissions
     return(
         <View style={styles.rgst_container}>
+          <KeyboardAvoidingView behavior={this.state.behavior}>
             <View style={styles.rgst_email}>
               <TextInput
                 ref='email'
@@ -154,7 +156,6 @@ class Register extends Component{
                 agreementType={'서비스 약관동의'}
                 checked={this.state.checkedTerms}
                 isGetPermission={this.isGetPermission}
-                isCloseAgreementModal={this.isCloseAgreementModal}
                 checkedType={'checkedTerms'}
                 visibleType={'termsVisible'}
                />
@@ -168,6 +169,7 @@ class Register extends Component{
                 visibleType={'policyVisible'}
                />
             </View>
+          </KeyboardAvoidingView>
         </View>
     )
   }
