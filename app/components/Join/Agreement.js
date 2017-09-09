@@ -23,12 +23,7 @@ const Agreement = (props) => (
           name={props.checked ? "md-square" : "md-square-outline"}
           size={20}
           style={{marginLeft: 5, marginBottom: -2}}
-          onPress={() => props.isGetPermission(props.checkedType)}/>
-        <TouchableOpacity
-          onPress={() => props.isCloseAgreementModal(props.visibleType)}
-          >
-          <Text>닫기</Text>
-        </TouchableOpacity>
+          onPress={() => props.isGetPermission(props.checkedType, props.visibleType)}/>
       </View>
     </View>
   </Modal>
