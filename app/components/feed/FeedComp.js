@@ -3,6 +3,7 @@ import { View, Text,Image,ScrollView,TouchableOpacity } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles'
 import moment from 'moment-timezone'
+import FeedTopComp from './FeedTopComp'
 
 class FeedComp extends PureComponent{
   constructor(props){
@@ -21,6 +22,18 @@ class FeedComp extends PureComponent{
     if(this.props.likes.indexOf(this.props.user._id) !== -1){
       this.setState({likeStatus: true, likeBtnColor: '#D54C3F'})
     }
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    if(this.props.user !== nextProps.user) {
+      return true;
+    }
+    if(this.props.univ !== nextProps.univ) {
+      return true;
+    }
+    if(this.props.userImg !== nextProps.userImg) {
+      return true;
+    }
+    return false;
   }
   textEllipsis(content){
     // FIXME: 리팩토링 필요함!!!!
@@ -59,24 +72,13 @@ class FeedComp extends PureComponent{
     this.props.handleLikeUnLike(_id, user._id)
   }
   render(){
-    const { name, univ, posted, content, comment, userImg, postImg, user, _id } = this.props;
+    const { name, univ, createdOn, content, comment, userImg, postImg, user, _id } = this.props;
+    console.log("feed comp",name, univ, createdOn)
     // if(this.state.likeloaded){
       return(
         <View style={styles.feedListView} >
           <View style={styles.feedContainer}>
-            <View style={styles.spaceBetween}>
-            <View style={styles.feedTopContainer}>
-              <Image
-                  source={userImg ? {uri: userImg} : require('../../assets/defaultUser.jpg')}
-                  style={styles.userImage}
-                  />
-              <View style={styles.feedInfoContainer}>
-                <Text style={styles.feedUser}>{this.props.name}</Text>
-                <Text style={styles.feedUserUniv}>{this.props.univ}</Text>
-              </View>
-            </View>
-            <Text style={styles.feedUserTime}>{moment(this.props.createdOn).tz('Asia/Seoul').format('YYYY년MM월DD일')}</Text>
-            </View>
+            <FeedTopComp name={name} univ={univ} createdOn={createdOn} userImg={userImg} />
             <View  style={styles.ctxContainer}>
               {this.textEllipsis(content)}
               {/*postImg

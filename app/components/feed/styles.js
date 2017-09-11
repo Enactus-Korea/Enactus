@@ -139,26 +139,30 @@ export default StyleSheet.create({
   },
   comment_input_cont:{
     height: 50,
-    width: Dimensions.get('window').width,
-    paddingHorizontal: 10,
-    alignItems:'center',
-    borderTopColor: '#dbdbdb',
-    borderTopWidth: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#fff',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems:'center',
+    paddingHorizontal:10,
+    borderTopColor: '#dbdbdb',
+    borderTopWidth: 1,
+    borderBottomColor: '#dbdbdb',
+    borderBottomWidth: 1
+
   },
   comment_btn:{
     fontWeight: '600'
   },
   comment_input:{
     fontSize: 15,
-    // paddingHorizontal: 10,
+    alignItems:'center',
     width: Dimensions.get('window').width/1.2,
     height: 48,
   },
   comment_box:{
     padding: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     backgroundColor: '#fff',
   },
   separator: {

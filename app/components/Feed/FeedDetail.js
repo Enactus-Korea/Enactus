@@ -71,7 +71,6 @@ class FeedDetail extends PureComponent{
   render(){
     return(
       <View style={styles.detail_view}>
-
         <AnimatedFlatList
             ItemSeparatorComponent={SeparatorComponent}
             ListHeaderComponent={() => <FeedComp {...this.props.navigation.state.params} detail={true}/>}
@@ -81,7 +80,6 @@ class FeedDetail extends PureComponent{
             // shouldItemUpdate={this._shouldItemUpdate}
             viewabilityConfig={VIEWABILITY_CONFIG}
           />
-
           <KeyboardAvoidingView
             behavior={this.state.behavior}
             keyboardVerticalOffset={-65}
