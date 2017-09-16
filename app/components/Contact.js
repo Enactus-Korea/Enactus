@@ -34,13 +34,13 @@ class Contact extends PureComponent {
               coordinate={{latitude: 37.5475496, longitude: 127.04272659999992}}
               title='인액터스 코리아'
               // image={require('enactuskoreaLogo')} => 이미지 넣는 것
-              description="서울특별시 성동구 성수동 668-100 3층"
+              // description="서울특별시 성동구 성수동 668-100 3층"
              />
           </MapView>
-        <View style={{marginTop: 30}}>
+        <View style={{marginTop: 15}}>
           <View style={styles.infoBox}>
             <Text style={styles.headTxt}>주소</Text>
-            <Text style={styles.infoTxt}>서울특별시 성동구 성수동 668-100 3층이다</Text>
+            <Text style={styles.infoTxt}>서울특별시 성동구 성수동 668-100 3층</Text>
           </View>
           <View style={styles.infoBox}>
             <Text style={styles.headTxt}>이메일</Text>
@@ -61,10 +61,12 @@ class Contact extends PureComponent {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     marginTop: Platform.OS === 'ios' ? 20 : 0,
   },
   infoBox:{
-    marginLeft: 15,
+    width: width,
+    paddingHorizontal: 15,
     marginBottom: 15
   },
   headTxt:{

@@ -8,17 +8,17 @@ class FeedTopComp extends PureComponent{
     super(props)
   }
   componentWillMount(){
-    console.log("feedTopComp", `${this.props.createdOn}`)
+    // console.log("feedTopComp", `${this.props.createdOn}`)
   }
   shouldComponentUpdate(nextProps, nextState) {
-    console.log("shouldComponentUpdate", nextProps.userImg, this.props.userImg);
+    // console.log("shouldComponentUpdate", nextProps.userImg, this.props.userImg);
     if(this.props.userImg !== nextProps.userImg) {
       return true;
     }
     return false;
   }
   render(){
-    console.log("feedTopComp Render")
+    // console.log("feedTopComp Render")
     const { name, univ, userImg, createdOn } = this.props;
     return(
           <View style={styles.spaceBetween}>

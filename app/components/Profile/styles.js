@@ -1,14 +1,17 @@
 import {StyleSheet, Platform} from 'react-native';
 import Dimensions from 'Dimensions'
 
+let width = Dimensions.get('window').width,
+    height = Dimensions.get('window').height;
+
 export default StyleSheet.create({
   profile_top:{
     flexDirection: 'column',
     justifyContent:'center',
     alignItems: 'center',
-    paddingTop: 20,
-    paddingBottom: 20,
-    height: Dimensions.get('window').height/2.5,
+    // borderColor: 'black',
+    // borderWidth: 1,
+    height: height*0.3,
   },
   profile_img:{
     width: 90,
@@ -36,7 +39,7 @@ export default StyleSheet.create({
   profile_btm:{
     borderTopWidth:1,
     borderColor: '#dbdbdb',
-    height: Dimensions.get('window').height/2.5,
+    height: Dimensions.get('window').height/2,
     width: Dimensions.get('window').width,
     justifyContent: 'center',
     alignItems: 'center'
@@ -191,7 +194,25 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     margin: 7
   },
+  proj_comp: {
+    // borderColor: 'black',
+    // borderWidth: 1,
+    flex: 1,
+    height: height*0.5,
+    marginBottom: 45,
+  },
+  pro_comp:{
+    width,
+    flexDirection: 'row'
+  },
   timeline: {
-    width: 3,
+    width: width*0.8,
+
+  },
+  h_line: {
+    width: width*0.2,
+    borderRightWidth : 2,
+    borderRightColor: 'black',
+
   }
 })

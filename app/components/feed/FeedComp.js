@@ -73,8 +73,7 @@ class FeedComp extends PureComponent{
   }
   render(){
     const { name, univ, createdOn, content, comment, userImg, postImg, user, _id } = this.props;
-    console.log("feed comp",name, univ, createdOn)
-    // if(this.state.likeloaded){
+    // console.log("feed comp",name, univ, createdOn)
       return(
         <View style={styles.feedListView} >
           <View style={styles.feedContainer}>
@@ -116,8 +115,6 @@ class FeedComp extends PureComponent{
           </View>
         </View>
       )
-  //   }
-  //   return false
   }
 }
 

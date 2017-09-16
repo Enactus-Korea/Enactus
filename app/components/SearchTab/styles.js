@@ -3,6 +3,7 @@ import Dimensions from 'Dimensions'
 
 export default StyleSheet.create({
   searchPage: {
+    flex:1,
     marginBottom: 50
   },
   sch_top:{
@@ -13,10 +14,10 @@ export default StyleSheet.create({
     // paddingTop: 10,
     paddingLeft: 10,
     paddingRight: 10,
-    justifyContent: 'space-between'
+    // justifyContent: 'space-between'
   },
   sch_input_bar:{
-    // flex: 1,
+    // flex: 1/6,
     width: Dimensions.get('window').width,
     height: 64,
     backgroundColor: '#30333C',
