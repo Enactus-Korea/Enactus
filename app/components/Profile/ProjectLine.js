@@ -5,22 +5,22 @@ import ProjectList from './ProjectList'
 import moment from 'moment-timezone'
 import ProjectTimeline from './ProjectTimeline'
 
-var getMonthsBetween = function(startDate, endDate)
-{
-  let dateList = []
-  let nowDate = moment().format("YYYYMM")
-  if(!endDate) endDate = +nowDate
-
-  for(; startDate < endDate+1 ; startDate++){
-  	if(startDate.toString().slice(4,6) === "13"){
-  		let newYear = +(startDate.toString().slice(0,4)) + 1
-      let newMonth = "01"
-  		startDate = +(newYear.toString() + newMonth)
-  	}
-  	dateList.push(startDate.toString())
-  }
-  return dateList
-}
+// var getMonthsBetween = function(startDate, endDate)
+// {
+//   let dateList = []
+//   let nowDate = moment().format("YYYYMM")
+//   if(!endDate) endDate = +nowDate
+//
+//   for(; startDate < endDate+1 ; startDate++){
+//   	if(startDate.toString().slice(4,6) === "13"){
+//   		let newYear = +(startDate.toString().slice(0,4)) + 1
+//       let newMonth = "01"
+//   		startDate = +(newYear.toString() + newMonth)
+//   	}
+//   	dateList.push(startDate.toString())
+//   }
+//   return dateList
+// }
 
 
 

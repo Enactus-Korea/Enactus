@@ -4,7 +4,7 @@ import styles from './styles'
 
 const SettingLists = [
   { route: 'SelfIntro_Setting', name: '상태메시지', icon:'ios-paper-outline' },
-  { route: 'Project_Setting', name: '프로젝트', icon:'ios-information-circle-outline' },
+  { route: 'History_Setting', name: '히스토리', icon:'ios-information-circle-outline' },
 ]
 
 const ProfileSetting = (props) => {

@@ -195,8 +195,6 @@ export default StyleSheet.create({
     margin: 7
   },
   proj_comp: {
-    // borderColor: 'black',
-    // borderWidth: 1,
     flex: 1,
     height: height*0.5,
     marginBottom: 45,
@@ -213,6 +211,28 @@ export default StyleSheet.create({
     width: width*0.2,
     borderRightWidth : 2,
     borderRightColor: 'black',
-
-  }
+  },
+  sectionHeader: {
+    margin: 10,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "black",
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  sectionHeaderText: {
+    fontWeight: "500",
+    fontSize: 15
+  },
+  historyContainer: {
+    margin: 10,
+    padding: 10,
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+   shadowOffset: { width: 0, height: 2 },
+   shadowOpacity: 0.3,
+   shadowRadius: 2,
+    // boxShadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)
+  },
 })

@@ -4,33 +4,36 @@ import { createNavigator, createNavigationContainer, TabRouter, StackNavigator, 
 import { FeedStack, FeedDetail } from '../components/Feed'
 import { Search } from '../components/SearchTab'
 import { PostView } from '../components/Post'
-import { ProfileStack, Profile, ProfileSetting, Project, ProjectDetail, SelfIntro } from '../components/Profile'
+import { ProfileStack, Profile, ProfileSetting, History, ProjectDetail, SelfIntro, ProjectSetting, ActivitySetting } from '../components/Profile'
 import { NetworkDetail } from '../components/Network'
+import { Notification } from '../components/Notification'
 import CustomTabBar from './CustomTabBar'
 
 
 
-const { Surface, Group, Shape } = ART
+// const { Surface, Group, Shape } = ART
 
 const NotificationView = () => {
-
   // const y = d3.scaleLinear().domain([0,100]).range([0,640])
+  // <Surface width={500} height={500}>
+  //   <Group x={100} y={0}>
+  //     <Shape
+  //       d="M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80"
+  //       stroke="#000"
+  //       strokeWidth={1} />
+  //   </Group>
+  //   <Group x={0} y={100}>
+  //     <Shape
+  //       d="M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80"
+  //       stroke="#000"
+  //       strokeWidth={1} />
+  //   </Group>
+  // </Surface>
   return(
   <View style={{ flex: 1 }}>
-    <Surface width={500} height={500}>
-      <Group x={100} y={0}>
-        <Shape
-          d="M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80"
-          stroke="#000"
-          strokeWidth={1} />
-      </Group>
-      <Group x={0} y={100}>
-        <Shape
-          d="M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80"
-          stroke="#000"
-          strokeWidth={1} />
-      </Group>
-    </Surface>
+    <View>
+
+    </View>
   </View>
 )}
 
@@ -59,7 +62,13 @@ const Routes = {
   Feed: { screen: FeedStack },
   Search: {screen: Search },
   Post: { screen: PostView },
-  Notification: { screen: NotificationView },
+  Notification: {
+    screen: Notification,
+    navigationOptions: ({navigation}) => ({
+      headerTitle: '알림',
+      ...HeaderColor
+    })
+  },
 	ProfileStack: { screen: ProfileStack }
 }
 const CustomTabRoutes = TabRouter(Routes, { initialRouteName: 'Feed' })
@@ -105,7 +114,21 @@ const CustomTabsStack = StackNavigator({
     })
   },
   SelfIntro_Setting:{ screen: SelfIntro },
-  Project_Setting:{ screen: Project },
+  History_Setting:{ screen: History },
+  Project_Setting:{
+    screen: ProjectSetting,
+    navigationOptions: ({navigation}) => ({
+      headerTitle: '프로젝트 상세보기',
+      ...HeaderColor
+    })
+   },
+  Activity_Setting:{
+    screen: ActivitySetting,
+    navigationOptions: ({navigation}) => ({
+      headerTitle: '프로젝트 상세보기',
+      ...HeaderColor
+    })
+   },
   Project_Detail: {
     screen: ProjectDetail,
     navigationOptions: ({navigation}) => ({

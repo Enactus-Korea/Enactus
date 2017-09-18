@@ -79,6 +79,7 @@ class Search extends PureComponent {
   renderSearchUsers({item}){ return <NetworkRow user={item} navigation={this.props.navigation} route={'SearchUserDetail'}/> }
   renderSearchFeeds({item}){ return <FeedComp {...item} navigation={this.props.navigation} detailRoute={'SearchFeedDetail'} user={this.props.user}/>}
   renderSearchContent(searchUsers, searchFeeds){
+    console.log("search : ",searchUsers)
     return(
     [
       { renderItem: this.renderSearchUsers,
