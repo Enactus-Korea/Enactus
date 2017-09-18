@@ -8,7 +8,7 @@ const ProjectTimeline = ({
   lineHeight
 }) => {
   let timelineStyle = {
-    height: Dimensions.get('window').height/2.5/lineHeight,
+    // height: Dimensions.get('window').height/2.5/lineHeight,
     backgroundColor: lineColor ? "blue" : "gray"
   }
   return <View style={[styles.timeline, timelineStyle]} />

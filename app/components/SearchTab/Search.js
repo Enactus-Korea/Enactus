@@ -79,6 +79,7 @@ class Search extends PureComponent {
   renderSearchUsers({item}){ return <NetworkRow user={item} navigation={this.props.navigation} route={'SearchUserDetail'}/> }
   renderSearchFeeds({item}){ return <FeedComp {...item} navigation={this.props.navigation} detailRoute={'SearchFeedDetail'} user={this.props.user}/>}
   renderSearchContent(searchUsers, searchFeeds){
+    console.log("search : ",searchUsers)
     return(
     [
       { renderItem: this.renderSearchUsers,
@@ -104,7 +105,7 @@ class Search extends PureComponent {
       <View style={styles.searchPage}>
         {this.renderSearchBar()}
         <AnimatedSectionList
-            style={styles.searchPage}
+            // style={styles.searchPage}
             ItemSeparatorComponent={() => <View style={styles.customSeparator}></View>}
             // enableVirtualization={this.state.virtualized}
             // onRefresh={() => alert('onRefresh: nothing to refresh :P')}
@@ -126,26 +127,3 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, null)(Search)
-// export default Search
-
-// headerTitle: <TextInput
-//           style={styles.sch_input}
-//           onChangeText={(text) => navigation.state.params.handleChange("sch",text)}
-//           placeholder='멤버 혹은 뉴스피드 검색'
-//           placeholderTextColor='#8E8F92'
-//         />,
-// headerRight: null,
-// headerLeft: null,
-// headerStyle: { backgroundColor: '#30333C' },
-// headerTintColor: 'white',
-
-//  <View style={styles.sch_top}>
-//         <TextInput
-//           // value={this.state.sch}
-//           style={styles.sch_input}
-//           // onChangeText={(text) => this.setState({sch: text})}
-//           placeholder='멤버 혹은 뉴스피드 검색'
-//           placeholderTextColor='#8E8F92'
-//         />
-//          <Animated.View>
-//       </View>

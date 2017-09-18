@@ -36,7 +36,7 @@ class FeedList extends PureComponent {
   }
   componentWillReceiveProps(newProps){
     if(newProps.feed !== this.props.feed){
-      console.log("componentWillReceiveProps",newProps.feed.length);
+      // console.log("componentWillReceiveProps",newProps.feed.length);
       this.setState({data: newProps.feed, loaded: true})
     }
     if(newProps.user !== this.props.user){
@@ -55,12 +55,12 @@ class FeedList extends PureComponent {
             ListHeaderComponent={typeOf === 'feed' && FeedSlide}
             data={data}
             disableVirtualization={!virtualized}
-            ref={this._captureRef}
+            // ref={this._captureRef}
             onRefresh={this._onRefresh}
             refreshing={false}
             keyExtractor={item => item._id}
             renderItem={this._renderItemComponent}
-            shouldItemUpdate={this._shouldItemUpdate}
+            // shouldItemUpdate={this._shouldItemUpdate}
             viewabilityConfig={VIEWABILITY_CONFIG}
             // getItemLayout={this.state.fixedHeight ?
             //   this._getItemLayout :

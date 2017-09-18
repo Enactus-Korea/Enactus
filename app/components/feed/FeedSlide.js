@@ -6,6 +6,7 @@ class FeedSlide extends Component{
   renderPagination(index, total, context) {
     return (
       <View style={{
+        flex:1,
         backgroundColor: '#ebebeb',
         width: 45
       }}>
@@ -14,7 +15,7 @@ class FeedSlide extends Component{
   }
   render(){
     return(
-      <View>
+      <View style={{flex:1}}>
         <Swiper height={146} autoplay={true}>
           <View style={styles.slide1}>
             <Text style={styles.text}>Hello Swiper</Text>
@@ -52,19 +53,22 @@ var styles = StyleSheet.create({
     backgroundColor: '#ebebeb'
   },
   slide1: {
-    flex: 1,
+    // flex: 1,
+    height: 146,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#9DD6EB',
   },
   slide2: {
-    flex: 1,
+    // flex: 1,
+    height: 146,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#97CAE5',
   },
   slide3: {
-    flex: 1,
+    // flex: 1,
+    height: 146,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#92BBD9',
@@ -75,6 +79,7 @@ var styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   notiWrapper: {
+    // flex: 1,
     paddingTop: 5,
     paddingBottom: 5,
     backgroundColor:'#ebebeb'

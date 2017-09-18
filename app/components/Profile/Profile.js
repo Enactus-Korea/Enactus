@@ -20,21 +20,21 @@ class Profile extends Component{
     const {user, token, navigation} = this.props;
     if(token && user){
       return(
-        <View>
+        <View style={{flex: 1}}>
           <View style={styles.profile_top}>
             <ProfUserImg userImg={user.userImg} />
             <Text style={styles.profile_name}>{user.name}</Text>
             <Text style={styles.profile_univ}>{user.univ} 인액터스</Text>
             {user.selfIntro
-              ? <Text style={styles.profile_selfIntro}>{this.props.user.selfIntro}</Text>
+              ? <Text style={styles.profile_selfIntro}>{user.selfIntro}</Text>
               : <TouchableHighlight
                   style={styles.setting_selfInt}
                   onPress={() => navigation.navigate('SelfIntro_Setting')}>
                   <Text style={styles.setting_txt}>상태메세지를 입력해주세요.</Text>
                 </TouchableHighlight>
-              }
+            }
           </View>
-          {user._id && <ProjectLine {...this.props}/>}
+          {user._id && <ProjectLine navigation={navigation} isGetUsersProjects={this.props.isGetUsersProjects} {...user}/>}
         </View>
       )
     } else {

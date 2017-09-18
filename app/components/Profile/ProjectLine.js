@@ -1,105 +1,133 @@
 import React, {Component} from 'react'
-import {View, Text, Dimensions} from 'react-native'
+import {View, Text, Dimensions, FlatList} from 'react-native'
 import styles from './styles'
 import ProjectList from './ProjectList'
 import moment from 'moment-timezone'
 import ProjectTimeline from './ProjectTimeline'
 
-var getMonthsBetween = function(startDate, endDate)
-{
-  let dateList = []
-  let nowDate = moment().format("YYYYMM")
-  if(!endDate) endDate = parseInt(nowDate)
-
-  for(; startDate < endDate+1 ; startDate++){
-  	if(startDate.toString().slice(4,6) === "13"){
-  		let newYear = parseInt(startDate.toString().slice(0,4)) + 1
-      let newMonth = "01"
-  		startDate = parseInt(newYear.toString() + newMonth)
-  	}
-  	dateList.push(startDate.toString())
-  }
-  return dateList
-}
+// var getMonthsBetween = function(startDate, endDate)
+// {
+//   let dateList = []
+//   let nowDate = moment().format("YYYYMM")
+//   if(!endDate) endDate = +nowDate
+//
+//   for(; startDate < endDate+1 ; startDate++){
+//   	if(startDate.toString().slice(4,6) === "13"){
+//   		let newYear = +(startDate.toString().slice(0,4)) + 1
+//       let newMonth = "01"
+//   		startDate = +(newYear.toString() + newMonth)
+//   	}
+//   	dateList.push(startDate.toString())
+//   }
+//   return dateList
+// }
 
 
 
 
 class ProjectLine extends Component {
   state = {
-    projects: this.props.joined,
-    loaded: false
+    history: this.props.history,
   }
   componentDidMount(){
-    this.props.isGetUsersProjects(this.props.user._id)
+    // this.props.isGetUsersProjects(this.props._id)
   }
-  componentWillReceiveProps(newProps){
-    if(newProps.joined !== this.props.joined){
-      this.setState({projects:newProps.joined, loaded: true})
-    }
+  _keyExtractor = (item, index) => index;
+  _renderItem = ({item}) => {
+    let height = {height: 100},
+        getDate = new Date(item.started),
+        getYear = getDate.getFullYear(),
+        getMonth = getDate.getMonth()+1;
+    return (
+      <View style={[styles.pro_comp, height]}>
+        <View style={styles.h_line}/>
+        <View style={styles.timeline}>
+          <Text>{item.name}</Text>
+          <Text>{item.role}</Text>
+          <Text>{item.desc}</Text>
+          <Text>{getYear} {getMonth}</Text>
+        </View>
+      </View>
+  )};
+  _renderJoined = () => {
+    let getDate = new Date(this.props.joined),
+        getYear = getDate.getFullYear(),
+        getMonth = getDate.getMonth()+1;
+    return (
+      <View style={styles.pro_comp}>
+        <View style={styles.h_line}/>
+        <View style={styles.timeline}>
+          <Text>
+            {getYear} 인액터스 가입
+          </Text>
+        </View>
+      </View>
+    )
   }
-  renderProjects = (p,i) => <ProjectList key={i} p={p} navigation={this.props.navigation}/>
   render(){
-    // TODO: {pro.map(this.renderProjects)}
-    let userJoined = moment(this.props.user.joined).format("YYYYMM")
-    let enacHistory = getMonthsBetween(parseInt(userJoined), "").reverse()
-    if(!this.state.loaded){
-      return(
-        <View style={styles.profile_btm}>
-          <Text>프로젝트 불러오는 중</Text>
-        </View>
-      )
-    } else {
-      let pro = Object.values(this.state.projects)
-      let projHistory = pro.map(date => {
-        let { startedY, startedM, exitedY, exitedM } = date.actived;
-        return getMonthsBetween(parseInt(startedY+startedM), parseInt(exitedY+exitedM))
-      })
-      let proJoin = projHistory.join().split(",")
-      let boo = []
-      enacHistory.map(date => boo.push(proJoin.indexOf(date) !== -1 ? true : false))
-      let temp = [], count = []
-      for(i=0; i < boo.length ; i++) {
-      	if(boo[i] === boo[i+1]){
-        	temp.push(boo[i])
-        }else{
-        	count.push({[temp.slice(-1)]:temp.length})
-        	temp = []
-        	temp.push(boo[i])
-        }
-      }
-      console.log(projHistory, count)
-      return(
-        <View style={styles.profile_btm}>
-          <View>
-            {enacHistory.map((date, i) => {
-              let lineColor = proJoin.indexOf(date) !== -1 ? true : false
-              return <ProjectTimeline key={i} lineHeight={enacHistory.length} lineColor={lineColor} />
-            })}
-          </View>
-          <View>
+    // let userJoined = moment(this.props.joined).format("YYYYMM")
+    // let enacHistory = getMonthsBetween(+userJoined, "").reverse()
+    let histo = [],
+        offi = this.props.history.official.map(o => histo.push(o)),
+        pros = this.props.history.projects.map(p => p.history);
 
-          </View>
-        </View>
-      )
-    }
+        pros.map(h => h.map(d => histo.push(d)));
+        histo.sort((a, b) => a.started > b.started ? 1 : (a.started < b.started ? -1 : 0));
+        histo.reverse();
 
+    return (
+      <FlatList
+        data={histo}
+        style={styles.proj_comp}
+        keyExtractor={this._keyExtractor}
+        renderItem={this._renderItem}
+        ListFooterComponent={this._renderJoined}
+        // viewabilityConfig={VIEWABILITY_CONFIG}
+      />
+    )
   }
 }
 
 
-
 export default ProjectLine
 
-
-{/* {this.state.projects && (
-  <View>
-  {this.state.projects.length > 0
-    ? this.state.projects.map(this.renderProjects)
-    : <TouchableHighlight
-        style={styles.setting_proj}
-        onPress={() => navigation.navigate('Project_Setting')}>
-        <Text style={styles.setting_txt}>프로젝트를 등록해주세요.</Text>
-      </TouchableHighlight>}
-  </View>
-)} */}
+//
+// let user = {
+//     "joined": new Date("2014-03-01T09:00:00+0900"),
+//
+//     "history" : {
+//       "projects" : [
+//         {
+//           "name": "우드리머",
+//           "_id": ObjectId("58ef2bb2df3f05d6b8513fe0"),
+//           "history": [{
+//             "started": new Date("2016-03-01T09:00:00+0900"),
+//             "finished": new Date("2017-03-01T09:00:00+0900"),
+//             "role": "팀원",
+//             "desc": "기획담당"
+//           },{
+//             "started": new Date("2015-03-01T09:00:00+0900"),
+//             "finished": new Date("2015-10-01T09:00:00+0900"),
+//             "role": "PM",
+//             "desc": "대상자 탐방 및 등등"
+//           }]
+//         },{
+//           "name": "한땀",
+//           "_id": ObjectId("58ef2c24df3f05d6b8513fe1"),
+//           "history": [{
+//             "started": new Date("2014-03-01T09:00:00+0900"),
+//             "finished": new Date("2014-07-01T09:00:00+0900"),
+//             "role": "팀원",
+//             "desc": "기획담당"
+//           }]
+//         }
+//       ],
+//       "official" : [{
+//         "role" : "인액터스코리아 인턴",
+//         "desc": "PR 담당",
+//         "started": new Date("2012-03-01T09:00:00+0900"),
+//         "finished": new Date("2013-03-01T09:00:00+0900")
+//       }]
+//     }
+//
+// }
