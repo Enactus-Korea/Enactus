@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {PureComponent} from 'react'
 import {connect} from 'react-redux';
 import * as actions from './actions'
 import {View, Text, Image, TouchableHighlight, TouchableOpacity, ListView} from 'react-native';
@@ -6,21 +6,21 @@ import ProfUserImg from './ProfUserImg'
 import styles from './styles'
 import ProjectLine from './ProjectLine'
 
-class Profile extends Component{
-  state = {
-    projects : this.props.user.projects,
-  }
-  componentWillReceiveProps(newProps){
-    if(newProps.user.projects !== this.props.user.projects){
-      this.setState({projects: newProps.user.projects})
-    }
-  }
+class Profile extends PureComponent{
+  // state = {
+  //   projects : this.props.user.projects,
+  // }
+  // componentWillReceiveProps(newProps){
+  //   if(newProps.user.projects !== this.props.user.projects){
+  //     this.setState({projects: newProps.user.projects})
+  //   }
+  // }
   render(){
     console.log("ProfileDetail",this.props)
-    const {user, token, navigation} = this.props;
+    const {user, token, navigation, joined} = this.props;
     if(token && user){
       return(
-        <View style={{flex: 1}}>
+        <View style={{flex: 1, flexDirection: "column", justifyContent: 'space-between'}}>
           <View style={styles.profile_top}>
             <ProfUserImg userImg={user.userImg} />
             <Text style={styles.profile_name}>{user.name}</Text>
@@ -34,7 +34,7 @@ class Profile extends Component{
                 </TouchableHighlight>
             }
           </View>
-          {user._id && <ProjectLine navigation={navigation} isGetUsersProjects={this.props.isGetUsersProjects} {...user}/>}
+          {user._id && <ProjectLine navigation={navigation} isGetUsersProjects={this.props.isGetUsersProjects} projectDetails={joined} {...user}/>}
         </View>
       )
     } else {

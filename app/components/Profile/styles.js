@@ -11,8 +11,14 @@ export default StyleSheet.create({
     alignItems: 'center',
     // borderColor: 'black',
     // borderWidth: 1,
-    height: height*0.3,
+    height: height*0.33,
   },
+  // profile_btm:{
+  //   // flex: 1,
+  //   width,
+  //   alignItems: 'flex-end',
+  //   height: height*0.7,
+  // },
   profile_img:{
     width: 90,
     height: 90,
@@ -36,14 +42,14 @@ export default StyleSheet.create({
     fontSize:13,
     fontWeight: '200',
   },
-  profile_btm:{
-    borderTopWidth:1,
-    borderColor: '#dbdbdb',
-    height: Dimensions.get('window').height/2,
-    width: Dimensions.get('window').width,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
+  // profile_btm:{
+  //   borderTopWidth:1,
+  //   borderColor: '#dbdbdb',
+  //   height: Dimensions.get('window').height/2,
+  //   width: Dimensions.get('window').width,
+  //   justifyContent: 'center',
+  //   alignItems: 'center'
+  // },
   setting_list:{
     height: 50,
     borderBottomWidth:1,
@@ -196,21 +202,37 @@ export default StyleSheet.create({
   },
   proj_comp: {
     flex: 1,
-    height: height*0.5,
+    // height: height*0.5,
     marginBottom: 45,
   },
   pro_comp:{
     width,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    // justifyContent: 'flex-end'
   },
   timeline: {
     width: width*0.8,
-
+  },
+  timelineYear: {
+    backgroundColor: "#FFC122",
+    // paddingVertical: 5,
+    // paddingHorizontal: 15,
+    borderRadius: 10,
+    height: 20,
+    width: 50,
+    left: -27,
+  },
+  timelineYearText: {
+    color: '#fff',
+    backgroundColor: "transparent",
+    fontWeight: '800',
+    lineHeight: 20,
+    textAlign: 'center'
   },
   h_line: {
     width: width*0.2,
-    borderRightWidth : 2,
-    borderRightColor: 'black',
+    borderRightWidth : 4,
+    borderRightColor: '#5e5e5e',
   },
   sectionHeader: {
     margin: 10,
