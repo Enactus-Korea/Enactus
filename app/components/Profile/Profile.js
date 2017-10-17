@@ -5,6 +5,8 @@ import {View, Text, Image, TouchableHighlight, TouchableOpacity, ListView} from 
 import ProfUserImg from './ProfUserImg'
 import styles from './styles'
 import ProjectLine from './ProjectLine'
+import GridMyFeedList from './GridMyFeedList'
+import UnFoldedMyFeedList from './UnFoldedMyFeedList'
 
 class Profile extends PureComponent{
   // state = {
@@ -15,8 +17,20 @@ class Profile extends PureComponent{
   //     this.setState({projects: newProps.user.projects})
   //   }
   // }
+  constructor(props){
+    super(props)
+    this.state = {
+      list : false,
+      feedStatus: false,
+      data: []
+    }
+  }
+  componentDidMount(){
+    this.props.isFetchFeedbyUser(this.props.user._id)
+    this.setState({feedStatus: true, data: this.props.feeds})
+  }
   render(){
-    console.log("ProfileDetail",this.props)
+    // console.log("ProfileDetail",this.props.feeds)
     const {user, token, navigation, joined} = this.props;
     if(token && user){
       return(
@@ -34,7 +48,27 @@ class Profile extends PureComponent{
                 </TouchableHighlight>
             }
           </View>
-          {user._id && <ProjectLine navigation={navigation} isGetUsersProjects={this.props.isGetUsersProjects} projectDetails={joined} {...user}/>}
+          <View style={styles.profile_btm}>
+            <View style={styles.profile_btm_header}>
+              <TouchableOpacity
+                style={styles.profile_btm_header_menu}
+                onPress={() => this.setState({"list": false})}>
+                <Text>격자형 보기</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.profile_btm_header_menu}
+                onPress={() => this.setState({"list": true})}>
+                <Text>리스트형 보기</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{flex:1}}>
+              {this.state.list
+                ? <UnFoldedMyFeedList data={this.state.data} user={user}/>
+                : <GridMyFeedList data={this.state.data} user={user}/>
+              }
+            </View>
+          </View>
+          {/* {user._id && <ProjectLine navigation={navigation} isGetUsersProjects={this.props.isGetUsersProjects} projectDetails={joined} {...user}/>} */}
         </View>
       )
     } else {
@@ -50,7 +84,8 @@ class Profile extends PureComponent{
 const mapStateToProps = (state) => ({
   user: state.permissions.user,
   token: state.permissions.token,
-  joined: state.profile.joined
+  joined: state.profile.joined,
+  feeds: state.profile.feeds,
 })
 
 export default connect(mapStateToProps, actions)(Profile)

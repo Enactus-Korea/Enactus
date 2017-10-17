@@ -9,16 +9,34 @@ export default StyleSheet.create({
     flexDirection: 'column',
     justifyContent:'center',
     alignItems: 'center',
-    // borderColor: 'black',
-    // borderWidth: 1,
-    height: height*0.33,
+    backgroundColor: '#F1F3F5',
+    height: height*0.4,
   },
-  // profile_btm:{
-  //   // flex: 1,
-  //   width,
-  //   alignItems: 'flex-end',
-  //   height: height*0.7,
-  // },
+  profile_btm:{
+    flex: 1,
+    width,
+    alignItems: 'flex-end',
+    height: height*0.6,
+    backgroundColor: '#F1F3F5',
+  },
+  profile_btm_header: {
+    width,
+    height: 50,
+    borderTopWidth : 1,
+    borderTopColor: '#E0E4E7',
+    // backgroundColor: '#F1F3F5',
+    flexDirection: 'row',
+    alignItems: 'center',
+justifyContent: "center",
+  },
+  profile_btm_header_menu:{
+    // borderWidth: 1,
+    // borderColor: "black",
+    width: width/2,
+    alignItems: 'center',
+    justifyContent: "center",
+    // textAlign: 'center'
+  },
   profile_img:{
     width: 90,
     height: 90,
@@ -252,9 +270,50 @@ export default StyleSheet.create({
     padding: 10,
     backgroundColor: '#fff',
     shadowColor: '#000',
-   shadowOffset: { width: 0, height: 2 },
-   shadowOpacity: 0.3,
-   shadowRadius: 2,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
     // boxShadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)
   },
+  projectSelects: {
+    flexDirection: "row",
+    alignItems: 'center',
+  },
+  projectSelectsName: {
+    fontWeight: "800",
+    fontSize: 15,
+    width: 120,
+  },
+  selectOptions: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+  },
+  selectOptionsTable:{
+    width,
+    backgroundColor: '#fff'
+  },
+  selectOptionsTop:{
+    width,
+    height: 32,
+    alignItems: 'flex-end',
+    paddingVertical: 7,
+    paddingRight: 7,
+    backgroundColor: '#fff',
+    borderBottomWidth: 1,
+    borderBottomColor: '#dbdbdb',
+    borderTopWidth: 1,
+    borderTopColor: '#dbdbdb',
+  },
+  selectOptionsTopText: {
+    fontSize: 15,
+    // fontWeight: "700",
+  },
+  gridFeedsCont: {
+    borderColor: '#F1F3F5',
+    borderWidth: 1,
+    width: width/3,
+    height: width/3,
+    backgroundColor: '#fff'
+  }
 })

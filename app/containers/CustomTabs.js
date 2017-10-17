@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View, Button, ART } from 'react-native';
 import { createNavigator, createNavigationContainer, TabRouter, StackNavigator, TabNavigator, addNavigationHelpers } from 'react-navigation';
-import { FeedStack, FeedDetail } from '../components/Feed'
+import { FeedStack, FeedDetail, FeedSlideDetail } from '../components/Feed'
 import { Search } from '../components/SearchTab'
 import { PostView } from '../components/Post'
 import { ProfileStack, Profile, ProfileSetting, History, ProjectDetail, SelfIntro, ProjectSetting, ActivitySetting } from '../components/Profile'
@@ -9,33 +9,6 @@ import { NetworkDetail } from '../components/Network'
 import { Notification } from '../components/Notification'
 import CustomTabBar from './CustomTabBar'
 
-
-
-// const { Surface, Group, Shape } = ART
-
-const NotificationView = () => {
-  // const y = d3.scaleLinear().domain([0,100]).range([0,640])
-  // <Surface width={500} height={500}>
-  //   <Group x={100} y={0}>
-  //     <Shape
-  //       d="M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80"
-  //       stroke="#000"
-  //       strokeWidth={1} />
-  //   </Group>
-  //   <Group x={0} y={100}>
-  //     <Shape
-  //       d="M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80"
-  //       stroke="#000"
-  //       strokeWidth={1} />
-  //   </Group>
-  // </Surface>
-  return(
-  <View style={{ flex: 1 }}>
-    <View>
-
-    </View>
-  </View>
-)}
 
 const CustomTabView = ({
   router,
@@ -85,10 +58,19 @@ const CustomTabs = createNavigationContainer(createNavigator(CustomTabRoutes)(Cu
 
 */
 
+// Main NAV 설정 부분
+
 const HeaderColor = { headerStyle: { backgroundColor: '#30333C' }, headerTintColor: 'white' }
 const CustomTabsStack = StackNavigator({
   Root: { screen: CustomTabs },
   Detail: { screen: FeedDetail },
+  SlideDetail: {
+    screen: FeedSlideDetail,
+    navigationOptions: ({navigation}) => ({
+      headerTitle: '공지사항',
+      ...HeaderColor
+    })
+  },
   SearchFeedDetail: { screen: FeedDetail },
   CommentUserDetail : {
     screen: NetworkDetail,

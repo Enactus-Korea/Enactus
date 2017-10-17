@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, Text,Image,ScrollView,TouchableOpacity } from 'react-native';
+import { View, Text,Image,ScrollView,TouchableOpacity,Share } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles'
 import moment from 'moment-timezone'
@@ -16,6 +16,8 @@ class FeedComp extends PureComponent{
     }
     this.handleLikeUnLike = this.handleLikeUnLike.bind(this)
     this.textEllipsis = this.textEllipsis.bind(this)
+    this.handleShareFeed = this.handleShareFeed.bind(this)
+    this._showResult = this._showResult.bind(this);
   }
 
   componentWillMount(){
@@ -71,6 +73,26 @@ class FeedComp extends PureComponent{
     }
     this.props.handleLikeUnLike(_id, user._id)
   }
+  handleShareFeed() {
+
+   Share.share({
+     message: 'React Native | A framework for building native apps using React'
+   })
+   .then(this._showResult)
+   .catch((error) => this.setState({result: 'error: ' + error.message}));
+
+  }
+  _showResult(result) {
+    if (result.action === Share.sharedAction) {
+      if (result.activityType) {
+        this.setState({result: 'shared with an activityType: ' + result.activityType});
+      } else {
+        this.setState({result: 'shared'});
+      }
+    } else if (result.action === Share.dismissedAction) {
+      this.setState({result: 'dismissed'});
+    }
+  }
   render(){
     const { name, univ, createdOn, content, comment, userImg, postImg, user, _id } = this.props;
     // console.log("feed comp",name, univ, createdOn)
@@ -105,7 +127,9 @@ class FeedComp extends PureComponent{
               />
               <Text style={styles.textAlign}>{this.props.comment.length}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.feedBtmIcon}>
+            <TouchableOpacity
+              onPress={this.handleShareFeed}
+              style={styles.feedBtmIcon}>
               <MaterialIcons
                 name='reply'
                 size={24}

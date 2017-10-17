@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import * as actions from './actions'
 import {View, Text, TouchableOpacity, Picker, Animated, Modal, Button, Alert, SectionList} from 'react-native'
 import Dimensions from 'Dimensions'
-import SelectModal from './SelectModal'
 import styles from './styles'
 import moment from 'moment-timezone'
 

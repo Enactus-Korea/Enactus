@@ -27,6 +27,7 @@ class Post extends PureComponent{
       userImg: this.props.user.userImg || "",
       name: this.props.user.name || '',
       univ: this.props.user.univ || '',
+      userId: this.props.user._id || '',
       content: '',
       typeOf: '전체공개',
       postImg: ''
@@ -38,6 +39,7 @@ class Post extends PureComponent{
       this.setState({
         userImg: newProps.user.userImg,
         name: newProps.user.name,
+        userId: newProps.user._id,
         univ: newProps.user.univ
       })
     }
