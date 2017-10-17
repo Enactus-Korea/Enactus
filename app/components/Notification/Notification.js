@@ -8,15 +8,19 @@ import {connect} from 'react-redux'
 const NotiCont = (props) => {
   console.log("NotiCont", props)
   let ago = moment(props.created).startOf(props.gap).fromNow()
+  let FAKE = {
+    "user" : require('../../assets/user.png'),
+    "enactus" : require('../../assets/enactus.jpeg')
+  }
 
   return (
     <View style={styles.notiCont}>
       <View style={styles.notiImg}>
-        <Image style={styles.image} source={props.userImg ? {uri: props.userImg} : require('../../assets/defaultUser.jpg')}/>
+        <Image style={styles.image} source={FAKE[props.userImg]}/>
       </View>
       <View style={styles.notiCtx}>
-        <Text>{props.from} {props.notiText}</Text>
-        <Text>{ago}</Text>
+        <Text style={styles.notiText}><Text style={styles.notiFrom}>{props.from}</Text> {props.notiText}</Text>
+        <Text style={styles.notiTime}>{ago}</Text>
       </View>
     </View>
   )
@@ -71,13 +75,16 @@ class Notification extends PureComponent {
     }
     return <NotiCont {...item} notiText="님이 회원님의 글에 댓글을 남겼습니다." gap={gap}/>
   };
+
   render(){
     let fakeNoti = [{
       "from" : "이고은",
+      "userImg" : "user",
       "created" : new Date("2017-09-19T01:14:11+0900"),
       "notiType" : "personal"
     }, {
       "from" : "인액터스 코리아",
+      "userImg" : "enactus",
       "created" : new Date("2017-09-18T01:14:11+0900"),
       "notiType" : "general"
     }]

@@ -9,9 +9,33 @@ export default StyleSheet.create({
     flexDirection: 'column',
     justifyContent:'center',
     alignItems: 'center',
-    // borderColor: 'black',
+    backgroundColor: '#F1F3F5',
+    height: height*0.4,
+  },
+  profile_btm:{
+    flex: 1,
+    width,
+    alignItems: 'flex-end',
+    height: height*0.6,
+    backgroundColor: '#F1F3F5',
+  },
+  profile_btm_header: {
+    width,
+    height: 50,
+    borderTopWidth : 1,
+    borderTopColor: '#E0E4E7',
+    // backgroundColor: '#F1F3F5',
+    flexDirection: 'row',
+    alignItems: 'center',
+justifyContent: "center",
+  },
+  profile_btm_header_menu:{
     // borderWidth: 1,
-    height: height*0.3,
+    // borderColor: "black",
+    width: width/2,
+    alignItems: 'center',
+    justifyContent: "center",
+    // textAlign: 'center'
   },
   profile_img:{
     width: 90,
@@ -36,14 +60,14 @@ export default StyleSheet.create({
     fontSize:13,
     fontWeight: '200',
   },
-  profile_btm:{
-    borderTopWidth:1,
-    borderColor: '#dbdbdb',
-    height: Dimensions.get('window').height/2,
-    width: Dimensions.get('window').width,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
+  // profile_btm:{
+  //   borderTopWidth:1,
+  //   borderColor: '#dbdbdb',
+  //   height: Dimensions.get('window').height/2,
+  //   width: Dimensions.get('window').width,
+  //   justifyContent: 'center',
+  //   alignItems: 'center'
+  // },
   setting_list:{
     height: 50,
     borderBottomWidth:1,
@@ -196,21 +220,37 @@ export default StyleSheet.create({
   },
   proj_comp: {
     flex: 1,
-    height: height*0.5,
+    // height: height*0.5,
     marginBottom: 45,
   },
   pro_comp:{
     width,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    // justifyContent: 'flex-end'
   },
   timeline: {
     width: width*0.8,
-
+  },
+  timelineYear: {
+    backgroundColor: "#FFC122",
+    // paddingVertical: 5,
+    // paddingHorizontal: 15,
+    borderRadius: 10,
+    height: 20,
+    width: 50,
+    left: -27,
+  },
+  timelineYearText: {
+    color: '#fff',
+    backgroundColor: "transparent",
+    fontWeight: '800',
+    lineHeight: 20,
+    textAlign: 'center'
   },
   h_line: {
     width: width*0.2,
-    borderRightWidth : 2,
-    borderRightColor: 'black',
+    borderRightWidth : 4,
+    borderRightColor: '#5e5e5e',
   },
   sectionHeader: {
     margin: 10,
@@ -230,9 +270,50 @@ export default StyleSheet.create({
     padding: 10,
     backgroundColor: '#fff',
     shadowColor: '#000',
-   shadowOffset: { width: 0, height: 2 },
-   shadowOpacity: 0.3,
-   shadowRadius: 2,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
     // boxShadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)
   },
+  projectSelects: {
+    flexDirection: "row",
+    alignItems: 'center',
+  },
+  projectSelectsName: {
+    fontWeight: "800",
+    fontSize: 15,
+    width: 120,
+  },
+  selectOptions: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+  },
+  selectOptionsTable:{
+    width,
+    backgroundColor: '#fff'
+  },
+  selectOptionsTop:{
+    width,
+    height: 32,
+    alignItems: 'flex-end',
+    paddingVertical: 7,
+    paddingRight: 7,
+    backgroundColor: '#fff',
+    borderBottomWidth: 1,
+    borderBottomColor: '#dbdbdb',
+    borderTopWidth: 1,
+    borderTopColor: '#dbdbdb',
+  },
+  selectOptionsTopText: {
+    fontSize: 15,
+    // fontWeight: "700",
+  },
+  gridFeedsCont: {
+    borderColor: '#F1F3F5',
+    borderWidth: 1,
+    width: width/3,
+    height: width/3,
+    backgroundColor: '#fff'
+  }
 })

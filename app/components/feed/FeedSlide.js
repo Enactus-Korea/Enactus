@@ -1,6 +1,36 @@
 import React, { Component } from 'react';
-import { View, Text,Image,ScrollView, StyleSheet} from 'react-native';
+import { View, Text,Image,ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
 import Swiper from 'react-native-swiper';
+
+
+let slideData = {
+  "imageline" : [{
+      "image" : "",
+      "title" : "2017 Enactus Worldcup",
+      "subtitle" : "2017 인액터스 월드컵 옵저버 신청 안내",
+      "content" : "2017 Enactus Worldcup 옵저버 등록은 참석자 정보를 취합 후 사무국에서 일괄적으로 월드와이드에 등록해야 하므로 아래 링크를 클릭하셔서 내용을 빠짐없이 작성하여 8월 31일까지 등록을 완료해 주시면 감사하겠습니다.",
+      "contentImg" : ""
+    },{
+        "image" : "",
+        "title" : "[ETC] 2017 상반기 인액터스 트레이닝 컨퍼런스 안내",
+        "subtitle" : "",
+        "content" : "트레이닝 컨퍼런스에서는 '기술로 만드는 더 나은 세상' 이라는 주제로 기술을 통해 사회 혁신을 이루고 있는 기업 연사들을 초청하여 진보하는 기술 시대에 인액터스가 가지는 진정한 가치를 공유하는 시간을 가지고자 합니다.",
+        "contentImg" : ""
+      }
+  ],
+  "textline" : [{
+        "title" : "2017 인액터스 코리아 사무국 하반기 인턴 모집",
+        "subtitle" : "2017 하반기 인액터스 코리아를 이끌어나갈 열정있는 인턴을 모집합니다!",
+        "content" : "인액터스 코리아 30개 대학의 성장을 돕는 다양한 프로그램들을 적극적으로 개발하고자 하는 열정 있는 모든 분들을 기다립니다! 아래의 내용을 살펴보시고 적극적인 지원 부탁 드립니다!",
+        "contentImg" : ""
+    },{
+        "title" : "[ETC] 2017 상반기 인액터스 트레이닝 컨퍼런스 안내",
+        "subtitle" : "",
+        "content" : "트레이닝 컨퍼런스에서는 '기술로 만드는 더 나은 세상' 이라는 주제로 기술을 통해 사회 혁신을 이루고 있는 기업 연사들을 초청하여 진보하는 기술 시대에 인액터스가 가지는 진정한 가치를 공유하는 시간을 가지고자 합니다.",
+        "contentImg" : ""
+      }
+  ]
+};
 
 class FeedSlide extends Component{
   renderPagination(index, total, context) {
@@ -17,30 +47,28 @@ class FeedSlide extends Component{
     return(
       <View style={{flex:1}}>
         <Swiper height={146} autoplay={true}>
-          <View style={styles.slide1}>
-            <Text style={styles.text}>Hello Swiper</Text>
-          </View>
-          <View style={styles.slide2}>
-            <Text style={styles.text}>Beautiful</Text>
-          </View>
-          <View style={styles.slide3}>
-            <Text style={styles.text}>And simple</Text>
-          </View>
+          {slideData.imageline.map((data, i) => {
+            let slideNum = `slide${i+1}`;
+            return(
+            <TouchableOpacity
+              key={i}
+              onPress={() => this.props.navigation.navigate("SlideDetail", data)}
+              style={styles[slideNum]}>
+              <Text style={styles.text}>{data.title}</Text>
+            </TouchableOpacity>
+          )})}
         </Swiper>
         <View style={styles.notiWrapper}>
           <Swiper style={styles.notiContent} height={45} autoplay={false} renderPagination={this.renderPagination}>
-            <View style={styles.flexRow} >
-              <Text style={styles.notiText, styles.red}>[공지]</Text>
-              <Text style={styles.notiText}>이고은 PM 축 결혼</Text>
-            </View>
-            <View style={styles.flexRow}>
-              <Text style={styles.notiText, styles.red}>[공지]</Text>
-              <Text style={styles.notiText}>Text 2</Text>
-            </View>
-            <View style={styles.flexRow}>
-              <Text style={styles.notiText, styles.red}>[공지]</Text>
-              <Text style={styles.notiText}>Text 3</Text>
-            </View>
+            {slideData.textline.map((data, i) => (
+              <TouchableOpacity
+                  key={i}
+                  onPress={() => this.props.navigation.navigate("SlideDetail", data)}
+                  style={styles.flexRow} >
+                <Text style={styles.notiText, styles.red}>[공지]</Text>
+                <Text style={styles.notiText}>{data.title}</Text>
+              </TouchableOpacity>
+            ))}
           </Swiper>
         </View>
       </View>
@@ -75,7 +103,7 @@ var styles = StyleSheet.create({
   },
   text: {
     color: '#fff',
-    fontSize: 30,
+    fontSize: 15,
     fontWeight: 'bold',
   },
   notiWrapper: {

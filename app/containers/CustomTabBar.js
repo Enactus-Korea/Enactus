@@ -8,32 +8,49 @@ let routes = [
   {label: '피드', name: 'chrome-reader-mode', active:'chrome-reader-mode', routeName: 'Feed'},
   {label: '검색', name: 'search', active:'search', routeName: 'Search'},
   {label: '글쓰기', name: 'add-circle', active:'add-circle-outline',routeName: 'Post'},
-  {label: '알림', name: 'notifications', active:'notifications-none',routeName: 'Notification'},
-  {label: '마이페이지', active:'chrome-reader-mode',routeName: 'ProfileStack'}
+  {label: '알림', name: 'notifications', active:'notifications-none', routeName: 'Notification'},
+  {label: '마이페이지', name: 'person', active:'person-outline',routeName: 'ProfileStack'}
 ]
 
-class FocusedTabItem extends PureComponent{
-  renderIcon = (route) => (
-    <MaterialIcons
-      name={route.name}
-      size={24}
-      style={{color: '#30333C'}} />
-  )
-  renderImage = (user) => (
-    <Image
-       style={styles.tab_focused_user_img}
-       source={ user ? { uri: user } :require('../assets/defaultUser.jpg')}/>
-  )
+class FocusedTabItem extends PureComponent {
   render(){
+
     let { route, user } = this.props
     return(
       <View style={styles.tab}>
-        {route.routeName === 'ProfileStack'
-          ? this.renderImage(user)
-          : this.renderIcon(route)
-        }
-        <Text style={styles.tabFont}>{this.props.route.label}</Text>
+        <MaterialIcons
+          name={route.name}
+          size={24}
+          style={{color: '#30333C'}} />
+        <Text style={styles.tabFont}>{route.label}</Text>
       </View>
+    )
+  }
+}
+
+
+class UnfocusedTabItem extends PureComponent {
+  state = {
+    notificationCount: 2,
+  }
+  render(){
+    let { route, user , handleNavigation } = this.props
+    return(
+      <TouchableOpacity
+        onPress={() => handleNavigation(route.routeName)}
+        style={styles.tab}
+        key={route.routeName}
+      >
+       {(route.routeName === "Notification" && this.state.notificationCount > 0) && <View style={styles.notiBadgeCont}>
+         <View style={styles.notiBadge}></View>
+         <Text style={styles.notiBadgeText}>{this.state.notificationCount}</Text>
+       </View>}
+       <MaterialIcons
+         name={route.active}
+         size={24}
+         style={{color: '#dbdbdb'}} />
+        <Text style={styles.tabFont}>{route.label}</Text>
+      </TouchableOpacity>
     )
   }
 }
@@ -61,37 +78,11 @@ class CustomTabBar extends PureComponent{
     let { navigation } = this.props, focused = navigation.state.index;
     return(
       <View style={styles.tabContainer}>
-        {routes.map((route, i) => {
-          if(route.routeName === 'ProfileStack'){
-            if(focused === i) return <FocusedTabItem key={i} route={route} user={this.state.user.userImg} />
-            return (
-              <TouchableOpacity
-                onPress={() => this.handleNavigation(route.routeName)}
-                style={styles.tab}
-                key={route.routeName}
-              >
-                <Image
-                   style={styles.tab_user_img}
-                   source={this.state.user.userImg ?{ uri: this.state.user.userImg } :require('../assets/defaultUser.jpg')}/>
-                <Text style={styles.tabFont}>{route.label}</Text>
-              </TouchableOpacity>
-            )
-          } else{
-            if(focused === i) return<FocusedTabItem key={i} route={route} user={this.state.user.userImg} />
-            return(
-              <TouchableOpacity
-                onPress={() => this.handleNavigation(route.routeName)}
-                style={styles.tab}
-                key={route.routeName}
-              >
-               <MaterialIcons
-                 name={route.active}
-                 size={24}
-                 style={{color: '#dbdbdb'}} />
-                <Text style={styles.tabFont}>{route.label}</Text>
-              </TouchableOpacity>
-            )
-          }})}
+        {routes.map((route, i) =>
+          focused === i
+            ? <FocusedTabItem key={i} route={route} user={this.state.user.userImg} />
+            : <UnfocusedTabItem key={i} route={route} user={this.state.user.userImg} handleNavigation={this.handleNavigation} notificationCount={0}/>
+        )}
       </View>
     )
   }
@@ -133,6 +124,34 @@ const styles = StyleSheet.create({
     borderRadius: 13,
     borderWidth: 0.5,
     borderColor:'#FEC13A',
+  },
+  notiBadgeCont : {
+    position: 'absolute',
+    top: 3,
+    right: 20,
+    zIndex: 1000
+  },
+  notiBadge:{
+    width: 16,
+    height: 16,
+    borderRadius: 8,
+    backgroundColor: '#c41e3a',
+    position: 'absolute',
+    top: 0,
+    right: 0,
+  },
+  notiBadgeText: {
+    width: 16,
+    height: 16,
+    lineHeight: 16,
+    fontSize: 10,
+    backgroundColor: 'transparent',
+    fontWeight: '700',
+    textAlign: 'center',
+    color: '#fff',
+    position: 'absolute',
+    top: 0,
+    right: 0,
   }
 });
 

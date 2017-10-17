@@ -3,7 +3,8 @@ import * as types from './actions'
 
 const initialState = {
   projects:[],
-  joined: {}
+  joined: {},
+  feed: [],
 }
 
 export default function (state = initialState, action) {
@@ -11,8 +12,10 @@ export default function (state = initialState, action) {
     case types.FETCH_UNIV_PROJECTS:
       return {...state, projects: action.projects}
     case types.GET_USER_PROJECT:
-      console.log(action)
       return {...state, joined: action.projects}
+    case types.FETCH_FEEDS_BY_USERS:
+      console.log(action)
+      return {...state, feeds: action.feeds}
     default:
       return state
   }

@@ -43,6 +43,9 @@ class FeedList extends PureComponent {
       this.setState({userloaded: true})
     }
   }
+  _renderSlideComponent(type) {
+    return type === "feed" && <FeedSlide {...this.props} />
+  }
   render(){
     const { typeOf } = this.props, { loaded, userloaded, data, virtualized } = this.state
     if(loaded && userloaded){
@@ -52,7 +55,7 @@ class FeedList extends PureComponent {
         <AnimatedFlatList
             style={typeOf === 'feed' && styles.feedPage}
             ItemSeparatorComponent={SeparatorComponent}
-            ListHeaderComponent={typeOf === 'feed' && FeedSlide}
+            ListHeaderComponent={() => this._renderSlideComponent(typeOf)}
             data={data}
             disableVirtualization={!virtualized}
             // ref={this._captureRef}

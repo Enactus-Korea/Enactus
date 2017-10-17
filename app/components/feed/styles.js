@@ -167,7 +167,7 @@ export default StyleSheet.create({
   },
   separator: {
     height: 5,
-    backgroundColor: '#EBEBEB',
+    backgroundColor: '#F1F3F5',
   },
   time_text:{
     fontWeight: '100',
