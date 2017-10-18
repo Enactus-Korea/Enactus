@@ -1,13 +1,19 @@
-import React from 'react'
+import React, {PureComponent} from 'react'
 import { View, TouchableOpacity, Text } from 'react-native'
 import styles from './styles'
 
-const ProjectList = (props) => (
-  <TouchableOpacity
-    style={styles.proj_box}
-    onPress={() => props.navigation.navigate('Project_Detail', {...props.p})}>
-    <Text>{props.p.actived.name}</Text>
-  </TouchableOpacity>
-)
+
+class ProjectList extends PureComponent {
+  render() {
+    let { navigation, project } = this.props;
+    return (
+      <TouchableOpacity
+        style={styles.proj_box}
+        onPress={() => navigation.navigate('Project_Detail', {...project})}>
+        <Text style={styles.proj_box_text}>{project.name}</Text>
+      </TouchableOpacity>
+    )
+  }
+}
 
 export default ProjectList

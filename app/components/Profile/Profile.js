@@ -4,41 +4,39 @@ import * as actions from './actions'
 import {View, Text, Image, TouchableHighlight, TouchableOpacity, ListView} from 'react-native';
 import ProfUserImg from './ProfUserImg'
 import styles from './styles'
-import ProjectLine from './ProjectLine'
+// import ProjectLine from './ProjectLine'
+import ProjectList from './ProjectList'
 import GridMyFeedList from './GridMyFeedList'
 import UnFoldedMyFeedList from './UnFoldedMyFeedList'
 
 class Profile extends PureComponent{
-  // state = {
-  //   projects : this.props.user.projects,
-  // }
-  // componentWillReceiveProps(newProps){
-  //   if(newProps.user.projects !== this.props.user.projects){
-  //     this.setState({projects: newProps.user.projects})
-  //   }
-  // }
   constructor(props){
     super(props)
     this.state = {
       list : false,
-      feedStatus: false,
+      status: false,
+      // projects: {},
       data: []
     }
   }
   componentDidMount(){
     this.props.isFetchFeedbyUser(this.props.user._id)
-    this.setState({feedStatus: true, data: this.props.feeds})
+    this.props.isGetUsersProjects(this.props.user._id)
+    this.setState({data: this.props.feeds, status: true })
   }
   render(){
-    // console.log("ProfileDetail",this.props.feeds)
-    const {user, token, navigation, joined} = this.props;
-    if(token && user){
+    const { user, token, navigation, joined } = this.props;
+    let joinedState = Object.keys(joined)
+    if(joinedState.length > 0){
       return(
         <View style={{flex: 1, flexDirection: "column", justifyContent: 'space-between'}}>
           <View style={styles.profile_top}>
             <ProfUserImg userImg={user.userImg} />
             <Text style={styles.profile_name}>{user.name}</Text>
-            <Text style={styles.profile_univ}>{user.univ} 인액터스</Text>
+            <View style={styles.proj_box_cont}>
+              <Text style={styles.profile_univ}>{user.univ} 인액터스</Text>
+              {user.projects.map((pro, i) => <ProjectList key={i} project={joined[pro.name].detail} navigation={navigation}/>) }
+            </View>
             {user.selfIntro
               ? <Text style={styles.profile_selfIntro}>{user.selfIntro}</Text>
               : <TouchableHighlight
@@ -63,8 +61,8 @@ class Profile extends PureComponent{
             </View>
             <View style={{flex:1}}>
               {this.state.list
-                ? <UnFoldedMyFeedList data={this.state.data} user={user}/>
-                : <GridMyFeedList data={this.state.data} user={user}/>
+                ? <UnFoldedMyFeedList data={this.state.data} user={user} navigation={navigation}/>
+                : <GridMyFeedList data={this.state.data} user={user} navigation={navigation}/>
               }
             </View>
           </View>
@@ -89,6 +87,3 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, actions)(Profile)
-
-
-// export default Profile;

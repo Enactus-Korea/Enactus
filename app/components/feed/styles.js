@@ -4,11 +4,21 @@ import Dimensions from 'Dimensions';
 export default StyleSheet.create({
   feedPage:{
     marginBottom: 48,
-    backgroundColor: '#ebebeb',
+    backgroundColor: '#F1F3F5',
   },
   feedWrapper: {
-    backgroundColor: '#ebebeb',
+    flex: 1,
+    backgroundColor: '#F1F3F5',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
     // marginBottom: 50,
+  },
+  feedRendering: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  feedRenderingText: {
+    fontSize: 15,
   },
   slide1: {
     flex: 1,

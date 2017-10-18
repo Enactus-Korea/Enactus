@@ -54,7 +54,8 @@ justifyContent: "center",
     fontWeight: '200',
     color: '#5e5e5e',
     fontSize:13,
-    marginBottom:15,
+    marginRight: 10,
+    // marginBottom:15,
   },
   profile_selfIntro:{
     fontSize:13,
@@ -84,7 +85,7 @@ justifyContent: "center",
     borderColor:'#dbdbdb',
     padding: 10,
     backgroundColor: '#fff',
-    width: Dimensions.get('window').width,
+    width: width,
   },
   setting_proj:{
     borderWidth: 1,
@@ -100,7 +101,7 @@ justifyContent: "center",
     fontWeight: '400',
   },
   setting_input:{
-    width: Dimensions.get('window').width,
+    width: width,
     height: 40,
     borderTopWidth: 1,
     borderBottomWidth: 1,
@@ -119,8 +120,8 @@ justifyContent: "center",
    backgroundColor: 'white',
    borderRadius: 10,
    padding: 10,
-   width: Dimensions.get('window').width/1.1,
-   height: Dimensions.get('window').height/15,
+   width: width/1.1,
+   height: height/15,
    alignItems:'center',
    marginBottom: 10,
    justifyContent:'center',
@@ -149,18 +150,27 @@ justifyContent: "center",
   },
   projct_row_title:{
     marginRight: 10,
-    width: Dimensions.get('window').width/4
+    width: width/4
   },
   projct_row_time:{
-    width: Dimensions.get('window').width/3.5,
+    width: width/3.5,
+  },
+  proj_box_cont: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10,
   },
   proj_box:{
-    padding: 10,
+    padding: 5,
     borderWidth: 1,
     borderColor:'#dbdbdb',
     borderRadius:3,
     backgroundColor: '#fff',
-    marginBottom: 10
+    marginRight: 5,
+  },
+  proj_box_text: {
+    fontSize: 10
   },
   pic_cont: {
     flex: 1,
@@ -171,7 +181,7 @@ justifyContent: "center",
   pic_table:{
     marginTop: 22,
     height: 200,
-    width: Dimensions.get('window').width,
+    width: width,
     backgroundColor: '#fff'
   },
   pic_table_top:{
@@ -184,13 +194,15 @@ justifyContent: "center",
     alignItems: 'flex-end'
   },
   detail_pro:{
-    flexDirection: 'column'
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: '#F1F3F5',
   },
   detail_pro_top:{
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10,
-    height: Dimensions.get('window').height/2.1
+    height: height/2.1
   },
   detail_pro_btm:{
     padding: 15
@@ -311,9 +323,16 @@ justifyContent: "center",
   },
   gridFeedsCont: {
     borderColor: '#F1F3F5',
+    padding: 10,
     borderWidth: 1,
     width: width/3,
     height: width/3,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  gridFeedsContText: {
+    fontSize: 15,
+    fontWeight: '400'
   }
 })

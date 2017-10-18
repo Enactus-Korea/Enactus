@@ -22,11 +22,11 @@ const methodGet = {
   }
 }
 export const fetchFeedData = (typeOf) => (dispatch) => {
-  console.log("REQUEST_URL",REQUEST_URL);
+  // console.log("REQUEST_URL",REQUEST_URL);
   fetch(`${REQUEST_URL}/${typeOf}`,{ ...methodGet })
     .then(res => res.json())
     .then(res => {
-      console.log(res);
+      // console.log(res);
       dispatch({type: FETCH_FEEDS, feed: res.feed})
     })
     .catch(err => console.log(err))
