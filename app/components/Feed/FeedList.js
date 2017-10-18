@@ -78,7 +78,9 @@ class FeedList extends PureComponent {
     return(
       <View style={styles.feedWrapper}>
         <FeedSlide />
-        <Text style={{marginTop:100}}> 피드 불러오는 중</Text>
+        {/* <View style={styles.feedRendering}>
+          <Text style={styles.feedRenderingText}> 피드 불러오는 중</Text>
+        </View> */}
       </View>
     )
   }

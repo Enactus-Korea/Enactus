@@ -5,12 +5,11 @@ import FeedComp from '../Feed/FeedComp'
 
 
 class UnFoldedMyFeedList extends PureComponent {
-  _keyExtractor = (item, index) => item.id;
-  _renderItem = ({item}) => <FeedComp id={item.id} {...item} user={this.props.user}/>
+  _keyExtractor = (item, index) => index;
+  _renderItem = ({item}) => <FeedComp id={item.id} {...item} user={this.props.user} detailRoute={'Detail'} navigation={this.props.navigation}/>
   render(){
     return (
       <FlatList
-        // numColumns={1}
         data={this.props.data}
         keyExtractor={this._keyExtractor}
         renderItem={this._renderItem}
