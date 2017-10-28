@@ -32,7 +32,7 @@ class GridMyFeedList extends PureComponent {
       {...item}
     />
   )
-  _keyExtractor = (item, index) => item.id;
+  _keyExtractor = (item, index) => index;
   render(){
     return (
       <FlatList
