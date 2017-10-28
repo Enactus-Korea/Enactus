@@ -13,11 +13,14 @@ import {
   TouchableOpacity,
   AlertIOS,StatusBar,
   Picker,
-  Animated
+  Animated,
+  Modal,
+  Button
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './PostStyles'
-import Reactotron from 'reactotron-react-native'
+import ImageCropModal from './ImageCropModal'
+// import Reactotron from 'reactotron-react-native'
 
 
 class Post extends PureComponent{
@@ -30,9 +33,12 @@ class Post extends PureComponent{
       userId: this.props.user._id || '',
       content: '',
       typeOf: '전체공개',
-      postImg: ''
+      postImg: '',
+      visible: false,
+      cropImg: ""
     })
     this.state = this.isGetInitialState()
+    this.handlePostImage = this.handlePostImage.bind(this)
   }
   componentWillReceiveProps(newProps){
     if(newProps.user !== this.props.user){
@@ -46,21 +52,41 @@ class Post extends PureComponent{
   }
   chooseImageFromGallery = () => {
     // let cropData = {
-    //     offset:{x:0,y:0},
-    //     size:{width:150, height:150},
-    //  displaySize:{width:20, height:20}, THESE 2 ARE OPTIONAL.
+    //     offset:{x:150,y:200},
+    //     size:{width:350, height:350},
+        //THESE 2 ARE OPTIONAL.
+        // displaySize:{width:120, height:120},
+
     //     resizeMode:'contain',
     // }
-    ImagePickerIOS.openSelectDialog({}, imageUri => {
-      // cropImage -> crop을 하긴 했지만.... ㅋㅋㅋㅋ 선택을 못하고 바로 잘리는 구나 ㅅㅂ
-      // ImageEditor.cropImage(
-      //   imageUri,
-      //   cropData,
-      //   (successURI) => {this.setState({ postImg : successURI})},
-      //   (errURI) => {console.log(errURI)}
-      // )
-      this.setState({postImg: imageUri});
-    }, cancle => false);
+    ImagePickerIOS.openSelectDialog(
+      //config
+      {},
+      //successCB
+      (imageUri) => {
+        this.setState({
+          visible: true ,
+          cropImg: imageUri
+        })
+      },
+      //failedCB
+      cancle => false);
+
+  }
+  handlePostImage(cropData, imageUri) {
+    // debugger
+    console.log("handlePostImage",cropData, imageUri);
+    ImageEditor.cropImage(
+      imageUri,
+      cropData,
+      (successURI) => {
+        this.setState({
+          postImg : successURI,
+          visible: false
+        })
+      },
+      (errURI) => {console.log(errURI)}
+    )
   }
   chooseImageFromCamera = () => {
     ImagePickerIOS.openCameraDialog({}, imageUri => {
@@ -91,8 +117,10 @@ class Post extends PureComponent{
     let { typeOf, userImg } = this.state;
     let { user } = this.props;
     //TODO: component 나누기
+    console.log("cropModal",this.state.cropImg);
     return(
       <View>
+        <ImageCropModal visible={this.state.visible} imageUri={this.state.cropImg} handlePostImage={this.handlePostImage}/>
         <View style={styles.post_top}>
           <TouchableOpacity onPress={this.handleCancle}>
             <Text style={styles.TextBold}>취소</Text>
@@ -116,7 +144,17 @@ class Post extends PureComponent{
              <Text style={styles.buttonText}>{typeOf}</Text>
            </TouchableOpacity>
         </View>
-        {this.state.postImg? <Image style={{flex: 1}} source={{uri: this.state.postImg}}></Image> : null}
+        {this.state.postImg
+          ? <Image
+            style={{
+              flex: 1,
+              width: Dimensions.get('window').width,
+              height: Dimensions.get('window').width,
+              resizeMode:'contain'
+            }}
+            source={{uri: this.state.postImg}}></Image>
+          : null
+        }
         <TextInput
           ref="textarea"
           style={styles.textArea}

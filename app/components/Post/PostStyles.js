@@ -2,10 +2,14 @@
 import { StyleSheet, PixelRatio } from 'react-native'
 import Dimensions from 'Dimensions'
 
+const width = Dimensions.get('window').width,
+      height = Dimensions.get('window').height;
+
+
 export default StyleSheet.create({
   container:{
     height: Dimensions.get('window').height-105, //TODO: tab이 변함에 따라서 높이 조정
-    width: Dimensions.get('window').width,
+    width,
     flexDirection: 'column',
     justifyContent:"space-between",
     // paddingTop: 64
@@ -21,7 +25,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between'
   },
   PostContainer:{
-    width: Dimensions.get('window').width,
+    width,
     paddingTop: 23,
     paddingBottom: 10,
     paddingHorizontal: 15,
@@ -108,7 +112,7 @@ export default StyleSheet.create({
    height: 50,
    bottom:-50,
    position: 'relative',
-   width: Dimensions.get('window').width,
+   width,
 
  },
  iconButton:{
@@ -188,5 +192,27 @@ export default StyleSheet.create({
     alignItems:'center',
     marginBottom: 10,
    justifyContent:'center',
+ },
+ imageCropModalCont: {
+   flex: 1,
+   backgroundColor: 'black',
+   flexDirection: 'column',
+  //  justifyContent: 'center',
+  //  alignItems: 'center'
+ },
+ imageCropCont: {
+  //  overflow:'hidden',
+  //  position: 'absolute',
+   flex:1,
+   justifyContent: 'center',
+   alignItems: 'center'
+ },
+  imageCropBottom: {
+    width,
+    height: 50,
+    // alignSelf: 'flex-end',
+    flexDirection: 'row',
+    // justifyContent: 'flex-end',
   }
+
 });
