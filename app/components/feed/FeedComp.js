@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, Text,Image,ScrollView,TouchableOpacity,Share } from 'react-native';
+import { View, Text,Image,ScrollView,TouchableOpacity, Share, ActionSheetIOS } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles'
 import moment from 'moment-timezone'
@@ -12,7 +12,8 @@ class FeedComp extends PureComponent{
       likes: props.likes.length,
       likeloaded: false,
       likeStatus: false, // 서버에서 눌렀는지 않 눌렀는지... 확인을 해야 할 것 같딘한데..
-      likeBtnColor: '#e9e9e9'
+      likeBtnColor: '#e9e9e9',
+      result: ""
     }
     this.handleLikeUnLike = this.handleLikeUnLike.bind(this)
     this.textEllipsis = this.textEllipsis.bind(this)
@@ -74,13 +75,23 @@ class FeedComp extends PureComponent{
     this.props.handleLikeUnLike(_id, user._id)
   }
   handleShareFeed() {
-
    Share.share({
-     message: 'React Native | A framework for building native apps using React'
-   })
-   .then(this._showResult)
-   .catch((error) => this.setState({result: 'error: ' + error.message}));
+     title: 'Enactus Korea',
+     message: ''
+   }, {
+      // Android only:
+      // dialogTitle: 'Share BAM goodness',
+      // iOS only:
+      excludedActivityTypes: [
+        'com.apple.UIKit.activity.PostToFacebook',
+        'com.apple.UIKit.activity.PostToTwitter',
+        'com.apple.UIKit.activity.Mail',
 
+      ]
+    })
+   .then(this._showResult)
+   .catch((error) => console.log(error));
+  //  ActionSheetIOS.showShareActionSheetWithOptions()
   }
   _showResult(result) {
     if (result.action === Share.sharedAction) {
