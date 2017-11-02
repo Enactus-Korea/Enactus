@@ -39,29 +39,19 @@ class FeedComp extends PureComponent{
     return false;
   }
   textEllipsis(content){
-    // FIXME: 리팩토링 필요함!!!!
     const { navigation, detailRoute, detail } = this.props;
-    if(content.length > 100) {
-      if(!detail){
-        return (
-          <TouchableOpacity onPress={() => navigation.navigate(detailRoute,{...this.props})}>
-            <Text numberOfLines={3}>
-              {content.substr(0,70)} <Text style={styles.readMore}>...더보기</Text>
-            </Text>
-          </TouchableOpacity>
-        )
-      } else {
-        return <Text>{content}</Text>
-      }
-    }
-    else {
-      if(!detail){
-        return (
-          <TouchableOpacity onPress={() => detail ? false : navigation.navigate(detailRoute,{...this.props})}>
-            <Text>{content}</Text>
-          </TouchableOpacity>
-        )
-      }
+    if(!detail){
+      return (
+        <TouchableOpacity onPress={() => navigation.navigate(detailRoute,{...this.props})}>
+          {content.length > 100
+            ? <Text numberOfLines={3}>
+                {content.substr(0,70)} <Text style={styles.readMore}>...더보기</Text>
+              </Text>
+            : <Text>{content}</Text>
+          }
+        </TouchableOpacity>
+      )
+    } else {
       return <Text>{content}</Text>
     }
   }
@@ -75,6 +65,7 @@ class FeedComp extends PureComponent{
     this.props.handleLikeUnLike(_id, user._id)
   }
   handleShareFeed() {
+    //TODO: deep linking
    Share.share({
      title: 'Enactus Korea',
      message: ''
@@ -91,7 +82,6 @@ class FeedComp extends PureComponent{
     })
    .then(this._showResult)
    .catch((error) => console.log(error));
-  //  ActionSheetIOS.showShareActionSheetWithOptions()
   }
   _showResult(result) {
     if (result.action === Share.sharedAction) {
@@ -106,16 +96,15 @@ class FeedComp extends PureComponent{
   }
   render(){
     const { name, univ, createdOn, content, comment, userImg, postImg, user, _id } = this.props;
-    // console.log("feed comp",name, univ, createdOn)
       return(
         <View style={styles.feedListView} >
           <View style={styles.feedContainer}>
-            <FeedTopComp name={name} univ={univ} createdOn={createdOn} userImg={userImg} />
+            <FeedTopComp name={name} univ={univ} createdOn={createdOn} userImg={userImg} userId={user._id} feedbyUser={this.props.userId}/>
             <View  style={styles.ctxContainer}>
               {this.textEllipsis(content)}
-              {/*postImg
+              {postImg
                 ? <Image source={{uri: postImg}} style={styles.postedImg} />
-                : null*/}
+                : null}
             </View>
           </View>
           <View style={styles.likeAndComment}>
@@ -130,14 +119,27 @@ class FeedComp extends PureComponent{
               />
               <Text style={styles.textAlign}>{this.state.likes}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.feedBtmIcon}>
-              <MaterialIcons
-                name='chat-bubble-outline'
-                size={22}
-                style={styles.iconButton}
-              />
-              <Text style={styles.textAlign}>{this.props.comment.length}</Text>
-            </TouchableOpacity>
+            {this.props.detail
+              ? <View style={styles.feedBtmIcon}>
+                  <MaterialIcons
+                    name='chat-bubble-outline'
+                    size={22}
+                    style={styles.iconButton}
+                  />
+                  <Text style={styles.textAlign}>{this.props.comment.length}</Text>
+                </View>
+              : <TouchableOpacity
+                  onPress={() => this.props.navigation.navigate(this.props.detailRoute, {...this.props})}
+                  style={styles.feedBtmIcon}
+                >
+                  <MaterialIcons
+                    name='chat-bubble-outline'
+                    size={22}
+                    style={styles.iconButton}
+                  />
+                  <Text style={styles.textAlign}>{this.props.comment.length}</Text>
+                </TouchableOpacity>
+            }
             <TouchableOpacity
               onPress={this.handleShareFeed}
               style={styles.feedBtmIcon}>

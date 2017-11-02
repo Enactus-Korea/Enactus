@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Alert } from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles'
 import moment from 'moment-timezone'
 
@@ -17,8 +18,40 @@ class FeedTopComp extends PureComponent{
     }
     return false;
   }
+  handleDeleteAlert = () => {
+    Alert.alert(
+      '피드 삭제',
+      '피드를 삭제하시겠습니까?',
+      [
+        {
+          text: '확인',
+          onPress: () => this.handleDeleteFeed()
+        },
+        {
+          text: '취소'
+        }
+      ]
+    )
+  }
+  handleDeleteFeed = () => {
+    console.log("delete")
+  }
+  renderDeleteIcon(){
+    let {feedbyUser, userId} = this.props;
+    if(feedbyUser === userId) {
+      return <TouchableOpacity
+        onPress={this.handleDeleteAlert}
+        style={styles.feedBtmIcon}>
+        <MaterialIcons
+          name='close'
+          size={22}
+          style={styles.iconButton}
+        />
+      </TouchableOpacity>
+    }
+  }
   render(){
-    // console.log("feedTopComp Render")
+    //TODO: dropDown
     const { name, univ, userImg, createdOn } = this.props;
     return(
           <View style={styles.spaceBetween}>
@@ -32,7 +65,10 @@ class FeedTopComp extends PureComponent{
                 <Text style={styles.feedUserUniv}>{univ}</Text>
               </View>
             </View>
-            <Text style={styles.feedUserTime}>{moment(createdOn).tz('Asia/Seoul').format('YYYY년MM월DD일')}</Text>
+            <View style={styles.feedTopRight}>
+              <Text style={styles.feedUserTime}>{moment(createdOn).tz('Asia/Seoul').format('YYYY년MM월DD일')}</Text>
+              {this.renderDeleteIcon()}
+            </View>
           </View>
     )
   }
