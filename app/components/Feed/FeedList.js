@@ -44,7 +44,8 @@ class FeedList extends PureComponent {
     }
   }
   _renderSlideComponent(type) {
-    return type === "feed" && <FeedSlide {...this.props} />
+    let { feed, ...restProps } = this.props;
+    return type === "feed" && <FeedSlide {...restProps} />
   }
   render(){
     const { typeOf } = this.props, { loaded, userloaded, data, virtualized } = this.state
@@ -84,7 +85,10 @@ class FeedList extends PureComponent {
       </View>
     )
   }
-  _renderItemComponent = ({item}) => <FeedComp {...this.props} {...item}/>
+  _renderItemComponent = ({item}) => {
+    let { feed , ...restProps } = this.props;
+    return <FeedComp {...restProps} {...item}/>
+  }
   _onRefresh = () => {
     alert('onRefresh: nothing to refresh :P');
   }

@@ -3,7 +3,6 @@ import { View, Text,Image,ScrollView, StyleSheet, TouchableOpacity} from 'react-
 
 class FeedSlideDetail extends Component{
   render(){
-    console.log("FeedSlideDetail",this.props);
     let { title, subtitle, content } = this.props.navigation.state.params;
     return(
       <View style={{flex:1}}>

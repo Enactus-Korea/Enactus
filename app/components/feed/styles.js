@@ -97,8 +97,12 @@ export default StyleSheet.create({
   },
   feedUserTime: {
     color: '#ccc',
-    fontWeight: '100',
-    fontSize: 11,
+    fontWeight: '200',
+    fontSize: 13,
+  },
+  feedTopRight: {
+    flexDirection: 'row',
+    alignItems:'center',
   },
   ctxContainer: {
     marginTop: 15
@@ -140,8 +144,9 @@ export default StyleSheet.create({
   postedImg:{
     // flex: 1,
     width: Dimensions.get('window').width/1.1,
-    height: 150,
-    marginTop: 10
+    height: Dimensions.get('window').width/1.1,
+    resizeMode: 'contain',
+    marginTop: 15
   },
   detail_view:{
     flex: 1,
