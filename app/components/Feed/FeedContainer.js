@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { PureComponent } from 'react'
 // import { connect } from 'react-redux'
 import { View, Text, Button } from 'react-native';
 // import { StackNavigator } from 'react-navigation';
@@ -7,11 +7,18 @@ import FeedList from './FeedList'
 // import styles from './styles'
 
 
-const FeedContainer = ({
-  navigation
-}) => <FeedList navigation={navigation} typeOf={'feed'} detailRoute={'Detail'}/>
+export default class FeedContainer extends PureComponent  {
+  constructor(props){
+    super(props)
+  }
+  render(){
+    let { navigation } = this.props;
+    return (
+      <FeedList navigation={navigation} typeOf={'feed'} detailRoute={'Detail'}/>
+    )
+  }
+}
 
 
 
 // export default connect(null, actions)(FeedContainer)
-export default FeedContainer

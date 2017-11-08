@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
+import { PushNotificationIOS } from 'react-native'
 import { applyMiddleware, compose } from 'redux'
 import devToolsEnhancer from 'remote-redux-devtools';
 import { Provider } from 'react-redux'
@@ -47,6 +48,9 @@ store.dispatch(isGetEmail())
 // Reactotron.log(store.getState())
 
 export default class App extends Component {
+	componentWillMount(){
+		PushNotificationIOS.requestPermissions()
+	}
 	render() {
 		return (
 			<Provider store={store}>
