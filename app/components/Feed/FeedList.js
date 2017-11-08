@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import {connect} from 'react-redux'
 import { handleLikeUnLike, fetchFeedData } from './actions'
-import { View, Text, ListView, Image, ScrollView,TouchableOpacity, Animated, FlatList } from 'react-native';
+import { View, Text, ListView, Image, ScrollView,TouchableOpacity, Animated, FlatList, Linking } from 'react-native';
 import styles from './styles'
 import FeedSlide from './FeedSlide'
 import FeedComp from './FeedComp'
@@ -33,6 +33,13 @@ class FeedList extends PureComponent {
     if(this.props.user){
       this.setState({userloaded: true})
     }
+    // if (Platform.OS === 'android') {
+    //   Linking.getInitialURL().then(url => {
+    //     this.navigate(url);
+    //   });
+    // } else {
+      Linking.addEventListener('url', this.handleOpenURL);
+    // }
   }
   componentWillReceiveProps(newProps){
     if(newProps.feed !== this.props.feed){
@@ -46,6 +53,23 @@ class FeedList extends PureComponent {
   _renderSlideComponent(type) {
     let { feed, ...restProps } = this.props;
     return type === "feed" && <FeedSlide {...restProps} />
+  }
+  componentWillUnmount() {
+    Linking.removeEventListener('url', this.handleOpenURL);
+  }
+  handleOpenURL = (event) => {
+    // debugger
+    this.navigate(event.url);
+  }
+  navigate = (url) => {
+    //FIXME: 하나씩 맵을 돌려서 해야하는가? 아니면 서버에서 하나만 받아와서?
+    const { navigate } = this.props.navigation,
+          user = this.props.user;
+    let route = url.replace(/.*?:\/\//g, ''),
+        nav = route.split('/')[0],
+        feedId = route.split('/')[1],
+        navProps = this.props.feed.find(f => f._id === feedId);
+    navigate(nav, {...navProps, user})
   }
   render(){
     const { typeOf } = this.props, { loaded, userloaded, data, virtualized } = this.state

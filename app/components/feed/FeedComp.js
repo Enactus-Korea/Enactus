@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, Text,Image,ScrollView,TouchableOpacity, Share, ActionSheetIOS } from 'react-native';
+import { View, Text,Image,ScrollView,TouchableOpacity, Share, ActionSheetIOS, AlertIOS, PushNotificationIOS } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles'
 import moment from 'moment-timezone'
@@ -22,9 +22,98 @@ class FeedComp extends PureComponent{
   }
 
   componentWillMount(){
+    console.log("componentWillMount from FeedComp")
     if(this.props.likes.indexOf(this.props.user._id) !== -1){
       this.setState({likeStatus: true, likeBtnColor: '#D54C3F'})
     }
+    // PushNotificationIOS.addEventListener('notification', this._onNotification);
+    PushNotificationIOS.addEventListener('register', this._onRegistered);
+    PushNotificationIOS.addEventListener('registrationError', this._onRegistrationError);
+    PushNotificationIOS.addEventListener('notification', this._onRemoteNotification);
+    PushNotificationIOS.addEventListener('localNotification', this._onLocalNotification);
+  }
+  componentWillUnmount() {
+    PushNotificationIOS.removeEventListener('register', this._onRegistered);
+    PushNotificationIOS.removeEventListener('registrationError', this._onRegistrationError);
+    PushNotificationIOS.removeEventListener('notification', this._onRemoteNotification);
+    PushNotificationIOS.removeEventListener('localNotification', this._onLocalNotification);
+    // PushNotificationIOS.removeEventListener('notification', this._onNotification);
+  }
+  _onRegistered(deviceToken) {
+    AlertIOS.alert(
+      'Registered For Remote Push',
+      `Device Token: ${deviceToken}`,
+      [{
+        text: 'Dismiss',
+        onPress: null,
+      }]
+    );
+  }
+
+  _onRegistrationError(error) {
+    AlertIOS.alert(
+      'Failed To Register For Remote Push',
+      `Error (${error.code}): ${error.message}`,
+      [{
+        text: 'Dismiss',
+        onPress: null,
+      }]
+    );
+  }
+  _onRemoteNotification(notification) {
+    console.log("_onRemoteNotification", notification);
+    // const result = `Message: ${notification.getMessage()};\n
+    //   badge: ${notification.getBadgeCount()};\n
+    //   sound: ${notification.getSound()}.`;
+    //   // ;\n
+    //   // category: ${notification.getCategory()};\n
+    //   // content-available: ${notification.getContentAvailable()}.
+    //
+    // AlertIOS.alert(
+    //   'Push Notification Received',
+    //   result,
+    //   [{
+    //     text: 'Dismiss',
+    //     onPress: null,
+    //   }]
+    // );
+  }
+
+  _onLocalNotification(notification){
+    AlertIOS.alert(
+      'Local Notification Received',
+      'Alert message: ' + notification.getMessage(),
+      [{
+        text: 'Dismiss',
+        onPress: null,
+      }]
+    );
+  }
+  _sendNotification() {
+    // 이 안에 있는 내용들이 여기로 들어가는 것이다.
+    console.log("_sendNotification");
+    require('RCTDeviceEventEmitter').emit('remoteNotificationReceived', {
+      // data
+      remote: true,
+      aps: {
+        alert: 'Enactus',
+        badge: '+1',
+        sound: 'default',
+        // category: 'REACT_NATIVE',
+        'content-available': 1,
+      },
+    });
+  }
+
+  _sendLocalNotification() {
+    require('RCTDeviceEventEmitter').emit('localNotificationReceived', {
+      aps: {
+        alert: 'Sample local notification',
+        badge: '+1',
+        sound: 'default',
+        category: 'REACT_NATIVE'
+      },
+    });
   }
   shouldComponentUpdate(nextProps, nextState) {
     if(this.props.user !== nextProps.user) {
@@ -56,6 +145,7 @@ class FeedComp extends PureComponent{
     }
   }
   handleLikeUnLike(){
+    //
     const { user, _id } = this.props;
     if(!this.state.likeStatus){
       this.setState({ likeStatus: true, likes: this.state.likes+1, likeBtnColor: '#D54C3F' })
@@ -68,17 +158,19 @@ class FeedComp extends PureComponent{
     //TODO: deep linking
    Share.share({
      title: 'Enactus Korea',
-     message: ''
+    //  message: '친구가 보낸 것을 확인해 보세요!',
+     url: `enactus://Detail/${this.props._id}`
    }, {
       // Android only:
       // dialogTitle: 'Share BAM goodness',
       // iOS only:
       excludedActivityTypes: [
-        'com.apple.UIKit.activity.PostToFacebook',
-        'com.apple.UIKit.activity.PostToTwitter',
-        'com.apple.UIKit.activity.Mail',
+        // 'com.apple.UIKit.activity.PostToFacebook',
+        // 'com.apple.UIKit.activity.PostToTwitter',
+        // 'com.apple.UIKit.activity.Mail',
 
-      ]
+      ],
+      tintColor: "#ebebeb"
     })
    .then(this._showResult)
    .catch((error) => console.log(error));
@@ -108,7 +200,7 @@ class FeedComp extends PureComponent{
             </View>
           </View>
           <View style={styles.likeAndComment}>
-            <TouchableOpacity onPress={this.handleLikeUnLike} style={styles.feedBtmIcon}>
+            <TouchableOpacity onPress={this._sendNotification} style={styles.feedBtmIcon}>
               <MaterialIcons
                 name={this.state.likeStatus ? 'favorite' : 'favorite-border'}
                 size={24}
