@@ -12,7 +12,8 @@ export const IS_FETCHED_USER_DATA = 'IS_FETCHED_USER_DATA';
 export const EMAIL_IN_STORAGE = 'EMAIL_IN_STORAGE';
 export const NEED_USER_LOGIN = 'NEED_USER_LOGIN';
 export const IS_CLEAR_FIRST_PHASE = 'IS_CLEAR_FIRST_PHASE';
-export const IS_CLEAR_SECOND_PHASE = 'IS_CLEAR_SECOND_PHASE'
+export const IS_CLEAR_SECOND_PHASE = 'IS_CLEAR_SECOND_PHASE';
+export const IS_HANDLE_VALID_EMAIL = 'IS_HANDLE_VALID_EMAIL';
 /*============================*/
 
 const REQUEST_URL = app_json.REQUEST_URL || "http://localhost:9000";
@@ -32,6 +33,7 @@ const methodGet = {
 }
 
 export const isFetchedPermissions = () => (dispatch) => {
+  console.log("isFetchedPermissions from actions")
   fetch(`${REQUEST_URL}/permission`,{ ...methodGet })
   .then(res => res.json())
   .then(res => dispatch({type: FETCH_PERMISSION_MEMBER , permissions: res.permissions}))
@@ -49,12 +51,20 @@ export const isSecondPhase = (second) => (dispatch) => {
   dispatch({type: IS_CLEAR_SECOND_PHASE, second})
 }
 
+export const isValidEmail = (email) => (dispatch) => {
+  fetch(`${REQUEST_URL}/permission/${email}`,{ ...methodGet })
+  .then(res => res.json())
+  .then(res => {
+    console.log("AAA", res);
+    Alert.alert( res.header , res.message )
+    dispatch({type: IS_HANDLE_VALID_EMAIL, message: res})
+  })
+}
 
 export const isRequestedSignUp = (rgst) => (dispatch) => {
-  console.log("하하하하")
+  console.log("하하하하", rgst)
   const body = new FormData();
   if(rgst.userImg){
-    console.log('bbbbbb');
     Object.keys(rgst).forEach(key=> {
       if(key === "userImg") {
         body.append(key, {
@@ -67,16 +77,17 @@ export const isRequestedSignUp = (rgst) => (dispatch) => {
       }
     });
   } else {
-    Object.keys(rgst).forEach(key=>{
+    Object.keys(rgst).forEach(key=> {
       body.append(key, rgst[key]);
     })
   }
+  console.log(body);
   fetch(`${REQUEST_URL}/user`, {
     ...methodPost, body,
   })
   .then(response => {
     if (response.status >= 200 && response.status < 300) {
-      console.log(response);
+      console.log("success", response);
       dispatch({type:SUCCESS_REGISTER}) //회원가입 완성되면, email 인증하고?, 로그인으로 넘어가기
       // dispatch(loginSuccess(response));
     } else {
@@ -137,7 +148,7 @@ export const isRequestedSignIn = (email, password, navigation) => (dispatch) => 
   .then(res => res.json())
   .then(res => {
     if(res.success){
-      Reactotron.log("DDDD")
+      // Reactotron.log("DDDD")
       Alert.alert(
         '인액터스 로그인',
         '로그인이 완료 되었습니다.',
@@ -151,10 +162,10 @@ export const isRequestedSignIn = (email, password, navigation) => (dispatch) => 
         }}]
       )
     } else {
-      Reactotron.log("EEEE")
+      // Reactotron.log("EEEE")
       Alert.alert(
         '로그인 오류',
-        '아이디나 비밀번호가 일치하지 않습니다. 가입을 확인해주세요.',
+        `${res.loginErr}`,
         [{
           text: '확인',
           onPress: () => { dispatch({type:FAILED_USER_LOG_IN})}

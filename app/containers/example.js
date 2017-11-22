@@ -6,7 +6,7 @@ import { StackNavigator, DrawerNavigator, TabNavigator} from 'react-navigation';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import CustomDrawer from '../components/CustomDrawer'
 import { Network, NetworkDetail } from '../components/Network'
-import {Register, Login, RegisterSecond} from '../components/Join'
+import { Register, Login, RegisterSecond } from '../components/Join'
 import WebViews from '../components/WebViews'
 import Contact from '../components/Contact'
 

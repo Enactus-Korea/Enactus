@@ -1,10 +1,13 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import * as actions from './actions'
-import { View, Text, Button, Dimensions, ActionSheetIOS, TouchableHighlight, TouchableOpacity, TextInput, Alert, Image, Modal, Picker, Animated } from 'react-native'
+import { View, Text, Button, Dimensions, ActionSheetIOS, TouchableHighlight, TouchableOpacity, TextInput, Alert, Image, Modal, Picker, Animated, PushNotificationIOS, Platform, Keyboard, KeyboardAvoidingView } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import styles from './styles'
-import ProfUserImg from '../Profile/ProfUserImg'
+import ProfileImage from './Components/ProfileImage'
+import KeyboardView from './Components/KeyboardView'
+import SelectModal from './Components/SelectModal'
+import RegisterInput from './Components/RegisterInput'
 
 
 
@@ -12,7 +15,7 @@ class RegisterSecond extends Component{
   static navigationOptions = ({navigation}) => ({
     headerTitle: '회원가입',
     headerLeft: <Button title='뒤로' color='#fff' onPress={() => navigation.goBack()} />,
-  headerRight: <Button title='완료' color='#FEC13A' onPress={() => navigation.state.params.handleSave()} />,
+    headerRight: <Button title='완료' color='#FEC13A' onPress={() => navigation.state.params.handleSave()} />,
     headerStyle: {backgroundColor: '#30333C'},
     headerTintColor: 'white'
   })
@@ -25,26 +28,65 @@ class RegisterSecond extends Component{
       joined: '',
       intro: '',
       userImg: '',
-      univList: ['가천대', '경희대', '고려대', '명지대', '서울대'],
-      joinedList: ['2006','2007', '2008', '2009', '2010', '2011','2012', '2013', '2014', '2015', '2016','2017'],
+      univList: ['','가천대', '경희대', '고려대', '명지대', '서울대'],
+      joinedList: ['','2006','2007', '2008', '2009', '2010', '2011','2012', '2013', '2014', '2015', '2016','2017'],
       univModal: false,
       joinedModal: false,
+      deviceToken: "",
+      deviceType: "",
     }
+    this.handleValueChange = this.handleValueChange.bind(this)
+    this.setModalVisible = this.setModalVisible.bind(this)
+    this._onRegistered = this._onRegistered.bind(this)
+  }
+  componentWillMount(){
+    PushNotificationIOS.addEventListener('register', this._onRegistered);
+    PushNotificationIOS.addEventListener('registrationError', this._onRegistrationError);
+    let { name, univ } = this.props.navigation.state.params.permissions
+    this.setState({
+      name, univ
+    })
+    debugger
+    // this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+    // this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+    // PushNotificationIOS.check
+    // 이것을 물어봐야지....device token 을 가져 올 수 있음.
+    PushNotificationIOS.requestPermissions()
   }
   componentDidMount(){
+    console.log("componentDidMount from RegisterSecond")
     this.props.navigation.setParams({handleSave: this.isRequestSignUp})
   }
   changeUniv = (univ) => {
-
 		this.setState({ univ, univIndex: univ })
 	}
+  _onRegistered(deviceToken) {
+    this.setState({
+      deviceToken,
+      deviceType: Platform.OS
+    })
+    debugger
+    console.log(deviceToken, Platform.OS);
+  }
+  _onRegistrationError(error) {
+    // this.setState({
+    //   deviceToken: error.code,
+    //   deviceType: Platform.OS
+    // })
+    console.log(error);
+  }
   isRequestSignUp = () => {
-    this.props.isSecondPhase(this.state)
+    //FIXME: 이름, 학교 빈 값은 입력해라고 알럿!!!
+    let { joinedList, univList, univModal, ...restState } = this.state
+    this.props.isSecondPhase(restState)
     Alert.alert(
       '회원가입',
       '회원가입을 완료 하시겠습니까?',
       [ {text: '취소'},
-        {text: '확인', onPress: () => this.props.isRequestedSignUp(this.props.rgst)}]
+        {text: '확인', onPress: () => {
+          this.props.isRequestedSignUp(this.props.rgst)
+          this.props.navigation.navigate("Login")
+        }}]
       )
   }
   showActionSheet = () => {
@@ -56,36 +98,57 @@ class RegisterSecond extends Component{
     },
     (buttonIndex) => this.setState({ enactusType: BUTTONS[buttonIndex] }));
   }
-  setModalVisible = (visible) => {
-    this.setState({univModal: visible});
+  setModalVisible(modal){
+    this.setState({[modal]: !this.state[modal]});
   }
-  getUserImg = (userImg) => {
-    console.log(userImg)
-    this.setState({userImg})
+  // FIXME
+  // getUserImg = (userImg) => {
+  //   console.log("userImg")
+  //   this.setState({userImg})
+  // }
+  // handleLastPoint(e){
+  //   console.log("window",Dimensions.get('window').height)
+  //   console.log(e.nativeEvent.layout.y)
+    // debugger
+  // }
+  // _keyboardDidShow () {
+  //   console.log("KeyboardAvoidingView",KeyboardAvoidingView.prototype.relativeKeyboardHeight())
+  //   // alert('Keyboard Shown');
+  // }
+  //
+  // _keyboardDidHide () {
+  //   console.log('Keyboard Hidden');
+  // }
+  handleValueChange(stateVal, stateName){
+    // debugger
+    this.setState({
+      [stateName]: stateVal
+    })
   }
   render(){
-    let serviceItems = this.state.univList.map( (l, i) => {
-            return <Picker.Item key={i} value={l} label={l} />
-        })
-    let joinedItems = this.state.joinedList.map( (l, i) => {
-            return <Picker.Item key={i} value={l} label={l} />
-        })
-    let permissions = this.props.permissions
     return(
-        <View style={styles.rgst_container}>
-          <View style={{margin: 30}}>
-            <ProfUserImg getUserImg={this.getUserImg} />
+      // <KeyboardView viewStyle={styles.rgst_container}>
+        <KeyboardAvoidingView
+          behavior="position"
+          style={styles.rgst_container}
+          keyboardVerticalOffset={-130}>
+          <View style={{marginVertical: 30, width:Dimensions.get('window').width, alignItems: 'center'}}>
+            <ProfileImage
+              classification="register"
+              stateName="userImg"
+              getUserImg={this.handleValueChange}
+              imageSize={90}
+            />
           </View>
-          <View style={styles.line}>
-            <TextInput
-              ref='name'
-              autoCapitalize= "none"
-              style={styles.input}
-              onChangeText={(text) => this.setState({name: text})}
-              placeholder="이름" />
-          </View>
+          <RegisterInput
+            inputType="name"
+            inputViewStyle="line"
+            inputStyle="input"
+            stateValue={this.state.name}
+            handleChange={this.handleValueChange}
+          />
           <TouchableOpacity
-            onPress={()=> this.setState({univModal: true})}
+            onPress={() => this.setModalVisible("univModal")}
             style={styles.select_input}>
             <Text style={this.state.univ? '' : styles.type_inputText} >
               {this.state.univ? this.state.univ :"소속학교"}
@@ -108,89 +171,68 @@ class RegisterSecond extends Component{
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.half_line, styles.type_half_input]}
-                onPress={() => this.setState({joinedModal: true})}
+                onPress={() => this.setModalVisible("joinedModal")}
                 >
                   <Text style={this.state.joined ? '' : styles.type_inputText}>{this.state.joined ? this.state.joined :"가입년도"}</Text>
               </TouchableOpacity>
             </View>
-            <View style={[styles.line, styles.btm_line]}>
-            <TextInput
-              ref='intro'
-              autoCapitalize= "none"
-              onChangeText={(text) => this.setState({intro: text})}
-              style={styles.input} placeholder="한줄소개"/>
-            </View>
-            <Modal
-              animationType={"slide"}
-              transparent={true}
-              visible={this.state.univModal}
-              >
-                <View
-                  style={{
-                      flex: 1,
-                      flexDirection: 'column',
-                      justifyContent: 'flex-end',
-                      alignItems: 'center'}}
-                  >
-                <View style={{marginTop: 22, height: 200, width: Dimensions.get('window').width,  backgroundColor: '#fff'}}>
-                  <TouchableOpacity
-                    style={{ height: 30, borderBottomWidth: 1, borderBottomColor: '#dbdbdb', borderTopWidth: 1, borderTopColor: '#dbdbdb',justifyContent: 'center', alignItems: 'flex-end'}}
-                    onPress={() => this.setState({univModal: false})}>
-                    <Text
-                      style={{marginRight: 15}}
-                      >완료</Text>
-                  </TouchableOpacity>
-                  <Picker
-                    selectedValue={this.state.univ}
-                    onValueChange={ (univ) => (this.setState({univ}))}
-                    itemStyle={{height: 170}}
-                    >
-                    {serviceItems}
-                  </Picker>
-                </View>
-               </View>
-            </Modal>
-            <Modal
-              animationType={"slide"}
-              transparent={true}
-              visible={this.state.joinedModal}
-              >
-                <View
-                  style={{
-                      flex: 1,
-                      flexDirection: 'column',
-                      justifyContent: 'flex-end',
-                      alignItems: 'center'}}
-                  >
-                <View style={{marginTop: 22, height: 200, width: Dimensions.get('window').width,  backgroundColor: '#fff'}}>
-                  <TouchableOpacity
-                    style={{ height: 30, borderBottomWidth: 1, borderBottomColor: '#dbdbdb', borderTopWidth: 1, borderTopColor: '#dbdbdb',justifyContent: 'center', alignItems: 'flex-end'}}
-                    onPress={() => this.setState({joinedModal: false})}>
-                    <Text
-                      style={{marginRight: 15}}
-                      >완료</Text>
-                  </TouchableOpacity>
-                  <Picker
-                    selectedValue={this.state.joined}
-                    onValueChange={ (joined) => (this.setState({joined}))}
-                    itemStyle={{height: 170}}
-                    >
-                    {joinedItems}
-                  </Picker>
-                </View>
-               </View>
-            </Modal>
-        </View>
+            <RegisterInput
+              inputType="intro"
+              inputViewStyle="line"
+              inputStyle="input"
+              handleChange={this.handleValueChange}
+            />
+            <SelectModal
+              selectItems={this.state.univList}
+              handleModal={this.setModalVisible}
+              isVisible={this.state.univModal}
+              selectedValue={this.state.univ}
+              onValueChange={this.handleValueChange}
+              modalName="univ"
+              modalState="univModal"
+            />
+            <SelectModal
+              selectItems={this.state.joinedList}
+              handleModal={this.setModalVisible}
+              isVisible={this.state.joinedModal}
+              selectedValue={this.state.joined}
+              onValueChange={this.handleValueChange}
+              modalName="joined"
+              modalState="joinedModal"
+            />
+        {/* </KeyboardView> */}
+        </KeyboardAvoidingView>
     )
+  }
+  componentWillUnmount(){
+    PushNotificationIOS.removeEventListener('register', this._onRegistered);
+    PushNotificationIOS.removeEventListener('registrationError', this._onRegistrationError);
+    // this.keyboardDidShowListener.remove();
+    // this.keyboardDidHideListener.remove();
   }
 }
 
 
 function mapStateToProps(state){
   return {
-    permissions: state.permissions,
     rgst: state.permissions.rgst
   }
 }
 
 export default connect(mapStateToProps, actions)(RegisterSecond)
+
+
+
+
+// requestPushNotification(){
+  // debugger
+
+  // PushNotificationIOS.checkPermissions((permissions) => {
+    // debugger
+    // this.setState({permissions});
+    // alert : 1
+    // badge : 1
+    // sound : 1
+  // });
+  // PushNotificationIOS.requestPermissions()
+// }

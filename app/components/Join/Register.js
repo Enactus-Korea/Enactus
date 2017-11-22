@@ -1,12 +1,15 @@
-import React, {Component} from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import * as actions from './actions'
-import { View, Text, ActionSheetIOS, TouchableOpacity, TextInput, Alert, Button, KeyboardAvoidingView} from 'react-native'
+import { View, Text, ActionSheetIOS, TouchableOpacity, TextInput, Alert, Button, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback} from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Agreement from './Agreement'
 import styles from './styles'
+import RegisterInput from './Components/RegisterInput'
+import RegisterActionSheet from './Components/RegisterActionSheet'
+import KeyboardView from './Components/KeyboardView'
 
-class Register extends Component{
+class Register extends PureComponent{
   static navigationOptions = ({navigation}) => ({
       headerTitle: '회원가입',
       headerLeft: <Button title='뒤로' color='#fff' onPress={() => navigation.navigate('Login')} />,
@@ -27,13 +30,21 @@ class Register extends Component{
       policyVisible: false,
       checkedTerms: false,
       checkedPolicy: false,
-      behavior: 'padding',
+      behavior: 'padding'
     }
+    this.handleChange = this.handleChange.bind(this)
+    this.isValidEmail = this.isValidEmail.bind(this)
   }
   componentDidMount(){
-    this.props.isFetchedPermissions()
     this.props.navigation.setParams({ handleNext: this.isNextStep });
-    console.log("DidMount", this.props.permissions)
+  }
+  componentWillReceiveProps(nextProps){
+    if(this.props.permissions !== nextProps.permissions){
+      let { permissions } = nextProps.permissions
+      this.setState({
+        isValidEmail: permissions.result
+      })
+    }
   }
   isNextStep = () => {
     const {isValidEmail, password, passwordConfirm, userType, checked} = this.state;
@@ -51,23 +62,22 @@ class Register extends Component{
     }
     else {
       this.props.isFirstPhase(this.state)
-      this.props.navigation.navigate(this.state.userType === '인액터스 회원' ? 'RegisterSecond' : 'Register')
+      //TODO: 후원기관 가입 페이지 생성해야함
+      this.props.navigation.navigate('RegisterSecond', this.props.permissions)
     }
 
   }
-  isValidEmail = (email) => {
-    console.log("permissions",permissions)
-    let { permissions } = this.props.permissions,
-    isMatchedEmail = permissions.map(p => p.email).indexOf(email);
-    if(isMatchedEmail === -1){
-      Alert.alert('인액터스 미인증 회원', '인증된 인액터스 회원만 가입이 가능합니다.\n인액터스 사무국으로 연락주세요.')
-    } else {
-      Alert.alert(false,'인증된 이메일입니다.',[
-        {text: '완료', onPress: () => this.setState({isValidEmail: true})},
-      ])
-    }
+  handleChange(text, type){
+    console.log("handleChange from Register");
+    this.setState({[type]: text})
+  }
+  isValidEmail(){
+  // console.log("isValidEmail")
+    let { email } = this.state;
+    this.props.isValidEmail(email)
   }
   showActionSheet = () => {
+    Keyboard.dismiss()
     var BUTTONS = [ '인액터스 회원', '후원기업/기관 외'];
     ActionSheetIOS.showActionSheetWithOptions({
       options: BUTTONS,
@@ -89,88 +99,76 @@ class Register extends Component{
     })
   }
   render(){
-    let permissions = this.props.permissions
-    return(
-        <View style={styles.rgst_container}>
-          <KeyboardAvoidingView behavior={this.state.behavior}>
-            <View style={styles.rgst_email}>
-              <TextInput
-                ref='email'
-                autoCapitalize= "none"
-                style={styles.email_input}
-                onChangeText={(text) => this.setState({email: text})}
-                placeholder="이메일을 입력해주세요." />
-              <TouchableOpacity
-                style={styles.email_button}
-                onPress={() => this.isValidEmail(this.state.email)}>
-                <Text style={styles.buttonText}>인액터스 인증하기</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.line}>
-              <TextInput
-                ref='password'
-                autoCapitalize= "none"
-                onChangeText={(text) => this.setState({password: text})}
-                style={styles.input} placeholder="비밀번호"
-                secureTextEntry={true}/>
-            </View>
-            <View style={styles.line}>
-              <TextInput
-                ref='passwordConfirm'
-                autoCapitalize= "none"
-                onChangeText={(text) => this.setState({passwordConfirm: text})}
-                style={styles.input} placeholder="비밀번호 확인"
-                secureTextEntry={true}/>
-            </View>
-            <TouchableOpacity
-              activeOpacity={1}
-              style={styles.type_input}
-              onPress={this.showActionSheet}>
-              <Text style={this.state.userType? '' : styles.type_inputText}>{this.state.userType ? this.state.userType :"분류"}</Text>
-            </TouchableOpacity>
-            <View style={{flexDirection:'row', alignItems: 'center'}}>
-              <Text style={{fontSize: 12}}>
-                <Text
-                  style={styles.rgst_service}
-                  onPress={() => this.setState({termsVisible: true})}>
-                  서비스 이용약관
-                </Text>
-
-                {' '}과{' '}
-                <Text
-                  style={styles.rgst_service}
-                  onPress={() => this.setState({policyVisible: true})}>
-                  개인정보 취급방침
-                </Text>
-
-                {' '}에 동의합니다.
-              </Text>
-              <Ionicons
-                name={this.state.checked ? "md-square" : "md-square-outline"}
-                size={20}
-                style={{marginLeft: 5, marginBottom: -2}}
-                onPress={this.isCheckAgreement}
-              />
-              <Agreement
-                visible={this.state.termsVisible}
-                agreementType={'서비스 약관동의'}
-                checked={this.state.checkedTerms}
-                isGetPermission={this.isGetPermission}
-                checkedType={'checkedTerms'}
-                visibleType={'termsVisible'}
-               />
-              <Agreement
-                visible={this.state.policyVisible}
-                agreementType={'개인 정보 정책 동의'}
-                checked={this.state.checkedPolicy}
-                isGetPermission={this.isGetPermission}
-                isCloseAgreementModal={this.isCloseAgreementModal}
-                checkedType={'checkedPolicy'}
-                visibleType={'policyVisible'}
-               />
-            </View>
-          </KeyboardAvoidingView>
+    return (
+      <View style={styles.rgst_container}>
+      {/* <KeyboardView view > */}
+        <RegisterInput
+          inputType="email"
+          inputViewStyle="rgst_email"
+          inputStyle="email_input"
+          buttonStyle="email_button"
+          handleChange={this.handleChange}
+          handlePress={this.isValidEmail}
+          keyboardType="email-address"
+        />
+        <RegisterInput
+          inputType="password"
+          inputViewStyle="line"
+          inputStyle="input"
+          handleChange={this.handleChange}
+          secureTextEntry={true}
+        />
+        <RegisterInput
+          inputType="passwordConfirm"
+          inputViewStyle="line"
+          inputStyle="input"
+          handleChange={this.handleChange}
+          secureTextEntry={true}
+        />
+        <RegisterActionSheet handlePress={this.showActionSheet}>
+          <Text style={this.state.userType? '' : styles.type_inputText}>{this.state.userType ? this.state.userType :"분류"}</Text>
+        </RegisterActionSheet>
+        <View style={{flexDirection:'row', alignItems: 'center'}}>
+          <Text style={{fontSize: 12}}>
+            <Text
+              style={styles.rgst_service}
+              onPress={() => this.setState({termsVisible: true})}>
+              서비스 이용약관
+            </Text>
+            {' '}과{' '}
+            <Text
+              style={styles.rgst_service}
+              onPress={() => this.setState({policyVisible: true})}>
+              개인정보 취급방침
+            </Text>
+            {' '}에 동의합니다.
+          </Text>
+          <Ionicons
+            name={this.state.checked ? "md-square" : "md-square-outline"}
+            size={20}
+            style={{marginLeft: 5, marginBottom: -2}}
+            onPress={this.isCheckAgreement}
+          />
+          <Agreement
+            visible={this.state.termsVisible}
+            agreementType={'서비스 약관동의'}
+            checked={this.state.checkedTerms}
+            isGetPermission={this.isGetPermission}
+            checkedType={'checkedTerms'}
+            visibleType={'termsVisible'}
+           />
+          <Agreement
+            visible={this.state.policyVisible}
+            agreementType={'개인 정보 정책 동의'}
+            checked={this.state.checkedPolicy}
+            isGetPermission={this.isGetPermission}
+            isCloseAgreementModal={this.isCloseAgreementModal}
+            checkedType={'checkedPolicy'}
+            visibleType={'policyVisible'}
+           />
         </View>
+      {/* </KeyboardView> */}
+      </View>
     )
   }
 }
@@ -194,3 +192,5 @@ export default connect(mapStateToProps, actions)(Register)
 //     {text: '프로필 설정하기', onPress: () => this.props.navigation.navigate('Profile')},
 //   ])
 // }
+
+//

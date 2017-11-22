@@ -1,14 +1,16 @@
 import {StyleSheet, Platform} from 'react-native';
 import Dimensions from 'Dimensions'
 
+const { width, height } = Dimensions.get('window');
+
 export default StyleSheet.create({
   imageBack:{
-    width: Dimensions.get('window').width,
+    width: width,
     flex:1,
-    // resizeMode: 'cover',
+    resizeMode: 'cover',
   },
   logo:{
-    height: Dimensions.get('window').height/10,
+    height: height/10,
     margin: 5,
   },
   login_container:{
@@ -21,8 +23,8 @@ export default StyleSheet.create({
     paddingTop: Platform.OS === 'ios' ? 20 : 0,
     flex: 1,
     backgroundColor: '#F2F2F2',
-    height:Dimensions.get('window').height/1.13,
-    width:Dimensions.get('window').width,
+    height:height/1.13,
+    width:width,
     alignItems: 'center',
   },
   login_title:{
@@ -51,7 +53,7 @@ export default StyleSheet.create({
     height: 50,
     padding: 10,
     fontSize: 14,
-    width: Dimensions.get('window').width/2.1,
+    width: width/2.1,
     marginBottom: 0.5,
   },
   type_input:{
@@ -59,7 +61,7 @@ export default StyleSheet.create({
     marginBottom: 10,
     height: 50,
     padding: 10,
-    width: Dimensions.get('window').width,
+    width: width,
     backgroundColor: '#ffffff',
     justifyContent: 'center',
     borderTopWidth: 0.5,
@@ -69,7 +71,7 @@ export default StyleSheet.create({
   select_input:{
     height: 50,
     padding: 10,
-    width: Dimensions.get('window').width,
+    width: width,
     backgroundColor: '#ffffff',
     justifyContent: 'center',
     borderTopWidth: 0.5,
@@ -79,7 +81,7 @@ export default StyleSheet.create({
   type_half_input:{
     height: 50,
     padding: 10,
-    width: Dimensions.get('window').width/2,
+    width: width/2,
     backgroundColor: '#ffffff',
     justifyContent: 'center',
     // borderTopWidth: 0.5,
@@ -103,20 +105,20 @@ export default StyleSheet.create({
   },
   login_head:{
     justifyContent:'center',
-    height:Dimensions.get('window').height/3.5,
+    height:height/3.5,
   },
   login_body:{
-    height:Dimensions.get('window').height/1.9,
+    height:height/1.9,
   },
   login_btm:{
-    height:Dimensions.get('window').height/12,
+    height:height/12,
   },
   cen_column: {
     alignItems: 'center',
     flexDirection: 'column',
   },
   bottom_btn:{
-    width: Dimensions.get('window').width,
+    width: width,
     height: 50,
     backgroundColor: '#FEC13A',
     alignItems: 'center',
@@ -130,7 +132,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems:'center',
     justifyContent: 'space-around',
-    width:Dimensions.get('window').width,
+    width:width,
     height: 50,
     backgroundColor: '#fff',
     marginBottom: 20,
@@ -142,14 +144,14 @@ export default StyleSheet.create({
   },
   line:{
     height: 50,
-    width:Dimensions.get('window').width,
+    width:width,
     borderTopWidth: 0.5,
     backgroundColor: '#fff',
     borderColor:'#d8d8d8',
   },
   half_line:{
     height: 50,
-    width:Dimensions.get('window').width/2,
+    width:width/2,
     // borderTopWidth: 0.5,
     borderLeftWidth: 0.5,
     borderBottomWidth: 0.5,
@@ -164,7 +166,7 @@ export default StyleSheet.create({
     height: 50,
     fontSize: 14,
     marginLeft: 5,
-    width:Dimensions.get('window').width/1.4,
+    width:width/1.4,
   },
 
   email_button:{
@@ -197,7 +199,7 @@ export default StyleSheet.create({
   },
   agreement_box:{
     margin: 15,
-    width: Dimensions.get('window').width/1.3,
+    width: width/1.3,
     // flex:1,
     borderColor: '#dbdbdb',
     borderWidth: 2,
@@ -239,5 +241,30 @@ export default StyleSheet.create({
   },
   closeButtonText: {
   	color: '#027afe'
+  },
+  selectOptions: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+  },
+  selectOptionsTable:{
+    width,
+    backgroundColor: '#fff'
+  },
+  selectOptionsTop:{
+    width,
+    height: 32,
+    alignItems: 'flex-end',
+    paddingVertical: 7,
+    paddingRight: 7,
+    backgroundColor: '#fff',
+    borderBottomWidth: 1,
+    borderBottomColor: '#dbdbdb',
+    borderTopWidth: 1,
+    borderTopColor: '#dbdbdb',
+  },
+  selectOptionsTopText: {
+    fontSize: 15,
+    // fontWeight: "700",
   },
 });
