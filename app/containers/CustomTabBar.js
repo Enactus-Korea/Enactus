@@ -76,12 +76,13 @@ class CustomTabBar extends PureComponent{
   }
   render(){
     let { navigation } = this.props, focused = navigation.state.index;
+    // FIXME 유저 마이페이지 user={this.state.user.userImg}
     return(
       <View style={styles.tabContainer}>
         {routes.map((route, i) =>
           focused === i
-            ? <FocusedTabItem key={i} route={route} user={this.state.user.userImg} />
-            : <UnfocusedTabItem key={i} route={route} user={this.state.user.userImg} handleNavigation={this.handleNavigation} notificationCount={0}/>
+            ? <FocusedTabItem key={i} route={route} />
+            : <UnfocusedTabItem key={i} route={route} handleNavigation={this.handleNavigation} notificationCount={0}/>
         )}
       </View>
     )

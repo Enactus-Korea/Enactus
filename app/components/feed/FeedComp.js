@@ -27,27 +27,15 @@ class FeedComp extends PureComponent{
       this.setState({likeStatus: true, likeBtnColor: '#D54C3F'})
     }
     // PushNotificationIOS.addEventListener('notification', this._onNotification);
-    PushNotificationIOS.addEventListener('register', this._onRegistered);
     PushNotificationIOS.addEventListener('registrationError', this._onRegistrationError);
     PushNotificationIOS.addEventListener('notification', this._onRemoteNotification);
     PushNotificationIOS.addEventListener('localNotification', this._onLocalNotification);
   }
   componentWillUnmount() {
-    PushNotificationIOS.removeEventListener('register', this._onRegistered);
     PushNotificationIOS.removeEventListener('registrationError', this._onRegistrationError);
     PushNotificationIOS.removeEventListener('notification', this._onRemoteNotification);
     PushNotificationIOS.removeEventListener('localNotification', this._onLocalNotification);
     // PushNotificationIOS.removeEventListener('notification', this._onNotification);
-  }
-  _onRegistered(deviceToken) {
-    AlertIOS.alert(
-      'Registered For Remote Push',
-      `Device Token: ${deviceToken}`,
-      [{
-        text: 'Dismiss',
-        onPress: null,
-      }]
-    );
   }
 
   _onRegistrationError(error) {
@@ -62,10 +50,10 @@ class FeedComp extends PureComponent{
   }
   _onRemoteNotification(notification) {
     console.log("_onRemoteNotification", notification);
-    // const result = `Message: ${notification.getMessage()};\n
-    //   badge: ${notification.getBadgeCount()};\n
-    //   sound: ${notification.getSound()}.`;
-    //   // ;\n
+    const result = `Message: ${notification.getMessage()};\n
+      badge: ${notification.getBadgeCount()};\n
+      sound: ${notification.getSound()}.`;
+      // ;\n
     //   // category: ${notification.getCategory()};\n
     //   // content-available: ${notification.getContentAvailable()}.
     //
@@ -77,6 +65,8 @@ class FeedComp extends PureComponent{
     //     onPress: null,
     //   }]
     // );
+    //NOTE: badge 설정!!!
+    PushNotificationIOS.setApplicationIconBadgeNumber(1)
   }
 
   _onLocalNotification(notification){
@@ -200,7 +190,7 @@ class FeedComp extends PureComponent{
             </View>
           </View>
           <View style={styles.likeAndComment}>
-            <TouchableOpacity onPress={this._sendNotification} style={styles.feedBtmIcon}>
+            <TouchableOpacity onPress={() => this._sendNotification()} style={styles.feedBtmIcon}>
               <MaterialIcons
                 name={this.state.likeStatus ? 'favorite' : 'favorite-border'}
                 size={24}

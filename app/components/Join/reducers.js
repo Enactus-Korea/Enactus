@@ -27,12 +27,16 @@ export default function (state = initialState, action) {
         ...state.user,
         selfIntro: action.selfIntro
       }}
+    case types.IS_HANDLE_VALID_EMAIL:
+      console.log("AAAA from reducer");
+      return { ...state, permissions: action.message }
     case types.IS_CLEAR_FIRST_PHASE:
     let { email, password, userType } = action.first
       return { ...state, rgst:{ email, password, userType }}
     case types.IS_CLEAR_SECOND_PHASE:
-    let { name, enactusType, univ, joined, intro, userImg} = action.second;
-      return { ...state, rgst:{ ...state.rgst, name, joined, univ, enactusType, selfIntro: intro, userImg}}
+    console.log("action.second", action.second);
+    let { name, enactusType, univ, joined, intro, userImg, deviceToken, deviceType } = action.second;
+      return { ...state, rgst:{ ...state.rgst, name, joined, univ, enactusType, selfIntro: intro, userImg, deviceToken, deviceType}}
     default:
       return state
   }

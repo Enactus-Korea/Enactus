@@ -11,9 +11,10 @@ import {
   Modal,
   Button,
   PanResponder,
-  Animated
+  Animated,
+  StyleSheet
 } from 'react-native';
-import styles from './PostStyles'
+// import styles from './PostStyles'
 import ImageCropOverlay from './ImageCropOverlay'
 
 
@@ -72,7 +73,6 @@ export default class ImageCropModal extends PureComponent {
     )
   }
   handleImageSize(width, height) {
-    console.log(width, height)
     this._animatedValueX = 0
     this._animatedValueY = 0
     this._dragAnimation.x.addListener(({value}) => {
@@ -271,7 +271,6 @@ export default class ImageCropModal extends PureComponent {
               ref="image"
               resizeMode="contain"
               style={[
-                styles.imageCropContent,
                 {
                   width: this.state.width,
                   height: this.state.height,
@@ -325,3 +324,28 @@ export default class ImageCropModal extends PureComponent {
   //   console.log("goodboyyy");
   // }
 }
+
+const { width, height } = Dimensions.get('window')
+const styles = StyleSheet.create({
+  imageCropModalCont: {
+    flex: 1,
+    backgroundColor: 'black',
+    flexDirection: 'column',
+   //  justifyContent: 'center',
+   //  alignItems: 'center'
+  },
+  imageCropCont: {
+   //  overflow:'hidden',
+   //  position: 'absolute',
+    flex:1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+   imageCropBottom: {
+     width,
+     height: 50,
+     // alignSelf: 'flex-end',
+     flexDirection: 'row',
+     // justifyContent: 'flex-end',
+   }
+});

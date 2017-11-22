@@ -26,8 +26,9 @@ class Profile extends PureComponent{
   }
   render(){
     const { user, token, navigation, joined } = this.props;
-    let joinedState = Object.keys(joined)
-    if(joinedState.length > 0){
+    // debugger
+    // let joinedState = Object.keys(joined)
+    if(user._id){
       return(
         <View style={{flex: 1, flexDirection: "column", justifyContent: 'space-between'}}>
           <View style={styles.profile_top}>
@@ -35,7 +36,7 @@ class Profile extends PureComponent{
             <Text style={styles.profile_name}>{user.name}</Text>
             <View style={styles.proj_box_cont}>
               <Text style={styles.profile_univ}>{user.univ} 인액터스</Text>
-              {user.projects.map((pro, i) => <ProjectList key={i} project={joined[pro.name].detail} navigation={navigation}/>) }
+              {/* {user.projects.map((pro, i) => <ProjectList key={i} project={joined[pro.name].detail} navigation={navigation}/>) } */}
             </View>
             {user.selfIntro
               ? <Text style={styles.profile_selfIntro}>{user.selfIntro}</Text>
