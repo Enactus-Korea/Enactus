@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import {View, Text, Button, TouchableHighlight, TextInput, Image, AsyncStorage, Alert, KeyboardAvoidingView} from 'react-native'
+import {View, Text, Button, TouchableHighlight, TextInput, Image, AsyncStorage, Alert, PushNotificationIOS, KeyboardAvoidingView, Platform} from 'react-native'
 import * as actions from './actions'
 import styles from './styles'
 // import Reactotron from 'reactotron-react-native'
@@ -13,17 +13,42 @@ class Login extends Component {
     this.state = {
       email:'',
       password: '',
+      deviceToken: '',
+      deviceType: ''
     }
+    this._onRegistered = this._onRegistered.bind(this)
+    this._onRegistrationError = this._onRegistrationError.bind(this)
+  }
+  componentWillMount(){
+    PushNotificationIOS.addEventListener('register', this._onRegistered);
+    PushNotificationIOS.addEventListener('registrationError', this._onRegistrationError);
+    PushNotificationIOS.requestPermissions()
+  }
+  _onRegistered(deviceToken) {
+    this.setState({
+      deviceToken,
+      deviceType: Platform.OS
+    })
+    // debugger
+    console.log(deviceToken, Platform.OS);
+  }
+  _onRegistrationError(error) {
+    // this.setState({
+    //   deviceToken: error.code,
+    //   deviceType: Platform.OS
+    // })
+    console.log(error);
   }
   isSignIn = () => {
-    const {email, password} = this.state, {navigation} = this.props;
+    const { email, password, deviceToken, deviceType } = this.state,
+          { navigation } = this.props;
     //TODO: navigation with redux
     if(!email || !password) {
       // Reactotron.log("AAA")
       Alert.alert('정확한 양식을 입력하세요.')
     } else {
       // Reactotron.log("BBB")
-      this.props.isRequestedSignIn(email, password, navigation)
+      this.props.isRequestedSignIn(email, password, deviceToken, deviceType, navigation)
     }
   }
   isPreNotice = () => {
@@ -88,6 +113,10 @@ class Login extends Component {
         </Image>
         </KeyboardAvoidingView>
     );
+  }
+  componentWillUnmount(){
+    PushNotificationIOS.removeEventListener('register', this._onRegistered);
+    PushNotificationIOS.removeEventListener('registrationError', this._onRegistrationError);
   }
 }
 
