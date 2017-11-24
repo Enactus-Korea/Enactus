@@ -17,6 +17,7 @@ export const IS_HANDLE_VALID_EMAIL = 'IS_HANDLE_VALID_EMAIL';
 /*============================*/
 
 const REQUEST_URL = app_json.REQUEST_URL || "http://localhost:9000";
+const REQUEST_PUSH_URL = "http://app.enactuskorea.org:8000/"
 const methodPost = {
   method: 'post',
   headers: {
@@ -138,28 +139,35 @@ export function isUserLogOut(){
 }
 
 
-export const isRequestedSignIn = (email, password, navigation) => (dispatch) => {
+export const isRequestedSignIn = (email, password, deviceToken, deviceType, navigation) => (dispatch) => {
   // console.log(email, password);
   Reactotron.log("CCCC")
   fetch(`${REQUEST_URL}/user/login`,{
     ...methodPost,
-    body: JSON.stringify({email, password}),
+    body: JSON.stringify({
+      email,
+      password,
+      deviceToken
+    })
   })
   .then(res => res.json())
   .then(res => {
     if(res.success){
-      // Reactotron.log("DDDD")
       Alert.alert(
         '인액터스 로그인',
         '로그인이 완료 되었습니다.',
-        [{text:'확인', onPress: () => {
-          dispatch({type:SUCCESS_USER_LOG_IN})
-          _onValueChange('token', res.token)
-          _onValueChange('user_email', email)
-          isGetEmail()
-          dispatch(isFetchedUserData(email))
-          navigation.navigate('Feed')
-        }}]
+        [{
+          text:'확인',
+          onPress: () => {
+            dispatch({type:SUCCESS_USER_LOG_IN})
+            _onValueChange('token', res.token)
+            _onValueChange('user_email', email)
+            isGetEmail()
+            dispatch(isFetchedUserData(email))
+            dispatch(isSubscribe(res))
+            navigation.navigate('Feed')
+          }
+        }]
       )
     } else {
       // Reactotron.log("EEEE")
@@ -174,6 +182,50 @@ export const isRequestedSignIn = (email, password, navigation) => (dispatch) => 
   })
 }
 
+
+export const isSubscribe = (res) = (dispatch) => {
+  console.log("isSubscribe");
+  let { user, deviceType, deviceToken, concurrent, previousDeviceToken} = res;
+  if(concurrent) {
+    // 이전 기기에 특정 push 동시접속을 알리고, 로그아웃 처리
+    // previousDeviceToken
+    let message = {
+      "android" : {
+        "collapseKey": "optional",
+        "data": {
+          "message": "다른 기기에서 로그인 했습니다."
+        }
+      },
+      "ios" : {
+        "badge": 0,
+        "alert": "다른 기기에서 로그인 했습니다."
+      }
+    }
+    fetch(`${REQUEST_PUSH_URL}/send`, {
+      ...methodPost,
+      body: JSON.stringify({
+        "users" : [user],
+        [deviceType] : message[deviceType]
+      })
+    })
+    // unsubscribe ( push server)
+    fetch(`${REQUEST_PUSH_URL}/unsubscribe`, {
+      ...methodPost,
+      body: JSON.stringify({
+        "token" : previousDeviceToken
+      })
+    })
+  }
+  // subscribe ( push server)
+  fetch(`${REQUEST_PUSH_URL}/subscribe`, {
+    ...methodPost,
+    body: JSON.stringify({
+      user,
+      "type" : deviceType,
+      "token" : deviceToken
+    })
+  })
+}
 
 export const isFetchedUserData = (email) => (dispatch) => {
   fetch(`${REQUEST_URL}/user/isFetched/${email}`,{ ...methodGet })
