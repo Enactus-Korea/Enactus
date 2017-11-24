@@ -17,7 +17,7 @@ export const IS_HANDLE_VALID_EMAIL = 'IS_HANDLE_VALID_EMAIL';
 /*============================*/
 
 const REQUEST_URL = app_json.REQUEST_URL || "http://localhost:9000";
-const REQUEST_PUSH_URL = "http://app.enactuskorea.org:8000/"
+const REQUEST_PUSH_URL = "http://app.enactuskorea.org:8000"
 const methodPost = {
   method: 'post',
   headers: {
@@ -183,7 +183,7 @@ export const isRequestedSignIn = (email, password, deviceToken, deviceType, navi
 }
 
 
-export const isSubscribe = (res) = (dispatch) => {
+export const isSubscribe = (res) => (dispatch) => {
   console.log("isSubscribe");
   let { user, deviceType, deviceToken, concurrent, previousDeviceToken} = res;
   if(concurrent) {
@@ -204,7 +204,7 @@ export const isSubscribe = (res) = (dispatch) => {
     fetch(`${REQUEST_PUSH_URL}/send`, {
       ...methodPost,
       body: JSON.stringify({
-        "users" : [user],
+        users : [user],
         [deviceType] : message[deviceType]
       })
     })
@@ -212,19 +212,30 @@ export const isSubscribe = (res) = (dispatch) => {
     fetch(`${REQUEST_PUSH_URL}/unsubscribe`, {
       ...methodPost,
       body: JSON.stringify({
-        "token" : previousDeviceToken
+        token : previousDeviceToken
       })
     })
   }
   // subscribe ( push server)
-  fetch(`${REQUEST_PUSH_URL}/subscribe`, {
-    ...methodPost,
-    body: JSON.stringify({
-      user,
-      "type" : deviceType,
-      "token" : deviceToken
+  fetch(`${REQUEST_PUSH_URL}/users/${user}/associations`, { ...methodGet })
+    .then(res => res.json())
+    .then(res => {
+      let userStatus = res.associations.find(d => d.user === user)
+      console.log(userStatus);
+      if(userStatus) {
+        return false
+      }
+      fetch(`${REQUEST_PUSH_URL}/subscribe`, {
+        ...methodPost,
+        body: JSON.stringify({
+          user,
+          type : deviceType,
+          token : deviceToken
+        })
+      })
+      .then(res => console.log("Push Token subscribe success"))
+      .catch(err => console.log(err))
     })
-  })
 }
 
 export const isFetchedUserData = (email) => (dispatch) => {

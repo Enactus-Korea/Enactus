@@ -46,7 +46,7 @@ class RegisterSecond extends Component{
     this.setState({
       name, univ
     })
-    debugger
+    // debugger
     // this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
     // this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
     // PushNotificationIOS.check
@@ -65,7 +65,7 @@ class RegisterSecond extends Component{
       deviceToken,
       deviceType: Platform.OS
     })
-    debugger
+    // debugger
     console.log(deviceToken, Platform.OS);
   }
   _onRegistrationError(error) {
