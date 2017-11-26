@@ -16,12 +16,15 @@ class Login extends Component {
       deviceToken: '',
       deviceType: ''
     }
-    this._onRegistered = this._onRegistered.bind(this)
-    this._onRegistrationError = this._onRegistrationError.bind(this)
+    // this._onRegistered = this._onRegistered.bind(this)
+    // this._onRegistrationError = this._onRegistrationError.bind(this)
+    this._sendNotification = this._sendNotification.bind(this)
   }
   componentWillMount(){
-    PushNotificationIOS.addEventListener('register', this._onRegistered);
-    PushNotificationIOS.addEventListener('registrationError', this._onRegistrationError);
+    // PushNotificationIOS.addEventListener('register', this._onRegistered);
+    // PushNotificationIOS.addEventListener('registrationError', this._onRegistrationError);
+    // PushNotificationIOS.addEventListener('localNotification', this._onNotification);
+    this._sendNotification()
     PushNotificationIOS.requestPermissions()
   }
   _onRegistered(deviceToken) {
@@ -58,9 +61,48 @@ class Login extends Component {
       '인액터스 코리아 사무국에 \n 사전등록한 학생, 기관, 알룸나이만 \n 회원가입이 가능합니다. \n 미등록 회원은 사무국에 문의하세요.',
       [
         {text: '회원가입 진행', onPress: () => navigate('Register')},
-        {text: '뉴스피드 가기', onPress: () => navigate('Feed')}
+        {text: '뉴스피드 가기', onPress: () => {
+          navigate('Feed')
+        }}
       ]
     )
+  }
+  _onNotification(notification) {
+
+    // PushNotificationIOS.presentLocalNotification({
+    //   alertBody:notification.getMessage(),
+    // });
+    // let numOfBadge = PushNotificationIOS.getApplicationIconBadgeNumber((num) => {
+    //   let add = parseInt(notification.getBadgeCount(), 10);
+    //   PushNotificationIOS.setApplicationIconBadgeNumber(num+add);
+    // });
+
+    const result = `Message: ${notification.getMessage()};\n
+      badge: ${notification.getBadgeCount()};\n
+      sound: ${notification.getSound()};`;
+
+    console.log("BBB LOGIN _onNotification", notification, result);
+    debugger
+
+    // PushNotificationIOS.scheduleLocalNotification({
+    //   fireDate:
+    //   alertAction: details.title,
+		// 	alertBody: details.message,
+    // })
+
+  }
+  _sendNotification() {
+    console.log("AAA LOGIN _sendNotification");
+    const detail = {
+      fireDate: new Date().toISOString(),
+			alertBody: '메세지야야양  가란 말이다!!',
+      alertAction: "view",
+			applicationIconBadgeNumber: 1
+    }
+    console.log("BBBB", detail);
+    PushNotificationIOS.scheduleLocalNotification(detail)
+    console.log("CCCC",PushNotificationIOS.scheduleLocalNotification);
+// Expected format: YYYY-MM-DD'T'HH:mm:ss.sssZ
   }
   render() {
     return (
@@ -115,8 +157,9 @@ class Login extends Component {
     );
   }
   componentWillUnmount(){
-    PushNotificationIOS.removeEventListener('register', this._onRegistered);
-    PushNotificationIOS.removeEventListener('registrationError', this._onRegistrationError);
+    // PushNotificationIOS.removeEventListener('register', this._onRegistered);
+    // PushNotificationIOS.removeEventListener('registrationError', this._onRegistrationError);
+    // PushNotificationIOS.removeEventListener('localNotification', this._onNotification);
   }
 }
 
