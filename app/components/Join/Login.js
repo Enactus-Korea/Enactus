@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import {View, Text, Button, TouchableHighlight, TextInput, Image, AsyncStorage, Alert, PushNotificationIOS, KeyboardAvoidingView, Platform} from 'react-native'
+import {View, Text, Button, TouchableHighlight, TextInput, Image, AsyncStorage, Alert, PushNotificationIOS, KeyboardAvoidingView, Platform, AppState} from 'react-native'
 import * as actions from './actions'
 import styles from './styles'
 // import Reactotron from 'reactotron-react-native'
@@ -14,34 +14,24 @@ class Login extends Component {
       email:'',
       password: '',
       deviceToken: '',
-      deviceType: ''
+      deviceType: '',
+      appState: AppState.currentState
     }
-    // this._onRegistered = this._onRegistered.bind(this)
-    // this._onRegistrationError = this._onRegistrationError.bind(this)
-    this._sendNotification = this._sendNotification.bind(this)
+    // this._sendNotification = this._sendNotification.bind(this)
   }
   componentWillMount(){
-    // PushNotificationIOS.addEventListener('register', this._onRegistered);
-    // PushNotificationIOS.addEventListener('registrationError', this._onRegistrationError);
-    // PushNotificationIOS.addEventListener('localNotification', this._onNotification);
-    this._sendNotification()
-    PushNotificationIOS.requestPermissions()
+    // AppState.addEventListener('change', this._handleAppStateChange);
   }
-  _onRegistered(deviceToken) {
-    this.setState({
-      deviceToken,
-      deviceType: Platform.OS
-    })
-    // debugger
-    console.log(deviceToken, Platform.OS);
-  }
-  _onRegistrationError(error) {
-    // this.setState({
-    //   deviceToken: error.code,
-    //   deviceType: Platform.OS
-    // })
-    console.log(error);
-  }
+  // _onRegistered(deviceToken) {
+  //   this.setState({
+  //     deviceToken,
+  //     deviceType: Platform.OS
+  //   })
+  //   console.log(deviceToken, Platform.OS);
+  // }
+  // _onRegistrationError(error) {
+  //   console.log(error);
+  // }
   isSignIn = () => {
     const { email, password, deviceToken, deviceType } = this.state,
           { navigation } = this.props;
@@ -67,43 +57,24 @@ class Login extends Component {
       ]
     )
   }
-  _onNotification(notification) {
-
-    // PushNotificationIOS.presentLocalNotification({
-    //   alertBody:notification.getMessage(),
-    // });
-    // let numOfBadge = PushNotificationIOS.getApplicationIconBadgeNumber((num) => {
-    //   let add = parseInt(notification.getBadgeCount(), 10);
-    //   PushNotificationIOS.setApplicationIconBadgeNumber(num+add);
-    // });
-
-    const result = `Message: ${notification.getMessage()};\n
-      badge: ${notification.getBadgeCount()};\n
-      sound: ${notification.getSound()};`;
-
-    console.log("BBB LOGIN _onNotification", notification, result);
-    debugger
-
-    // PushNotificationIOS.scheduleLocalNotification({
-    //   fireDate:
-    //   alertAction: details.title,
-		// 	alertBody: details.message,
-    // })
-
-  }
-  _sendNotification() {
-    console.log("AAA LOGIN _sendNotification");
-    const detail = {
-      fireDate: new Date().toISOString(),
-			alertBody: '메세지야야양  가란 말이다!!',
-      alertAction: "view",
-			applicationIconBadgeNumber: 1
-    }
-    console.log("BBBB", detail);
-    PushNotificationIOS.scheduleLocalNotification(detail)
-    console.log("CCCC",PushNotificationIOS.scheduleLocalNotification);
-// Expected format: YYYY-MM-DD'T'HH:mm:ss.sssZ
-  }
+  // _handleAppStateChange = (nextAppState) => {
+  //   if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
+  //     console.log('App has come to the foreground!')
+  //   } else {
+  //     this._sendNotification()
+  //   }
+  //   this.setState({appState: nextAppState});
+  // }
+  // _sendNotification() {
+  //   const detail = {
+  //     fireDate: new Date().toISOString(),
+	// 		alertBody: '메세지야야양  가란 말이다!!',
+  //     alertAction: "view",
+	// 		applicationIconBadgeNumber: 1
+  //   }
+  //   console.log("BBBB", detail);
+  //   PushNotificationIOS.scheduleLocalNotification(detail)
+  // }
   render() {
     return (
       <KeyboardAvoidingView
@@ -157,9 +128,8 @@ class Login extends Component {
     );
   }
   componentWillUnmount(){
-    // PushNotificationIOS.removeEventListener('register', this._onRegistered);
-    // PushNotificationIOS.removeEventListener('registrationError', this._onRegistrationError);
-    // PushNotificationIOS.removeEventListener('localNotification', this._onNotification);
+    // PushNotificationIOS.removeEventListener('notification', this._onRemoteNotification);
+    // AppState.removeEventListener('change', this._handleAppStateChange)
   }
 }
 
