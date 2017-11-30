@@ -26,70 +26,7 @@ class FeedComp extends PureComponent{
     if(this.props.likes.indexOf(this.props.user._id) !== -1){
       this.setState({likeStatus: true, likeBtnColor: '#D54C3F'})
     }
-    // PushNotificationIOS.addEventListener('notification', this._onNotification);
-    // PushNotificationIOS.addEventListener('registrationError', this._onRegistrationError);
-    // PushNotificationIOS.addEventListener('notification', this._onRemoteNotification);
-    // PushNotificationIOS.addEventListener('localNotification', this._onLocalNotification);
   }
-  componentWillUnmount() {
-    // PushNotificationIOS.removeEventListener('registrationError', this._onRegistrationError);
-    // PushNotificationIOS.removeEventListener('notification', this._onRemoteNotification);
-    // PushNotificationIOS.removeEventListener('localNotification', this._onLocalNotification);
-    // PushNotificationIOS.removeEventListener('notification', this._onNotification);
-  }
-
-  // _onRegistrationError(error) {
-  //   AlertIOS.alert(
-  //     'Failed To Register For Remote Push',
-  //     `Error (${error.code}): ${error.message}`,
-  //     [{
-  //       text: 'Dismiss',
-  //       onPress: null,
-  //     }]
-  //   );
-  // }
-  // _onRemoteNotification(notification) {
-  //   console.log("_onRemoteNotification", notification);
-  //   const result = `Message: ${notification.getMessage()};\n
-  //     badge: ${notification.getBadgeCount()};\n
-  //     sound: ${notification.getSound()}.`;
-  //
-  //   PushNotificationIOS.setApplicationIconBadgeNumber(1)
-  // }
-  //
-  // _onLocalNotification(notification){
-  //   AlertIOS.alert(
-  //     'Local Notification Received',
-  //     'Alert message: ' + notification.getMessage(),
-  //     [{
-  //       text: 'Dismiss',
-  //       onPress: null,
-  //     }]
-  //   );
-  // }
-  // _sendNotification() {
-  //   // 이 안에 있는 내용들이 여기로 들어가는 것이다.
-  //   console.log("_sendNotification");
-  //   require('RCTDeviceEventEmitter').emit('remoteNotificationReceived', {
-  //     // data
-  //     remote: true,
-  //     aps: {
-  //       alert: 'Enactus',
-  //       badge: '+1',
-  //       sound: 'default'
-  //     },
-  //   });
-  // }
-  //
-  // _sendLocalNotification() {
-  //   require('RCTDeviceEventEmitter').emit('localNotificationReceived', {
-  //     aps: {
-  //       alert: 'Sample local notification',
-  //       badge: '+1',
-  //       sound: 'default'
-  //     },
-  //   });
-  // }
   shouldComponentUpdate(nextProps, nextState) {
     if(this.props.user !== nextProps.user) {
       return true;
@@ -120,7 +57,7 @@ class FeedComp extends PureComponent{
     }
   }
   handleLikeUnLike(){
-    //
+    debugger
     const { user, _id } = this.props;
     if(!this.state.likeStatus){
       this.setState({ likeStatus: true, likes: this.state.likes+1, likeBtnColor: '#D54C3F' })
@@ -175,7 +112,7 @@ class FeedComp extends PureComponent{
             </View>
           </View>
           <View style={styles.likeAndComment}>
-            <TouchableOpacity onPress={() => this._sendNotification()} style={styles.feedBtmIcon}>
+            <TouchableOpacity onPress={() => this.handleLikeUnLike()} style={styles.feedBtmIcon}>
               <MaterialIcons
                 name={this.state.likeStatus ? 'favorite' : 'favorite-border'}
                 size={24}

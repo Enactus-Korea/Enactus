@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import {View, Text, Button, TouchableHighlight, TextInput, Image, AsyncStorage, Alert, PushNotificationIOS, KeyboardAvoidingView, Platform, AppState} from 'react-native'
 import * as actions from './actions'
 import styles from './styles'
-// import Reactotron from 'reactotron-react-native'
 
 
 //FIXME: navigation setProps, setState part => 2번 렌더링 됨...
@@ -22,16 +21,6 @@ class Login extends Component {
   componentWillMount(){
     // AppState.addEventListener('change', this._handleAppStateChange);
   }
-  // _onRegistered(deviceToken) {
-  //   this.setState({
-  //     deviceToken,
-  //     deviceType: Platform.OS
-  //   })
-  //   console.log(deviceToken, Platform.OS);
-  // }
-  // _onRegistrationError(error) {
-  //   console.log(error);
-  // }
   isSignIn = () => {
     const { email, password, deviceToken, deviceType } = this.state,
           { navigation } = this.props;
@@ -94,13 +83,14 @@ class Login extends Component {
               <View style={styles.line}>
               <TextInput
                 autoCorrect={false}
-                autoCapitalize = "none"
+                autoCapitalize="none"
+                keyboardType="email-address"
                 onChangeText={(val) => this.setState({email: val})}
                 style={styles.input} placeholder="이메일"/>
               </View>
               <View style={styles.line}>
               <TextInput
-                autoCapitalize = "none"
+                autoCapitalize="none"
                 onChangeText={(val) => this.setState({password: val})}
                 style={styles.input} placeholder="비밀번호"
                 secureTextEntry={true}/>
@@ -128,12 +118,9 @@ class Login extends Component {
     );
   }
   componentWillUnmount(){
-    // PushNotificationIOS.removeEventListener('notification', this._onRemoteNotification);
     // AppState.removeEventListener('change', this._handleAppStateChange)
   }
 }
 
 
 export default connect(null,actions)(Login)
- /*  onPress={() => this.signIn()}  */
-// export default Login;
