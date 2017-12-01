@@ -14,10 +14,16 @@ let routes = [
 
 class FocusedTabItem extends PureComponent {
   render(){
-
-    let { route, user } = this.props
+    let { route, user, notificationCount } = this.props
     return(
       <View style={styles.tab}>
+        {
+          (route.routeName === "Notification" && notificationCount > 0)
+           && <View style={styles.notiBadgeCont}>
+                <View style={styles.notiBadge}></View>
+                <Text style={styles.notiBadgeText}>{notificationCount}</Text>
+              </View>
+        }
         <MaterialIcons
           name={route.name}
           size={24}
@@ -30,21 +36,32 @@ class FocusedTabItem extends PureComponent {
 
 
 class UnfocusedTabItem extends PureComponent {
-  state = {
-    notificationCount: 2,
+  constructor(props){
+    super(props)
+
+  }
+  componentWillMount(){
+    // debugger
+    // this.props.user.notification.filter()
+    // this.setState({
+    //   notificationCount: this.props.user.notification
+    // })
   }
   render(){
-    let { route, user , handleNavigation } = this.props
+    let { route, handleNavigation, notificationCount } = this.props
     return(
       <TouchableOpacity
         onPress={() => handleNavigation(route.routeName)}
         style={styles.tab}
         key={route.routeName}
       >
-       {(route.routeName === "Notification" && this.state.notificationCount > 0) && <View style={styles.notiBadgeCont}>
-         <View style={styles.notiBadge}></View>
-         <Text style={styles.notiBadgeText}>{this.state.notificationCount}</Text>
-       </View>}
+       {
+         (route.routeName === "Notification" && notificationCount > 0)
+          && <View style={styles.notiBadgeCont}>
+               <View style={styles.notiBadge}></View>
+               <Text style={styles.notiBadgeText}>{notificationCount}</Text>
+             </View>
+        }
        <MaterialIcons
          name={route.active}
          size={24}
@@ -57,10 +74,15 @@ class UnfocusedTabItem extends PureComponent {
 
 class CustomTabBar extends PureComponent{
   state = {
-    user: this.props.user
+    user: this.props.user,
+    notificationCount: null
   }
   componentWillReceiveProps(newProps){
-    this.setState({user: newProps.user})
+    let notificationCount = newProps.user.notification.filter(d => d.active === false).length
+    this.setState({
+      user: newProps.user,
+      notificationCount
+    })
   }
   handleNavigation = (route) => {
     let { navigation } = this.props, { user } = this.state;
@@ -81,8 +103,8 @@ class CustomTabBar extends PureComponent{
       <View style={styles.tabContainer}>
         {routes.map((route, i) =>
           focused === i
-            ? <FocusedTabItem key={i} route={route} />
-            : <UnfocusedTabItem key={i} route={route} handleNavigation={this.handleNavigation} notificationCount={0}/>
+            ? <FocusedTabItem key={i} route={route} notificationCount={this.state.notificationCount}/>
+            : <UnfocusedTabItem key={i} route={route} handleNavigation={this.handleNavigation} notificationCount={this.state.notificationCount}/>
         )}
       </View>
     )

@@ -15,7 +15,8 @@ import {
   Picker,
   Animated,
   Modal,
-  Button
+  Button,
+  KeyboardAvoidingView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './PostStyles'
@@ -31,6 +32,7 @@ class Post extends PureComponent{
       name: this.props.user.name || '',
       univ: this.props.user.univ || '',
       userId: this.props.user._id || '',
+      deviceToken: this.props.user.deviceToken || '',
       content: '',
       typeOf: '전체공개',
       postImg: '',
@@ -46,7 +48,8 @@ class Post extends PureComponent{
         userImg: newProps.user.userImg,
         name: newProps.user.name,
         userId: newProps.user._id,
-        univ: newProps.user.univ
+        univ: newProps.user.univ,
+        deviceToken: newProps.user.deviceToken,
       })
     }
   }
@@ -116,8 +119,7 @@ class Post extends PureComponent{
   render(){
     let { typeOf, userImg } = this.state;
     let { user } = this.props;
-    //TODO: component 나누기
-    console.log("cropModal",this.state.cropImg);
+    //FIXME: component 나누기
     return(
       <View>
         <ImageCropModal visible={this.state.visible} imageUri={this.state.cropImg} handlePostImage={this.handlePostImage}/>
@@ -147,9 +149,8 @@ class Post extends PureComponent{
         {this.state.postImg
           ? <Image
             style={{
-              flex: 1,
-              width: Dimensions.get('window').width,
-              height: Dimensions.get('window').width,
+              width: Dimensions.get('window').width*0.4,
+              height: Dimensions.get('window').width*0.4,
               resizeMode:'contain'
             }}
             source={{uri: this.state.postImg}}></Image>
@@ -159,25 +160,30 @@ class Post extends PureComponent{
           ref="textarea"
           style={styles.textArea}
           multiline={true}
+          autoCorrect={false}
+          autoFocus={true}
+          returnKeyType="done"
           value={this.state.content}
           onChangeText={text => this.setState({content: text})}
           placeholder="너의 하루를 말해봐봐봡？"
           selectionColor="#2aa2ef"
           placeholderTextColor="#ced8de"
           />
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.iconButton}
-            onPress={this.chooseImageFromCamera}
-            >
-            <Icon name="ios-camera" size={30} color="#8899a5" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.iconButton}
-            onPress={this.chooseImageFromGallery}>
-            <Icon name="ios-images" size={30} color="#8899a5" />
-          </TouchableOpacity>
-        </View>
+        <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={-50}>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                style={styles.iconButton}
+                onPress={this.chooseImageFromCamera}
+                >
+                <Icon name="ios-camera" size={30} color="#8899a5" />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.iconButton}
+                onPress={this.chooseImageFromGallery}>
+                <Icon name="ios-images" size={30} color="#8899a5" />
+              </TouchableOpacity>
+            </View>
+        </KeyboardAvoidingView>
         </View>
       </View>
     )

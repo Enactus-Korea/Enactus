@@ -100,7 +100,7 @@ export default StyleSheet.create({
 
   },
   textArea:{
-    height:200,
+    height:100,
     padding:15,
     fontSize:20
   },
@@ -108,9 +108,9 @@ export default StyleSheet.create({
  buttonContainer:{
    flexDirection: 'row',
    borderColor: '#9B9B9B',
-  //  borderTopWidth: 1 / PixelRatio.get(),
+   borderTopWidth: 1 / PixelRatio.get(),
    height: 50,
-   bottom:-50,
+   // bottom:-50,
    position: 'relative',
    width,
 
@@ -119,6 +119,7 @@ export default StyleSheet.create({
    justifyContent:'center',
    alignItems:'center',
    paddingHorizontal:10,
+   width: width*0.49
  },
  //Camera class
  cameraContainer: {

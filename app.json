@@ -1,5 +1,5 @@
 {
   "name": "EnactusApp",
   "displayName": "EnactusApp",
-  "REQUEST_URL": "https://app.enactuskorea.org"
+  "REQUEST_URL": "http://localhost:9000"
 }

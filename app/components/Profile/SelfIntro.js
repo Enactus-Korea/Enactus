@@ -32,6 +32,7 @@ class SelfIntro extends Component{
         <Text style={styles.setting_detail}>상태메세지를 입력하세요.</Text>
         <TextInput
           autoCapitalize= "none"
+          autoFocus={true}
           onChangeText={(val) => this.setState({selfIntro: val})}
           style={styles.setting_input} placeholder="입력"/>
       </View>

@@ -10,5 +10,6 @@ import EnactusApp from './app/app'
 
 // "REQUEST_URL": "http://ec2-13-124-127-39.ap-northeast-2.compute.amazonaws.com"
 // "REQUEST_URL": "http://localhost:9000"
+// "REQUEST_URL": "https://app.enactuskorea.org"
 
 AppRegistry.registerComponent('EnactusApp', () => EnactusApp);
