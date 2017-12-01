@@ -57,14 +57,18 @@ class FeedComp extends PureComponent{
     }
   }
   handleLikeUnLike(){
-    debugger
-    const { user, _id } = this.props;
+    // debugger
+    const { user, _id, userId } = this.props;
+    let deliver = user._id,
+        deliverName = user.name,
+        receiver = userId,
+        clickedFeed = _id;
     if(!this.state.likeStatus){
       this.setState({ likeStatus: true, likes: this.state.likes+1, likeBtnColor: '#D54C3F' })
     } else {
       this.setState({ likeStatus: false, likes: this.state.likes-1, likeBtnColor: '#e9e9e9' })
     }
-    this.props.handleLikeUnLike(_id, user._id)
+    this.props.handleLikeUnLike(clickedFeed, deliver, receiver, deliverName)
   }
   handleShareFeed() {
     //TODO: deep linking

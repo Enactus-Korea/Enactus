@@ -49,7 +49,7 @@ class Post extends PureComponent{
         name: newProps.user.name,
         userId: newProps.user._id,
         univ: newProps.user.univ,
-        deviceToken: newProps.user.deviceToken || '',
+        deviceToken: newProps.user.deviceToken,
       })
     }
   }
@@ -119,8 +119,7 @@ class Post extends PureComponent{
   render(){
     let { typeOf, userImg } = this.state;
     let { user } = this.props;
-    //TODO: component 나누기
-    console.log("cropModal",this.state.cropImg);
+    //FIXME: component 나누기
     return(
       <View>
         <ImageCropModal visible={this.state.visible} imageUri={this.state.cropImg} handlePostImage={this.handlePostImage}/>

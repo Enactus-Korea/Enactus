@@ -3,28 +3,56 @@ import {View , Text, TextInput ,TouchableOpacity, FlatList, Image } from 'react-
 import styles from './styles'
 import moment from 'moment'
 import 'moment/locale/ko'; // ko로 locale 설정
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
-const NotiCont = (props) => {
-  console.log("NotiCont", props)
-  let ago = moment(props.created).startOf(props.gap).fromNow()
-  let FAKE = {
-    "user" : require('../../assets/user.png'),
-    "enactus" : require('../../assets/enactus.jpeg')
+
+
+import app_json from '../../../app.json';
+const REQUEST_URL = app_json.REQUEST_URL || "http://localhost:9000";
+const methodGet = {
+  method: 'GET',
+  headers: {
+    'Accept': 'application/json'
   }
-
-  return (
-    <View style={styles.notiCont}>
-      <View style={styles.notiImg}>
-        <Image style={styles.image} source={FAKE[props.userImg]}/>
-      </View>
-      <View style={styles.notiCtx}>
-        <Text style={styles.notiText}><Text style={styles.notiFrom}>{props.from}</Text> {props.notiText}</Text>
-        <Text style={styles.notiTime}>{ago}</Text>
-      </View>
-    </View>
-  )
 }
+
+class NotiCont extends PureComponent {
+  constructor(props){
+    super(props)
+    this.handlePressNotification = this.handlePressNotification.bind(this)
+  }
+  handlePressNotification(){
+    fetch(`${REQUEST_URL}/feed/${this.props.notiEventFrom}`, { ...methodGet })
+      .then(res => res.json())
+      .then(res => {
+        let detailData = {
+          ...res.feed,
+          user : {
+            ...this.props.user
+          }
+        }
+        this.props.navigation.navigate("Detail", { ...detailData })
+      })
+      .catch(err => console.log(err))
+
+  }
+  render() {
+    let ago = moment(this.props.created).startOf(this.props.gap).fromNow()
+
+    return (
+      <TouchableOpacity style={styles.notiCont} onPress={() => this.handlePressNotification()}>
+        {/* <View style={styles.notiImg}>
+          <Image style={styles.image} source={FAKE[props.userImg]}/>
+        </View> */}
+        <View style={styles.notiCtx}>
+          <Text style={styles.notiText}><Text style={styles.notiFrom}>{this.props.notiByUserName}</Text> {this.props.notiText}</Text>
+          <Text style={styles.notiTime}>{ago}</Text>
+        </View>
+      </TouchableOpacity>
+    )
+  }
+}
+
 
 class SeparatorComponent extends PureComponent {
   render() {
@@ -37,11 +65,20 @@ class Notification extends PureComponent {
   constructor(props){
    super(props)
    this.state = {
+     notification : []
    }
   }
 
   componentWillMount() {
-
+    let { _id } = this.props.user;
+    fetch(`${REQUEST_URL}/user/get/notification/${_id}`,{ ...methodGet })
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          notification: res.notification
+        })
+      })
+      .catch(err => console.log(err))
   }
   componentDidMount(){
 
@@ -49,6 +86,11 @@ class Notification extends PureComponent {
 
   _keyExtractor = (item, index) => index;
   _renderItem = ({item}) => {
+    console.log(this.props , "render");
+    let user = {
+      _id: this.props.user._id,
+      name: this.props.user.name
+    }
     let now = new Date(),
         gap = now - item.created;
     gap = gap < 3600000 ? 'hour' : 'day';
@@ -70,27 +112,18 @@ class Notification extends PureComponent {
           yy: "%d년"
       }
     });
-    if(item.notiType === "general"){
-      return <NotiCont {...item} notiText="전체공지가 있습니다." gap={gap}/>
-    }
-    return <NotiCont {...item} notiText="님이 회원님의 글에 댓글을 남겼습니다." gap={gap}/>
+    let notiText = {
+      "general" : "전체공지가 있습니다.",
+      "comment" : "님이 회원님의 글에 댓글을 남겼습니다.",
+      "like" : "님이 회원님의 글을 좋아합니다."
+    };
+    return <NotiCont {...item} notiText={notiText[item.notiType]} gap={gap} navigation={this.props.navigation} user={user} />
   };
 
   render(){
-    let fakeNoti = [{
-      "from" : "이고은",
-      "userImg" : "user",
-      "created" : new Date("2017-09-19T01:14:11+0900"),
-      "notiType" : "personal"
-    }, {
-      "from" : "인액터스 코리아",
-      "userImg" : "enactus",
-      "created" : new Date("2017-09-18T01:14:11+0900"),
-      "notiType" : "general"
-    }]
     return(
       <FlatList
-        data={fakeNoti}
+        data={this.state.notification}
         ItemSeparatorComponent={SeparatorComponent}
         keyExtractor={this._keyExtractor}
         renderItem={this._renderItem}

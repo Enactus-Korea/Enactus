@@ -33,9 +33,8 @@ export const fetchFeedData = (typeOf) => (dispatch) => {
 }
 
 export const createFeedCmt = (id, comment, user, typeOf) => (dispatch) => {
-  // console.log("createFeedCmt",id, comment, user, typeOf);
-  let {name, univ, userImg} = user;
-  let feedComment = { name, univ, userImg, comment }
+  let {name, univ, userImg, _id } = user;
+  let feedComment = { name, univ, userImg, comment, userId: _id }
   if(typeOf === "대나무숲"){
     feedComment = {
       name: "익명",
@@ -43,7 +42,6 @@ export const createFeedCmt = (id, comment, user, typeOf) => (dispatch) => {
       userImg, comment
     }
   }
-  // console.log("익명",feedComment)
   fetch(`${REQUEST_URL}/feed/${id}/comment`, {
     ...methodPut,
     body: JSON.stringify({ ...feedComment }),
@@ -53,10 +51,11 @@ export const createFeedCmt = (id, comment, user, typeOf) => (dispatch) => {
 
 }
 
-export const handleLikeUnLike = (feedId, userId) => (dispatch) => {
+export const handleLikeUnLike = (clickedFeed, deliver, receiver, deliverName) => (dispatch) => {
+  // fetch
   fetch(`${REQUEST_URL}/feed/handle/like`, {
     ...methodPut,
-    body: JSON.stringify({ feedId, userId }),
+    body: JSON.stringify({ clickedFeed, deliver, receiver, deliverName }),
   })
   .then(res => {
     dispatch({type: CLICK_LIKE_BUTTON })
