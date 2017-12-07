@@ -5,6 +5,7 @@ import { View, Text, ListView, Image, ScrollView,TouchableOpacity, Animated, Fla
 import styles from './styles'
 import FeedSlide from './FeedSlide'
 import FeedComp from './FeedComp'
+import app_json from '../../../app.json';
 // import { addNavigationHelpers } from 'react-navigation'
 
 
@@ -26,10 +27,14 @@ class FeedList extends PureComponent {
   state = {
     data: this.props.feed,
     loaded: false,
-    userloaded: false
+    userloaded: false,
+    dataloaded: false,
+    head: [],
+    minor: []
 	}
   componentDidMount(){
     this.props.fetchFeedData(this.props.typeOf)
+    this.fetchData();
     if(this.props.user){
       this.setState({userloaded: true})
     }
@@ -40,6 +45,19 @@ class FeedList extends PureComponent {
     // } else {
       Linking.addEventListener('url', this.handleOpenURL);
     // }
+  }
+  async fetchData(){
+    const REQUEST_URL = app_json.REQUEST_URL || "http://localhost:9000";
+    let response = await fetch(`${REQUEST_URL}/notification/head`);
+    let responseMinor = await fetch(`${REQUEST_URL}/notification/minor`);
+    let data = await response.json();
+    let minor = await responseMinor.json();
+    console.log(data.notification);
+    return this.setState({
+              head: data.notification,
+              minor: minor.notification,
+              dataloaded: true
+            })
   }
   componentWillReceiveProps(newProps){
     if(newProps.feed !== this.props.feed){
@@ -52,7 +70,7 @@ class FeedList extends PureComponent {
   }
   _renderSlideComponent(type) {
     let { feed, ...restProps } = this.props;
-    return type === "feed" && <FeedSlide {...restProps} />
+    return type === "feed" && <FeedSlide {...restProps} head={this.state.head} minor={this.state.minor}/>
   }
   componentWillUnmount() {
     Linking.removeEventListener('url', this.handleOpenURL);
@@ -72,8 +90,8 @@ class FeedList extends PureComponent {
     navigate(nav, {...navProps, user})
   }
   render(){
-    const { typeOf } = this.props, { loaded, userloaded, data, virtualized } = this.state
-    if(loaded && userloaded){
+    const { typeOf } = this.props, { loaded, userloaded, data, virtualized, dataloaded } = this.state
+    if(loaded && userloaded && dataloaded){
       //TODO: 데이터 불러오는 애니메이션
       // console.log("render" , this.props.typeOf);
       return(
@@ -102,10 +120,10 @@ class FeedList extends PureComponent {
     }
     return(
       <View style={styles.feedWrapper}>
-        <FeedSlide />
-        {/* <View style={styles.feedRendering}>
+        {/* <FeedSlide  /> */}
+        <View style={styles.feedRendering}>
           <Text style={styles.feedRenderingText}> 피드 불러오는 중</Text>
-        </View> */}
+        </View>
       </View>
     )
   }

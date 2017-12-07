@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View, Button, ART } from 'react-native';
 import { createNavigator, createNavigationContainer, TabRouter, StackNavigator, TabNavigator, addNavigationHelpers } from 'react-navigation';
-import { FeedStack, FeedDetail, FeedSlideDetail } from '../components/Feed'
+import { FeedStack, FeedDetail } from '../components/Feed'
 import { Search } from '../components/SearchTab'
 import { PostView } from '../components/Post'
 import { ProfileStack, Profile, ProfileSetting, History, ProjectDetail, SelfIntro, ProjectSetting, ActivitySetting } from '../components/Profile'
@@ -64,13 +64,6 @@ const HeaderColor = { headerStyle: { backgroundColor: '#30333C' }, headerTintCol
 const CustomTabsStack = StackNavigator({
   Root: { screen: CustomTabs },
   Detail: { screen: FeedDetail },
-  SlideDetail: {
-    screen: FeedSlideDetail,
-    navigationOptions: ({navigation}) => ({
-      headerTitle: '공지사항',
-      ...HeaderColor
-    })
-  },
   SearchFeedDetail: { screen: FeedDetail },
   CommentUserDetail : {
     screen: NetworkDetail,
