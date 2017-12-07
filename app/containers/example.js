@@ -140,6 +140,9 @@ const DrawerRoutes = {
     // name: 'Flickr',
     screen: ({navigation}) => <WebViews {...navigation} forUrl={'https://www.flickr.com/photos/enactuskorea'}/>
   },
+  FeedNotification : {
+    screen: ({navigation}) => <WebViews {...navigation} />
+  }
 };
 
 

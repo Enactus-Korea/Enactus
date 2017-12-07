@@ -1,9 +1,20 @@
-import React, { Component } from 'react';
-import { View, Text,Image,ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
+import React, { PureComponent } from 'react';
+import { View, Text,Image,ScrollView, StyleSheet, TouchableOpacity, Dimensions} from 'react-native';
 import Swiper from 'react-native-swiper';
-import slideData from './FeedSlideData'
+import app_json from '../../../app.json';
 
-class FeedSlide extends Component{
+class FeedSlide extends PureComponent{
+  constructor(props){
+    super(props)
+    this.state = {
+      haed: props.head || [],
+      minor: props.minor || []
+    }
+  }
+  componentWillMount(){
+    // console.log("componentWillMount FeedSlide",this.props)
+    // this.props.fetchFeedData(this.props.typeOf)
+  }
   renderPagination(index, total, context) {
     return (
       <View style={{
@@ -18,23 +29,24 @@ class FeedSlide extends Component{
     return(
       <View style={{flex:1}}>
         <Swiper height={146} autoplay={true}>
-          {slideData.imageline.map((data, i) => {
+          {this.props.head.map((data, i) => {
             let slideNum = `slide${i+1}`;
             return(
             <TouchableOpacity
               key={i}
-              onPress={() => this.props.navigation.navigate("SlideDetail", data)}
-              style={styles[slideNum]}>
-              <Text style={styles.text}>{data.title}</Text>
+              onPress={() => this.props.navigation.navigate("FeedNotification", {link : data.link})} >
+              <Image source={{uri: data.imageLink}} style={styles.headImage}>
+                <Text style={styles.text}>{data.title}</Text>
+              </Image>
             </TouchableOpacity>
           )})}
         </Swiper>
         <View style={styles.notiWrapper}>
           <Swiper style={styles.notiContent} height={45} autoplay={false} renderPagination={this.renderPagination}>
-            {slideData.textline.map((data, i) => (
+            {this.props.minor.map((data, i) => (
               <TouchableOpacity
                   key={i}
-                  onPress={() => this.props.navigation.navigate("SlideDetail", data)}
+                  onPress={() => this.props.navigation.navigate("FeedNotification", {link : data.link})}
                   style={styles.flexRow} >
                 <Text style={styles.notiText, styles.red}>[공지]</Text>
                 <Text style={styles.notiText}>{data.title}</Text>
@@ -51,13 +63,21 @@ var styles = StyleSheet.create({
   feedWrapper: {
     backgroundColor: '#ebebeb'
   },
-  slide1: {
-    // flex: 1,
+  headImage: {
+    width: Dimensions.get('window').width,
     height: 146,
+    // backgroundColor: '#ccc',
+    // resizeMode: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#9DD6EB',
   },
+  // slide1: {
+  //   // flex: 1,
+  //   height: 146,
+  //   // justifyContent: 'center',
+  //   // alignItems: 'center',
+  //   // backgroundColor: '#9DD6EB',
+  // },
   slide2: {
     // flex: 1,
     height: 146,

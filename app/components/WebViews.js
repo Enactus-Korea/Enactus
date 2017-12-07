@@ -4,6 +4,9 @@ import {WebView, Linking, View} from 'react-native'
 
 class WebViews extends Component {
   handleOpenLink = (url) => {
+    if(!url){
+      url = this.props.state.params.link
+    }
     Linking.canOpenURL(url).then(supported => {
       if (!supported) {
         console.log('Can\'t handle url: ' + url);

@@ -3,6 +3,7 @@ import app_json from '../../../app.json';
 export const SUCCESS_COMMENT_POSTING = 'SUCCESS_COMMENT_POSTING';
 export const CLICK_LIKE_BUTTON = 'CLICK_LIKE_BUTTON'
 export const FETCH_FEEDS = 'FETCH_FEEDS'
+export const FETCH_NOTIFICATION = 'FETCH_NOTIFICATION'
 
 
 const REQUEST_URL = app_json.REQUEST_URL || "http://localhost:9000";
@@ -27,10 +28,21 @@ export const fetchFeedData = (typeOf) => (dispatch) => {
     .then(res => res.json())
     .then(res => {
       // console.log(res);
-      dispatch({type: FETCH_FEEDS, feed: res.feed})
+      dispatch({type: FETCH_FEEDS, feed: res.feed })
     })
     .catch(err => console.log(err))
 }
+//
+// export const fetchNotifications = () => (dispatch) => {
+//   // console.log("REQUEST_URL",REQUEST_URL);
+//   fetch(`${REQUEST_URL}/notification/head`, { ...methodGet })
+//     .then(res => res.json())
+//     .then(res => {
+//       // console.log(res);
+//       dispatch({type: FETCH_NOTIFICATION, notification: res.notification})
+//     })
+//     .catch(err => console.log(err))
+// }
 
 export const createFeedCmt = (id, comment, user, typeOf) => (dispatch) => {
   let {name, univ, userImg, _id } = user;
