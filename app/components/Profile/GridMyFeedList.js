@@ -11,11 +11,17 @@ const VIEWABILITY_CONFIG = {
 
 class GridMyFeedContainer extends PureComponent {
   render(){
+    let content = Boolean(this.props.postImg)
+    console.log(this.props.postImg);
     return (
       <TouchableOpacity
         onPress={() => this.props.navigation.navigate(this.props.detailRoute, {...this.props})}
         style={styles.gridFeedsCont}>
-        <Text style={styles.gridFeedsContText}>{this.props.content}</Text>
+        {
+          content
+            ? <Image style={styles.gridFeedImage} source={{uri: this.props.postImg}}/>
+            : <Text style={styles.gridFeedsContText}>{this.props.content}</Text>
+        }
       </TouchableOpacity>
     )
   }
@@ -36,6 +42,7 @@ class GridMyFeedList extends PureComponent {
   render(){
     return (
       <FlatList
+        style={styles.gridFeedsFlatList}
         numColumns={3}
         data={this.props.data}
         keyExtractor={this._keyExtractor}

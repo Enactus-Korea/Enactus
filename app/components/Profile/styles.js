@@ -331,6 +331,15 @@ justifyContent: "center",
     justifyContent: 'center',
     alignItems: 'center',
   },
+  gridFeedImage: {
+    width: width/3,
+    height: width/3,
+    resizeMode:'contain',
+  },
+  gridFeedsFlatList: {
+    flex: 1,
+    width: width
+  },
   gridFeedsContText: {
     fontSize: 15,
     fontWeight: '400'
