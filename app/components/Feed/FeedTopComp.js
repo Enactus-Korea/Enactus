@@ -38,6 +38,7 @@ class FeedTopComp extends PureComponent{
   }
   renderDeleteIcon(){
     let {feedbyUser, userId} = this.props;
+    console.log("renderDeleteIcon",feedbyUser, userId);
     if(feedbyUser === userId) {
       return <TouchableOpacity
         onPress={this.handleDeleteAlert}

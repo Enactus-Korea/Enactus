@@ -29,15 +29,21 @@ class GridMyFeedContainer extends PureComponent {
 
 
 class GridMyFeedList extends PureComponent {
-  _renderItem = ({item}) => (
-    <GridMyFeedContainer
-      detailRoute={'Detail'}
-      navigation={this.props.navigation}
-      key={item.id}
-      user={this.props.user}
-      {...item}
-    />
-  )
+  _renderItem = ({item}) => {
+    let route = {
+      "member" : "NetworkFeedDetail",
+      "self" : "Detail"
+    }
+    console.log(this.props.userStatus);
+    return(
+        <GridMyFeedContainer
+          detailRoute={route[this.props.userStatus]}
+          navigation={this.props.navigation}
+          key={item.id}
+          user={this.props.user}
+          {...item}
+        />
+  )}
   _keyExtractor = (item, index) => index;
   render(){
     return (

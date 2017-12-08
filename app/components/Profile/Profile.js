@@ -15,36 +15,58 @@ class Profile extends PureComponent{
     this.state = {
       list : false,
       status: false,
+      profileUser: {},
+      // user: {},
       // projects: {},
       data: []
     }
   }
   componentDidMount(){
-    this.props.isFetchFeedbyUser(this.props.user._id)
-    this.props.isGetUsersProjects(this.props.user._id)
-    this.setState({data: this.props.feeds, status: true })
+    let { params } = this.props.navigation.state;
+    if(params) {
+      console.log("from Member");
+      this.props.isFetchFeedbyUser(params._id)
+      this.props.isGetUsersProjects(params._id)
+      this.setState({
+        profileUser: { ...params },
+        userStatus: "member"
+      })
+    } else {
+      console.log("from User");
+      this.props.isFetchFeedbyUser(this.props.user._id)
+      this.props.isGetUsersProjects(this.props.user._id)
+      this.setState({
+        profileUser: { ...this.props.user },
+        userStatus: "self"
+      })
+    }
+  }
+  componentWillReceiveProps(newProps){
+    if(newProps.feeds !== this.props.feeds) {
+      this.setState({
+        data: newProps.feeds,
+        status: true
+      })
+    }
   }
   render(){
-    const { user, token, navigation, joined } = this.props;
+    const { navigation, joined, user } = this.props, { profileUser } = this.state;
     // debugger
     // let joinedState = Object.keys(joined)
-    if(user._id){
+    console.log(this.state.data);
+    if(profileUser._id && this.state.status){
       return(
         <View style={{flex: 1, flexDirection: "column", justifyContent: 'space-between'}}>
           <View style={styles.profile_top}>
-            <ProfUserImg userImg={user.userImg} />
-            <Text style={styles.profile_name}>{user.name}</Text>
+            <ProfUserImg userImg={profileUser.userImg} userStatus={this.state.userStatus}/>
+            <Text style={styles.profile_name}>{profileUser.name}</Text>
             <View style={styles.proj_box_cont}>
-              <Text style={styles.profile_univ}>{user.univ} 인액터스</Text>
-              {/* {user.projects.map((pro, i) => <ProjectList key={i} project={joined[pro.name].detail} navigation={navigation}/>) } */}
+              <Text style={styles.profile_univ}>{profileUser.univ} 인액터스</Text>
+              {/* {profileUser.projects.map((pro, i) => <ProjectList key={i} project={joined[pro.name].detail} navigation={navigation}/>) } */}
             </View>
-            {user.selfIntro
-              ? <Text style={styles.profile_selfIntro}>{user.selfIntro}</Text>
-              : <TouchableHighlight
-                  style={styles.setting_selfInt}
-                  onPress={() => navigation.navigate('SelfIntro_Setting')}>
-                  <Text style={styles.setting_txt}>상태메세지를 입력해주세요.</Text>
-                </TouchableHighlight>
+            {profileUser.selfIntro
+              ? <Text style={styles.profile_selfIntro}>{profileUser.selfIntro}</Text>
+              : <Text></Text>
             }
           </View>
           <View style={styles.profile_btm}>
@@ -62,12 +84,12 @@ class Profile extends PureComponent{
             </View>
             <View style={{flex:1}}>
               {this.state.list
-                ? <UnFoldedMyFeedList data={this.state.data} user={user} navigation={navigation}/>
-                : <GridMyFeedList data={this.state.data} user={user} navigation={navigation}/>
+                ? <UnFoldedMyFeedList data={this.state.data} user={user} navigation={navigation} userStatus={this.state.userStatus}/>
+                : <GridMyFeedList data={this.state.data} user={user} navigation={navigation} userStatus={this.state.userStatus}/>
               }
             </View>
           </View>
-          {/* {user._id && <ProjectLine navigation={navigation} isGetUsersProjects={this.props.isGetUsersProjects} projectDetails={joined} {...user}/>} */}
+          {/* {profileUser._id && <ProjectLine navigation={navigation} isGetUsersProjects={this.props.isGetUsersProjects} projectDetails={joined} {...user}/>} */}
         </View>
       )
     } else {
@@ -82,7 +104,6 @@ class Profile extends PureComponent{
 
 const mapStateToProps = (state) => ({
   user: state.permissions.user,
-  token: state.permissions.token,
   joined: state.profile.joined,
   feeds: state.profile.feeds,
 })

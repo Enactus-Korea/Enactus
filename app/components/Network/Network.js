@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { View, Text, Animated, SectionList, StyleSheet} from 'react-native'
+import { View, Text, Animated, SectionList, StyleSheet, AsyncStorage} from 'react-native'
 import NetworkRow from './NetworkRow'
 import app_json from '../../../app.json';
 
@@ -28,7 +28,8 @@ class Network extends Component {
   }
   async fetchData(){
     const REQUEST_URL = app_json.REQUEST_URL || "http://localhost:9000";
-    let response = await fetch(`${REQUEST_URL}/user/fetch/by/univ/section`);
+    const email = await AsyncStorage.getItem('user_email');
+    let response = await fetch(`${REQUEST_URL}/user/fetch/by/${email}/section`);
     let data = await response.json();
     return this.setState({ data , loaded: true })
   }
