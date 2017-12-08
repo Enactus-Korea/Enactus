@@ -5,7 +5,8 @@ import {FeedContainer, FeedDetail, Bamboo} from '../components/Feed'
 import { StackNavigator, DrawerNavigator, TabNavigator} from 'react-navigation';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import CustomDrawer from '../components/CustomDrawer'
-import { Network, NetworkDetail } from '../components/Network'
+import { Network } from '../components/Network'
+import { Profile } from '../components/Profile'
 import { Register, Login, RegisterSecond } from '../components/Join'
 import WebViews from '../components/WebViews'
 import Contact from '../components/Contact'
@@ -43,7 +44,15 @@ const NetworkStack = StackNavigator({
     })
 	},
   NetworkDetail : {
-    screen: NetworkDetail,
+    screen: Profile,
+    navigationOptions: ({navigation}) => ({
+      headerTitle: `${navigation.state.params.name} 프로필`,
+      headerLeft: <Button title='뒤로' color='#fff' onPress={() => navigation.goBack()} />,
+      ...HeaderColor
+    })
+  },
+  NetworkFeedDetail : {
+    screen: FeedDetail,
     navigationOptions: ({navigation}) => ({
       headerTitle: `${navigation.state.params.name} 프로필`,
       headerLeft: <Button title='뒤로' color='#fff' onPress={() => navigation.goBack()} />,

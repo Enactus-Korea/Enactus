@@ -50,6 +50,13 @@ class ProfUserImg extends Component {
       this.setState({modalVisible: true})
     }
   render(){
+    if(this.props.userStatus === "member") {
+      return (
+        <Image
+          style={styles.profile_img}
+          source={this.state.image ? {uri: this.state.image} : require('../../assets/defaultUser.jpg')}/>
+      )
+    }
     return(
       <TouchableOpacity
         onPress={this.showActionSheet}>

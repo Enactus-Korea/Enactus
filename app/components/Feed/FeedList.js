@@ -52,7 +52,6 @@ class FeedList extends PureComponent {
     let responseMinor = await fetch(`${REQUEST_URL}/notification/minor`);
     let data = await response.json();
     let minor = await responseMinor.json();
-    console.log(data.notification);
     return this.setState({
               head: data.notification,
               minor: minor.notification,
@@ -61,7 +60,6 @@ class FeedList extends PureComponent {
   }
   componentWillReceiveProps(newProps){
     if(newProps.feed !== this.props.feed){
-      // console.log("componentWillReceiveProps",newProps.feed.length);
       this.setState({data: newProps.feed, loaded: true})
     }
     if(newProps.user !== this.props.user){
